@@ -1,13 +1,13 @@
 # main links
 main:
   - title: "Home"
-    url: https://choiiis.github.io/
+    url: https://duri-wip.github.io/
 
   - title: "About"
     url: /about/
 
   - title: "GitHub"
-    url: https://github.com/choiiis
+    url: https://github.com/duri-wip
 
   # - title: "Projects"
   #   url: /projects/
@@ -18,17 +18,19 @@ main:
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.
 categories:
-  - title: "C/C++"
-    url: /categories/c-cpp/
-  - title: "Python"
-    url: /categories/python/
-  - title: "Algorithm"
-    url: /categories/algorithm/
-  - title: "Web"
-    url: /categories/web/
+  - title: "Docker"
+    url: /categories/docker/
+  - title: "Airflow"
+    url: /categories/airflow/
+  - title: "Spark"
+    url: /categories/spark/
+  - title: "Kafka"
+    url: /categories/kafka/
   - title: "Git"
     url: /categories/git/
   - title: "GitHub Blog"
     url: /categories/github-blog/
   - title: "Machine Learning"
     url: /categories/machine-learning/
+  - title: "Algorithm"
+    url: /categories/algorithm/
