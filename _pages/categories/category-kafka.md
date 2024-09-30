@@ -1,9 +1,9 @@
 ---
-title: "C/C++"
+title: "Kafka"
 layout: category
-permalink: /categories/c-cpp/
+permalink: /categories/kafka/
 author_profile: true
-taxonomy: C/C++
+taxonomy: Kafka
 sidebar:
   nav: "categories"
 ---

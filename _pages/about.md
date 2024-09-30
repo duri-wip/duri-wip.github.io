@@ -1,5 +1,5 @@
 ---
-title: "Hi all! I'm choiiis👋🏻"
+title: "안녕하세요! 두리입니다. "
 permalink: /about/
 layout: single
 comments: false
@@ -16,19 +16,14 @@ comments: false
           <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">  Seoul, Korea</span>
         </li>
         <li>
-          <a href="https://github.com/choiiis" itemprop="sameAs" rel="nofollow noopener noreferrer">
+          <a href="https://github.com/duri-wip" itemprop="sameAs" rel="nofollow noopener noreferrer">
             <i class="fab fa-fw fa-github" aria-hidden="true"></i><span class="label">  https://github.com/choiiis</span>
           </a>
         </li>
         <li>
-          <a href="mailto:bemychoiiis@gmail.com">
-            <meta itemprop="email" content="bemychoiiis@gmail.com" />
+          <a href="mailto:8s.eow.ooc@gmail.com">
+            <meta itemprop="email" content="8s.eow.ooc@gmail.com" />
             <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i><span class="label">  bemychoiiis@gmail.com</span>
-          </a>
-        </li>
-        <li>
-          <a href="https://www.instagram.com/choiiis.dev/" itemprop="sameAs" rel="nofollow noopener noreferrer">
-            <i class="fab fa-fw fa-instagram" aria-hidden="true"></i><span class="label">  https://www.instagram.com/choiiis.dev/</span>
           </a>
         </li>
     </ul>
