@@ -12,7 +12,7 @@
 
 # theme                  : "minimal-mistakes-jekyll"
 # remote_theme           : "mmistakes/minimal-mistakes"
-minimal_mistakes_skin: "default" #"plum", "default" "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
+minimal_mistakes_skin: "plum" #"plum", "default" "air", "aqua", "contrast", "dark", "dirt", "neon", "mint", "plum", "sunrise"
 
 # Site Settings
 locale: "ko-KR" #"en-US"
@@ -68,7 +68,7 @@ google:
 google_site_verification:
 bing_site_verification:
 yandex_site_verification:
-naver_site_verification: 
+naver_site_verification:
 
 # Social Sharing
 twitter:
@@ -90,7 +90,7 @@ analytics:
   provider: "google-gtag"
   # false (default), "google", "google-universal", "google-gtag", "custom"
   google:
-    tracking_id: 
+    tracking_id:
     anonymize_ip: # true, false (default)
 
 # Site Author
