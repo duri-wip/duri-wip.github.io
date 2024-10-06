@@ -99,27 +99,6 @@ lxc : linux container. 리눅스 커널에서 제공하는 기능. 커널 명령
 도커는 데몬 형태로운영되기 때문에 데몬이 중지되면 컨테이너 관련 앱 서비스가 중단된다는 문제가 있음. 데몬 의존성이 강함. 또 데몬은 루트 계정으로 실행되기 때문에 서비스를 루트 계정이 아니면 운영할 수 없음. 이런 문제를 해결하기 위해 파드만이라고 하는 엔진이 출범.
 Oci 호환 컨테이너 관리 툴. 도커와 유사하기 때문에 명령어도 비슷함. 데몬 형태로 운영되지 않기 때문에 독립적으로 레지스트리, 컨테이너, 커널에 접근이 가능하다는 특징이 있음. 루트 권한이 필요하지 않음.
 
-### docker 환경 구성
-
-https://docs.docker.com/engine/install/ubuntu/
-
-```
-Sudo -i # sudo 권한 얻어내기
-Apt install docker
-Systemctl enable --now docker #다음 부팅에도 실행해줘
-```
-
-```python
-# sudo 없이 docker 사용하고 , 데몬 등록하기
-sudo usermod -aG docker kevin
-sudo systemctl daemon-reload
-sudo systemctl enable docker
-sudo systemctl restart docker
-sudo systemctl status containerd.service
-sudo reboot
-docker version
-```
-
 ## 도커를 활용한 애플리케이션 개발 과정
 
 1. 앱 개발
