@@ -1,6 +1,6 @@
 ---
 title: "Docker"
-layout: category
+layout: categories
 permalink: /categories/docker/
 author_profile: true
 taxonomy: Docker
