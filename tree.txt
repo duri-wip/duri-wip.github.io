@@ -1,0 +1,457 @@
+.
+├── Gemfile
+├── LICENSE
+├── README.md
+├── Rakefile
+├── _config.yml
+├── _data
+│   ├── navigation.yml
+│   └── ui-text.yml
+├── _includes
+│   ├── analytics-providers
+│   │   ├── custom.html
+│   │   ├── google-gtag.html
+│   │   ├── google-universal.html
+│   │   └── google.html
+│   ├── analytics.html
+│   ├── archive-single.html
+│   ├── author-profile-custom-links.html
+│   ├── author-profile.html
+│   ├── breadcrumbs.html
+│   ├── browser-upgrade.html
+│   ├── category-list.html
+│   ├── comment.html
+│   ├── comments-providers
+│   │   ├── custom.html
+│   │   ├── custom_scripts.html
+│   │   ├── discourse.html
+│   │   ├── disqus.html
+│   │   ├── facebook.html
+│   │   ├── scripts.html
+│   │   ├── staticman.html
+│   │   ├── staticman_v2.html
+│   │   └── utterances.html
+│   ├── comments.html
+│   ├── documents-collection.html
+│   ├── feature_row
+│   ├── figure
+│   ├── footer
+│   │   └── custom.html
+│   ├── footer.html
+│   ├── gallery
+│   ├── group-by-array
+│   ├── head
+│   │   └── custom.html
+│   ├── head.html
+│   ├── masthead.html
+│   ├── nav_list
+│   ├── page__date.html
+│   ├── page__hero.html
+│   ├── page__hero_video.html
+│   ├── page__meta.html
+│   ├── page__taxonomy.html
+│   ├── paginator.html
+│   ├── post_pagination.html
+│   ├── posts-category.html
+│   ├── posts-tag.html
+│   ├── scripts.html
+│   ├── search
+│   │   ├── algolia-search-scripts.html
+│   │   ├── google-search-scripts.html
+│   │   ├── lunr-search-scripts.html
+│   │   └── search_form.html
+│   ├── seo.html
+│   ├── sidebar.html
+│   ├── skip-links.html
+│   ├── social-share.html
+│   ├── tag-list.html
+│   ├── toc
+│   ├── toc.html
+│   └── video
+├── _layouts
+│   ├── archive-taxonomy.html
+│   ├── archive.html
+│   ├── categories.html
+│   ├── category.html
+│   ├── collection.html
+│   ├── compress.html
+│   ├── default.html
+│   ├── gallery.html
+│   ├── home.html
+│   ├── posts.html
+│   ├── search.html
+│   ├── single.html
+│   ├── splash copy.html
+│   ├── splash.html
+│   ├── tag.html
+│   └── tags.html
+├── _pages
+│   ├── about.md
+│   ├── categories
+│   │   ├── category-algorithm.md
+│   │   ├── category-docker.md
+│   │   ├── category-git.md
+│   │   ├── category-github-blog.md
+│   │   ├── category-kafka.md
+│   │   ├── category-linux.md
+│   │   ├── category-machine-learning.md
+│   │   ├── category-python.md
+│   │   ├── category-spark.md
+│   │   ├── category-templates.md
+│   │   ├── category-ui-ux.md
+│   │   └── category-virtual-box.md
+│   ├── categories-archive.md
+│   ├── project-archive.md
+│   └── projects
+│       └── 2022-01-30-projects-univ-projects.md
+├── _posts
+│   ├── 2022-08-16-python-how-to-implement-permutation.md
+│   ├── README.md
+│   ├── [airflow]decorator.md
+│   ├── [algorithm]pandulium.md
+│   ├── [algorithm]twosum.md
+│   ├── [algorithm]배열.md
+│   ├── [algorithm]완주하지못한선수.md
+│   ├── [docker]00.concept.md
+│   ├── [docker]01.ImagesandContainer.md
+│   ├── [docker]02.Storage.md
+│   ├── [docker]03.Network.md
+│   ├── [dvc]instructions.md
+│   ├── [mlflow]network.md
+│   ├── [mlflow]트러블슈팅.md
+│   ├── [yaml]concept.md
+│   ├── images
+│   │   ├── docker-container-architecture.png
+│   │   ├── docker-inside-architecture.png
+│   │   └── vm-versus-container.png
+│   └── 코딩테스트합격자되기.ipynb
+├── _sass
+│   ├── minimal-mistakes
+│   │   ├── _animations.scss
+│   │   ├── _archive.scss
+│   │   ├── _base.scss
+│   │   ├── _buttons.scss
+│   │   ├── _footer.scss
+│   │   ├── _forms.scss
+│   │   ├── _masthead.scss
+│   │   ├── _mixins.scss
+│   │   ├── _navigation.scss
+│   │   ├── _notices.scss
+│   │   ├── _page.scss
+│   │   ├── _print.scss
+│   │   ├── _reset.scss
+│   │   ├── _search.scss
+│   │   ├── _sidebar.scss
+│   │   ├── _sidebar_back.scss
+│   │   ├── _syntax.scss
+│   │   ├── _tables.scss
+│   │   ├── _utilities.scss
+│   │   ├── _variables.scss
+│   │   ├── skins
+│   │   │   ├── _air.scss
+│   │   │   ├── _aqua.scss
+│   │   │   ├── _contrast.scss
+│   │   │   ├── _dark.scss
+│   │   │   ├── _default.scss
+│   │   │   ├── _dirt.scss
+│   │   │   ├── _mint.scss
+│   │   │   ├── _neon.scss
+│   │   │   ├── _plum.scss
+│   │   │   └── _sunrise.scss
+│   │   └── vendor
+│   │       ├── breakpoint
+│   │       │   ├── _breakpoint.scss
+│   │       │   ├── _context.scss
+│   │       │   ├── _helpers.scss
+│   │       │   ├── _legacy-settings.scss
+│   │       │   ├── _no-query.scss
+│   │       │   ├── _parsers.scss
+│   │       │   ├── _respond-to.scss
+│   │       │   ├── _settings.scss
+│   │       │   └── parsers
+│   │       │       ├── _double.scss
+│   │       │       ├── _query.scss
+│   │       │       ├── _resolution.scss
+│   │       │       ├── _single.scss
+│   │       │       ├── _triple.scss
+│   │       │       ├── double
+│   │       │       │   ├── _default-pair.scss
+│   │       │       │   ├── _default.scss
+│   │       │       │   └── _double-string.scss
+│   │       │       ├── resolution
+│   │       │       │   └── _resolution.scss
+│   │       │       ├── single
+│   │       │       │   └── _default.scss
+│   │       │       └── triple
+│   │       │           └── _default.scss
+│   │       ├── magnific-popup
+│   │       │   ├── _magnific-popup.scss
+│   │       │   └── _settings.scss
+│   │       └── susy
+│   │           ├── _su.scss
+│   │           ├── _susy-prefix.scss
+│   │           ├── _susy.scss
+│   │           ├── plugins
+│   │           │   ├── _svg-grid.scss
+│   │           │   └── svg-grid
+│   │           │       ├── _prefix.scss
+│   │           │       ├── _svg-api.scss
+│   │           │       ├── _svg-grid-math.scss
+│   │           │       ├── _svg-settings.scss
+│   │           │       ├── _svg-unprefix.scss
+│   │           │       └── _svg-utilities.scss
+│   │           └── susy
+│   │               ├── _api.scss
+│   │               ├── _normalize.scss
+│   │               ├── _parse.scss
+│   │               ├── _settings.scss
+│   │               ├── _su-math.scss
+│   │               ├── _su-validate.scss
+│   │               ├── _syntax-helpers.scss
+│   │               ├── _unprefix.scss
+│   │               └── _utilities.scss
+│   └── minimal-mistakes.scss
+├── ads.txt
+├── assets
+│   ├── css
+│   │   ├── fonts
+│   │   │   ├── NanumSquareB.eot
+│   │   │   ├── NanumSquareB.ttf
+│   │   │   ├── NanumSquareB.woff
+│   │   │   ├── NanumSquareEB.eot
+│   │   │   ├── NanumSquareEB.ttf
+│   │   │   ├── NanumSquareEB.woff
+│   │   │   ├── NanumSquareL.eot
+│   │   │   ├── NanumSquareL.ttf
+│   │   │   ├── NanumSquareL.woff
+│   │   │   ├── NanumSquareR.eot
+│   │   │   ├── NanumSquareR.ttf
+│   │   │   ├── NanumSquareR.woff
+│   │   │   └── RIDIBatang.otf
+│   │   └── main.scss
+│   ├── images
+│   │   ├── avthm.jpg
+│   │   ├── favicon
+│   │   │   ├── android-chrome-192x192.png
+│   │   │   ├── android-chrome-512x512.png
+│   │   │   ├── apple-touch-icon.png
+│   │   │   ├── browserconfig.xml
+│   │   │   ├── favicon-16x16.png
+│   │   │   ├── favicon-32x32.png
+│   │   │   ├── favicon.ico
+│   │   │   ├── mstile-150x150.png
+│   │   │   ├── safari-pinned-tab.svg
+│   │   │   └── site.webmanifest
+│   │   ├── meee.png
+│   │   ├── meee.svg
+│   │   ├── posts_img
+│   │   │   ├── algorithm-2
+│   │   │   │   ├── algorithm-2-1.png
+│   │   │   │   ├── algorithm-2-2.png
+│   │   │   │   └── algorithm-2-3.png
+│   │   │   ├── cpp-stl-2
+│   │   │   │   └── cpp-stl-2-1.png
+│   │   │   ├── cpp-stl-3
+│   │   │   │   ├── cpp-stl-3-1.png
+│   │   │   │   ├── cpp-stl-3-2.png
+│   │   │   │   └── cpp-stl-3-3.png
+│   │   │   ├── data-structure-2
+│   │   │   │   ├── data-structure-2-1.png
+│   │   │   │   ├── data-structure-2-2.png
+│   │   │   │   └── data-structure-2-3.png
+│   │   │   ├── git-1
+│   │   │   │   ├── git-1-1.png
+│   │   │   │   ├── git-1-2.png
+│   │   │   │   ├── git-1-3.png
+│   │   │   │   ├── git-1-4.png
+│   │   │   │   └── git-1-5.png
+│   │   │   ├── git-2
+│   │   │   │   ├── git-2-1.png
+│   │   │   │   ├── git-2-10.png
+│   │   │   │   ├── git-2-11.png
+│   │   │   │   ├── git-2-12.png
+│   │   │   │   ├── git-2-13.png
+│   │   │   │   ├── git-2-14.png
+│   │   │   │   ├── git-2-15.png
+│   │   │   │   ├── git-2-16.png
+│   │   │   │   ├── git-2-2.png
+│   │   │   │   ├── git-2-3.png
+│   │   │   │   ├── git-2-4.png
+│   │   │   │   ├── git-2-5.png
+│   │   │   │   ├── git-2-6.png
+│   │   │   │   ├── git-2-7.png
+│   │   │   │   ├── git-2-8.png
+│   │   │   │   └── git-2-9.png
+│   │   │   ├── git-3
+│   │   │   │   ├── git-3-1.png
+│   │   │   │   ├── git-3-2.png
+│   │   │   │   ├── git-3-3.png
+│   │   │   │   ├── git-3-4.png
+│   │   │   │   ├── git-3-5.png
+│   │   │   │   ├── git-3-6.png
+│   │   │   │   ├── git-3-7.png
+│   │   │   │   ├── git-3-8.png
+│   │   │   │   └── git-3-9.png
+│   │   │   ├── git-4
+│   │   │   │   └── git-4-1.png
+│   │   │   ├── git-how-to-clone-and-remote-project
+│   │   │   │   ├── git_bash_first.png
+│   │   │   │   ├── git_bash_here.png
+│   │   │   │   ├── git_clone_cmd.png
+│   │   │   │   ├── project_capture.png
+│   │   │   │   ├── project_created.png
+│   │   │   │   ├── remote_test_dir_created.png
+│   │   │   │   ├── saved_dir.png
+│   │   │   │   └── url_copy.png
+│   │   │   ├── git-how-to-commit-and-push-changes
+│   │   │   │   ├── git_status.png
+│   │   │   │   └── git_status_after_add.png
+│   │   │   ├── github-blog-minimal-mistakes-customized-repo
+│   │   │   │   ├── repo-capture.png
+│   │   │   │   └── star-and-fork.png
+│   │   │   ├── github-blog-ver-2-updated
+│   │   │   │   ├── merge_cmd.png
+│   │   │   │   ├── ver1_about.png
+│   │   │   │   ├── ver1_categories.png
+│   │   │   │   ├── ver1_main.png
+│   │   │   │   ├── ver1_post.png
+│   │   │   │   ├── ver2_about.png
+│   │   │   │   ├── ver2_comments.png
+│   │   │   │   ├── ver2_logo.png
+│   │   │   │   ├── ver2_main.png
+│   │   │   │   └── ver2_post.png
+│   │   │   ├── linux-diffie-hellman-error
+│   │   │   │   ├── config_file_host_added.png
+│   │   │   │   ├── error_msg.png
+│   │   │   │   └── ssh_config_cmd.png
+│   │   │   ├── machine-learning-1
+│   │   │   │   ├── ml-1-1_7.png
+│   │   │   │   ├── ml-1-2.png
+│   │   │   │   ├── ml-1-3.png
+│   │   │   │   ├── ml-1-4.png
+│   │   │   │   ├── ml-1-5.png
+│   │   │   │   └── ml-1-6.png
+│   │   │   ├── machine-learning-2
+│   │   │   │   ├── ml-2-1.png
+│   │   │   │   ├── ml-2-2.png
+│   │   │   │   ├── ml-2-3.png
+│   │   │   │   ├── ml-2-4.png
+│   │   │   │   └── ml-2-5.png
+│   │   │   ├── python-how-to-implement-permutation
+│   │   │   │   └── output.png
+│   │   │   ├── readme
+│   │   │   │   ├── blog-main-ver1.png
+│   │   │   │   ├── blog-main-ver2.png
+│   │   │   │   ├── github-blog-main.png
+│   │   │   │   └── ver2_1_main.png
+│   │   │   ├── virtual-box-extpack-ver-error-solved
+│   │   │   │   ├── correct_ver_check.jpg
+│   │   │   │   ├── error_detail.jpg
+│   │   │   │   ├── error_msg.jpg
+│   │   │   │   ├── extension_file_ver.jpg
+│   │   │   │   ├── new_extension_file.jpg
+│   │   │   │   ├── older_ver_download.jpg
+│   │   │   │   ├── success.jpg
+│   │   │   │   ├── ver_downgrade.jpg
+│   │   │   │   ├── ver_list.jpg
+│   │   │   │   ├── version_check.jpg
+│   │   │   │   ├── version_config.jpg
+│   │   │   │   └── version_detail.jpg
+│   │   │   ├── web-5
+│   │   │   │   ├── web-5-1.png
+│   │   │   │   ├── web-5-2.png
+│   │   │   │   ├── web-5-3.png
+│   │   │   │   ├── web-5-4.png
+│   │   │   │   ├── web-5-5.png
+│   │   │   │   └── web-5-6.png
+│   │   │   ├── web-how-to-apply-fonts-for-web
+│   │   │   │   └── main_thumbnail.png
+│   │   │   ├── web-how-to-make-spotlight-focus
+│   │   │   │   ├── error-2.gif
+│   │   │   │   ├── focus-sample.jpg
+│   │   │   │   ├── light-css.png
+│   │   │   │   ├── spotlight-zoom-in-and-out.gif
+│   │   │   │   └── theater-light-move.gif
+│   │   │   ├── web-place-the-element-inside-screen
+│   │   │   │   ├── browser-inside-err.gif
+│   │   │   │   ├── inside-browser.gif
+│   │   │   │   └── top-left.png
+│   │   │   ├── web-toy-project-sign-up-and-in-page
+│   │   │   │   ├── check-list.png
+│   │   │   │   ├── email-domain-list.gif
+│   │   │   │   ├── email-input-finish.png
+│   │   │   │   ├── email-input.png
+│   │   │   │   ├── input-button-after.png
+│   │   │   │   ├── input-button-before.png
+│   │   │   │   └── project-sketch.png
+│   │   │   ├── web-toy-project-sign-up-and-in-page-2
+│   │   │   │   ├── birth-select-f12.gif
+│   │   │   │   ├── birth-select-flex.png
+│   │   │   │   ├── birth-select-list.png
+│   │   │   │   ├── birth-select-print.gif
+│   │   │   │   ├── email-domain-select.gif
+│   │   │   │   ├── email-domain-select.png
+│   │   │   │   ├── email-select-naver.png
+│   │   │   │   ├── email-select-text.png
+│   │   │   │   └── selected-option.png
+│   │   │   └── web-toy-project-sign-up-and-in-page-3
+│   │   │       ├── birth-select-error-msg.gif
+│   │   │       ├── birth-select-error.png
+│   │   │       ├── data-submit-success.png
+│   │   │       ├── err-msg-move.gif
+│   │   │       ├── id-focus-after.png
+│   │   │       ├── id-focus-before.png
+│   │   │       ├── input-button-focus.gif
+│   │   │       ├── pass-recheck-simul.gif
+│   │   │       ├── pw-msg1.png
+│   │   │       ├── pw-msg2.png
+│   │   │       └── wrong-data-error.png
+│   │   └── project_img
+│   │       ├── ncnc
+│   │       │   └── graphic_image.jpg
+│   │       ├── selfit
+│   │       │   ├── main-logo.png
+│   │       │   ├── menu1.png
+│   │       │   ├── menu2.png
+│   │       │   ├── menu3.png
+│   │       │   ├── system-structure1.png
+│   │       │   └── system-structure2.png
+│   │       └── univ
+│   │           ├── main-teaser.png
+│   │           ├── project1.png
+│   │           ├── project2.png
+│   │           ├── project3.png
+│   │           ├── project4.png
+│   │           ├── project5.png
+│   │           ├── project6.png
+│   │           ├── project_univ.png
+│   │           └── univ-projects.png
+│   └── js
+│       ├── _main.js
+│       ├── lunr
+│       │   ├── lunr-en.js
+│       │   ├── lunr-gr.js
+│       │   ├── lunr-store.js
+│       │   ├── lunr.js
+│       │   └── lunr.min.js
+│       ├── main.min.js
+│       ├── plugins
+│       │   ├── gumshoe.js
+│       │   ├── jquery.ba-throttle-debounce.js
+│       │   ├── jquery.fitvids.js
+│       │   ├── jquery.greedy-navigation.js
+│       │   ├── jquery.magnific-popup.js
+│       │   └── smooth-scroll.js
+│       └── vendor
+│           └── jquery
+│               └── jquery-3.5.1.js
+├── banner.js
+├── index.html
+├── minimal-mistakes-jekyll.gemspec
+├── package.json
+├── screenshot-layouts.png
+├── screenshot.png
+├── staticman.yml
+└── tree.txt
+
+69 directories, 386 files
