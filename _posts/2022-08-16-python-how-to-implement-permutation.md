@@ -3,11 +3,11 @@ title: "Python 재귀함수로 순열 구현하기"
 excerpt: "itertools 없이 순열을 구현해보자"
 
 categories:
-  - Python
+  - algorithm
 tags:
   - [Python]
 
-permalink: /python/how-to-implement-permutation/
+permalink: /algorithm/how-to-implement-permutation/
 
 toc: true
 toc_sticky: true
