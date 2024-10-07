@@ -3,9 +3,11 @@ title: "Docker 개념과 구조"
 excerpt: "클라우드 네이티브와 도커 컨테이너"
 
 categories:
-  - Docker
+  - docker
 tags:
   - [Docker]
+
+permalink: /docker/cloud-native-and-docker-container/
 
 toc: true
 toc_sticky: true

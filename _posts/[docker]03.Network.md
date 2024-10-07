@@ -7,10 +7,9 @@ categories:
 tags:
   - [Docker]
 
+permalink: /docker/docker-network-basic/
 toc: true
 toc_sticky: true
-
-permalink: /docker/docker-network-basic/
 
 date: 2024-09-01
 last_modified_at: 2024-10-01
