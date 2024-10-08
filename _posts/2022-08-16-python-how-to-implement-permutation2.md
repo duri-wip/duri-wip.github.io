@@ -7,7 +7,7 @@ categories:
 tags:
   - [Python]
 
-permalink: /algorithm/how-to-implement-permutation/
+permalink: /algorithm/how-to-implement-permutation2/
 
 toc: true
 toc_sticky: true
