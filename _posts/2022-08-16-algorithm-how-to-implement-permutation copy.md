@@ -1,6 +1,6 @@
 ---
 title: "Python 재귀함수로 순열 구현하기"
-excerpt: "itertools 없이 순열을 구현해보자"
+excerpt: "itertools 없이 순열을 구현해보자1"
 
 categories:
   - [algorithm]
