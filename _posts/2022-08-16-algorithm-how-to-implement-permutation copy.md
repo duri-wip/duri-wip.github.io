@@ -5,7 +5,7 @@ excerpt: "itertools 없이 순열을 구현해보자"
 categories:
   - [algorithm]
 tags:
-  - [Python]
+  - [algorithm]
 
 permalink: /algorithm/how-to-implement-permutation/
 

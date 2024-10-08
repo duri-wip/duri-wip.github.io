@@ -18,15 +18,15 @@ main:
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.
 categories:
-  - title: "Docker"
-    url: /categories/docker/
-  - title: "Airflow"
-    url: /categories/airflow/
-  - title: "Spark"
-    url: /categories/spark/
-  - title: "Kafka"
-    url: /categories/kafka/
-  - title: "Machine Learning"
-    url: /categories/machine-learning/
-  - title: "Algorithm"
-    url: /categories/algorithm/
+  # - title: "Docker"
+  #   url: /categories/docker/
+  # - title: "Airflow"
+  #   url: /categories/airflow/
+  # - title: "Spark"
+  #   url: /categories/spark/
+  # - title: "Kafka"
+  #   url: /categories/kafka/
+  # - title: "Machine Learning"
+  #   url: /categories/machine-learning/
+  # - title: "Algorithm"
+  #   url: /categories/algorithm/
