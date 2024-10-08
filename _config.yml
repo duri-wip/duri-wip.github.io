@@ -96,10 +96,10 @@ analytics:
 # Site Author
 author:
   name: "duri"
-  avatar: #"/assets/images/meee.svg"
-  #   bio              : "Hamppiness!"
-  # location         : "Seoul, Korea"
-  # email            : "bemychoiiis@gmail.com"
+  avatar: /assets/images/meee.png
+    bio              : "등산동아리 모집합니다 \n 산을 타지는 않고 주로 인생이 산으로 가는 사람들을 모집합니다."
+  location         : "Seoul, Korea"
+  email            : "8s.eow.ooc@gmail.com"
   links:
 #     - label: "Email"
 #       icon: "fas fa-fw fa-envelope-square"
