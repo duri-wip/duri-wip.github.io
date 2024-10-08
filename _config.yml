@@ -28,7 +28,7 @@ repository: "duri-wip/duri-wip.github.io"
 teaser: #
 # logo                     : "/assets/images/meee.svg"
 #"/assets/images/monster.png"
-masthead_title: ""# overrides the website title displayed in the masthead, use " " for no title
+masthead_title: # overrides the website title displayed in the masthead, use " " for no title
 # breadcrumbs            : false # true, false (default)
 words_per_minute: 200
 comments:
