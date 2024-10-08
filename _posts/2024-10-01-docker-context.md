@@ -1,3 +1,21 @@
+---
+title: "도커 스토리지의 구조와 관리법"
+excerpt: "Docker Storage"
+
+categories:
+  - docker
+tags:
+  - [Docker]
+
+permalink: /docker/docker-storage/
+
+toc: true
+toc_sticky: true
+
+date: 2024-09-01
+last_modified_at: 2024-10-01
+---
+
 Dockerfile에서 기본적으로 **`COPY`** 또는 **`ADD`** 명령어를 사용할 때, Docker가 찾을 수 있는 파일은 **Docker build context** 안에 있어야 합니다. Docker build context는 `docker build` 명령어를 실행할 때 지정한 경로 내의 파일 및 디렉토리를 의미합니다.
 
 ### 1. **Docker Build Context**

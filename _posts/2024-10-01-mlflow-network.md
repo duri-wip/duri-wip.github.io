@@ -1,3 +1,21 @@
+---
+title: "도커 스토리지의 구조와 관리법"
+excerpt: "Docker Storage"
+
+categories:
+  - docker
+tags:
+  - [Docker]
+
+permalink: /docker/docker-storage/
+
+toc: true
+toc_sticky: true
+
+date: 2024-09-01
+last_modified_at: 2024-10-01
+---
+
 mlflow 서버를 띄우면서 네트워크를 묶어서 학습 이미지를 띄우지 않으면 .. default artifact storage 가 연결되지 않는 문제가 있다..
 
 트러블 슈팅

@@ -1,3 +1,20 @@
+---
+title: "도커 스토리지의 구조와 관리법"
+excerpt: "Docker Storage"
+
+categories:
+  - docker
+tags:
+  - [Docker]
+
+permalink: /docker/docker-storage/
+
+toc: true
+toc_sticky: true
+
+date: 2024-09-01
+last_modified_at: 2024-10-01
+---
 https://school.programmers.co.kr/learn/courses/30/lessons/76502
 
 ## 문제 파악

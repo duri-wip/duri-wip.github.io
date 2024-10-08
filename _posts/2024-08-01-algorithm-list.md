@@ -1,3 +1,20 @@
+---
+title: "도커 스토리지의 구조와 관리법"
+excerpt: "Docker Storage"
+
+categories:
+  - docker
+tags:
+  - [Docker]
+
+permalink: /docker/docker-storage/
+
+toc: true
+toc_sticky: true
+
+date: 2024-09-01
+last_modified_at: 2024-10-01
+---
 ## 개념
 
 배열은 인덱스와 값을 일대일 대응해 관리하는 자료구조. 모든 공간은 인덱스와 대응하므로 한번에 원하는 값에 접근할 수 있다.
