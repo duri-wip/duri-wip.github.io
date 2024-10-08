@@ -9,11 +9,11 @@ main:
   - title: "GitHub"
     url: https://github.com/duri-wip
 
-  # - title: "Projects"
-  #   url: /projects/
+  - title: "Projects"
+    url: /projects/
 
-  # - title: "Categories"
-  #   url: /categories/
+  - title: "Categories"
+    url: /categories/
 
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.

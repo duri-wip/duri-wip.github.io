@@ -1,4 +1,3 @@
-
 ---
 title: "도커 스토리지의 구조와 관리법"
 excerpt: "Docker Storage"
