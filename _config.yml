@@ -216,6 +216,7 @@ plugins:
   - jekyll-gist
   # - jekyll-feed
   - jekyll-include-cache
+  - jekyll-archives
 
 # mimic GitHub Pages with --safe
 whitelist:
@@ -243,6 +244,7 @@ category_archive:
 tag_archive:
   type: liquid
   path: /tags/
+
 
 # https://github.com/jekyll/jekyll-archives
 jekyll-archives:
