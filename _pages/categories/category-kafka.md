@@ -1,6 +1,6 @@
 ---
 title: "Kafka"
-layout: category
+layout: categories
 permalink: /categories/kafka/
 author_profile: true
 taxonomy: Kafka

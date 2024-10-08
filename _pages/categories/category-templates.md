@@ -1,6 +1,6 @@
 ---
 title: "UI/UX"
-layout: category
+layout: categories
 permalink: /categories/ui-ux/
 author_profile: true
 taxonomy: UI/UX

@@ -1,6 +1,6 @@
 ---
 title: "Templates"
-layout: category
+layout: categories
 permalink: /categories/templates/
 author_profile: true
 taxonomy: Templates

@@ -1,6 +1,6 @@
 ---
 title: "Machine Learning"
-layout: category
+layout: categories
 permalink: /categories/machine-learning/
 author_profile: true
 taxonomy: Machine Learning

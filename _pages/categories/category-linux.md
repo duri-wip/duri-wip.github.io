@@ -1,6 +1,6 @@
 ---
 title: "Linux"
-layout: category
+layout: categories
 permalink: /categories/linux/
 author_profile: true
 taxonomy: Linux

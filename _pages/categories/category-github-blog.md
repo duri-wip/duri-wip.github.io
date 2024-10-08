@@ -1,6 +1,6 @@
 ---
 title: "GitHub Blog"
-layout: category
+layout: categories
 permalink: /categories/github-blog/
 author_profile: true
 taxonomy: GitHub Blog

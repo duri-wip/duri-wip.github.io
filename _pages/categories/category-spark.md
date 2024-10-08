@@ -1,6 +1,6 @@
 ---
 title: "Spark"
-layout: category
+layout: categories
 permalink: /categories/spark/
 author_profile: true
 taxonomy: Spark
