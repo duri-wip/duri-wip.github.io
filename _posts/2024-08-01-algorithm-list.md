@@ -1,13 +1,13 @@
 ---
-title: "도커 스토리지의 구조와 관리법"
-excerpt: "Docker Storage"
+title: "배열"
+excerpt: "Array"
 
 categories:
-  - docker
+  - algorithm
 tags:
-  - [Docker]
+  - [Algorithm, List, Python]
 
-permalink: /docker/docker-storage/
+permalink: /algorithm/list/
 
 toc: true
 toc_sticky: true
@@ -15,7 +15,7 @@ toc_sticky: true
 date: 2024-09-01
 last_modified_at: 2024-10-01
 ---
-## 개념
+## 배열의 개념
 
 배열은 인덱스와 값을 일대일 대응해 관리하는 자료구조. 모든 공간은 인덱스와 대응하므로 한번에 원하는 값에 접근할 수 있다.
 
@@ -35,7 +35,7 @@ arr = [0 for _ in range(6)]
 
 ## 문제
 
-### 5-03 두개 뽑아서 더하기
+### ![5-03 두개 뽑아서 더하기](https://github.com/duri-wip/algorithm/blob/c67b6e3129dd54fa62f235a2e139e3845f44dd9d/05/03.py)
 
 ### 5-04 모의고사
 
