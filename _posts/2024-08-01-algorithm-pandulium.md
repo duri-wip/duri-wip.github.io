@@ -1,19 +1,19 @@
 ---
-title: "도커 스토리지의 구조와 관리법"
-excerpt: "Docker Storage"
+title: "올바른 괄호"
+excerpt: "이어드림 코딩테스트 특강 2주차"
 
 categories:
-  - docker
+  - algorithm
 tags:
-  - [Docker]
+  - [Algorithm ]
 
-permalink: /docker/docker-storage/
+permalink: /algorithm/2week
 
 toc: true
 toc_sticky: true
 
-date: 2024-09-01
-last_modified_at: 2024-10-01
+date: 2024-07-25
+last_modified_at: 2024-07-25
 ---
 https://school.programmers.co.kr/learn/courses/30/lessons/76502
 
@@ -78,7 +78,3 @@ def solution(s):
 left로 움직이는 방법을 좀 더 잘 할수 잇을거 같은데 이게 최선인가요?
 
 비트 shift 기능을 사용해보려고 했는데 스트링 타입에는 안된다고 해서 바로 포기햇는데 좀 더 찾아보겠습니다
-
-## 질문
-
-댓글로 또는 이곳에 질문 남겨주세요.
