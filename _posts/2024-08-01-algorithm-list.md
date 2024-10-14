@@ -35,7 +35,8 @@ arr = [0 for _ in range(6)]
 
 ## 문제
 
-### ![5-03 두개 뽑아서 더하기](https://github.com/duri-wip/algorithm/blob/c67b6e3129dd54fa62f235a2e139e3845f44dd9d/05/03.py)
+### 5-03 두개 뽑아서 더하기
+
 
 ### 5-04 모의고사
 
