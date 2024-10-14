@@ -1,19 +1,19 @@
 ---
-title: "도커 스토리지의 구조와 관리법"
-excerpt: "Docker Storage"
+title: "완주하지 못한 선수"
+excerpt: "이어드림 코딩테스트 특강 1주차"
 
 categories:
-  - docker
+  - algorithm
 tags:
-  - [Docker]
+  - [Algorithm, ]
 
 permalink: /docker/docker-storage/
 
 toc: true
 toc_sticky: true
 
-date: 2024-09-01
-last_modified_at: 2024-10-01
+date: 2024-09-03
+last_modified_at: 2024-09-03
 ---
 
 [](https://school.programmers.co.kr/learn/courses/30/lessons/42576)
