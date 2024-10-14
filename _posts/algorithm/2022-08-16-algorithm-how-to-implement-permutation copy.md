@@ -44,4 +44,3 @@ recur(ans)
 
 ## 실행결과
 
-![output](/assets/images/posts_img/python-how-to-implement-permutation/output.png)

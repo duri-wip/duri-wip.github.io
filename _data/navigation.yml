@@ -16,6 +16,8 @@ main:
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.
 categories:
+  - title: "Database"
+    url: /categories/db/
   - title: "Docker"
     url: /categories/docker/
   - title: "Airflow"
@@ -26,7 +28,5 @@ categories:
     url: /categories/kafka/
   - title: "Machine Learning"
     url: /categories/machine-learning/
-  - title: "Database"
-    url: /categories/db/
   - title: "Algorithm"
     url: /categories/algorithm/
