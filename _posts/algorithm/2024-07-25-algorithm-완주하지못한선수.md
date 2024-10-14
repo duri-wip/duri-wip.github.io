@@ -5,20 +5,19 @@ excerpt: "이어드림 코딩테스트 특강 1주차"
 categories:
   - algorithm
 tags:
-  - [Algorithm, ]
+  - [Algorithm]
 
 permalink: /docker/docker-storage/
 
 toc: true
 toc_sticky: true
 
-date: 2024-09-03
-last_modified_at: 2024-09-03
+date: 2024-07-25
+last_modified_at: 2024-07-25
 ---
 
-[](https://school.programmers.co.kr/learn/courses/30/lessons/42576)
+![프로그래머스 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42576)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/c1bf166d-cb7d-4f5a-821b-9467cfc8c3e3/f0059608-d7bb-4bb0-868d-88be44c4a2c3/Untitled.png)
 
 ## 문제 파악
 
@@ -84,9 +83,3 @@ def solution(completion, participant):
 			print(i)
 	print(participant[-1])
 ```
-
-## 배우게 된 점
-
-## 질문
-
-댓글로 또는 이곳에 질문 남겨주세요.

@@ -12,10 +12,10 @@ permalink: /algorithm/right-parenthese
 toc: true
 toc_sticky: true
 
-date: 2024-07-25
-last_modified_at: 2024-07-25
+date: 2024-07-31
+last_modified_at: 2024-07-31
 ---
-[](https://school.programmers.co.kr/learn/courses/30/lessons/12909)
+![프로그래머스 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12909)
 
 ## 문제 파악
 

@@ -5,15 +5,15 @@ excerpt: "이어드림 코딩테스트 특강 3주차"
 categories:
   - algorithm
 tags:
-  - [Algorithm, ]
+  - [Algorithm]
 
 permalink: /algorithm/fibonacci
 
 toc: true
 toc_sticky: true
 
-date: 2024-07-29
-last_modified_at: 2024-07-29
+date: 2024-08-07
+last_modified_at: 2024-08-07
 ---
 ### 기본 형태 재귀
 

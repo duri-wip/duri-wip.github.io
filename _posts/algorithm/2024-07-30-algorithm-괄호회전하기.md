@@ -5,17 +5,17 @@ excerpt: "이어드림 코딩테스트 특강 2주차"
 categories:
   - algorithm
 tags:
-  - [Algorithm ]
+  - [Algorithm]
 
-permalink: /algorithm/2week
+permalink: /algorithm/괄호회전하기
 
 toc: true
 toc_sticky: true
 
-date: 2024-07-25
-last_modified_at: 2024-07-25
+date: 2024-07-30
+last_modified_at: 2024-07-30
 ---
-https://school.programmers.co.kr/learn/courses/30/lessons/76502
+[프로그래머스 링크](https://school.programmers.co.kr/learn/courses/30/lessons/76502)
 
 ## 문제 파악
 

@@ -1,6 +1,6 @@
 ---
 title: "BFS : Breadth-first search"
-excerpt: "이어드림 코딩테스트 특강 5주차"
+excerpt: "이어드림 코딩테스트 특강 4주차"
 
 categories:
   - algorithm
@@ -12,8 +12,8 @@ permalink: /algorithm/bfs
 toc: true
 toc_sticky: true
 
-date: 2024-08-07
-last_modified_at: 2024-08-07
+date: 2024-08-21
+last_modified_at: 2024-08-21
 ---
 ### 제공 템플릿
 

@@ -5,14 +5,14 @@ excerpt: "이어드림 코딩테스트 특강 2주차"
 categories:
   - algorithm
 tags:
-  - [Algorithm, ]
+  - [Algorithm]
 
 permalink: /algorithm/valid-parentheses
 
 toc: true
 toc_sticky: true
 
-date: 2024-08-03
+date: 2024-07-31
 last_modified_at: 2024-08-03
 ---
 [Two Sum - LeetCode](https://leetcode.com/problems/two-sum/description/)
