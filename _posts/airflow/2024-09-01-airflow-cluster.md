@@ -1,19 +1,19 @@
 ---
-title: "도커 스토리지의 구조와 관리법"
-excerpt: "Docker Storage"
+title: "Airflow 클러스터 구성하기"
+excerpt: "airflow cluster"
 
 categories:
-  - docker
+  - airflow
 tags:
-  - [Docker]
+  - [Decorator]
 
-permalink: /docker/docker-storage/
+permalink: /airflow/airflow-cluster/
 
 toc: true
 toc_sticky: true
 
-date: 2024-09-01
-last_modified_at: 2024-10-01
+date: 2024-09-27
+last_modified_at: 2024-09-29
 ---
 # Airflow 클러스터 구성하기
 

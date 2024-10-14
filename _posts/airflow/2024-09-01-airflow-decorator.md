@@ -7,7 +7,7 @@ categories:
 tags:
   - [Decorator]
 
-permalink: /python/how-to-implement-permutation/
+permalink: /airflow/decorator
 
 toc: true
 toc_sticky: true
