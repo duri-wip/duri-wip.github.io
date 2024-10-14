@@ -1,19 +1,19 @@
 ---
-title: "도커 스토리지의 구조와 관리법"
-excerpt: "Docker Storage"
+title: "올바른 괄호"
+excerpt: "이어드림 코딩테스트 특강 2주차"
 
 categories:
-  - docker
+  - algorithm
 tags:
-  - [Docker]
+  - [Algorithm, ]
 
-permalink: /docker/docker-storage/
+permalink: /algorithm/valid-parentheses
 
 toc: true
 toc_sticky: true
 
-date: 2024-09-01
-last_modified_at: 2024-10-01
+date: 2024-08-03
+last_modified_at: 2024-08-03
 ---
 [Two Sum - LeetCode](https://leetcode.com/problems/two-sum/description/)
 
@@ -118,12 +118,3 @@ class Solution:
                 return [memo[needed], i]
             memo[num] = i
 ```
-
-## 배우게 된 점
-
-- 이중포인터
-- 
-
-## 질문
-
-댓글로 또는 이곳에 질문 남겨주세요.

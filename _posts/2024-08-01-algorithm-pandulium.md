@@ -1,5 +1,5 @@
 ---
-title: "올바른 괄호"
+title: "괄호 회전하기"
 excerpt: "이어드림 코딩테스트 특강 2주차"
 
 categories:
