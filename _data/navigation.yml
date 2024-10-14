@@ -17,7 +17,7 @@ main:
 # 2022.02.15 sidebar update : simple ver.
 categories:
   - title: "Database"
-    url: /categories/db/
+    url: /categories/database/
   - title: "Docker"
     url: /categories/docker/
   - title: "Airflow"
