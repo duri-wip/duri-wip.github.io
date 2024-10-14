@@ -47,7 +47,7 @@ last_modified_at: 2024-10-14
 
 # 데이터베이스와 스토리지의 차이?
 
-[](/assets/images/post_img/db-storage-and-rdb.png)
+![](/assets/images/post_img/db-storage-and-rdb.png)
 rdb로 저장할 것인가, 스토리지로 저장할 것인가? 항상 고민의 주축이 되었던 스토리지간의 특징과 차이점을 비교해본다.
  
 ### 1. **데이터베이스(DB)**
