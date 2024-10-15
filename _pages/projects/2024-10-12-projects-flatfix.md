@@ -1,7 +1,6 @@
 ---
 title: "이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처 : flatfix"
 permalink: /projects/flatfix/
-layout: gallery
 
 date: 2024-10-15
 last_modified_at: 2024-10-15
