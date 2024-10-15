@@ -15,9 +15,6 @@ feature_row:
   - image_path: /assets/images/project_img/yeardream/v2x.png
     title: "실시간 데이터 파이프라인 구축 프로젝트 : v2x"
     url: /projects/v2x/
-  - image_path: /assets/images/project_img/yeardream/v2x.png
-    title: "DB 스키마 구현하기 : kakao T "
-    url: /projects/kakaot/
 
 ---
 
