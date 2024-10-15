@@ -9,6 +9,22 @@ layout: archive
   <img src="{{ '/assets/images/banner.JPG' | relative_url }}" alt="홈 배너 이미지" style="width: 100%; height: 100%; object-fit: cover;">
 </div>
 
+<!-- 프로젝트 목록 추가 -->
+<div class="projects" style="margin: 20px 0;">
+  <h2>Projects</h2>
+  <ul class="project__list" style="list-style-type: none; padding: 0;">
+    {% assign feature_row = site.feature_row %}
+    {% for f in feature_row %}
+      <li style="margin-bottom: 10px;">
+        <a href="{{ f.url | relative_url }}" style="text-decoration: none; font-size: 18px; color: #333;">
+          {{ f.title }}
+        </a>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
+
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
 {% if paginator %}
