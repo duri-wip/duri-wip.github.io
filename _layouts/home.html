@@ -4,6 +4,10 @@ layout: archive
 
 {{ content }}
 
+<div class="banner">
+  <img src="{{ '/assets/images/banner.JPG' | relative_url }}" alt="홈 배너 이미지" style="width:100%; height:auto;">
+</div>
+
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
 {% if paginator %}
