@@ -1,0 +1,22 @@
+---
+layout: archive
+title: "Projects"
+permalink: /projects/
+---
+
+<h1 class="page-title">{{ page.title }}</h1>
+
+<div class="projects">
+  <ul>
+    {% for project in site.projects %}
+      <li>
+        <a href="{{ project.url | relative_url }}">
+          <h2>{{ project.title }}</h2>
+        </a>
+        <p>{{ project.description }}</p>
+        <p>Last updated: {{ project.last_modified_at | date: "%B %d, %Y" }}</p>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
+
