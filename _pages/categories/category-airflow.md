@@ -1,7 +1,7 @@
 ---
 title: "Airflow"
 layout: categories
-permalink: /categories/Airflow/
+permalink: /categories/airflow/
 author_profile: true
 taxonomy: Airflow
 sidebar:

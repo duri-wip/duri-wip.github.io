@@ -1,18 +1,21 @@
 ---
-title: "Airflow에서의 Xcom"
-excerpt: "어떨때 xcom을 써야할까?"
+title: "태스크에 SLA 사용하기"
+excerpt: "airflow 성능 최적화"
 
 categories:
+  - airflow
+taxanomy:
   - Airflow
+
 tags:
   - [Dag, Python, sla]
 
-permalink: /Airflow/dag-xcom
+permalink: /airflow/sla
 
 toc: true
 toc_sticky: true
 
-date: 2024-09-10
+date: 2024-09-11
 last_modified_at: 2024-09-29
 ---
 ## SLA 및 성능 모니터링
