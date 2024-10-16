@@ -21,7 +21,7 @@ categories:
   - title: "Docker"
     url: /categories/Docker/
   - title: "Airflow"
-    url: /categories/Airflow/
+    url: /categories/airflow/
   - title: "Spark"
     url: /categories/Spark/
   - title: "Kafka"
