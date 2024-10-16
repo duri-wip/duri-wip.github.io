@@ -3,121 +3,116 @@ title: "Airflow 대그에서 파이썬 함수와 데코레이터"
 excerpt: "데코레이터 사용하기"
 
 categories:
-  - airflow
+  - Airflow
 tags:
-  - [Decorator]
+  - [Decorator, Python, Task]
 
-permalink: /airflow/decorator
+permalink: /Airflow/decorator
 
 toc: true
 toc_sticky: true
 
-date: 2024-09-27
+date: 2024-09-01
 last_modified_at: 2024-09-29
 ---
 
-데코레이터란?
-원래의 함수를 감싸서 바깥에 추가 기능을 덧붙이는 방법.
-함수의 인자로 함수를 전달하는 방법을 말한다.
-def outer_func(inner_func):
-def inner_func(a,b):
-c = a+b
-return inner_func
-사용방법
-단순 호출해서 사용하는 함수가 있고, 이 함수의 실행 전과 후에 로그를 출력해야하는 일이 있음
-해결방법
+# 데코레이터란?
+데코레이터는 기존 함수를 감싸서 바깥에 추가 기능을 덧붙이는 파이썬 문법. 함수의 인자로 또 다른 함수를 전달하여, 함수의 실행 전후로 특정 작업을 처리하거나 함수를 수정할 수 있는 유용한 방법이다.
 
-1. def func():
+예를 들어 여러가지 함수가 있는데, 이 함수들의 실행 전과 후에 로그를 출력해야하는 상황이 있는 경우에 이에 대한 해결방법은 이런 경우들로 나누어 볼 수 있다. 
+
+#### 해결방법
+1. 함수 내에 로그 출력하는 명령 달아두기
+```
+def func():
    print('작업시작')
    ...
    print('작업끝')
-2. print('작업시작')
-   func()
-   print('작업끝')
-3. 데코레이터 활용
-   공통으로 수정해야하는 로직이 있으면 그걸 데코레이터로 정의하고 기존 함수정의에는 데코레이터를 적용한다.
+```
 
-그래서!
-파이썬 함수를 만들고 @task 오퍼레이터만 붙여주면 함수를 만든걸로 태스크를 만들 필요가 없다
+2. 함수 호출 시작 전과 후에 출력 명령 달기 
+```
+print('작업시작')
+func()
+print('작업끝')
+```
 
-args와 kwargs
-함수를 정의할때 optional 성격의 변수가 올 수 있는 경우에는?
-일일히 정의하기 어려우므로 args 또는 kwargs를 사용한다
+3. **데코레이터 활용하기**
 
-args
-args 로 들어온 값은 튜플로 저장되고, 값을 꺼낼때 인덱스를 이용해서 꺼낸다.
-튜플이므로 몇번째 인덱스가 어떤 파라미터 값인지 알수는 없다는 단점이 존재한다.
+공통으로 수정해야하는 로직이 있으면 그걸 데코레이터로 정의하고 기존 함수정의에는 데코레이터를 적용한다. 이런 방식으로 로그를 출력하는 데코레이터 함수를 만들고, 실행해야할 함수들에 붙여서 활용할 수 있다. 
 
-def regist(name, sex, \*args):
-print(f'name: {name}\nsex: {sex}')
-address = args[0] if len(args) >0 else None
-p_num = args[1] if len(args) > 1 else None
-print(f'address: {address}\nphone number: {p_num}')
+```python
+def log_decorator(func):
+    def wrapper(*args, **kwargs):
+        print(f'{func.__name__} 시작')
+        result = func(*args, **kwargs)
+        print(f'{func.__name__} 끝')
+        return result
+    return wrapper
 
-kwargs
-딕셔너리 형태로 값을 받아준다
+@log_decorator
+def sample_task():
+    print("태스크 실행 중...")
 
-def regist(name, sex, \*\*kwargs):
-print(f'name: {name}\nsex: {sex}')
-address = kwargs.get('address') or None
-p_num = kwargs.get('p_num') or None
-print(f'address: {address}\nphone number: {p_num}')
+sample_task()
+```
 
-함께 사용하기
+출력하면 이런 식으로 로그가 뜬다. 
+```
+sample_task 시작
+태스크 실행 중...
+sample_task 끝
+```
 
-args 가 앞에 오고 kwargs가 뒤에오면 상관없다
+## Airflow에서의 데코레이터 활용
 
-context
+Airflow에서는 태스크 데코레이터를 지원하여 태스크를 정의할 때 코드 중복을 줄일 수 있다. `@task` 데코레이터를 사용하면 파이썬 함수가 Airflow 태스크로 변환된다. 별도로 `PythonOperator`를 정의할 필요 없이, 함수 위에 `@task` 데코레이터만 붙이면 자동으로 DAG 내 태스크로 등록된다. 
 
-특정 task에 대한 정보를 담은 파이썬 딕셔너리
+### Airflow 태스크 정의하기
 
-1. Context 정보에 포함되는 기본 항목들
-
-dag: 현재 실행 중인 DAG 객체
-dag_run: 현재 실행 중인 DAGRun 객체
-task: 현재 실행 중인 태스크 객체
-task_instance: 태스크 인스턴스 객체
-execution_date: 태스크 실행 날짜 및 시간
-ds: 실행 날짜(포맷: YYYY-MM-DD)
-ts: 실행 시간(포맷: YYYY-MM-DDTHH:MM:SS)
-prev_execution_date: 이전 실행 날짜 및 시간
-next_execution_date: 다음 실행 날짜 및 시간
-conf: Airflow의 전체 설정 (configuration)
-macros: Airflow에서 사용할 수 있는 매크로 함수
-from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
+```python
+from airflow.decorators import dag, task
 from airflow.utils.dates import days_ago
-from datetime import datetime, timedelta
 
-# 기본 DAG 설정
+@dag(schedule_interval='@daily', start_date=days_ago(2), catchup=False)
+def dag():
 
-default_args = {
-'owner': 'airflow',
-'start_date': days_ago(1),
-}
+    @task
+    def task_1():
+        print("태스크 1 실행")
 
-# 매크로를 사용하는 함수
+    @task
+    def task_2():
+        print("태스크 2 실행")
 
-def use_macros(\*\*context):
-ds = context['ds'] # 현재 실행 날짜 (YYYY-MM-DD 형식)
-next_ds = context['next_execution_date'] # 다음 실행 날짜
-prev_ds = context['prev_execution_date'] # 이전 실행 날짜
+    task_1() >> task_2()
 
-    print(f"Current execution date: {ds}")
-    print(f"Next execution date: {next_ds}")
-    print(f"Previous execution date: {prev_ds}")
+dag_instance = dag()
+```
 
-# DAG 생성
+### 태스크간 출력을 입력으로 제공하기
 
-with DAG(
-'macro_example_dag',
-default_args=default_args,
-schedule_interval=timedelta(days=1), # 매일 실행
-) as dag:
+한 태스크의 출력을 입력으로 받아서 명령을 수행하는 태스크를 구성할 수 있다. 
 
-    # PythonOperator에서 매크로 활용
-    macro_task = PythonOperator(
-        task_id='use_macros_task',
-        python_callable=use_macros,
-        provide_context=True,  # context 정보를 함수에 전달
-    )
+```python
+from airflow.decorators import dag, task
+from airflow.utils.dates import days_ago
+
+@dag(schedule_interval='@daily', start_date=days_ago(2), catchup=False)
+def data_pipeline():
+
+    @task
+    def extract_data():
+        return {"name": "Airflow", "type": "Pipeline"}
+
+    @task
+    def process_data(data):
+        print(f"데이터 처리 중: {data['name']}은 {data['type']}입니다.")
+
+    data = extract_data()
+    process_data(data)
+
+dag_instance = data_pipeline()
+```
+
+이 코드에서 `extract_data` 태스크는 데이터를 반환하고, 그 데이터는 `process_data` 태스크로 전달된다. 

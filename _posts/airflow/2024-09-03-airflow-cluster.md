@@ -12,7 +12,7 @@ permalink: /Airflow/airflow-cluster/
 toc: true
 toc_sticky: true
 
-date: 2024-09-27
+date: 2024-09-03
 last_modified_at: 2024-09-29
 ---
 # Airflow 클러스터 구성하기
@@ -45,9 +45,8 @@ curl https://pyenv.run | bash
 ```
 
 3. shell 파일 수정
-   export PATH="$HOME/.pyenv/bin:$PATH"
-
 ```
+export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 ```
@@ -66,12 +65,14 @@ sudo apt install -y postgresql postgresql-contrib
 
 2. 설치 확인
 
-   > sudo systemctl status postgresql.service
+> sudo systemctl status postgresql.service
 
 3. 새로운 데이터베이스와 유저 설정
 
 > database 명 : airflow_db
+
 > user 명 : user name
+
 > 권한 : grant all
 
 ### Redis
@@ -96,18 +97,18 @@ pip install apache-airflow[celery,postgres,redis]==2.*
 airflow db init
 ```
 
-초기화를 해야 airflow.cfg파일이 구성됩니다.
+초기화를 해야 airflow.cfg파일이 구성된다.
 
 3. 사용자 생성
 
 ```
-   airflow users create --username admin --firstname FIRST --lastname LAST --role Admin --email admin@example.com
+airflow users create --username admin --firstname FIRST --lastname LAST --role Admin --email admin@example.com
 ```
 
 4. meta DB와 연결 설정
 
-> [core]
-> executor = CeleryExecutor
+[core]
+executor = CeleryExecutor
 
 [database]
 sql_alchemy_conn = postgresql+psycopg2://'user':'password'@localhost/airflow_db
@@ -116,9 +117,10 @@ sql_alchemy_conn = postgresql+psycopg2://'user':'password'@localhost/airflow_db
 broker_url = redis://localhost:6379/0
 result_backend = db+postgresql://'user':'password'@localhost/airflow_db
 
->
 
 5. 각 노드에서 워커, 스케줄러, 웹서버 시작(웹서버는 마스터에서만 띄운다)
-   > > airflow webserver --port 8080
-   > > airflow scheduler
-   > > airflow celery worker
+> airflow webserver --port 8080
+
+> airflow scheduler
+
+> airflow celery worker
