@@ -1,7 +1,7 @@
 ---
 title: "Kafka"
 layout: categories
-permalink: /categories/kafka/
+permalink: /categories/Kafka/
 author_profile: true
 taxonomy: Kafka
 sidebar:

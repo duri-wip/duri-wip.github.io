@@ -1,7 +1,7 @@
 ---
 title: "Docker"
 layout: categories
-permalink: /categories/docker/
+permalink: /categories/Docker/
 author_profile: true
 taxonomy: Docker
 sidebar:

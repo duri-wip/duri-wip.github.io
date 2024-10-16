@@ -1,7 +1,7 @@
 ---
 title: "Spark"
 layout: categories
-permalink: /categories/spark/
+permalink: /categories/Spark/
 author_profile: true
 taxonomy: Spark
 sidebar:

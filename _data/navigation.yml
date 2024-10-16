@@ -17,18 +17,18 @@ main:
 # 2022.02.15 sidebar update : simple ver.
 categories:
   - title: "Database"
-    url: /categories/database/
+    url: /categories/Database/
   - title: "Docker"
-    url: /categories/docker/
+    url: /categories/Docker/
   - title: "Airflow"
-    url: /categories/airflow/
+    url: /categories/Airflow/
   - title: "Spark"
-    url: /categories/spark/
+    url: /categories/Spark/
   - title: "Kafka"
-    url: /categories/kafka/
+    url: /categories/Kafka/
   - title: "Machine Learning"
-    url: /categories/machine-learning/
+    url: /categories/Machine-learning/
   - title: "Algorithm"
-    url: /categories/algorithm/
+    url: /categories/Algorithm/
   - title: "Linux"
-    url: /categories/linux/
+    url: /categories/Linux/
