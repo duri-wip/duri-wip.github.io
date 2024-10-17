@@ -10,7 +10,7 @@ taxanomy:
 tags:
   - [Dag, Python, sla]
 
-permalink: /airflow/sla
+permalink: /airflow/sla/
 
 toc: true
 toc_sticky: true

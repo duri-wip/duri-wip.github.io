@@ -7,7 +7,7 @@ categories:
 tags:
   - [Dag, Python, XCom]
 
-permalink: /airflow/dag-xcom
+permalink: /airflow/dag-xcom/
 
 toc: true
 toc_sticky: true

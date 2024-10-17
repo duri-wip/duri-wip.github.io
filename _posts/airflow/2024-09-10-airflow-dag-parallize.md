@@ -3,11 +3,11 @@ title: "Airflow 대그 병렬로 수행하기"
 excerpt: "데이터 파이프라인 최적화"
 
 categories:
-  - airflow
+  - Airflow
 tags:
   - [Dag, Python, Optimization, XCom]
 
-permalink: /airflow/dag-parallelize
+permalink: /airflow/dag-parallelize/
 
 toc: true
 toc_sticky: true
