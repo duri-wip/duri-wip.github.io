@@ -50,6 +50,15 @@ share: true
    - PostgreSQL: Streaming replication 방식을 사용해 master-slave 이중화 구성.
    - Hadoop HDFS: 2대의 네임노드, 3대의 저널노드와 데이터 노드로 고가용성 유지.
 
+
+
+
+
+
+
+
+
+
 #### 2. 데이터 분석환경 구축 및 대시보드 구현
 
 <img src="/assets/images/project_img/yeardream/gifs/v2x_sparkhistory_web.gif" alt="web" width="100%">
@@ -57,6 +66,15 @@ share: true
 1. 데이터 웨어하우스 및 분석팀 지원
    - Hadoop HDFS에 저장된 데이터는 데이터 분석을 위한 데이터 웨어하우스에 활용.
    - Parquet 파일을 CSV 파일로 변환해 일자별 데이터 레이크를 구축하고 간단한 일자별 대시보드를 제작하여 시각화.
+
+
+
+
+
+
+
+
+
 
 #### 3. 모니터링
 1. 모니터링 시스템 구축
