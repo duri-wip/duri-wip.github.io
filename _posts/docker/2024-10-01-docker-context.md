@@ -7,7 +7,7 @@ categories:
 tags:
   - [Docker]
 
-permalink: /docker/docker-storage/
+permalink: /docker/docker-context/
 
 toc: true
 toc_sticky: true
