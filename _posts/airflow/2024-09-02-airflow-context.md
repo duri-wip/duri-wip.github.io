@@ -3,11 +3,11 @@ title: "Airflow에서 context와 args, kwargs의 활용"
 excerpt: "Context 활용법"
 
 categories:
-  - Airflow
+  - airflow
 tags:
   - [Decorator, Python, Context]
 
-permalink: /Airflow/context
+permalink: /airflow/context
 
 toc: true
 toc_sticky: true

@@ -1,9 +1,9 @@
 ---
 title: "Database"
 layout: categories
-permalink: /categories/Database/
+permalink: /categories/database/
 author_profile: true
-taxonomy: Database
+taxonomy: database
 sidebar:
   nav: "categories"
 ---

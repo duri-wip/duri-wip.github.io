@@ -1,9 +1,9 @@
 ---
 title: "Spark"
 layout: categories
-permalink: /categories/Spark/
+permalink: /categories/spark/
 author_profile: true
-taxonomy: Spark
+taxonomy: spark
 sidebar:
   nav: "categories"
 ---

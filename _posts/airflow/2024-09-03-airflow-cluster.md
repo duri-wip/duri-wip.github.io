@@ -3,11 +3,11 @@ title: "Airflow 클러스터 구성하기"
 excerpt: "airflow cluster"
 
 categories:
-  - Airflow
+  - airflow
 tags:
   - [Decorator]
 
-permalink: /Airflow/airflow-cluster/
+permalink: /airflow/airflow-cluster/
 
 toc: true
 toc_sticky: true

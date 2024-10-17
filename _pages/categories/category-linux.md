@@ -1,9 +1,9 @@
 ---
 title: "Linux"
 layout: categories
-permalink: /categories/Linux/
+permalink: /categories/linux/
 author_profile: true
-taxonomy: Linux
+taxonomy: linux
 sidebar:
   nav: "categories"
 ---
