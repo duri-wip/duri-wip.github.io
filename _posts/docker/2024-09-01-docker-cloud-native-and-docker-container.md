@@ -36,9 +36,6 @@ last_modified_at: 2024-10-01
 
 애플리케이션과 그 실행환경을 함께 묶어 제공하는 독립적인 패키지다. 소스코드, 소스코드가 운영되기 위한 스크립트가 함께 들어있어 컨테이너 각각이 독립적으로 움직이면서 애플리케이션을 독립적으로 운영할 수 있도록 해준다. vm 가상화보다 경량화된 가상 머신 기술이다. 도커는 리눅스 커널에서 제공하는 LXC(linux containers)기술을 바탕으로 컨테이너를 구현한다.
 
-![Docker Container Architecture](/assets/images/post_img/docker-inside-architecture.png)
-
-
 
 ### 주요기술
 
