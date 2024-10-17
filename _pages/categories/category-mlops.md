@@ -1,5 +1,5 @@
 ---
-title: "Machine Learning"
+title: "MLops"
 layout: category
 permalink: /categories/mlops/
 author_profile: true
