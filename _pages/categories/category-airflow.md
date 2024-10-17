@@ -1,9 +1,9 @@
 ---
 title: "Airflow"
-layout: categories
+layout: category
 permalink: /categories/airflow/
 author_profile: true
-taxonomy: airflow
+taxonomy: Airflow
 sidebar:
   nav: "categories"
 ---
