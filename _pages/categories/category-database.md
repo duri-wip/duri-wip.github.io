@@ -1,6 +1,6 @@
 ---
 title: "Database"
-layout: categories
+layout: category
 permalink: /categories/database/
 author_profile: true
 taxonomy: database

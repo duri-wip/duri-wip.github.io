@@ -3,7 +3,7 @@ title: "Airflow에서의 Xcom"
 excerpt: "어떨때 xcom을 써야할까?"
 
 categories:
-  - airflow
+  - Airflow
 tags:
   - [Dag, Python, XCom]
 

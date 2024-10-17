@@ -3,7 +3,7 @@ title: "Airflow에서 context와 args, kwargs의 활용"
 excerpt: "Context 활용법"
 
 categories:
-  - airflow
+  - Airflow
 tags:
   - [Decorator, Python, Context]
 

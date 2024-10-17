@@ -3,7 +3,7 @@ title: "Airflow 클러스터 구성하기"
 excerpt: "airflow cluster"
 
 categories:
-  - airflow
+  - Airflow
 tags:
   - [Decorator]
 
