@@ -78,7 +78,20 @@ class Solution:
 
 
 
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+        max_profit = 0
+        max_price = 0
 
+        for price in reversed(prices):
+            if max_price < price:
+                max_price = price
+                print(max_price)
+            max_profit = max(max_profit, max_price - price)
+            print(max_profit)
+        return max_profit
+```
 
 
 
