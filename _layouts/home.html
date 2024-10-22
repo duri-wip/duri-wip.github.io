@@ -46,12 +46,14 @@ layout: archive
     {% if category[0] %}
       <h3>{{ category[0] }}</h3>
     {% endif %}
-    {% if category[1] %}
+    {% if category[1] and category[1].size > 0 %}
       <ul>
         {% for post in category[1] %}
           <li><a href="{{ post.url }}">{{ post.title }}</a></li>
         {% endfor %}
       </ul>
+    {% else %}
+      <p>No posts available in this category.</p>
     {% endif %}
   {% endfor %}
 </div>
