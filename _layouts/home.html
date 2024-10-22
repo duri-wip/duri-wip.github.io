@@ -27,7 +27,7 @@ layout: archive
 
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
-{% if paginator %}
+<!-- {% if paginator %}
   {% assign posts = paginator.posts %}
 {% else %}
   {% assign posts = site.posts %}
@@ -40,4 +40,21 @@ layout: archive
   {% endfor %}
 </div>
 
-{% include paginator.html %}
+{% include paginator.html %} -->
+<div class="categories-recent-posts">
+  {% for category in site.categories %}
+    <!-- 카테고리 이름 출력 -->
+    <h4>{{ category[0] }}</h4>
+    
+    <!-- 해당 카테고리의 최근 포스트 3개만 출력 -->
+    <div class="entries-list">
+      {% assign recent_posts = category[1] | sort: 'date' | reverse %}
+      {% for post in recent_posts limit: 3 %}
+        <div class="entry-item">
+          <h5><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h5>
+          <p>{{ post.excerpt | strip_html | truncate: 150 }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
