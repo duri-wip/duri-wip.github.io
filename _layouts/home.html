@@ -41,19 +41,34 @@ layout: archive
 </div>
 
 {% include paginator.html %} -->
+
+
 <div class="categories-recent-posts">
-  {% for category in site.categories %}
-    {% if category[0] %}
-      <h3>{{ category[0] }}</h3>
-    {% endif %}
-    {% if category[1] and category[1].size > 0 %}
-      <ul>
-        {% for post in category[1] %}
-          <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No posts available in this category.</p>
-    {% endif %}
-  {% endfor %}
+  <!-- Docker 카테고리 -->
+  <h3>Docker</h3>
+  <ul>
+    {% assign docker_posts = site.categories.docker | slice: 0, 2 %}
+    {% for post in docker_posts %}
+      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <!-- database 카테고리 -->
+  <h3>DataBase</h3>
+  <ul>
+    {% assign db_posts = site.categories.database | slice: 0, 2 %}
+    {% for post in db_posts %}
+      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+
+  <!-- Algorithm 카테고리 -->
+  <h3>Algorithm</h3>
+  <ul>
+    {% assign algorithm_posts = site.categories.algorithm | slice: 0, 2 %}
+    {% for post in algorithm_posts %}
+      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+
 </div>
