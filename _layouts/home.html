@@ -46,12 +46,17 @@ layout: archive
 <div class="categories-recent-posts">
   <!-- Docker 카테고리 -->
   <h3>Docker</h3>
-  <ul>
-    {% assign docker_posts = site.categories.docker | slice: 0, 2 %}
-    {% for post in docker_posts %}
-      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
+  {% assign docker_posts = site.categories.docker %}
+  {% if docker_posts and docker_posts.size > 0 %}
+    <ul>
+      {% assign docker_recent_posts = docker_posts | slice: 0, 2 %}
+      {% for post in docker_recent_posts %}
+        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No recent posts for Docker</p>
+  {% endif %}
 
   <!-- database 카테고리 -->
   <h3>DataBase</h3>
