@@ -24,10 +24,9 @@ layout: archive
   </ul>
 </div>
 
-
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
-<!-- {% if paginator %}
+{% if paginator %}
   {% assign posts = paginator.posts %}
 {% else %}
   {% assign posts = site.posts %}
@@ -40,40 +39,4 @@ layout: archive
   {% endfor %}
 </div>
 
-{% include paginator.html %} -->
-
-
-<div class="categories-recent-posts">
-  <!-- Docker 카테고리 -->
-  <h3>Docker</h3>
-  {% assign docker_posts = site.categories.docker %}
-  {% if docker_posts and docker_posts.size > 0 %}
-    <ul>
-      {% assign docker_recent_posts = docker_posts | slice: 0, 2 %}
-      {% for post in docker_recent_posts %}
-        <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-      {% endfor %}
-    </ul>
-  {% else %}
-    <p>No recent posts for Docker</p>
-  {% endif %}
-
-  <!-- database 카테고리 -->
-  <h3>DataBase</h3>
-  <ul>
-    {% assign db_posts = site.categories.database | slice: 0, 2 %}
-    {% for post in db_posts %}
-      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-
-  <!-- Algorithm 카테고리 -->
-  <h3>Algorithm</h3>
-  <ul>
-    {% assign algorithm_posts = site.categories.algorithm | slice: 0, 2 %}
-    {% for post in algorithm_posts %}
-      <li><a href="{{ post.url }}">{{ post.title }}</a></li>
-    {% endfor %}
-  </ul>
-
-</div>
+{% include paginator.html %}
