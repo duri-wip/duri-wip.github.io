@@ -593,7 +593,7 @@ ne-NP:
 
 # Korean
 # ------
-# ko: &DEFAULT_KO
+ko: &DEFAULT_KO
 #   skip_links                 :
 #   skip_primary_nav           :
 #   skip_content               :
