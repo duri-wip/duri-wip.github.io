@@ -4,10 +4,6 @@ layout: archive
 
 {{ content }}
 
-<!-- 배너 이미지 추가 -->
-<div class="banner" style="position: relative; top: 0; left: 0; width: 100%; height: 130px;">
-  <img src="{{ '/assets/images/banner.JPG' | relative_url }}" alt="홈 배너 이미지" style="width: 100%; height: 100%; object-fit: cover;">
-</div>
 
 <!-- 프로젝트 목록 추가 -->
 <div class="projects" style="margin: 20px 0;">
@@ -15,15 +11,19 @@ layout: archive
   <ul class="project__list" style="list-style-type: none; padding: 0;">
     {% assign feature_row = site.feature_row %}
     {% for f in feature_row %}
-      <li style="margin-bottom: 10px;">
-        <a href="{{ f.url | relative_url }}" style="text-decoration: none; font-size: 18px; color: #333;">
-          {{ f.title }}
-        </a>
-      </li>
+    <li style="margin-bottom: 10px;">
+      <a href="{{ f.url | relative_url }}" style="text-decoration: none; font-size: 18px; color: #333;">
+        {{ f.title }}
+      </a>
+    </li>
     {% endfor %}
   </ul>
 </div>
 
+<!-- 배너 이미지 추가 -->
+<div class="banner" style="position: relative; top: 0; left: 0; width: 100%; height: 130px;">
+  <img src="{{ '/assets/images/banner.JPG' | relative_url }}" alt="홈 배너 이미지" style="width: 100%; height: 100%; object-fit: cover;">
+</div>
 
 <div class="categories-recent-posts">
   <!-- Docker 카테고리 -->
