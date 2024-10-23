@@ -641,7 +641,7 @@ ne-NP:
 #   search_algolia_no_results  :
 #   results_found              : "개 결과 발견"
 #   back_to_top                : "맨 위로 이동"
-# # -----------------
+# -----------------
   skip_links                 : "Skip links"
   skip_primary_nav           : "Skip to primary navigation"
   skip_content               : "Skip to content"
