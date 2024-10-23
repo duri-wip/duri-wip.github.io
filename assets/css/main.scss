@@ -47,14 +47,14 @@
    background-color: #f9f9f9;
    border: 1px solid #e0e0e0;
    border-radius: 10px;
-   padding: 15px;
+   padding: 10px;
    width: 100%;
    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
    transition: all 0.3s ease;
  }
  
  .post-card:hover {
-   box-shadow: 0px 8px 12px rgba(11, 192, 123, 0.68);
+   box-shadow: 0px 4px 8px rgba(11, 192, 123, 0.68);
  }
  
  .post-card h4 {
