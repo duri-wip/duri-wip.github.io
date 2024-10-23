@@ -4,15 +4,7 @@ layout: archive
 
 {{ content }}
 
-<!-- {% assign entries_layout = page.entries_layout | default: 'list' %}
+{% assign entries_layout = page.entries_layout | default: 'list' %}
 <div class="entries-{{ entries_layout }}">
   {% include posts-category.html taxonomy=page.taxonomy type=entries_layout %}
-</div> -->
-
-{% assign category = page.categories %}
-{% for post in site.posts %}
-  {% if post.categories contains category %}
-    <!-- 해당 카테고리의 게시물을 표시 -->
-    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-  {% endif %}
-{% endfor %}
+</div>
