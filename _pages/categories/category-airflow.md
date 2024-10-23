@@ -3,7 +3,7 @@ title: "Airflow"
 layout: categories
 permalink: /categories/airflow/
 author_profile: true
-categories: "Airflow"
+taxanomy: "Airflow"
 sidebar:
   nav: "categories"
 ---
