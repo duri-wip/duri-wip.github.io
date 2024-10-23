@@ -54,7 +54,7 @@
  }
  
  .post-card:hover {
-   box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.2);
+   box-shadow: 0px 8px 12px rgba(11, 192, 122, 1);
  }
  
  .post-card h4 {
@@ -75,4 +75,16 @@
  .post-card a:hover h4 {
    text-decoration: underline;
  }
+
+ .post-card hr {
+   border: none;
+   border-top: 1px solid #ddd;
+   margin: 10px 0;
+ }
  
+ /* 날짜 정보 스타일링 */
+ .post-card .post-date {
+   font-size: 12px;
+   color: #888;
+   margin-top: 10px;
+ }
