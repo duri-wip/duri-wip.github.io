@@ -40,7 +40,6 @@ Output: [0]
 #         self.next = next
 class Solution:
     def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
-        res = []
         if list1 is None:
             return list2
         if list2 is None:
@@ -57,3 +56,4 @@ class Solution:
 ## 알게된 점
 
 * 재귀를 이렇게도 쓰는구나~ 저번의 이진 정렬 문제와 비슷하면서 다르다.
+* 함수를 정의할 때 인풋 자료형을 지정하면 지정된 자료형을 넣도록 주의하자.
