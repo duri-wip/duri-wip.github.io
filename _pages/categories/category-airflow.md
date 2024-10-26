@@ -1,6 +1,6 @@
 ---
 title: "Airflow"
-layout: categories
+layout: category
 permalink: /categories/airflow/
 author_profile: true
 taxonomy: Airflow

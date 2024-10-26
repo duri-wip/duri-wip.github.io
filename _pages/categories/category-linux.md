@@ -1,9 +1,9 @@
 ---
 title: "Linux"
-layout: categories
+layout: category
 permalink: /categories/linux/
 author_profile: true
-taxonomy: Linux
+taxonomy: linux
 sidebar:
   nav: "categories"
 ---

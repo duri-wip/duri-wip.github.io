@@ -58,7 +58,7 @@
 
   p,
   li {
-    font-size: $type-size-6;
+    font-size: $type-size-7;
     line-height: 1.5;
     margin-block-start: 0em;
     margin-block-end: 0em;
@@ -128,7 +128,7 @@
   }
 
   img {
-    max-width: 80px;
+    max-width: 200px;
     align-items: center;
     background-attachment: fixed;
     margin-top: 25px;
@@ -184,7 +184,7 @@
   font-size: 1.4em;
   font-family: $menufont;
   @include breakpoint($large) {
-    margin-top: 5px;
+    margin-top: 10px;
     margin-bottom: 10px;
   }
 }

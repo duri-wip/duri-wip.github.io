@@ -25,3 +25,66 @@
    font-weight: normal;
    src: url(/assets/css/fonts/RIDIBatang.otf);
 }
+
+/* 카테고리 섹션 디자인 */
+.category-section {
+   margin-bottom: 40px;
+ }
+ 
+ .category-section h3 {
+   font-size: 22px;
+   font-weight: bold;
+   margin-bottom: 15px;
+ }
+ 
+ /* 포스트 카드 디자인 */
+ .post-cards {
+   display: flex;
+   gap: 20px;
+ }
+ 
+ .post-card {
+   background-color: #f9f9f9;
+   border: 1px solid #e0e0e0;
+   border-radius: 10px;
+   padding: 7px;
+   width: 150%;
+   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+   transition: all 0.3s ease;
+ }
+ 
+ .post-card:hover {
+   box-shadow: 0px 4px 8px rgba(11, 192, 123, 0.68);
+ }
+ 
+ .post-card h4 {
+   font-size: 18px;
+   margin-bottom: 7px;
+ }
+ 
+ .post-card p {
+   font-size: 14px;
+   color: #555;
+ }
+ 
+ .post-card a {
+   text-decoration: none;
+   color: inherit;
+ }
+ 
+ .post-card a:hover h4 {
+   text-decoration: underline;
+ }
+
+ .post-card hr {
+   border: none;
+   border-top: 1px solid #ddd;
+   margin: 7px 0;
+ }
+ 
+ /* 날짜 정보 스타일링 */
+ .post-card .post-date {
+   font-size: 12px;
+   color: #888;
+   margin-top: 5px;
+ }

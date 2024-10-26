@@ -4,6 +4,90 @@ layout: archive
 
 {{ content }}
 
+
+<!-- 프로젝트 목록 추가 -->
+<div class="projects" style="margin: 20px 0;">
+  <h2>Projects</h2>
+  <ul class="project__list" style="list-style-type: none; padding: 0;">
+    {% assign feature_row = site.feature_row %}
+    {% for f in feature_row %}
+    <li style="margin-bottom: 10px;">
+      <a href="{{ f.url | relative_url }}" style="text-decoration: none; font-size: 18px; color: #333;">
+        {{ f.title }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+<!-- 배너 이미지 추가 -->
+<div class="banner" style="position: relative; top: 0; left: 0; width: 100%; height: 130px;">
+  <img src="{{ '/assets/images/banner.JPG' | relative_url }}" alt="홈 배너 이미지" style="width: 100%; height: 100%; object-fit: cover;">
+</div>
+
+<h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts by Category" }}</h3>
+
+<div class="categories-recent-posts">
+  <!-- Docker 카테고리 -->
+  <div class="category-section">
+    <h3>Docker</h3>
+    {% assign docker_posts = site.categories.docker %}
+    {% if docker_posts and docker_posts.size > 0 %}
+      <div class="post-cards">
+        {% assign docker_recent_posts = docker_posts | slice: 0, 2 %}
+        {% for post in docker_recent_posts %}
+          <div class="post-card">
+            <a href="{{ post.url }}">
+              <h4>{{ post.title }}</h4>
+              <hr /> <!-- 구분선 추가 -->
+              <p>{{ post.excerpt | truncatewords: 20 }}</p>
+              <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p>No recent posts for Docker</p>
+    {% endif %}
+  </div>
+
+  <!-- database 카테고리 -->
+  <div class="category-section">
+    <h3>DataBase</h3>
+    <div class="post-cards">
+      {% assign db_posts = site.categories.database | slice: 0, 2 %}
+      {% for post in db_posts %}
+        <div class="post-card">
+          <a href="{{ post.url }}">
+            <h4>{{ post.title }}</h4>
+            <hr /> <!-- 구분선 추가 -->
+            <p>{{ post.excerpt | truncatewords: 20 }}</p>
+            <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <!-- Algorithm 카테고리 -->
+  <div class="category-section">
+    <h3>Algorithm</h3>
+    <div class="post-cards">
+      {% assign algorithm_posts = site.categories.algorithm | slice: 0, 2 %}
+      {% for post in algorithm_posts %}
+        <div class="post-card">
+          <a href="{{ post.url }}">
+            <h4>{{ post.title }}</h4>
+            <hr /> <!-- 구분선 추가 -->
+            <p>{{ post.excerpt | truncatewords: 20 }}</p>
+            <p class="post-date">{{ post.date | date: "%Y-%m-%d" }}</p>
+          </a>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
 <h3 class="archive__subtitle">{{ site.data.ui-text[site.locale].recent_posts | default: "Recent Posts" }}</h3>
 
 {% if paginator %}
@@ -20,3 +104,4 @@ layout: archive
 </div>
 
 {% include paginator.html %}
+

@@ -6,8 +6,8 @@
   @include clearfix;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 1em;
-  padding-right: 1em;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
   -webkit-animation: $intro-transition;
   animation: $intro-transition;
   max-width: 100%;
@@ -606,6 +606,6 @@ body {
 
 /* 2022.01.20 add .wide#main for lifelog page */
 #main.wide {
-  padding-left: 7em;
-  padding-right: 7em;
+  padding-left: 3em;
+  padding-right: 3em;
 }

@@ -1,6 +1,6 @@
 ---
 title: "Git"
-layout: categories
+layout: category
 permalink: /categories/git/
 author_profile: true
 taxonomy: Git

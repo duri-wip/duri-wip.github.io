@@ -1,9 +1,9 @@
 ---
 title: "Algorithm"
-layout: categories
+layout: category
 permalink: /categories/algorithm/
 author_profile: true
-taxonomy: Algorithm
+taxonomy: algorithm
 sidebar:
   nav: "categories"
 ---
