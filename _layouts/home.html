@@ -69,12 +69,12 @@ layout: archive
     </div>
   </div>
 
-  <!-- Algorithm 카테고리 -->
+  <!-- Spark 카테고리 -->
   <div class="category-section">
-    <h3>Algorithm</h3>
+    <h3>Spark</h3>
     <div class="post-cards">
-      {% assign algorithm_posts = site.categories.algorithm | slice: 0, 2 %}
-      {% for post in algorithm_posts %}
+      {% assign spark_posts = site.categories.spark | slice: 0, 2 %}
+      {% for post in spark_posts %}
         <div class="post-card">
           <a href="{{ post.url }}">
             <h4>{{ post.title }}</h4>
