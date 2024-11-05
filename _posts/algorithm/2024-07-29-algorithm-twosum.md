@@ -5,7 +5,7 @@ excerpt: "이어드림 코딩테스트 특강 1주차"
 categories:
   - algorithm
 tags:
-  - [Algorithm, ]
+  - [Algorithm]
 
 permalink: /algorithm/two-sum
 
@@ -15,6 +15,7 @@ toc_sticky: true
 date: 2024-07-29
 last_modified_at: 2024-07-29
 ---
+
 [Two Sum - LeetCode](https://leetcode.com/problems/two-sum/description/)
 
 ## 문제 파악
@@ -52,7 +53,7 @@ class trialanderror:
 
 이 경우에는 테스트 케이스 [3,2,4] (target=6)과 [3,3] (target=6)에서 에러가 났다.
 
-인덱스 시작점에 +1을 할건지 말건지 항상 주의깊게 생각하자. 
+인덱스 시작점에 +1을 할건지 말건지 항상 주의깊게 생각하자.
 
 ### 이중포인터
 
@@ -78,7 +79,7 @@ print(s)
 
 시행착오
 
-이중포인터의 핵심은 포인터만 돌면서 값을 가지고와서 계산을 한다는 점인데, 여기서 핵심은 초기의 인덱스 값을 밸류값과 매치하여 저장하고 밸류를 미리 정렬해 둔다는 점이다. 
+이중포인터의 핵심은 포인터만 돌면서 값을 가지고와서 계산을 한다는 점인데, 여기서 핵심은 초기의 인덱스 값을 밸류값과 매치하여 저장하고 밸류를 미리 정렬해 둔다는 점이다.
 
 ```python
 nums = [4, 1, 9, 7, 5, 3, 16]
@@ -86,7 +87,7 @@ new_nums = [[v, i] for i, v in enumerate(nums)]
 new_nums.sort(key=lambda x:x[0])
 ```
 
-위 코드를 수행하면 new_nums에는 (밸류, 인덱스)가 매칭되어 저장되게 된다. 
+위 코드를 수행하면 new_nums에는 (밸류, 인덱스)가 매칭되어 저장되게 된다.
 
 (구현 방식은 여러가지가 있겠지만..)
 
@@ -106,7 +107,7 @@ new_nums = list(zip(nums, range(len(nums)))
 
 자바에서 해시맵(HashMap)은 **키(Key)와 값(Value)의 쌍으로 데이터를 저장하는 자료구조**. 해시맵은 내부적으로 해시 테이블을 사용하여 데이터를 관리하므로 검색 속도가 빠르다.
 
-키로 인덱스를 반환해야 하는 경우에 잘 쓸 수 있음. 
+키로 인덱스를 반환해야 하는 경우에 잘 쓸 수 있음.
 
 ```python
 class Solution:
@@ -118,12 +119,3 @@ class Solution:
                 return [memo[needed], i]
             memo[num] = i
 ```
-
-## 배우게 된 점
-
-- 이중포인터
-- 
-
-## 질문
-
-댓글로 또는 이곳에 질문 남겨주세요.
