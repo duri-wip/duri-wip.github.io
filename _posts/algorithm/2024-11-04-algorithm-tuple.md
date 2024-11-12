@@ -1,5 +1,5 @@
 ---
-title: "튜플"
+title: "튜플보고 원래의 집합 추론하기"
 excerpt: "Programmers level 2"
 
 categories:
@@ -7,7 +7,7 @@ categories:
 tags:
   - [Algorithm]
 
-permalink: /algorithm/tuple
+permalink: /algorithm/find-original
 
 toc: true
 toc_sticky: true
@@ -19,10 +19,10 @@ last_modified_at: 2024-11-04
 ## 문제
 
 중복되는 원소가 없는 튜플이 있고
-{2,1,3,4}
+> {2,1,3,4}
 
 이걸 토대로 부분집합을 만들어서 제공한다.
-{{2}, {2, 1}, {2, 1, 3}, {2, 1, 3, 4}}
+> {{2}, {2, 1}, {2, 1, 3}, {2, 1, 3, 4}}
 
 그러면 이 부분집합을 보고 원래의 튜플을 추론한다. 이때 원소에는 순서가 있다.
 
