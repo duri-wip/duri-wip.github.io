@@ -1,5 +1,5 @@
 ---
-title: "첫번째 bad version 찾기"
+title: "ransome note 구성하기"
 excerpt: "Grind 75 : Week 2"
 
 categories:
@@ -7,12 +7,12 @@ categories:
 tags:
   - [Algorithm]
 
-permalink: /algorithm/first-bad-version
+permalink: /algorithm/ransome-note
 
 toc: true
 toc_sticky: true
 
-date: 2024-10-25
+date: 2024-10-28
 last_modified_at: 2024-10-28
 ---
 ## 문제

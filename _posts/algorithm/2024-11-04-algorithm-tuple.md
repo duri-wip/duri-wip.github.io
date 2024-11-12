@@ -12,8 +12,8 @@ permalink: /algorithm/tuple
 toc: true
 toc_sticky: true
 
-date: 2024-11-06
-last_modified_at: 2024-11-06
+date: 2024-11-04
+last_modified_at: 2024-11-04
 ---
 
 ## 문제
