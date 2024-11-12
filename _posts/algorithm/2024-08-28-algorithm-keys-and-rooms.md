@@ -12,8 +12,8 @@ permalink: /algorithm/keys-and-rooms
 toc: true
 toc_sticky: true
 
-date: 2024-08-15
-last_modified_at: 2024-08-15
+date: 2024-08-28
+last_modified_at: 2024-08-28
 ---
 
 (https://leetcode.com/problems/keys-and-rooms/description/)
