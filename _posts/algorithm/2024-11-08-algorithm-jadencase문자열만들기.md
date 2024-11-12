@@ -1,3 +1,19 @@
+---
+title: "Jaden Case"
+excerpt: "Programmers level 2"
+
+categories:
+  - algorithm
+tags:
+  - [Algorithm]
+
+permalink: /algorithm/jaden-case
+toc: true
+toc_sticky: true
+
+date: 2024-11-08
+last_modified_at: 2024-11-08
+---
 ## 문제
 
 모든 단어의 첫 문자가 대문자이고 이외의 알파벳은 소문자인 문자열이다. 문자열 s가 주어졌을때 s를 jaden case로 바꾼다음 문자열을 리턴하시오

@@ -1,3 +1,20 @@
+---
+title: "삼각달팽이"
+excerpt: "Programmers level 2"
+
+categories:
+  - algorithm
+tags:
+  - [Algorithm]
+
+permalink: /algorithm/triangle
+
+toc: true
+toc_sticky: true
+
+date: 2024-11-07
+last_modified_at: 2024-11-07
+---
 ## 문제
 
 정수 n이 매개변수로 주어녔을때 밑변의 길이와 높이가 n 인 삼각형에서 맨 위꼭지점부터 반시계방향으로 달팽이 채우기

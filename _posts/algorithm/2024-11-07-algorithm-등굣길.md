@@ -1,3 +1,20 @@
+---
+title: "등굣길"
+excerpt: "Programmers level 2"
+
+categories:
+  - algorithm
+tags:
+  - [Algorithm]
+
+permalink: /algorithm/count-path
+
+toc: true
+toc_sticky: true
+
+date: 2024-11-07
+last_modified_at: 2024-11-07
+---
 ## 문제
 웅덩이를 피해 학교에 가는 최단 거리의 경로 개수를 구하기
 
