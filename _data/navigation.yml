@@ -12,10 +12,11 @@ main:
   - title: "Projects"
     url: /projects/
 
-
 # sidebar navigation (categories)
 # 2022.02.15 sidebar update : simple ver.
 categories:
+  - title: "Google DE Certificate"
+    url: /categories/googleDEcerti/
   - title: "Database"
     url: /categories/database/
   - title: "Docker"
