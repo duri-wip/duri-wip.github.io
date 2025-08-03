@@ -1,35 +1,45 @@
 # main links
 main:
-  - title: "Home"
+  - title: "🏠 Home"
     url: https://duri-wip.github.io/
 
-  - title: "About"
+  - title: "👨‍💻 About"
     url: /about/
 
-  - title: "GitHub"
-    url: https://github.com/duri-wip
-
-  - title: "Projects"
+  - title: "🚀 Projects"
     url: /projects/
 
+  - title: "📚 Categories"
+    url: /categories/
+
+  - title: "🔗 GitHub"
+    url: https://github.com/duri-wip
+
 # sidebar navigation (categories)
-# 2022.02.15 sidebar update : simple ver.
+# 2024.12.19 sidebar update : organized categories with emojis
 categories:
-  - title: "Google DE Certificate"
+  # Cloud & DevOps
+  - title: "☁️ Google Cloud"
     url: /categories/googleDEcerti/
-  - title: "Database"
-    url: /categories/database/
-  - title: "Docker"
+  - title: "🐳 Docker"
     url: /categories/docker/
-  - title: "Airflow"
+  - title: "🔄 Airflow"
     url: /categories/airflow/
-  - title: "Spark"
+
+  # Big Data & Analytics
+  - title: "⚡ Spark"
     url: /categories/spark/
-  - title: "Kafka"
+  - title: "📊 Kafka"
     url: /categories/kafka/
-  - title: "MLops"
+  - title: "🗄️ Database"
+    url: /categories/database/
+
+  # Machine Learning
+  - title: "🤖 MLOps"
     url: /categories/mlops/
-  - title: "Algorithm"
+
+  # Programming & Tools
+  - title: "🧮 Algorithm"
     url: /categories/algorithm/
-  - title: "Linux"
+  - title: "🐧 Linux"
     url: /categories/linux/
