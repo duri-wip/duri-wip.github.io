@@ -4,36 +4,27 @@ layout: archive
 
 {{ content }}
 
-<!-- 히어로 섹션 -->
-<div class="hero-section" style="background: linear-gradient(135deg, #0bc07a 0%, #6366f1 100%); padding: 60px 0; margin: -20px -20px 40px -20px; text-align: center; color: white; position: relative; overflow: hidden;">
-  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><pattern id=\"grain\" width=\"100\" height=\"100\" patternUnits=\"userSpaceOnUse\"><circle cx=\"25\" cy=\"25\" r=\"1\" fill=\"rgba(255,255,255,0.1)\"/><circle cx=\"75\" cy=\"75\" r=\"1\" fill=\"rgba(255,255,255,0.1)\"/><circle cx=\"50\" cy=\"10\" r=\"0.5\" fill=\"rgba(255,255,255,0.1)\"/></pattern></defs><rect width=\"100\" height=\"100\" fill=\"url(%23grain)\"/></svg>'); opacity: 0.3;"></div>
-  <div style="position: relative; z-index: 2;">
-    <h1 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px; text-shadow: 0 2px 4px rgba(0,0,0,0.1);">Duri's Work in Progress</h1>
-    <p style="font-size: 1.2rem; margin-bottom: 30px; opacity: 0.9;">개발자의 성장 과정을 담은 기술 블로그</p>
-    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-      <a href="#projects" style="background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.3);">프로젝트 보기</a>
-      <a href="#posts" style="background: white; color: #0bc07a; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">최신 포스트</a>
-    </div>
-  </div>
+<!-- 간단한 인트로 섹션 -->
+<div style="text-align: center; margin: 2rem 0; padding: 2rem; background: #f7fafc; border-radius: 8px;">
+  <h1 style="font-size: 2rem; font-weight: 600; color: #2d3748; margin-bottom: 1rem;">Duri's Work in Progress</h1>
+  <p style="font-size: 1.1rem; color: #718096; max-width: 600px; margin: 0 auto;">
+    데이터 엔지니어링과 머신러닝에 열정을 가진 개발자의 기술 블로그입니다.
+  </p>
 </div>
 
 <!-- 프로젝트 섹션 -->
-<div id="projects" class="projects-section" style="margin: 40px 0; padding: 40px 0; background: #f9fafb; border-radius: 16px;">
-  <div style="text-align: center; margin-bottom: 40px;">
-    <h2 style="font-size: 2.5rem; font-weight: 700; color: #1f2937; margin-bottom: 16px;">🚀 Featured Projects</h2>
-    <p style="font-size: 1.1rem; color: #6b7280; max-width: 600px; margin: 0 auto;">다양한 기술 스택을 활용한 프로젝트들을 소개합니다</p>
-  </div>
+<div style="margin: 3rem 0;">
+  <h2 style="font-size: 1.5rem; font-weight: 600; color: #2d3748; margin-bottom: 1.5rem; text-align: center;">🚀 Featured Projects</h2>
   
-  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; max-width: 1200px; margin: 0 auto; padding: 0 20px;">
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; max-width: 1000px; margin: 0 auto;">
     {% assign feature_row = site.feature_row %}
     {% for f in feature_row %}
-    <div style="background: white; border-radius: 12px; padding: 24px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); transition: all 0.3s ease; border: 1px solid #e5e7eb; position: relative; overflow: hidden;">
-      <div style="position: absolute; top: 0; left: 0; right: 0; height: 4px; background: linear-gradient(135deg, #0bc07a 0%, #6366f1 100%);"></div>
+    <div style="background: white; border-radius: 8px; padding: 1.5rem; border: 1px solid #e2e8f0; transition: box-shadow 0.2s ease;">
       <a href="{{ f.url | relative_url }}" style="text-decoration: none; color: inherit; display: block;">
-        <h3 style="font-size: 1.3rem; font-weight: 600; color: #1f2937; margin-bottom: 12px; line-height: 1.4;">{{ f.title }}</h3>
+        <h3 style="font-size: 1.1rem; font-weight: 600; color: #2d3748; margin-bottom: 0.75rem; line-height: 1.4;">{{ f.title }}</h3>
         {% if f.image_path %}
-        <div style="margin-bottom: 16px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <img src="{{ f.image_path | relative_url }}" alt="{{ f.title }}" style="width: 100%; height: 200px; object-fit: cover; transition: transform 0.3s ease;">
+        <div style="margin-bottom: 1rem; border-radius: 6px; overflow: hidden;">
+          <img src="{{ f.image_path | relative_url }}" alt="{{ f.title }}" style="width: 100%; height: 160px; object-fit: cover;">
         </div>
         {% endif %}
       </a>
@@ -43,22 +34,13 @@ layout: archive
 </div>
 
 <!-- 배너 이미지 -->
-<div class="banner" style="position: relative; margin: 40px 0; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+<div style="margin: 3rem 0; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
   <img src="{{ '/assets/images/banner.JPG' | relative_url }}" alt="홈 배너 이미지" style="width: 100%; height: 200px; object-fit: cover;">
-  <div style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(45deg, rgba(11, 192, 122, 0.8) 0%, rgba(99, 102, 241, 0.8) 100%); display: flex; align-items: center; justify-content: center;">
-    <div style="text-align: center; color: white;">
-      <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.3);">기술 블로그</h2>
-      <p style="font-size: 1.1rem; opacity: 0.9;">지속적인 학습과 성장의 기록</p>
-    </div>
-  </div>
 </div>
 
 <!-- 카테고리별 최신 포스트 -->
-<div id="posts" style="margin: 40px 0;">
-  <div style="text-align: center; margin-bottom: 40px;">
-    <h2 style="font-size: 2.5rem; font-weight: 700; color: #1f2937; margin-bottom: 16px;">📚 최신 포스트</h2>
-    <p style="font-size: 1.1rem; color: #6b7280; max-width: 600px; margin: 0 auto;">카테고리별로 정리된 최신 기술 포스트들을 확인해보세요</p>
-  </div>
+<div style="margin: 3rem 0;">
+  <h2 style="font-size: 1.5rem; font-weight: 600; color: #2d3748; margin-bottom: 1.5rem; text-align: center;">📚 최신 포스트</h2>
 
   <div class="categories-recent-posts">
     <!-- Docker 카테고리 -->
@@ -80,13 +62,13 @@ layout: archive
           {% endfor %}
         </div>
       {% else %}
-        <p style="color: #6b7280; font-style: italic;">Docker 관련 포스트가 없습니다</p>
+        <p style="color: #718096; font-style: italic;">Docker 관련 포스트가 없습니다</p>
       {% endif %}
     </div>
 
     <!-- database 카테고리 -->
     <div class="category-section">
-      <h3>🗄️ DataBase</h3>
+      <h3>🗄️ Database</h3>
       <div class="post-cards">
         {% assign db_posts = site.categories.database | slice: 0, 2 %}
         {% for post in db_posts %}
@@ -141,11 +123,8 @@ layout: archive
 </div>
 
 <!-- 전체 최신 포스트 -->
-<div style="margin: 40px 0;">
-  <div style="text-align: center; margin-bottom: 40px;">
-    <h2 style="font-size: 2.5rem; font-weight: 700; color: #1f2937; margin-bottom: 16px;">📖 전체 최신 포스트</h2>
-    <p style="font-size: 1.1rem; color: #6b7280; max-width: 600px; margin: 0 auto;">모든 카테고리의 최신 포스트를 한눈에 확인하세요</p>
-  </div>
+<div style="margin: 3rem 0;">
+  <h2 style="font-size: 1.5rem; font-weight: 600; color: #2d3748; margin-bottom: 1.5rem; text-align: center;">📖 전체 최신 포스트</h2>
 
   {% if paginator %}
     {% assign posts = paginator.posts %}
@@ -163,13 +142,13 @@ layout: archive
   {% include paginator.html %}
 </div>
 
-<!-- 푸터 CTA -->
-<div style="background: linear-gradient(135deg, #1f2937 0%, #374151 100%); color: white; padding: 60px 20px; text-align: center; border-radius: 16px; margin: 40px 0;">
-  <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: 16px;">함께 성장해요! 🚀</h2>
-  <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.9; max-width: 600px; margin-left: auto; margin-right: auto;">기술에 대한 열정과 지식을 공유하며 함께 성장하는 개발자 커뮤니티에 참여해보세요</p>
-  <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-    <a href="https://github.com/duri-wip" style="background: #0bc07a; color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease;">GitHub 방문</a>
-    <a href="/about/" style="background: rgba(255,255,255,0.2); color: white; padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 500; transition: all 0.3s ease; border: 2px solid rgba(255,255,255,0.3);">About Me</a>
+<!-- 간단한 연락처 섹션 -->
+<div style="background: #2d3748; color: white; padding: 2rem; border-radius: 8px; margin: 3rem 0; text-align: center;">
+  <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 1rem;">💬 연락하기</h2>
+  <p style="margin-bottom: 1.5rem; opacity: 0.9;">궁금한 점이나 제안사항이 있으시면 언제든 연락주세요!</p>
+  <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+    <a href="https://github.com/duri-wip" style="background: #0bc07a; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 500;">GitHub</a>
+    <a href="/about/" style="background: rgba(255,255,255,0.1); color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 500; border: 1px solid rgba(255,255,255,0.2);">About Me</a>
   </div>
 </div>
 
