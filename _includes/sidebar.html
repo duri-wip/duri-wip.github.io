@@ -1,0 +1,80 @@
+<aside class="sidebar">
+    {% if page.layout == 'post' or page.layout == 'page' %}
+    <a href="{{ '/' | relative_url }}" class="back-to-home">
+        <i class="fas fa-arrow-left"></i>
+        홈으로 돌아가기
+    </a>
+    {% endif %}
+    
+    <div class="profile-section">
+        <img src="{{ site.author.avatar | default: '/assets/images/avatar.jpg' | relative_url }}" 
+             alt="{{ site.author.name }}" class="profile-avatar">
+        <h2 class="profile-name">{{ site.author.name }}</h2>
+        <p class="profile-title">{{ site.author.title }}</p>
+        <p class="profile-bio">{{ site.author.bio }}</p>
+        
+        <div class="social-links">
+            {% if site.author.github %}
+            <a href="https://github.com/{{ site.author.github }}" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            {% endif %}
+            {% if site.author.linkedin %}
+            <a href="https://linkedin.com/in/{{ site.author.linkedin }}" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            {% endif %}
+            {% if site.author.email %}
+            <a href="mailto:{{ site.author.email }}" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            {% endif %}
+            {% if site.author.twitter %}
+            <a href="https://twitter.com/{{ site.author.twitter }}" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    {% unless page.layout == 'post' or page.layout == 'page' %}
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">{{ site.posts.size }}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Categories</span>
+            <span class="stat-value">{{ site.categories.size }}</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">{{ site.tags.size }}</span>
+        </div>
+    </div>
+    {% else %}
+    <!-- 포스트/페이지용 네비게이션 -->
+    <nav>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="{{ '/' | relative_url }}"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ '/categories/' | relative_url }}"><i class="fas fa-folder"></i> Categories</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ '/tags/' | relative_url }}"><i class="fas fa-tags"></i> Tags</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ '/archive/' | relative_url }}"><i class="fas fa-archive"></i> Archive</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ '/about/' | relative_url }}"><i class="fas fa-user"></i> About</a>
+            </li>
+            <li class="nav-item">
+                <a href="{{ '/contact/' | relative_url }}"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+    </nav>
+    {% endunless %}
+</aside>

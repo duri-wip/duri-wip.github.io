@@ -1,0 +1,18 @@
+<header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item {% if page.url == '/' %}active{% endif %}">
+                <a href="{{ '/' | relative_url }}"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item {% if page.url contains '/projects' %}active{% endif %}">
+                <a href="{{ '/projects/' | relative_url }}"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+            <li class="nav-item {% if page.url contains '/categories' %}active{% endif %}">
+                <a href="{{ '/categories/' | relative_url }}"><i class="fas fa-tags"></i> Categories</a>
+            </li>
+            <li class="nav-item {% if page.url contains '/contact' %}active{% endif %}">
+                <a href="{{ '/contact/' | relative_url }}"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+    </nav>
+</header>

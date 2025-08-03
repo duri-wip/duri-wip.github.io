@@ -1,0 +1,115 @@
+---
+layout: default
+---
+
+<div class="layout-container">
+    {% include sidebar.html %}
+    {% include header.html %}
+    
+    <main class="main-content">
+        <!-- 배너 섹션 -->
+        <section class="banner-section">
+            {% if site.banner_image %}
+                <img src="{{ site.banner_image }}" alt="Banner" class="banner-image">
+                <div class="banner-overlay"></div>
+            {% else %}
+                <div class="banner-placeholder">
+                    <i class="fas fa-image"></i>
+                    <p>{{ site.banner_text | default: "귀여운 이미지를 넣어주세요 ✨" }}</p>
+                </div>
+            {% endif %}
+        </section>
+
+        <!-- 즐겨찾기 포스트 섹션 -->
+        <section class="section featured-section featured-posts">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-star"></i>
+                        즐겨찾기 포스트
+                    </h2>
+                    <p class="section-subtitle">특별히 추천하는 글들을 모아봤어요</p>
+                </div>
+                <a href="/featured/" class="view-all-link">전체 보기</a>
+            </div>
+
+            <div class="posts-grid">
+                {% assign featured_posts = site.posts | where: "featured", true | limit: 3 %}
+                {% for post in featured_posts %}
+                <article class="post-card">
+                    <div class="featured-badge">Featured</div>
+                    <div class="post-meta">
+                        <span class="post-category">{{ post.category | default: "General" }}</span>
+                        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            {{ post.reading_time | default: "5분" }} 읽기
+                        </span>
+                        <div class="post-tags">
+                            {% for tag in post.tags limit: 3 %}
+                            <a href="/tags/{{ tag }}" class="tag">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+
+        <!-- 섹션 구분선 -->
+        <div class="section-divider">
+            <div class="section-divider-content">
+                <i class="fas fa-chevron-down"></i>
+                <span>다른 포스트들도 확인해보세요</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- 최근 포스트 섹션 -->
+        <section class="section recent-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-clock"></i>
+                        최근 포스트
+                    </h2>
+                    <p class="section-subtitle">새로 업데이트된 글들을 확인해보세요</p>
+                </div>
+                <a href="/archive/" class="view-all-link">전체 보기</a>
+            </div>
+
+            <div class="posts-grid">
+                {% assign recent_posts = site.posts | limit: 6 %}
+                {% for post in recent_posts %}
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">{{ post.category | default: "General" }}</span>
+                        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="{{ post.url }}">{{ post.title }}</a>
+                    </h3>
+                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            {{ post.reading_time | default: "5분" }} 읽기
+                        </span>
+                        <div class="post-tags">
+                            {% for tag in post.tags limit: 3 %}
+                            <a href="/tags/{{ tag }}" class="tag">{{ tag }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</div>

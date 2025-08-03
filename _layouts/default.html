@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    {% include head.html %}
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    {{ content }}
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

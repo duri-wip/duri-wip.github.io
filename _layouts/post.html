@@ -1,0 +1,108 @@
+---
+layout: default
+---
+
+<div class="post-layout">
+    {% include sidebar.html %}
+    
+    <main class="main-content">
+        <!-- 포스트 헤더 -->
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="post-category">{{ page.category | default: "General" }}</span>
+                <span>•</span>
+                <span>{{ page.date | date: "%Y년 %m월 %d일" }}</span>
+                <span>•</span>
+                <span>{{ page.reading_time | default: "5분" }} 읽기</span>
+            </div>
+            
+            <h1 class="post-title">{{ page.title }}</h1>
+            
+            {% if page.subtitle %}
+            <p class="post-subtitle">{{ page.subtitle }}</p>
+            {% endif %}
+            
+            <div class="post-info">
+                <div class="author-info">
+                    <img src="{{ site.author.avatar | default: '/assets/images/avatar.jpg' }}" alt="{{ site.author.name }}" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">{{ site.author.name }}</span>
+                        <span class="post-date">{{ site.author.title }}</span>
+                    </div>
+                </div>
+                
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>{{ page.views | default: "0" }} views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>{{ page.likes | default: "0" }} likes</span>
+                    </div>
+                </div>
+            </div>
+            
+            {% if page.tags %}
+            <div class="post-tags">
+                {% for tag in page.tags %}
+                <a href="/tags/{{ tag }}" class="tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </header>
+
+        <!-- 포스트 콘텐츠 -->
+        <article class="post-content">
+            {{ content }}
+        </article>
+
+        <!-- 포스트 하단 -->
+        <footer class="post-footer">
+            <div class="post-actions">
+                <div class="like-share">
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-heart"></i>
+                        좋아요
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-share"></i>
+                        공유
+                    </a>
+                </div>
+            </div>
+
+            <!-- 관련 포스트 -->
+            {% assign related_posts = site.related_posts | limit: 3 %}
+            {% if related_posts.size > 0 %}
+            <div class="related-posts">
+                <h3 class="related-title">
+                    <i class="fas fa-bookmark"></i>
+                    관련 포스트
+                </h3>
+                <div class="related-grid">
+                    {% for post in related_posts %}
+                    <a href="{{ post.url }}" class="related-card">
+                        <h4 class="related-card-title">{{ post.title }}</h4>
+                        <p class="related-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
+                        <div class="related-card-meta">
+                            <span>{{ post.category }}</span>
+                            <span>{{ post.date | date: "%Y-%m-%d" }}</span>
+                        </div>
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </footer>
+    </main>
+
+    <!-- TOC -->
+    <aside class="toc-sidebar">
+        <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            목차
+        </h3>
+        <div id="toc"></div>
+    </aside>
+</div>
