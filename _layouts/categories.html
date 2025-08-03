@@ -1,0 +1,15 @@
+---
+layout: default
+---
+
+<div class="category-posts-layout">
+    <h1>{{ page.category | capitalize }} 포스트</h1>
+    
+    <div class="posts-grid">
+        {% for post in site.categories[page.category] %}
+        <article class="post-card">
+            <!-- 포스트 카드 내용 -->
+        </article>
+        {% endfor %}
+    </div>
+</div>

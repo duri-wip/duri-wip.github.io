@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Progress - Duri's Tech Blog</title>
+<meta name="description" content="데이터 엔지니어링과 머신러닝에 열정을 가진 개발자의 기술 블로그">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Study Progress">
+<meta property="og:description" content="데이터 엔지니어링과 머신러닝에 열정을 가진 개발자의 기술 블로그">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://0.0.0.0:4001/study/">
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="contact-layout">
+    <aside class="sidebar">
+    
+    <a href="/" class="back-to-home">
+        <i class="fas fa-arrow-left"></i>
+        홈으로 돌아가기
+    </a>
+    
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.jpg" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">Data Engineer & ML Developer</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            <a href="https://linkedin.com/in/duri" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            
+            
+            <a href="mailto:duri@example.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+            <a href="https://twitter.com/duri_dev" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            
+        </div>
+    </div>
+
+    
+    <!-- 포스트/페이지용 네비게이션 -->
+    <nav>
+        <ul class="sidebar-nav">
+            <li class="nav-item">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories/"><i class="fas fa-folder"></i> Categories</a>
+            </li>
+            <li class="nav-item">
+                <a href="/tags/"><i class="fas fa-tags"></i> Tags</a>
+            </li>
+            <li class="nav-item">
+                <a href="/archive/"><i class="fas fa-archive"></i> Archive</a>
+            </li>
+            <li class="nav-item">
+                <a href="/about/"><i class="fas fa-user"></i> About</a>
+            </li>
+            <li class="nav-item">
+                <a href="/contact/"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+    </nav>
+    
+</aside>
+    
+    <main class="main-content">
+        <!-- 페이지 헤더 -->
+<header class="page-header">
+    <h1 class="page-title">Study Progress</h1>
+    <p class="page-subtitle">
+        꾸준한 학습을 통해 성장하는 과정을 기록합니다. 
+        스터디 태그가 달린 포스트들로 진행 상황을 추적해보세요.
+    </p>
+</header>
+
+<!-- 스터디 통계 -->
+<section class="study-stats">
+    
+    
+    
+    
+    
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-play"></i>
+        </div>
+        <div class="stat-number">0</div>
+        <div class="stat-label">진행중인 스터디</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-check"></i>
+        </div>
+        <div class="stat-number">0</div>
+        <div class="stat-label">완료한 스터디</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-file-alt"></i>
+        </div>
+        <div class="stat-number">0</div>
+        <div class="stat-label">스터디 포스트</div>
+    </div>
+
+    <div class="stat-card">
+        <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+        </div>
+        
+        
+        <div class="stat-number">0</div>
+        <div class="stat-label">총 학습 시간(분)</div>
+    </div>
+
+</section>
+
+<!-- 타임라인 -->
+<section class="timeline-section">
+    <h2 class="section-title">
+        <i class="fas fa-history"></i>
+        학습 타임라인
+    </h2>
+
+    <div class="timeline">
+        
+            
+            <div class="timeline-item">
+                <div class="timeline-dot in-progress">
+                    <i class="fas fa-play"></i>
+                </div>
+                <div class="timeline-content">
+                    <div class="study-header">
+                        <div>
+                            <h3 class="study-title">스터디를 시작해보세요!</h3>
+                            <div class="study-period">언제든지 시작할 수 있어요</div>
+                        </div>
+                        <div class="study-status planned">시작 전</div>
+                    </div>
+
+                    <p class="study-description">
+                        아직 스터디 포스트가 없습니다. 새로운 학습을 시작하고 포스트에 'study' 태그와 'study_name' 속성을 추가해보세요!
+                    </p>
+
+                    <div class="study-progress">
+                        <div class="progress-header">
+                            <span class="progress-label">진행률</span>
+                            <span class="progress-percentage">0%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="study-technologies">
+                        <span class="tech-tag">study</span>
+                        <span class="tech-tag">learning</span>
+                        <span class="tech-tag">progress</span>
+                    </div>
+
+                    <div class="study-links">
+                        <a href="#" class="study-link">
+                            <i class="fas fa-plus"></i>
+                            첫 스터디 포스트 작성하기
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
+
+</section>
+
+<!-- 스터디 포스트 작성 가이드 -->
+<section class="study-guide-section">
+    <div class="guide-card">
+        <h3><i class="fas fa-lightbulb"></i> 스터디 포스트 작성 가이드</h3>
+        <p>스터디 진행 상황을 추적하려면 포스트에 다음과 같이 설정하세요:</p>
+        
+        <div class="guide-code">
+            <pre><code>---
+layout: post
+title: "스터디 포스트 제목"
+tags: [study, python, algorithm]  # study 태그 필수
+study_name: "Python 알고리즘"    # 스터디 그룹명
+study_status: "in-progress"      # completed, in-progress, planned
+study_description: "알고리즘 문제 해결 능력 향상을 위한 학습"
+study_github: "https://github.com/..."  # (선택사항)
+---</code></pre>
+        </div>
+        
+        <div class="guide-tips">
+            <h4>💡 팁</h4>
+            <ul>
+                <li><code>study_name</code>이 같은 포스트들은 하나의 스터디로 그룹화됩니다</li>
+                <li><code>study_status</code>를 "completed"로 설정하면 완료된 포스트로 계산됩니다</li>
+                <li>진행률은 완료된 포스트 수 / 전체 포스트 수로 자동 계산됩니다</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+    </main>
+</div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

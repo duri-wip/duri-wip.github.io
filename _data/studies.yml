@@ -1,0 +1,36 @@
+in_progress:
+  - title: "Apache Spark 완벽 가이드"
+    period: "2024.07.15 - 2024.09.30"
+    status: "in-progress"
+    progress: 65
+    description: "대용량 데이터 처리를 위한 Apache Spark 학습..."
+    technologies: ["Apache Spark", "Scala", "PySpark", "Big Data"]
+    links:
+      study_notes: "/study/spark-notes"
+      github: "https://github.com/duri-wip/spark-study"
+    icon: "play"
+
+completed:
+  - title: "Docker & Kubernetes 마스터클래스"
+    period: "2024.05.01 - 2024.07.10"
+    status: "completed"
+    progress: 100
+    description: "컨테이너화 기술의 기초부터 오케스트레이션까지..."
+    technologies: ["Docker", "Kubernetes", "DevOps", "Container"]
+    links:
+      certificate: "/certificates/docker-k8s"
+      project: "/projects/k8s-deployment"
+    icon: "check"
+
+planned:
+  - title: "MLOps 파이프라인 구축"
+    period: "2024.10.01 - 2024.12.31"
+    status: "planned"
+    progress: 0
+    description: "머신러닝 모델의 전체 라이프사이클 관리..."
+    technologies: ["MLflow", "Kubeflow", "MLOps", "CI/CD"]
+    links:
+      plan: "/study-plans/mlops"
+    icon: "calendar"
+
+all: [] # 위의 모든 스터디를 합친 리스트

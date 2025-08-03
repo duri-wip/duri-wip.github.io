@@ -1,7 +1,10 @@
 source "https://rubygems.org"
 
 gem "jekyll", "~> 4.3.0"
-gem "minima", "~> 2.5"
+
+# SASS 컴파일러 변경 (호환성 문제 해결)
+gem "sassc", "~> 2.0"
+gem "jekyll-sass-converter", "~> 2.0"
 
 group :jekyll_plugins do
   gem "jekyll-feed", "~> 0.12"

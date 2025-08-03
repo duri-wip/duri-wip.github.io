@@ -35,9 +35,5 @@ exclude:
   - Gemfile.lock
   - README.md
   - LICENSE
-
-# 컬렉션 설정 (옵션)
-collections:
-  projects:
-    output: true
-    permalink: /:collection/:name/
+  - vendor
+  - .bundle

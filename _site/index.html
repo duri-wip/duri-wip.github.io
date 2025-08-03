@@ -1,23 +1,111 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duri's Tech Blog</title>
+<meta name="description" content="데이터 엔지니어링과 머신러닝에 열정을 가진 개발자의 기술 블로그">
 
-<div class="layout-container">
-    {% include sidebar.html %}
-    {% include header.html %}
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Duri's Tech Blog">
+<meta property="og:description" content="데이터 엔지니어링과 머신러닝에 열정을 가진 개발자의 기술 블로그">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://0.0.0.0:4001/">
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="layout-container">
+    <aside class="sidebar">
+    
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.jpg" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">Data Engineer & ML Developer</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            <a href="https://linkedin.com/in/duri" class="social-link">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            
+            
+            <a href="mailto:duri@example.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+            <a href="https://twitter.com/duri_dev" class="social-link">
+                <i class="fab fa-twitter"></i>
+            </a>
+            
+        </div>
+    </div>
+
+    
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Categories</span>
+            <span class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">0</span>
+        </div>
+    </div>
+    
+</aside>
+    <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item active">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/categories/"><i class="fas fa-tags"></i> Categories</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/contact/"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+    </nav>
+</header>
     
     <main class="main-content">
         <!-- 배너 섹션 -->
         <section class="banner-section">
-            {% if site.banner_image %}
-                <img src="{{ site.banner_image }}" alt="Banner" class="banner-image">
+            
+                <img src="/assets/images/banner.jpg" alt="Banner" class="banner-image">
                 <div class="banner-overlay"></div>
-            {% else %}
-                <div class="banner-placeholder">
-                    <i class="fas fa-image"></i>
-                    <p>{{ site.banner_text | default: "귀여운 이미지를 넣어주세요 ✨" }}</p>
-                </div>
-            {% endif %}
+            
         </section>
 
         <!-- 스터디 현황 섹션 (새로 추가) -->
@@ -30,60 +118,18 @@ layout: default
                     </h2>
                     <p class="section-subtitle">진행중인 학습과 목표를 확인해보세요</p>
                 </div>
-                <a href="{{ '/study/' | relative_url }}" class="view-all-link">전체 보기</a>
+                <a href="/study/" class="view-all-link">전체 보기</a>
             </div>
 
             <div class="study-progress-cards">
-                {% comment %}
-                스터디 태그가 있는 포스트들을 그룹화해서 진행률 계산
-                {% endcomment %}
-                {% assign study_posts = site.posts | where_exp: "post", "post.tags contains 'study'" %}
-                {% assign study_groups = study_posts | group_by: 'study_name' %}
                 
-                {% for group in study_groups limit: 3 %}
-                {% assign total_posts = group.items.size %}
-                {% assign completed_posts = group.items | where: 'study_status', 'completed' | size %}
-                {% assign progress = completed_posts | times: 100.0 | divided_by: total_posts | round %}
                 
-                <div class="study-progress-card">
-                    <div class="study-card-header">
-                        <div class="study-info">
-                            <h3 class="study-name">{{ group.name | default: "일반 스터디" }}</h3>
-                            <div class="study-meta">
-                                <span class="study-count">{{ total_posts }}개 포스트</span>
-                                <span class="study-separator">•</span>
-                                <span class="study-recent">{{ group.items.first.date | date: "%Y.%m.%d" }}</span>
-                            </div>
-                        </div>
-                        <div class="study-percentage">{{ progress }}%</div>
-                    </div>
-                    
-                    <div class="study-progress-bar">
-                        <div class="study-progress-fill" style="width: {{ progress }}%"></div>
-                    </div>
-                    
-                    <div class="study-tags">
-                        {% assign unique_tags = group.items | map: 'tags' | join: ',' | split: ',' | uniq | sort %}
-                        {% for tag in unique_tags limit: 4 %}
-                        {% unless tag == 'study' %}
-                        <span class="study-tag">{{ tag | strip }}</span>
-                        {% endunless %}
-                        {% endfor %}
-                    </div>
-                    
-                    <div class="study-latest">
-                        <h4>최근 포스트</h4>
-                        <a href="{{ group.items.first.url }}" class="latest-post-link">
-                            {{ group.items.first.title | truncatewords: 8 }}
-                        </a>
-                    </div>
-                </div>
-                {% endfor %}
                 
-                {% comment %}
-                스터디 포스트가 없는 경우의 기본 카드들
-                {% endcomment %}
-                {% if study_groups.size == 0 %}
+                
+                
+                
+                
+                
                 <div class="study-progress-card">
                     <div class="study-card-header">
                         <div class="study-info">
@@ -179,7 +225,7 @@ layout: default
                         </span>
                     </div>
                 </div>
-                {% endif %}
+                
             </div>
         </section>
 
@@ -197,31 +243,8 @@ layout: default
             </div>
 
             <div class="posts-grid">
-                {% assign featured_posts = site.posts | where: "featured", true | limit: 3 %}
-                {% for post in featured_posts %}
-                <article class="post-card">
-                    <div class="featured-badge">Featured</div>
-                    <div class="post-meta">
-                        <span class="post-category">{{ post.category | default: "General" }}</span>
-                        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-                    </div>
-                    <h3 class="post-title">
-                        <a href="{{ post.url }}">{{ post.title }}</a>
-                    </h3>
-                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-                    <div class="post-footer">
-                        <span class="read-time">
-                            <i class="fas fa-clock"></i>
-                            {{ post.reading_time | default: "5분" }} 읽기
-                        </span>
-                        <div class="post-tags">
-                            {% for tag in post.tags limit: 3 %}
-                            <a href="/tags/{{ tag }}" class="tag">{{ tag }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </article>
-                {% endfor %}
+                
+                
             </div>
         </section>
 
@@ -248,31 +271,21 @@ layout: default
             </div>
 
             <div class="posts-grid">
-                {% assign recent_posts = site.posts | limit: 6 %}
-                {% for post in recent_posts %}
-                <article class="post-card">
-                    <div class="post-meta">
-                        <span class="post-category">{{ post.category | default: "General" }}</span>
-                        <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-                    </div>
-                    <h3 class="post-title">
-                        <a href="{{ post.url }}">{{ post.title }}</a>
-                    </h3>
-                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
-                    <div class="post-footer">
-                        <span class="read-time">
-                            <i class="fas fa-clock"></i>
-                            {{ post.reading_time | default: "5분" }} 읽기
-                        </span>
-                        <div class="post-tags">
-                            {% for tag in post.tags limit: 3 %}
-                            <a href="/tags/{{ tag }}" class="tag">{{ tag }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </article>
-                {% endfor %}
+                
+                
             </div>
         </section>
     </main>
 </div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

@@ -10,6 +10,9 @@
             <li class="nav-item {% if page.url contains '/categories' %}active{% endif %}">
                 <a href="{{ '/categories/' | relative_url }}"><i class="fas fa-tags"></i> Categories</a>
             </li>
+            <li class="nav-item {% if page.url contains '/study' %}active{% endif %}">
+                <a href="{{ '/study/' | relative_url }}"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
             <li class="nav-item {% if page.url contains '/contact' %}active{% endif %}">
                 <a href="{{ '/contact/' | relative_url }}"><i class="fas fa-envelope"></i> Contact</a>
             </li>
