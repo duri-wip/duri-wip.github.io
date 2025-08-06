@@ -1,0 +1,78 @@
+---
+layout: default
+---
+
+<div class="layout-container">
+    {% include sidebar.html %}
+    {% include header.html %}
+    
+    <main class="main-content">
+        <div class="archive-posts-layout">
+            <header class="page-header">
+                <h1 class="page-title">
+                    {% if page.type == 'category' %}
+                        {{ page.title | capitalize }} 포스트
+                    {% elsif page.type == 'tag' %}
+                        #{{ page.title }} 태그 포스트
+                    {% else %}
+                        {{ page.title }}
+                    {% endif %}
+                </h1>
+                <p class="page-description">
+                    {% if page.type == 'category' %}
+                        {{ page.title }} 관련 포스트들을 모아보았습니다.
+                    {% elsif page.type == 'tag' %}
+                        #{{ page.title }} 태그가 포함된 포스트들입니다.
+                    {% else %}
+                        {{ page.description | default: "아카이브된 포스트들입니다." }}
+                    {% endif %}
+                </p>
+            </header>
+    
+            <div class="posts-grid">
+                {% for post in page.posts %}
+                <article class="post-card">
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <time class="post-date">{{ post.date | date: "%Y.%m.%d" }}</time>
+                            {% if post.categories.size > 0 %}
+                                <div class="post-categories">
+                                    {% for category in post.categories %}
+                                        <span class="category-tag category-{{ category }}">{{ category }}</span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <h2 class="post-title">
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        </h2>
+                        
+                        {% if post.excerpt %}
+                            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                        {% endif %}
+                        
+                        {% if post.tags.size > 0 %}
+                            <div class="post-tags">
+                                {% for tag in post.tags limit: 3 %}
+                                    <span class="tag">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="post-footer">
+                            <a href="{{ post.url | relative_url }}" class="read-more">더 읽기 →</a>
+                        </div>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            
+            {% if page.posts.size == 0 %}
+                <div class="empty-state">
+                    <p>아직 포스트가 없습니다.</p>
+                </div>
+            {% endif %}
+        </div>
+    </main>
+</div> 

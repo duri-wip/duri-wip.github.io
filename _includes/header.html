@@ -1,17 +1,20 @@
 <header class="header">
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
     <nav>
         <ul class="nav-menu">
             <li class="nav-item {% if page.url == '/' %}active{% endif %}">
                 <a href="{{ '/' | relative_url }}"><i class="fas fa-home"></i> Home</a>
             </li>
-            <li class="nav-item {% if page.url contains '/projects' %}active{% endif %}">
-                <a href="{{ '/projects/' | relative_url }}"><i class="fas fa-folder"></i> Projects</a>
-            </li>
-            <li class="nav-item {% if page.url contains '/categories' %}active{% endif %}">
-                <a href="{{ '/categories/' | relative_url }}"><i class="fas fa-tags"></i> Categories</a>
+            <li class="nav-item {% if page.url contains '/topics' %}active{% endif %}">
+                <a href="{{ '/topics/' | relative_url }}"><i class="fas fa-tags"></i> Topics</a>
             </li>
             <li class="nav-item {% if page.url contains '/study' %}active{% endif %}">
                 <a href="{{ '/study/' | relative_url }}"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item {% if page.url contains '/projects' %}active{% endif %}">
+                <a href="{{ '/projects/' | relative_url }}"><i class="fas fa-folder"></i> Projects</a>
             </li>
             <li class="nav-item {% if page.url contains '/contact' %}active{% endif %}">
                 <a href="{{ '/contact/' | relative_url }}"><i class="fas fa-envelope"></i> Contact</a>

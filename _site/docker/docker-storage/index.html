@@ -1,0 +1,49 @@
+<h2 id="컨테이너-데이터를-보존하는-방법">컨테이너 데이터를 보존하는 방법</h2>
+
+<p>컨테이너 데이터는 컨테이너 레이어에 생성되므로 컨테이너 삭제시 함께 삭제된다.
+컨테이너의 데이터는 레이어에 생성되므로 여러개의 컨테이너가 데이터를 공유하도록 하는 방법이 없다.</p>
+
+<h3 id="해결하기">해결하기</h3>
+
+<ol>
+  <li>호스트 디렉토리에 데이터를 작성하고 컨테이너 디렉토리로 볼륨 마운트하기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>touch /webdata/index.html
+docker run --name web -d -v /webdata:/usr/share/nginx/html nginx
+</code></pre></div></div>
+
+<ul>
+  <li>-d : background mode</li>
+  <li>-v [host path here…]:[container mount path here…]</li>
+  <li>-v [host path here…]:[container mount path here…]:[읽기모드]</li>
+</ul>
+
+<ol>
+  <li>도커 볼륨을 활용하기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name db -v dbdata:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=pass mysql:8
+</code></pre></div></div>
+
+<ul>
+  <li>mysql 8버전의 이미지를 패스워드 = pass 옵션으로 실행한다</li>
+  <li>이름은 db고</li>
+  <li>볼륨은 /dbdata의 이름으로 생성해서 저장한다.</li>
+  <li>그러면 컨테이너 안에서 /var/lib/mysql에 생성되는 db 가 컨테이너가 삭제되어도 호스트에 /var/lib/docker/volumes/dbdata/_data경로 안에 저장된다</li>
+</ul>
+
+<h3 id="도커-볼륨-관리하기">도커 볼륨 관리하기</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker volume ls
+docker volume create webdata
+docker volume rm webdata
+docker volume prune
+</code></pre></div></div>
+
+<ul>
+  <li>볼륨 목록 확인하기</li>
+  <li>볼륨 생성하기</li>
+  <li>볼륨 삭제하기</li>
+  <li>사용하지 않는 모든 스토리지 공간 삭제하기</li>
+</ul>

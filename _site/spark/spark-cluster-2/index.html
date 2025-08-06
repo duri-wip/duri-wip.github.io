@@ -1,0 +1,27 @@
+<h2 id="1-로컬-환경-구축">1. 로컬 환경 구축</h2>
+<h3 id="1-pyenv-설치">1. pyenv 설치</h3>
+
+<p><a href="https://github.com/duri-wip/QuickStartKit/blob/main/pyenv.md">설치하기</a></p>
+
+<p>3.11.9를 설치해준다.</p>
+
+<h3 id="2-java-설치">2. java 설치</h3>
+<p><a href="https://github.com/duri-wip/QuickStartKit/blob/main/java.md">설치하기</a></p>
+
+<p>스파크 버전에 맞는 자바를 설치해야하는 것에 주의하자. 
+나는 스파크 3.5.1을 사용할 것이므로 충돌하지 않는다고 알려진 자바 11버전 headless를 설치한다.(용량문제)</p>
+
+<h3 id="3-spark-설치">3. spark 설치</h3>
+<p><a href="https://github.com/duri-wip/QuickStartKit/blob/main/spark.md">설치하기</a></p>
+
+<h3 id="4-jupyter-lab-설치">4. jupyter lab 설치</h3>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">pip</span> <span class="n">install</span> <span class="n">jupyterlab</span>
+</code></pre></div></div>
+<h4 id="실행">실행</h4>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>jupyter lab <span class="nt">--ip</span><span class="o">=</span>0.0.0.0 <span class="nt">--port</span><span class="o">=</span>8888 <span class="nt">--no-browser</span>
+</code></pre></div></div>
+<hr />
+
+<p>설정완료!</p>
+
+<p><img src="/assets/images/post_img/jupyter.png" alt="" /></p>

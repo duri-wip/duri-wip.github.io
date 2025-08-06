@@ -9,7 +9,15 @@ layout: default
         <!-- 포스트 헤더 -->
         <header class="post-header">
             <div class="post-meta">
-                <span class="post-category">{{ page.category | default: "General" }}</span>
+                <span class="post-category">
+                    {% if page.categories.first %}
+                        {{ page.categories.first }}
+                    {% elsif page.category %}
+                        {{ page.category }}
+                    {% else %}
+                        General
+                    {% endif %}
+                </span>
                 <span>•</span>
                 <span>{{ page.date | date: "%Y년 %m월 %d일" }}</span>
                 <span>•</span>

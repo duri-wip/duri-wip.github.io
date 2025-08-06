@@ -1,0 +1,81 @@
+---
+layout: default
+---
+
+<div class="layout-container">
+    {% include sidebar.html %}
+    {% include header.html %}
+    
+    <main class="main-content">
+        <div class="projects-layout">
+            <header class="page-header">
+                <h1 class="page-title">{{ page.title | default: "프로젝트" }}</h1>
+                <p class="page-description">
+                    {{ page.description | default: "데이터 엔지니어링과 머신러닝 프로젝트들을 소개합니다." }}
+                </p>
+            </header>
+
+    <div class="projects-grid">
+        {% if page.feature_row %}
+            {% for project in page.feature_row %}
+                <article class="project-card">
+                    <div class="project-image">
+                        {% if project.image_path %}
+                            <img src="{{ project.image_path | relative_url }}" alt="{{ project.title }}">
+                        {% endif %}
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            {% if project.url %}
+                                <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+                            {% else %}
+                                {{ project.title }}
+                            {% endif %}
+                        </h3>
+                        
+                        {% if project.excerpt %}
+                            <p class="project-excerpt">{{ project.excerpt }}</p>
+                        {% endif %}
+                        
+                        {% if project.technologies %}
+                            <div class="project-tech">
+                                {% for tech in project.technologies %}
+                                    <span class="tech-tag">{{ tech }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </article>
+            {% endfor %}
+        {% endif %}
+
+        {% for project in site.projects %}
+            <article class="project-card">
+                <div class="project-content">
+                    <h3 class="project-title">
+                        <a href="{{ project.url | relative_url }}">{{ project.title }}</a>
+                    </h3>
+                    
+                    {% if project.description %}
+                        <p class="project-excerpt">{{ project.description }}</p>
+                    {% endif %}
+                    
+                    {% if project.technologies %}
+                        <div class="project-tech">
+                            {% for tech in project.technologies %}
+                                <span class="tech-tag">{{ tech }}</span>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    
+                    {% if project.date %}
+                        <time class="project-date">{{ project.date | date: "%Y.%m" }}</time>
+                    {% endif %}
+                </div>
+            </article>
+        {% endfor %}
+        </div>
+        </div>
+    </main>
+</div>

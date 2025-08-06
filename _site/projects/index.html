@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>프로젝트 - Duri's Work In Progress</title>
+<meta name="description" content="">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="프로젝트">
+<meta property="og:description" content="">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://0.0.0.0:4001/projects/">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="layout-container">
+    <aside class="sidebar">
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.png" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            
+            <a href="mailto:8s.eow.ooc@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+        </div>
+    </div>
+    <!-- 메인 페이지용 통계 -->
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">71</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Topics</span>
+            <span class="stat-value">11</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">41</span>
+        </div>
+    </div>
+</aside>
+    <header class="header">
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item ">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/topics/"><i class="fas fa-tags"></i> Topics</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item active">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/contact/"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+    
+    <main class="main-content">
+        <div class="projects-layout">
+            <header class="page-header">
+                <h1 class="page-title">프로젝트</h1>
+                <p class="page-description">
+                    데이터 엔지니어링과 머신러닝 프로젝트들을 소개합니다.
+                </p>
+            </header>
+
+    <div class="projects-grid">
+        
+            
+                <article class="project-card">
+                    <div class="project-image">
+                        
+                            <img src="/assets/images/project_img/yeardream/flatfix.png" alt="🛞 이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처">
+                        
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            
+                                <a href="/projects/flatfix/">🛞 이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처</a>
+                            
+                        </h3>
+                        
+                        
+                            <p class="project-excerpt">flatfix - 타이어 손상 분류를 위한 MLOps 파이프라인</p>
+                        
+                        
+                        
+                            <div class="project-tech">
+                                
+                                    <span class="tech-tag">Python</span>
+                                
+                                    <span class="tech-tag">MLflow</span>
+                                
+                                    <span class="tech-tag">Docker</span>
+                                
+                                    <span class="tech-tag">AWS</span>
+                                
+                                    <span class="tech-tag">FastAPI</span>
+                                
+                            </div>
+                        
+                    </div>
+                </article>
+            
+                <article class="project-card">
+                    <div class="project-image">
+                        
+                            <img src="/assets/images/project_img/yeardream/plytube.png" alt="🎶 자연어 처리 및 LSTM 모델을 바탕으로 플레이리스트 추천하기">
+                        
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            
+                                <a href="/projects/plytube/">🎶 자연어 처리 및 LSTM 모델을 바탕으로 플레이리스트 추천하기</a>
+                            
+                        </h3>
+                        
+                        
+                            <p class="project-excerpt">plytube - 음악 취향 분석을 통한 개인화된 플레이리스트 추천 시스템</p>
+                        
+                        
+                        
+                            <div class="project-tech">
+                                
+                                    <span class="tech-tag">Python</span>
+                                
+                                    <span class="tech-tag">LSTM</span>
+                                
+                                    <span class="tech-tag">NLP</span>
+                                
+                                    <span class="tech-tag">Airflow</span>
+                                
+                                    <span class="tech-tag">PostgreSQL</span>
+                                
+                            </div>
+                        
+                    </div>
+                </article>
+            
+                <article class="project-card">
+                    <div class="project-image">
+                        
+                            <img src="/assets/images/project_img/yeardream/v2x.png" alt="🧑🏻‍🏭 실시간 데이터 파이프라인 구축 프로젝트">
+                        
+                    </div>
+                    
+                    <div class="project-content">
+                        <h3 class="project-title">
+                            
+                                <a href="/projects/v2x/">🧑🏻‍🏭 실시간 데이터 파이프라인 구축 프로젝트</a>
+                            
+                        </h3>
+                        
+                        
+                            <p class="project-excerpt">v2x - 차량-인프라 간 통신 데이터 실시간 처리 시스템</p>
+                        
+                        
+                        
+                            <div class="project-tech">
+                                
+                                    <span class="tech-tag">Spark</span>
+                                
+                                    <span class="tech-tag">Kafka</span>
+                                
+                                    <span class="tech-tag">Docker</span>
+                                
+                                    <span class="tech-tag">Monitoring</span>
+                                
+                                    <span class="tech-tag">Real-time</span>
+                                
+                            </div>
+                        
+                    </div>
+                </article>
+            
+        
+
+        
+        </div>
+        </div>
+    </main>
+</div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<h2 id="문제">문제</h2>
+
+<p>image와 flood가 시작될 근원지의 r,c그리고 어떤 색으로 칠해져야 하는지에 대한 color가 주어진다.
+인접한 동서남북 방향으로 그림을 채울 수 있으며, 근원지와 동일한 색을 가진 픽셀들만 새로운 색으로 칠해진다.</p>
+
+<h2 id="풀이">풀이</h2>
+<p>기본 적인 bfs로 풀었다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">floodFill</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">image</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]],</span> <span class="n">sr</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">sc</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">color</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+        <span class="n">colored_img</span> <span class="o">=</span> <span class="n">image</span>
+        <span class="n">nrow</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+        <span class="n">ncol</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">image</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">visited</span> <span class="o">=</span> <span class="p">[[</span><span class="bp">False</span><span class="p">]</span><span class="o">*</span><span class="n">ncol</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">nrow</span><span class="p">)]</span>
+        <span class="n">org_color</span> <span class="o">=</span> <span class="n">image</span><span class="p">[</span><span class="n">sr</span><span class="p">][</span><span class="n">sc</span><span class="p">]</span>
+        
+        <span class="n">dr</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">dc</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">queue</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">()</span>
+        <span class="n">queue</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">sr</span><span class="p">,</span><span class="n">sc</span><span class="p">))</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">sr</span><span class="p">][</span><span class="n">sc</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="n">colored_img</span><span class="p">[</span><span class="n">sr</span><span class="p">][</span><span class="n">sc</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
+
+
+        <span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">):</span>
+            <span class="k">if</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">r</span><span class="o">&lt;</span><span class="n">nrow</span> <span class="ow">and</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">c</span><span class="o">&lt;</span><span class="n">ncol</span> <span class="ow">and</span> <span class="n">image</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">==</span> <span class="n">org_color</span> <span class="p">:</span>
+                <span class="k">return</span> <span class="bp">True</span>
+            <span class="k">else</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
+
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">cur_r</span><span class="p">,</span> <span class="n">cur_c</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>  
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>  
+                <span class="n">next_r</span> <span class="o">=</span> <span class="n">cur_r</span> <span class="o">+</span> <span class="n">dr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  
+                <span class="n">next_c</span> <span class="o">=</span> <span class="n">cur_c</span> <span class="o">+</span> <span class="n">dc</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>  
+                <span class="k">if</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">next_r</span><span class="p">,</span> <span class="n">next_c</span><span class="p">):</span> 
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">next_r</span><span class="p">][</span><span class="n">next_c</span><span class="p">]:</span> 
+                        <span class="n">queue</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">next_r</span><span class="p">,</span> <span class="n">next_c</span><span class="p">))</span>  
+                        <span class="n">visited</span><span class="p">[</span><span class="n">next_r</span><span class="p">][</span><span class="n">next_c</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+                        <span class="n">colored_img</span><span class="p">[</span><span class="n">next_r</span><span class="p">][</span><span class="n">next_c</span><span class="p">]</span> <span class="o">=</span> <span class="n">color</span>
+        <span class="k">return</span> <span class="n">colored_img</span>
+</code></pre></div></div>

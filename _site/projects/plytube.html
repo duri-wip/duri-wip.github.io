@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube - Duri's Work In Progress</title>
+<meta name="description" content="YouTube API를 활용한 플레이리스트 추천 서비스입니다. LSTM 모델과 MLOps 파이프라인을 구축하여 키워드만으로 플레이리스트를 추천합니다.">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube">
+<meta property="og:description" content="YouTube API를 활용한 플레이리스트 추천 서비스입니다. LSTM 모델과 MLOps 파이프라인을 구축하여 키워드만으로 플레이리스트를 추천합니다.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://0.0.0.0:4001/projects/plytube">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="post-layout">
+    <aside class="sidebar">
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.png" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            
+            <a href="mailto:8s.eow.ooc@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+        </div>
+    </div>
+    <!-- 메인 페이지용 통계 -->
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">71</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Topics</span>
+            <span class="stat-value">11</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">41</span>
+        </div>
+    </div>
+</aside>
+    
+    <main class="main-content">
+        <!-- 포스트 헤더 -->
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="post-category">
+                    
+                        projects
+                    
+                </span>
+                <span>•</span>
+                <span>2024년 09월 19일</span>
+                <span>•</span>
+                <span>5분 읽기</span>
+            </div>
+            
+            <h1 class="post-title">자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube</h1>
+            
+            
+            
+            <div class="post-info">
+                <div class="author-info">
+                    <img src="/assets/images/avatar.png" alt="Duri" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">Duri</span>
+                        <span class="post-date">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</span>
+                    </div>
+                </div>
+                
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>0 views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>0 likes</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/plytube" class="tag">plytube</a>
+                
+                <a href="/tags/lstm" class="tag">lstm</a>
+                
+                <a href="/tags/youtube-api" class="tag">youtube-api</a>
+                
+                <a href="/tags/airflow" class="tag">airflow</a>
+                
+                <a href="/tags/mlflow" class="tag">mlflow</a>
+                
+            </div>
+            
+        </header>
+
+        <!-- 포스트 콘텐츠 -->
+        <article class="post-content">
+            <h1 id="about">About</h1>
+
+<h2 id="프로젝트-개요">프로젝트 개요</h2>
+
+<ul>
+  <li>플레이리스트 영상 관련 채널의 정보를 수집하여 키워드만으로 플레이리스트 추천 서비스 구축</li>
+</ul>
+
+<h2 id="프로젝트-규모-및-일정">프로젝트 규모 및 일정</h2>
+
+<ul>
+  <li>팀원 : 2명</li>
+  <li>기간 : 08.12 ~ 09.19</li>
+</ul>
+
+<h2 id="역할">역할</h2>
+
+<p>• Youtube API를 활용한 Airflow dag를 구성하여 영상정보 수집 및 파싱
+• 플레이리스트 예측 모델링 및 모델 메트릭 수집, 버전 관리 및 CI 시스템 구축
+• 모델 서빙 및 CD 시스템 구축
+• 예측 서비스를 위한 백엔드 구축</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p><img src="/assets/images/project_img/yeardream/plytube_architecture.png" alt="plytube_architecture" width="100%" /></p>
+
+<h3 id="개요">개요</h3>
+
+<h4 id="1-youtube-데이터-수집-및-s3-postgresql에-저장">1. YouTube 데이터 수집 및 S3, PostgreSQL에 저장</h4>
+
+<ul>
+  <li>Airflow dag를 구성해 ‘playlist, 플리, 플레이리스트’ 키워드를 포함한 채널과 각 채널의 영상 정보를 수집.</li>
+  <li>댓글을 통해 노래정보 파싱해서 json으로 구성해 s3에 저장. 이 파일은 DVC로 버전 관리.</li>
+  <li>채널 및 영상정보는 SQLAlchemy로 PostgreSQL에 저장.</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/plytube_airflow_postgres.gif" alt="airflow to postgres" width="100%" /></p>
+
+<h4 id="2-모델-학습-트리거-및-성능-관리">2. 모델 학습 트리거 및 성능 관리</h4>
+
+<ul>
+  <li>LSTM 모델로 시계열 기반의 플레이리스트를 예측.</li>
+  <li>새로운 데이터셋은 DVC push를 통해 모델 서버에 트리거 되며, 모델 서버는 DVC pull을 받아 새로운 학습 진행.</li>
+  <li>MLflow를 이용해 학습 매개변수와 메트릭을 기록.</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/plytube_github_action.gif" alt="workflow" width="100%" /></p>
+
+<h4 id="3-lstm-모델-및-추론-서버-운영">3. LSTM 모델 및 추론 서버 운영</h4>
+
+<ul>
+  <li>자동화 파이프라인을 통해 새로운 학습 모델의 성능이 기존 모델보다 좋으면 운영 모델로 교체.</li>
+  <li>사용자가 선택한 값을 모델 구조에 맞게 전처리하고 추론한 예측값을 백엔드 서버에 반환</li>
+</ul>
+
+<h4 id="4-서비스-운영">4. 서비스 운영</h4>
+
+<ul>
+  <li>예측 시 프론트에서 받은 ‘노래’ 또는 ‘가수’ 값을 DB에 저장된 ‘노래-가수’ 또는 ‘가수-노래’ 형식과 매칭하여 이를 모델에 입력값으로 제공.</li>
+  <li>모델은 리스트 형태의 입력과 출력을 처리하되, 예측 시에는 단일 값을 받아 리스트로 반환.</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/plytube_web.gif" alt="web" width="100%" /></p>
+
+        </article>
+
+        <!-- 포스트 하단 -->
+        <footer class="post-footer">
+            <div class="post-actions">
+                <div class="like-share">
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-heart"></i>
+                        좋아요
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-share"></i>
+                        공유
+                    </a>
+                </div>
+            </div>
+
+            <!-- 관련 포스트 -->
+            
+            
+            <div class="related-posts">
+                <h3 class="related-title">
+                    <i class="fas fa-bookmark"></i>
+                    관련 포스트
+                </h3>
+                <div class="related-grid">
+                    
+                    <a href="/algorithm/road" class="related-card">
+                        <h4 class="related-card-title">배달</h4>
+                        <p class="related-card-excerpt">다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-10</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/racing_road" class="related-card">
+                        <h4 class="related-card-title">경주로 건설</h4>
+                        <p class="related-card-excerpt">다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-10</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/max_explode" class="related-card">
+                        <h4 class="related-card-title">최대 폭탄 터뜨리기</h4>
+                        <p class="related-card-excerpt">bfs</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-10</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/fastapi/basic/" class="related-card">
+                        <h4 class="related-card-title">FastAPI 기초: ASGI와 URL 이해하기</h4>
+                        <p class="related-card-excerpt">FastAPI의 기본 개념과 ASGI, URL 구조에 대해 알아본다</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-05-06</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/fastapi/request/" class="related-card">
+                        <h4 class="related-card-title">FastAPI 기초: 요청과 응답 처리</h4>
+                        <p class="related-card-excerpt">FastAPI에서 HTTP 요청과 응답을 처리하는 방법에 대해 알아본다</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-05-06</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/googleDEcerti/IAM/" class="related-card">
+                        <h4 class="related-card-title">구글 클라우드 서비스에서 IAM</h4>
+                        <p class="related-card-excerpt">Google DE Certificate</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-04-13</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/googleDEcerti/Dataflow/" class="related-card">
+                        <h4 class="related-card-title">DataFlow의 핵심 기능 및 활용</h4>
+                        <p class="related-card-excerpt">Google DE Certificate</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-04-13</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/googleDEcerti/Bigtable/" class="related-card">
+                        <h4 class="related-card-title">Bigtable의 기능, 역할 및 최적화</h4>
+                        <p class="related-card-excerpt">Google DE Certificate</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-04-13</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/rotate-matrix" class="related-card">
+                        <h4 class="related-card-title">행렬 테두리 회전하기</h4>
+                        <p class="related-card-excerpt">Programmers level 2</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2024-11-08</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/jaden-case" class="related-card">
+                        <h4 class="related-card-title">Jaden Case</h4>
+                        <p class="related-card-excerpt">Programmers level 2</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2024-11-08</span>
+                        </div>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </footer>
+    </main>
+
+    <!-- TOC -->
+    <aside class="toc-sidebar">
+        <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            목차
+        </h3>
+        <div id="toc"></div>
+    </aside>
+</div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,2299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Duri's Work In Progress</title>
+<meta name="description" content="열심히 배우고 있습니다.">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Duri's Work In Progress">
+<meta property="og:description" content="열심히 배우고 있습니다.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://0.0.0.0:4001/page4/">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="layout-container">
+    <aside class="sidebar">
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.png" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            
+            <a href="mailto:8s.eow.ooc@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+        </div>
+    </div>
+    <!-- 메인 페이지용 통계 -->
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">71</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Topics</span>
+            <span class="stat-value">11</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">41</span>
+        </div>
+    </div>
+</aside>
+    <header class="header">
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item ">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/topics/"><i class="fas fa-tags"></i> Topics</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/contact/"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+    
+    <main class="main-content">
+        <!-- 배너 섹션 -->
+        <section class="banner-section">
+            
+                <img src="/assets/images/banner.jpg" alt="Banner" class="banner-image">
+                <div class="banner-overlay"></div>
+            
+        </section>
+
+        <!-- 스터디 현황 섹션 (새로 추가) -->
+        <section class="section study-overview">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        현재 스터디 현황
+                    </h2>
+                    <p class="section-subtitle">진행중인 학습과 목표를 확인해보세요</p>
+                </div>
+                <a href="/study/" class="view-all-link">전체 보기</a>
+            </div>
+
+            <div class="study-progress-cards">
+                
+                
+                
+                
+                
+                
+                
+                
+                <div class="study-progress-card">
+                    <div class="study-card-header">
+                        <div class="study-info">
+                            <h3 class="study-name">Apache Spark 완벽 가이드</h3>
+                            <div class="study-meta">
+                                <span class="study-count">8개 포스트</span>
+                                <span class="study-separator">•</span>
+                                <span class="study-recent">2024.07.15</span>
+                            </div>
+                        </div>
+                        <div class="study-percentage">65%</div>
+                    </div>
+                    
+                    <div class="study-progress-bar">
+                        <div class="study-progress-fill" style="width: 65%"></div>
+                    </div>
+                    
+                    <div class="study-tags">
+                        <span class="study-tag">spark</span>
+                        <span class="study-tag">big-data</span>
+                        <span class="study-tag">scala</span>
+                        <span class="study-tag">pyspark</span>
+                    </div>
+                    
+                    <div class="study-latest">
+                        <h4>최근 포스트</h4>
+                        <a href="#" class="latest-post-link">
+                            Spark DataFrame 최적화 전략
+                        </a>
+                    </div>
+                </div>
+
+                <div class="study-progress-card">
+                    <div class="study-card-header">
+                        <div class="study-info">
+                            <h3 class="study-name">알고리즘 문제해결</h3>
+                            <div class="study-meta">
+                                <span class="study-count">15개 포스트</span>
+                                <span class="study-separator">•</span>
+                                <span class="study-recent">2024.08.01</span>
+                            </div>
+                        </div>
+                        <div class="study-percentage">42%</div>
+                    </div>
+                    
+                    <div class="study-progress-bar">
+                        <div class="study-progress-fill" style="width: 42%"></div>
+                    </div>
+                    
+                    <div class="study-tags">
+                        <span class="study-tag">algorithm</span>
+                        <span class="study-tag">python</span>
+                        <span class="study-tag">data-structure</span>
+                        <span class="study-tag">coding-test</span>
+                    </div>
+                    
+                    <div class="study-latest">
+                        <h4>최근 포스트</h4>
+                        <a href="#" class="latest-post-link">
+                            동적 계획법으로 최적화 문제 해결하기
+                        </a>
+                    </div>
+                </div>
+
+                <div class="study-progress-card">
+                    <div class="study-card-header">
+                        <div class="study-info">
+                            <h3 class="study-name">MLOps 파이프라인</h3>
+                            <div class="study-meta">
+                                <span class="study-count">3개 포스트</span>
+                                <span class="study-separator">•</span>
+                                <span class="study-recent">예정</span>
+                            </div>
+                        </div>
+                        <div class="study-percentage">0%</div>
+                    </div>
+                    
+                    <div class="study-progress-bar">
+                        <div class="study-progress-fill planned" style="width: 0%"></div>
+                    </div>
+                    
+                    <div class="study-tags">
+                        <span class="study-tag">mlops</span>
+                        <span class="study-tag">mlflow</span>
+                        <span class="study-tag">kubeflow</span>
+                        <span class="study-tag">ci-cd</span>
+                    </div>
+                    
+                    <div class="study-latest">
+                        <h4>계획</h4>
+                        <span class="latest-post-link planned">
+                            10월부터 시작 예정
+                        </span>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+
+        <!-- 즐겨찾기 포스트 섹션 -->
+        <section class="section featured-section featured-posts">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-star"></i>
+                        즐겨찾기 포스트
+                    </h2>
+                    <p class="section-subtitle">특별히 추천하는 글들을 모아봤어요</p>
+                </div>
+                <a href="/featured/" class="view-all-link">전체 보기</a>
+            </div>
+
+            <div class="posts-grid">
+                
+                
+                <article class="post-card">
+                    <div class="featured-badge">Featured</div>
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                projects
+                            
+                        </span>
+                        <span>2024-10-15</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/projects/flatfix">이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처 : flatfix</a>
+                    </h3>
+                    <p class="post-excerpt">타이어 결함 검출을 위한 이미지 분류 모델과 MLOps 파이프라인을 구축한 프로젝트입니다. 자동화된 모델 학습과 배포 시스템을 구현했습니다.</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/flatfix" class="tag">flatfix</a>
+                            
+                            <a href="/tags/mlops" class="tag">mlops</a>
+                            
+                            <a href="/tags/image-classification" class="tag">image-classification</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="featured-badge">Featured</div>
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                projects
+                            
+                        </span>
+                        <span>2024-09-19</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/projects/plytube">자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube</a>
+                    </h3>
+                    <p class="post-excerpt">YouTube API를 활용한 플레이리스트 추천 서비스입니다. LSTM 모델과 MLOps 파이프라인을 구축하여 키워드만으로 플레이리스트를 추천합니다.</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/plytube" class="tag">plytube</a>
+                            
+                            <a href="/tags/lstm" class="tag">lstm</a>
+                            
+                            <a href="/tags/youtube-api" class="tag">youtube-api</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="featured-badge">Featured</div>
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                projects
+                            
+                        </span>
+                        <span>2024-08-06</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/projects/v2x">실시간 대용량 데이터 파이프라인 구축 : V2X 프로젝트</a>
+                    </h3>
+                    <p class="post-excerpt">실시간 대용량 데이터를 처리하는 파이프라인을 구축한 프로젝트입니다. Airflow, Kafka, Spark, Hadoop을 활용하여 데이터 레이크 기반 분석 환경을 제공합니다.</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/v2x" class="tag">v2x</a>
+                            
+                            <a href="/tags/spark" class="tag">spark</a>
+                            
+                            <a href="/tags/kafka" class="tag">kafka</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+            </div>
+        </section>
+
+        <!-- 섹션 구분선 -->
+        <div class="section-divider">
+            <div class="section-divider-content">
+                <i class="fas fa-chevron-down"></i>
+                <span>다른 포스트들도 확인해보세요</span>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- 최근 포스트 섹션 -->
+        <section class="section recent-section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">
+                        <i class="fas fa-clock"></i>
+                        최근 포스트
+                    </h2>
+                    <p class="section-subtitle">새로 업데이트된 글들을 확인해보세요</p>
+                </div>
+                <a href="/archive/" class="view-all-link">전체 보기</a>
+            </div>
+
+            <div class="posts-grid">
+                
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2025-07-10</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/road">배달</a>
+                    </h3>
+                    <p class="post-excerpt">다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2025-07-10</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/racing_road">경주로 건설</a>
+                    </h3>
+                    <p class="post-excerpt">다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2025-07-10</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/max_explode">최대 폭탄 터뜨리기</a>
+                    </h3>
+                    <p class="post-excerpt">bfs</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                fastapi
+                            
+                        </span>
+                        <span>2025-05-06</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/fastapi/basic/">FastAPI 기초: ASGI와 URL 이해하기</a>
+                    </h3>
+                    <p class="post-excerpt">FastAPI의 기본 개념과 ASGI, URL 구조에 대해 알아본다</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/fastapi" class="tag">fastapi</a>
+                            
+                            <a href="/tags/asgi" class="tag">asgi</a>
+                            
+                            <a href="/tags/url" class="tag">url</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                fastapi
+                            
+                        </span>
+                        <span>2025-05-06</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/fastapi/request/">FastAPI 기초: 요청과 응답 처리</a>
+                    </h3>
+                    <p class="post-excerpt">FastAPI에서 HTTP 요청과 응답을 처리하는 방법에 대해 알아본다</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/fastapi" class="tag">fastapi</a>
+                            
+                            <a href="/tags/request" class="tag">request</a>
+                            
+                            <a href="/tags/response" class="tag">response</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                googleDEcerti
+                            
+                        </span>
+                        <span>2025-04-13</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/googleDEcerti/IAM/">구글 클라우드 서비스에서 IAM</a>
+                    </h3>
+                    <p class="post-excerpt">Google DE Certificate</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/googleDEcerti" class="tag">googleDEcerti</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                googleDEcerti
+                            
+                        </span>
+                        <span>2025-04-13</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/googleDEcerti/Dataflow/">DataFlow의 핵심 기능 및 활용</a>
+                    </h3>
+                    <p class="post-excerpt">Google DE Certificate</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/googleDEcerti" class="tag">googleDEcerti</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                googleDEcerti
+                            
+                        </span>
+                        <span>2025-04-13</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/googleDEcerti/Bigtable/">Bigtable의 기능, 역할 및 최적화</a>
+                    </h3>
+                    <p class="post-excerpt">Google DE Certificate</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/googleDEcerti" class="tag">googleDEcerti</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-08</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/rotate-matrix">행렬 테두리 회전하기</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-08</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/jaden-case">Jaden Case</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-07</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/working-late">야근지수</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-07</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/triangle">삼각달팽이</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-07</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/count-path">등굣길</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-07</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/max-sum">거쳐간 숫자의 합이 가장 큰 경우</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-06</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/least-common-multiple">n개의 최소공배수</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-04</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/find-original">튜플보고 원래의 집합 추론하기</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-11-04</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/larger-bit-under-two">2개 이하로 다른 비트</a>
+                    </h3>
+                    <p class="post-excerpt">Programmers level 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-28</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/spark-cluster-3/">Spark 클러스터 구축하기3</a>
+                    </h3>
+                    <p class="post-excerpt">로컬에 설치하고 클러스터 구성하기</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-28</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/ransome-note">ransome note 구성하기</a>
+                    </h3>
+                    <p class="post-excerpt">Grind 75 : Week 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-25</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/spark-cluster-2/">Spark 클러스터 구축하기2</a>
+                    </h3>
+                    <p class="post-excerpt">로컬에 설치하고 jupyter 붙이기</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-25</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/spark-cluster/">Spark 클러스터 구축하기</a>
+                    </h3>
+                    <p class="post-excerpt">GCP를 활용하여</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-25</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/first-bad-version">첫번째 bad version 찾기</a>
+                    </h3>
+                    <p class="post-excerpt">Grind 75 : Week 2</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-25</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/merge-sorted-array">정렬된 배열에 대한 merge</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-24</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/implementing-queue-using-stack">스택을 사용해서 queue 실행하기</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-24</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/merge-two-sorted">두 정렬된 리스트 병합</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-24</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/invert-binary-tree">이진트리 뒤집기</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-24</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/flood-fill">flood fill : graph</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-23</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/binary-search">이진탐색</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2024-10-22</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/sql-function/">Sql Function</a>
+                    </h3>
+                    <p class="post-excerpt">tcl
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-22</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/spark-rdd-lazy-exec/">Spark의 핵심</a>
+                    </h3>
+                    <p class="post-excerpt">RDD와 Lazy execution</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-22</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/anagram">Valid Anagram</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-22</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/palindrome">Valid Palindrome</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-21</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/real-time-spark/">실시간 데이터 처리와 Spark</a>
+                    </h3>
+                    <p class="post-excerpt">실시간 데이터 처리 아키텍처에서 spark를 사용하는 이유</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-21</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/application-spark/">Spark 애플리케이션</a>
+                    </h3>
+                    <p class="post-excerpt">애플리케이션의 구조와 실행하기</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2024-10-21</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/kafka-classnote/">Kafka Classnote</a>
+                    </h3>
+                    <p class="post-excerpt">카프카의 브로커와 파티션, ack 설정
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-10-21</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/buy-and-sell">Best time to buy and sell stock</a>
+                    </h3>
+                    <p class="post-excerpt">Grind75 :   week 1</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-16</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/selecting-resource-manager/">spark cluster의 리소스 매니저</a>
+                    </h3>
+                    <p class="post-excerpt">리소스 매니저를 선택하는 방법</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                            <a href="/tags/Resource Manager" class="tag">Resource Manager</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                spark
+                            
+                        </span>
+                        <span>2024-10-16</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/spark/cluster-HA/">spark cluster의 고가용성 구성방식</a>
+                    </h3>
+                    <p class="post-excerpt">클러스터의 신뢰성과 안정성 보장하기</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Spark" class="tag">Spark</a>
+                            
+                            <a href="/tags/Cluster" class="tag">Cluster</a>
+                            
+                            <a href="/tags/HA" class="tag">HA</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                projects
+                            
+                        </span>
+                        <span>2024-10-15</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/projects/flatfix">이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처 : flatfix</a>
+                    </h3>
+                    <p class="post-excerpt">타이어 결함 검출을 위한 이미지 분류 모델과 MLOps 파이프라인을 구축한 프로젝트입니다. 자동화된 모델 학습과 배포 시스템을 구현했습니다.</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/flatfix" class="tag">flatfix</a>
+                            
+                            <a href="/tags/mlops" class="tag">mlops</a>
+                            
+                            <a href="/tags/image-classification" class="tag">image-classification</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                mlops
+                            
+                        </span>
+                        <span>2024-10-11</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/mlops/feature-store">MLOps Lv 2 아키텍처에서의 피처스토어</a>
+                    </h3>
+                    <p class="post-excerpt">피처스토어의 역할과 이미지 데이터에 대한 피처스토어 선택</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/mlops" class="tag">mlops</a>
+                            
+                            <a href="/tags/mlflow" class="tag">mlflow</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                database
+                            
+                        </span>
+                        <span>2024-10-11</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/database/hearbeat-solution/">HA 패턴 중 하트비트 기반 솔루션, pacemaker</a>
+                    </h3>
+                    <p class="post-excerpt">Hearbeat solution in database HA</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Database" class="tag">Database</a>
+                            
+                            <a href="/tags/HA" class="tag">HA</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                database
+                            
+                        </span>
+                        <span>2024-10-11</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/database/HApatterns/">데이터베이스의 고가용성 패턴</a>
+                    </h3>
+                    <p class="post-excerpt">HA patterns of Database</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Database" class="tag">Database</a>
+                            
+                            <a href="/tags/HA" class="tag">HA</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                database
+                            
+                        </span>
+                        <span>2024-10-10</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/database/database-and-storage/">데이터베이스와 스토리지</a>
+                    </h3>
+                    <p class="post-excerpt">Database and Storage</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Database" class="tag">Database</a>
+                            
+                            <a href="/tags/storage" class="tag">storage</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                projects
+                            
+                        </span>
+                        <span>2024-09-19</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/projects/plytube">자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube</a>
+                    </h3>
+                    <p class="post-excerpt">YouTube API를 활용한 플레이리스트 추천 서비스입니다. LSTM 모델과 MLOps 파이프라인을 구축하여 키워드만으로 플레이리스트를 추천합니다.</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/plytube" class="tag">plytube</a>
+                            
+                            <a href="/tags/lstm" class="tag">lstm</a>
+                            
+                            <a href="/tags/youtube-api" class="tag">youtube-api</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                airflow
+                            
+                        </span>
+                        <span>2024-09-11</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/airflow/sla/">태스크에 SLA 사용하기</a>
+                    </h3>
+                    <p class="post-excerpt">airflow 성능 최적화</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Dag" class="tag">Dag</a>
+                            
+                            <a href="/tags/Python" class="tag">Python</a>
+                            
+                            <a href="/tags/sla" class="tag">sla</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2024-09-10</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/docker-classnote/">Docker Classnote</a>
+                    </h3>
+                    <p class="post-excerpt">다음은 기존 Docker 요약에 추가적으로 보완할 내용을 포함한 통합 요약본입니다. 추가된 내용은 “보완된 내용”으로 표시했습니다.
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                airflow
+                            
+                        </span>
+                        <span>2024-09-10</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/airflow/dag-xcom/">Airflow에서의 Xcom</a>
+                    </h3>
+                    <p class="post-excerpt">어떨때 xcom을 써야할까?</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/dag" class="tag">dag</a>
+                            
+                            <a href="/tags/python" class="tag">python</a>
+                            
+                            <a href="/tags/xcom" class="tag">xcom</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                Airflow
+                            
+                        </span>
+                        <span>2024-09-03</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/airflow/dag-parallelize/">Airflow 대그 병렬로 수행하기</a>
+                    </h3>
+                    <p class="post-excerpt">데이터 파이프라인 최적화</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Dag" class="tag">Dag</a>
+                            
+                            <a href="/tags/Python" class="tag">Python</a>
+                            
+                            <a href="/tags/Optimization" class="tag">Optimization</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                Airflow
+                            
+                        </span>
+                        <span>2024-09-03</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/airflow/airflow-cluster/">Airflow 클러스터 구성하기</a>
+                    </h3>
+                    <p class="post-excerpt">airflow cluster</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Decorator" class="tag">Decorator</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                Airflow
+                            
+                        </span>
+                        <span>2024-09-02</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/airflow/context">Airflow에서 context와 args, kwargs의 활용</a>
+                    </h3>
+                    <p class="post-excerpt">Context 활용법</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Decorator" class="tag">Decorator</a>
+                            
+                            <a href="/tags/Python" class="tag">Python</a>
+                            
+                            <a href="/tags/Context" class="tag">Context</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2024-09-02</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/dvc-instruction/">Dvc Instruction</a>
+                    </h3>
+                    <p class="post-excerpt">&lt;!– —
+title: “도커 스토리지의 구조와 관리법”
+excerpt: “Docker Storage”
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                docker
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/docker/docker-context/">도커파일의 context</a>
+                    </h3>
+                    <p class="post-excerpt">도커 빌드시 컨텍스트의 개념</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Docker" class="tag">Docker</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                docker
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/docker/docker-storage/">도커 스토리지의 구조와 관리법</a>
+                    </h3>
+                    <p class="post-excerpt">Docker Storage</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Docker" class="tag">Docker</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                docker
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/docker/docker-network-basic/">도커 네트워크의 구조</a>
+                    </h3>
+                    <p class="post-excerpt">Docker Network</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Docker" class="tag">Docker</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                docker
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/docker/docker-container-and-images/">Images and Container</a>
+                    </h3>
+                    <p class="post-excerpt">이미지와 컨테이너의 개념과 사용법</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Docker" class="tag">Docker</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                docker
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/docker/docker-architecture/">도커 아키텍처</a>
+                    </h3>
+                    <p class="post-excerpt">도커의 핵심 구성 요소와 그 역할</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Docker" class="tag">Docker</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                docker
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/docker/cloud-native-and-docker-container/">클라우드 네이티브와 도커</a>
+                    </h3>
+                    <p class="post-excerpt">도커 컨테이너를 활용한 애플리케이션 개발 과정</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Docker" class="tag">Docker</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/list/">배열</a>
+                    </h3>
+                    <p class="post-excerpt">Array</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                            <a href="/tags/List" class="tag">List</a>
+                            
+                            <a href="/tags/Python" class="tag">Python</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                airflow
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/airflow/decorator/">Airflow 대그에서 파이썬 함수와 데코레이터</a>
+                    </h3>
+                    <p class="post-excerpt">데코레이터 사용하기</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/decorator" class="tag">decorator</a>
+                            
+                            <a href="/tags/python" class="tag">python</a>
+                            
+                            <a href="/tags/task" class="tag">task</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2024-09-01</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/yaml-concept/">Yaml Concept</a>
+                    </h3>
+                    <p class="post-excerpt">&lt;!– —
+title: “도커 스토리지의 구조와 관리법”
+excerpt: “Docker Storage”
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-08-28</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/keys-and-rooms">keys and rooms</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 5주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-08-09</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/network">네트워크</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 3주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-08-07</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/fibonacci">피보나치</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 3주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                projects
+                            
+                        </span>
+                        <span>2024-08-06</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/projects/v2x">실시간 대용량 데이터 파이프라인 구축 : V2X 프로젝트</a>
+                    </h3>
+                    <p class="post-excerpt">실시간 대용량 데이터를 처리하는 파이프라인을 구축한 프로젝트입니다. Airflow, Kafka, Spark, Hadoop을 활용하여 데이터 레이크 기반 분석 환경을 제공합니다.</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/v2x" class="tag">v2x</a>
+                            
+                            <a href="/tags/spark" class="tag">spark</a>
+                            
+                            <a href="/tags/kafka" class="tag">kafka</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-08-06</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/stack-prices">주식가격</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 3주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-07-31</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/right-parenthese">올바른 괄호</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 2주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-07-30</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/괄호회전하기">괄호 회전하기</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 2주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-07-29</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/two-sum">two sum</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 1주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                algorithm
+                            
+                        </span>
+                        <span>2024-07-25</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/algorithm/completion-participant">완주하지 못한 선수</a>
+                    </h3>
+                    <p class="post-excerpt">이어드림 코딩테스트 특강 1주차</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Algorithm" class="tag">Algorithm</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                linux
+                            
+                        </span>
+                        <span>2024-04-30</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/linux/linux-basic/">리눅스 기초</a>
+                    </h3>
+                    <p class="post-excerpt">linux class note : 컴퓨터 공학 심화</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Linux" class="tag">Linux</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                linux
+                            
+                        </span>
+                        <span>2024-04-30</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/linux/linux-os/">리눅스 운영체제의 특징</a>
+                    </h3>
+                    <p class="post-excerpt">linux class note : 컴퓨터 공학 심화</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Linux" class="tag">Linux</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+            </div>
+        </section>
+    </main>
+</div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

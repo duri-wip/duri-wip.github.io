@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Topics - Duri's Work In Progress</title>
+<meta name="description" content="">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Topics">
+<meta property="og:description" content="">
+<meta property="og:type" content="website">
+<meta property="og:url" content="http://0.0.0.0:4001/topics/">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="layout-container">
+    <aside class="sidebar">
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.png" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            
+            <a href="mailto:8s.eow.ooc@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+        </div>
+    </div>
+    <!-- 메인 페이지용 통계 -->
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">71</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Topics</span>
+            <span class="stat-value">11</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">41</span>
+        </div>
+    </div>
+</aside>
+    <header class="header">
+    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button>
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item ">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item active">
+                <a href="/topics/"><i class="fas fa-tags"></i> Topics</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/contact/"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+    
+    <main class="main-content">
+        <!-- 검색 섹션 -->
+<section class="search-section">
+    <div class="search-container">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" placeholder="카테고리나 태그를 검색해보세요..." id="searchInput" />
+    </div>
+</section>
+
+<!-- 토픽 그리드 -->
+<section class="topics-grid">
+    
+    
+    
+    
+    
+    <a href="/topics/linux/" class="category-card linux">
+        <div class="category-header">
+            <div class="category-icon linux">
+                <i class="fab fa-linux"></i>
+            </div>
+            <div class="category-info">
+                <h3>Linux</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                Linux 시스템 관리
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/algorithm/" class="category-card algorithm">
+        <div class="category-header">
+            <div class="category-icon algorithm">
+                <i class="fas fa-code"></i>
+            </div>
+            <div class="category-info">
+                <h3>Algorithm</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                알고리즘 문제 풀이와 코딩
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/projects/" class="category-card projects">
+        <div class="category-header">
+            <div class="category-icon projects">
+                <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="category-info">
+                <h3>Projects</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                프로젝트 포트폴리오
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/airflow/" class="category-card airflow">
+        <div class="category-header">
+            <div class="category-icon airflow">
+                <i class="fas fa-wind"></i>
+            </div>
+            <div class="category-info">
+                <h3>Airflow</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                Apache Airflow 워크플로우
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/docker/" class="category-card docker">
+        <div class="category-header">
+            <div class="category-icon docker">
+                <i class="fab fa-docker"></i>
+            </div>
+            <div class="category-info">
+                <h3>Docker</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                컨테이너 기술과 DevOps 관련 포스트
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/database/" class="category-card database">
+        <div class="category-header">
+            <div class="category-icon database">
+                <i class="fas fa-database"></i>
+            </div>
+            <div class="category-info">
+                <h3>Database</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                데이터베이스 설계와 관리
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/mlops/" class="category-card mlops">
+        <div class="category-header">
+            <div class="category-icon mlops">
+                <i class="fas fa-cogs"></i>
+            </div>
+            <div class="category-info">
+                <h3>Mlops</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                MLOps와 모델 운영
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/spark/" class="category-card spark">
+        <div class="category-header">
+            <div class="category-icon spark">
+                <i class="fas fa-fire"></i>
+            </div>
+            <div class="category-info">
+                <h3>Spark</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                Apache Spark와 빅데이터 처리
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/googledecerti/" class="category-card googledecerti">
+        <div class="category-header">
+            <div class="category-icon googledecerti">
+                <i class="fab fa-google"></i>
+            </div>
+            <div class="category-info">
+                <h3>Googledecerti</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                googledecerti 관련 포스트
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+    
+    <a href="/topics/fastapi/" class="category-card fastapi">
+        <div class="category-header">
+            <div class="category-icon fastapi">
+                <i class="fas fa-rocket"></i>
+            </div>
+            <div class="category-info">
+                <h3>Fastapi</h3>
+                
+                
+                <div class="category-count">8개 포스트</div>
+            </div>
+        </div>
+        <div class="category-description">
+            
+                FastAPI 웹 개발
+            
+        </div>
+        <div class="category-stats-bar">
+            <span class="recent-posts">최근 포스트 8개</span>
+            <span class="view-all">전체보기 →</span>
+        </div>
+    </a>
+    
+</section>
+
+    </main>
+</div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>실시간 대용량 데이터 파이프라인 구축 : V2X 프로젝트 - Duri's Work In Progress</title>
+<meta name="description" content="실시간 대용량 데이터를 처리하는 파이프라인을 구축한 프로젝트입니다. Airflow, Kafka, Spark, Hadoop을 활용하여 데이터 레이크 기반 분석 환경을 제공합니다.">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="실시간 대용량 데이터 파이프라인 구축 : V2X 프로젝트">
+<meta property="og:description" content="실시간 대용량 데이터를 처리하는 파이프라인을 구축한 프로젝트입니다. Airflow, Kafka, Spark, Hadoop을 활용하여 데이터 레이크 기반 분석 환경을 제공합니다.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://0.0.0.0:4001/projects/v2x">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="post-layout">
+    <aside class="sidebar">
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.png" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            
+            <a href="mailto:8s.eow.ooc@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+        </div>
+    </div>
+    <!-- 메인 페이지용 통계 -->
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">71</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Topics</span>
+            <span class="stat-value">11</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">41</span>
+        </div>
+    </div>
+</aside>
+    
+    <main class="main-content">
+        <!-- 포스트 헤더 -->
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="post-category">
+                    
+                        projects
+                    
+                </span>
+                <span>•</span>
+                <span>2024년 08월 06일</span>
+                <span>•</span>
+                <span>5분 읽기</span>
+            </div>
+            
+            <h1 class="post-title">실시간 대용량 데이터 파이프라인 구축 : V2X 프로젝트</h1>
+            
+            
+            
+            <div class="post-info">
+                <div class="author-info">
+                    <img src="/assets/images/avatar.png" alt="Duri" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">Duri</span>
+                        <span class="post-date">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</span>
+                    </div>
+                </div>
+                
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>0 views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>0 likes</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/v2x" class="tag">v2x</a>
+                
+                <a href="/tags/spark" class="tag">spark</a>
+                
+                <a href="/tags/kafka" class="tag">kafka</a>
+                
+                <a href="/tags/airflow" class="tag">airflow</a>
+                
+                <a href="/tags/hadoop" class="tag">hadoop</a>
+                
+            </div>
+            
+        </header>
+
+        <!-- 포스트 콘텐츠 -->
+        <article class="post-content">
+            <h1 id="about">About</h1>
+
+<h2 id="프로젝트-개요">프로젝트 개요</h2>
+
+<ul>
+  <li>실시간으로 생성되는 대용량 데이터를 저장하고, 데이터 레이크를 기반으로 한 분석 환경을 제공하기 위한 파이프라인 구축</li>
+</ul>
+
+<h2 id="프로젝트-규모-및-일정">프로젝트 규모 및 일정</h2>
+
+<ul>
+  <li>팀원 : 5명</li>
+  <li>기간 : 07.23 ~ 08.06</li>
+</ul>
+
+<h2 id="역할">역할</h2>
+
+<p>• 파이프라인 설계
+• Spark 클러스터 구축
+• Data Lake 설계
+• 일일 데이터 대시보드 구축</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p><img src="/assets/images/project_img/yeardream/v2x_architecture.png" alt="v2x_architecture" width="100%" /></p>
+
+<h3 id="개요">개요</h3>
+
+<h4 id="1-파이프라인">1. 파이프라인</h4>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/v2x_airflow.gif" alt="web" width="100%" /></p>
+
+<ol>
+  <li>
+    <p>Airflow DAG 구성</p>
+
+    <ul>
+      <li>T-data API에서 차량 위치 데이터를 수집하고, Kakao API를 사용해 수집된 위치의 주소 정보를 획득.</li>
+      <li>비동기 구성을 통해 실시간 대용량 데이터 수집 및 파이프라인 작업 지원.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Kafka 클러스터 및 데이터 전송</p>
+
+    <ul>
+      <li>브로커 3개로 구성된 Kafka 클러스터를 구축.</li>
+      <li>Airflow에서 받은 데이터를 Kafka 토픽으로 전송하고 Spark 클러스터로 데이터를 consume해 실시간 처리.</li>
+    </ul>
+  </li>
+  <li>
+    <p>Spark 스트림 애플리케이션</p>
+
+    <ul>
+      <li>Spark로 실시간 데이터를 처리하기 위한 스트림 애플리케이션 생성.</li>
+      <li>처리된 데이터를 Parquet 형식으로 변환해 저장.</li>
+    </ul>
+  </li>
+  <li>
+    <p>데이터 저장 및 고가용성 구성</p>
+    <ul>
+      <li>Kafka 스트림 데이터를 PostgreSQL과 Hadoop HDFS에 저장.</li>
+      <li>PostgreSQL: Streaming replication 방식을 사용해 master-slave 이중화 구성.</li>
+      <li>Hadoop HDFS: 2대의 네임노드, 3대의 저널노드와 데이터 노드로 고가용성 유지.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="2-데이터-분석환경-구축-및-대시보드-구현">2. 데이터 분석환경 구축 및 대시보드 구현</h4>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/v2x_sparkhistory_web.gif" alt="web" width="100%" /></p>
+
+<ol>
+  <li>데이터 웨어하우스 및 분석팀 지원
+    <ul>
+      <li>Hadoop HDFS에 저장된 데이터는 데이터 분석을 위한 데이터 웨어하우스에 활용.</li>
+      <li>Parquet 파일을 CSV 파일로 변환해 일자별 데이터 레이크를 구축하고 간단한 일자별 대시보드를 제작하여 시각화.</li>
+    </ul>
+  </li>
+</ol>
+
+<h4 id="3-모니터링">3. 모니터링</h4>
+
+<ol>
+  <li>모니터링 시스템 구축
+    <ul>
+      <li>Prometheus로 PostgreSQL을 모니터링하기 위해 JMX Exporter를 설치해 Prometheus 형식으로 메트릭 변환.</li>
+      <li>Grafana 대시보드를 통해 엔지니어링 팀이 파이프라인 상태를 실시간으로 모니터링 가능.
+<img src="/assets/images/project_img/yeardream/gifs/v2x_monitoring.gif" alt="web" width="100%" /></li>
+    </ul>
+  </li>
+</ol>
+
+        </article>
+
+        <!-- 포스트 하단 -->
+        <footer class="post-footer">
+            <div class="post-actions">
+                <div class="like-share">
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-heart"></i>
+                        좋아요
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-share"></i>
+                        공유
+                    </a>
+                </div>
+            </div>
+
+            <!-- 관련 포스트 -->
+            
+            
+            <div class="related-posts">
+                <h3 class="related-title">
+                    <i class="fas fa-bookmark"></i>
+                    관련 포스트
+                </h3>
+                <div class="related-grid">
+                    
+                    <a href="/algorithm/road" class="related-card">
+                        <h4 class="related-card-title">배달</h4>
+                        <p class="related-card-excerpt">다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-10</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/racing_road" class="related-card">
+                        <h4 class="related-card-title">경주로 건설</h4>
+                        <p class="related-card-excerpt">다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-10</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/max_explode" class="related-card">
+                        <h4 class="related-card-title">최대 폭탄 터뜨리기</h4>
+                        <p class="related-card-excerpt">bfs</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-10</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/fastapi/basic/" class="related-card">
+                        <h4 class="related-card-title">FastAPI 기초: ASGI와 URL 이해하기</h4>
+                        <p class="related-card-excerpt">FastAPI의 기본 개념과 ASGI, URL 구조에 대해 알아본다</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-05-06</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/fastapi/request/" class="related-card">
+                        <h4 class="related-card-title">FastAPI 기초: 요청과 응답 처리</h4>
+                        <p class="related-card-excerpt">FastAPI에서 HTTP 요청과 응답을 처리하는 방법에 대해 알아본다</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-05-06</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/googleDEcerti/IAM/" class="related-card">
+                        <h4 class="related-card-title">구글 클라우드 서비스에서 IAM</h4>
+                        <p class="related-card-excerpt">Google DE Certificate</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-04-13</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/googleDEcerti/Dataflow/" class="related-card">
+                        <h4 class="related-card-title">DataFlow의 핵심 기능 및 활용</h4>
+                        <p class="related-card-excerpt">Google DE Certificate</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-04-13</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/googleDEcerti/Bigtable/" class="related-card">
+                        <h4 class="related-card-title">Bigtable의 기능, 역할 및 최적화</h4>
+                        <p class="related-card-excerpt">Google DE Certificate</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-04-13</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/rotate-matrix" class="related-card">
+                        <h4 class="related-card-title">행렬 테두리 회전하기</h4>
+                        <p class="related-card-excerpt">Programmers level 2</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2024-11-08</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/algorithm/jaden-case" class="related-card">
+                        <h4 class="related-card-title">Jaden Case</h4>
+                        <p class="related-card-excerpt">Programmers level 2</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2024-11-08</span>
+                        </div>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </footer>
+    </main>
+
+    <!-- TOC -->
+    <aside class="toc-sidebar">
+        <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            목차
+        </h3>
+        <div id="toc"></div>
+    </aside>
+</div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>
