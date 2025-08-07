@@ -2,10 +2,9 @@
 title: "최대 폭탄 터뜨리기"
 excerpt: "bfs"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, bfs]
 
 permalink: /algorithm/max_explode
 toc: true

@@ -1,52 +1,53 @@
 ---
-layout: page
 title: "Topics"
+layout: topics
 permalink: /topics/
+description: "토픽별로 정리된 포스트들입니다"
 ---
 
 <!-- 검색 섹션 -->
 <section class="search-section">
     <div class="search-container">
         <i class="fas fa-search search-icon"></i>
-        <input type="text" class="search-input" placeholder="카테고리나 태그를 검색해보세요..." id="searchInput">
+        <input type="text" class="search-input" placeholder="토픽이나 태그를 검색해보세요..." id="searchInput">
     </div>
 </section>
 
 <!-- 토픽 그리드 -->
 <section class="topics-grid">
-    {% assign normalized_categories = "" | split: "" %}
-    {% for category in site.categories %}
-        {% assign category_name = category[0] %}
-        {% if category_name.first %}
-            {% assign category_name = category_name.first %}
+    {% assign normalized_topics = "" | split: "" %}
+    {% for topic in site.topics %}
+        {% assign topic_name = topic[0] %}
+        {% if topic_name.first %}
+            {% assign topic_name = topic_name.first %}
         {% endif %}
-        {% assign normalized_name = category_name | downcase %}
-        {% unless normalized_categories contains normalized_name %}
-            {% assign normalized_categories = normalized_categories | push: normalized_name %}
+        {% assign normalized_name = topic_name | downcase %}
+        {% unless normalized_topics contains normalized_name %}
+            {% assign normalized_topics = normalized_topics | push: normalized_name %}
         {% endunless %}
     {% endfor %}
     
-    {% for normalized_name in normalized_categories %}
-    {% assign category_slug = normalized_name | slugify %}
-    <a href="/topics/{{ category_slug }}/" class="category-card {{ category_slug }}">
+    {% for normalized_name in normalized_topics %}
+    {% assign topic_slug = normalized_name | slugify %}
+    <a href="/topics/{{ topic_slug }}/" class="category-card {{ topic_slug }}">
         <div class="category-header">
-            <div class="category-icon {{ category_slug }}">
-                <i class="{{ site.data.category_icons[normalized_name] | default: 'fas fa-folder' }}"></i>
+            <div class="category-icon {{ topic_slug }}">
+                <i class="{{ site.data.topic_icons[normalized_name] | default: 'fas fa-folder' }}"></i>
             </div>
             <div class="category-info">
                 <h3>{{ normalized_name | capitalize }}</h3>
-                {% assign category_posts = 0 %}
-                {% for category in site.categories %}
-                    {% assign cat_name = category[0] %}
-                    {% if cat_name.first %}
-                        {% assign cat_name = cat_name.first %}
+                {% assign topic_posts = 0 %}
+                {% for topic in site.topics %}
+                    {% assign topic_name = topic[0] %}
+                    {% if topic_name.first %}
+                        {% assign topic_name = topic_name.first %}
                     {% endif %}
-                    {% assign cat_name_downcase = cat_name | downcase %}
-                    {% if cat_name_downcase == normalized_name %}
-                        {% assign category_posts = category_posts | plus: category[1] | size %}
+                    {% assign topic_name_downcase = topic_name | downcase %}
+                    {% if topic_name_downcase == normalized_name %}
+                        {% assign topic_posts = topic_posts | plus: topic[1] | size %}
                     {% endif %}
                 {% endfor %}
-                <div class="category-count">{{ category_posts }}개 포스트</div>
+                <div class="category-count">{{ topic_posts }}개 포스트</div>
             </div>
         </div>
         <div class="category-description">
@@ -84,7 +85,7 @@ permalink: /topics/
             {% endcase %}
         </div>
         <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 {{ category_posts }}개</span>
+            <span class="recent-posts">최근 포스트 {{ topic_posts }}개</span>
             <span class="view-all">전체보기 →</span>
         </div>
     </a>

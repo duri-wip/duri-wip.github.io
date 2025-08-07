@@ -2,10 +2,9 @@
 title: "경주로 건설"
 excerpt: "다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [Algorithm, 다익스트라]
 
 permalink: /algorithm/racing_road
 toc: true

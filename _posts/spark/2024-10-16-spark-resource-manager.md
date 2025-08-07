@@ -2,8 +2,7 @@
 title: "spark cluster의 리소스 매니저"
 excerpt: "리소스 매니저를 선택하는 방법"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark, Resource Manager]
 

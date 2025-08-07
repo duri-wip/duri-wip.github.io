@@ -2,8 +2,7 @@
 title: "리눅스 기초"
 excerpt: "linux class note : 컴퓨터 공학 심화"
 
-categories:
-  - linux
+category:  linux
 tags:
   - [Linux]
 

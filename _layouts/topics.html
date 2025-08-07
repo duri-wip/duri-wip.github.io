@@ -7,70 +7,75 @@ layout: default
     {% include header.html %}
     
     <main class="main-content">
-        <div class="category-posts-layout">
+        {% if page.category %}
+        <!-- 개별 토픽 페이지 -->
+        <div class="topics-layout">
             <header class="page-header">
-                <h1 class="page-title">
-                    {% if page.category %}
-                        {{ page.category | capitalize }} 포스트
-                    {% else %}
-                        {{ page.title | default: "카테고리" }}
-                    {% endif %}
-                </h1>
-                <p class="page-description">
-                    {% if page.category %}
-                        {{ page.category }} 관련 포스트들을 모아보았습니다.
-                    {% else %}
-                        {{ page.description | default: "카테고리별로 정리된 포스트들입니다." }}
-                    {% endif %}
-                </p>
+                <h1 class="page-title">{{ page.title }}</h1>
+                <p class="page-description">{{ page.description }}</p>
             </header>
     
-    <div class="posts-grid">
-        {% assign posts = site.categories[page.category] | default: site.posts %}
-        {% for post in posts %}
-        <article class="post-card">
-            <div class="post-content">
-                <div class="post-meta">
-                    <time class="post-date">{{ post.date | date: "%Y.%m.%d" }}</time>
-                    {% if post.categories.size > 0 %}
-                        <div class="post-categories">
-                            {% for category in post.categories %}
-                                <span class="category-tag category-{{ category }}">{{ category }}</span>
-                            {% endfor %}
+            <div class="posts-grid">
+                {% assign posts = site.categories[page.category] | default: empty_array %}
+                {% for post in posts %}
+                <article class="post-card">
+                    <div class="post-content">
+                        <div class="post-meta">
+                            <time class="post-date">{{ post.date | date: "%Y.%m.%d" }}</time>
                         </div>
-                    {% endif %}
-                </div>
-                
-                <h2 class="post-title">
-                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-                </h2>
-                
-                {% if post.excerpt %}
-                    <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-                {% endif %}
-                
-                {% if post.tags.size > 0 %}
-                    <div class="post-tags">
-                        {% for tag in post.tags limit: 3 %}
-                            <span class="tag">{{ tag }}</span>
-                        {% endfor %}
+                        
+                        <h2 class="post-title">
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        </h2>
+                        
+                        {% if post.excerpt %}
+                            <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
+                        {% endif %}
+                        
+                        {% if post.tags.size > 0 %}
+                            <div class="post-tags">
+                                {% for tag in post.tags limit: 3 %}
+                                    <span class="tag">{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        <div class="post-footer">
+                            <a href="{{ post.url | relative_url }}" class="read-more">더 읽기 →</a>
+                        </div>
                     </div>
-                {% endif %}
-                
-                <div class="post-footer">
-                    <a href="{{ post.url | relative_url }}" class="read-more">더 읽기 →</a>
+                </article>
+                {% endfor %}
+            </div>
+            
+            {% if posts.size == 0 %}
+                <div class="empty-state">
+                    <p>아직 포스트가 없습니다.</p>
                 </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <!-- 토픽 목록 페이지 -->
+        <div class="topics-grid-layout">
+            <header class="page-header">
+                <h1 class="page-title">{{ page.title }}</h1>
+                <p class="page-description">{{ page.description }}</p>
+            </header>
+
+            <div class="topics-grid">
+                {% assign topic_files = site.pages | where: "layout", "topics" | where_exp: "item", "item.category != nil" %}
+                {% for topic in topic_files %}
+                <a href="{{ topic.url }}" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">{{ topic.title }}</h2>
+                        {% assign post_count = site.categories[topic.category] | size %}
+                        <span class="post-count">{{ post_count }}개의 포스트</span>
+                    </div>
+                    <p class="topic-description">{{ topic.description }}</p>
+                </a>
+                {% endfor %}
             </div>
-        </article>
-        {% endfor %}
-    </div>
-    
-        {% if posts.size == 0 %}
-            <div class="empty-state">
-                <p>아직 포스트가 없습니다.</p>
-            </div>
+        </div>
         {% endif %}
-        </div>
-        </div>
     </main>
 </div>

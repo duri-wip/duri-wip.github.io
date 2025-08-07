@@ -2,8 +2,7 @@
 title: "spark cluster의 고가용성 구성방식"
 excerpt: "클러스터의 신뢰성과 안정성 보장하기"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark, Cluster, HA]
 

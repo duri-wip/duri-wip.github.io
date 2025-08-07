@@ -2,10 +2,9 @@
 title: "거쳐간 숫자의 합이 가장 큰 경우"
 excerpt: "Programmers level 2"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, 프로그래머스]
 
 permalink: /algorithm/max-sum
 

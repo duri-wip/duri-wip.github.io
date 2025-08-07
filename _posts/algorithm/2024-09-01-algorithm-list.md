@@ -2,10 +2,10 @@
 title: "배열"
 excerpt: "Array"
 
-categories:
-  - algorithm
+topics:
+category:  algorithm
 tags:
-  - [Algorithm, List, Python]
+  - [알고리즘, 혼자공부하는코딩테스트]
 
 permalink: /algorithm/list/
 

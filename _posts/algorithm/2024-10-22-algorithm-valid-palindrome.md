@@ -2,10 +2,9 @@
 title: "Valid Palindrome"
 excerpt: "Grind75 :   week 1"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, Grind75]
 
 permalink: /algorithm/palindrome
 

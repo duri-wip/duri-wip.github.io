@@ -2,8 +2,7 @@
 title: "FastAPI 기초: 요청과 응답 처리"
 excerpt: "FastAPI에서 HTTP 요청과 응답을 처리하는 방법에 대해 알아본다"
 
-categories:
-  - fastapi
+category:  fastapi
 tags:
   - [fastapi, request, response, web]
 

@@ -2,8 +2,7 @@
 title: "Spark 클러스터 구축하기"
 excerpt: "GCP를 활용하여"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark]
 

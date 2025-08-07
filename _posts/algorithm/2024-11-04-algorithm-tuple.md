@@ -2,10 +2,9 @@
 title: "튜플보고 원래의 집합 추론하기"
 excerpt: "Programmers level 2"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, 프로그래머스]
 
 permalink: /algorithm/find-original
 

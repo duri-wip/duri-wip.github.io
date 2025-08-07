@@ -2,8 +2,7 @@
 title: "Airflow 대그 병렬로 수행하기"
 excerpt: "데이터 파이프라인 최적화"
 
-categories:
-  - Airflow
+category:  airflow
 tags:
   - [Dag, Python, Optimization, XCom]
 

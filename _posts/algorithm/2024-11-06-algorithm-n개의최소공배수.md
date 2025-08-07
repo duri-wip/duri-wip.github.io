@@ -2,10 +2,9 @@
 title: "n개의 최소공배수"
 excerpt: "Programmers level 2"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, 프로그래머스]
 
 permalink: /algorithm/least-common-multiple
 

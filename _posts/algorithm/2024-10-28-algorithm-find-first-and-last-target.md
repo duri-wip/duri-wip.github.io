@@ -2,10 +2,9 @@
 title: "첫번째 bad version 찾기"
 excerpt: "Grind 75 : Week 2"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, Grind75]
 
 permalink: /algorithm/first-bad-version
 

@@ -2,8 +2,7 @@
 title: "Spark의 핵심"
 excerpt: "RDD와 Lazy execution"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark]
 

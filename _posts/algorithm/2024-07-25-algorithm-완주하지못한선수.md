@@ -2,12 +2,9 @@
 title: "완주하지 못한 선수"
 excerpt: "이어드림 코딩테스트 특강 1주차"
 
-categories:
-  - algorithm
+category: algorithm
 tags:
-  - [Algorithm]
-
-permalink: /algorithm/completion-participant
+  - [알고리즘, 프로그래머스, 이어드림4기]
 
 toc: true
 toc_sticky: true

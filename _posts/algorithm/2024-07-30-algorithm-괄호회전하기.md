@@ -2,10 +2,10 @@
 title: "괄호 회전하기"
 excerpt: "이어드림 코딩테스트 특강 2주차"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, 프로그래머스, 이어드림4기]
+
 
 permalink: /algorithm/괄호회전하기
 

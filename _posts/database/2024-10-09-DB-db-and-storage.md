@@ -2,8 +2,7 @@
 title: "데이터베이스와 스토리지"
 excerpt: "Database and Storage"
 
-categories:
-  - database
+category:  database
 tags:
   - [Database, storage]
 

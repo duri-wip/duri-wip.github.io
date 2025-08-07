@@ -2,8 +2,7 @@
 title: "MLOps Lv 2 아키텍처에서의 피처스토어"
 excerpt: "피처스토어의 역할과 이미지 데이터에 대한 피처스토어 선택"
 
-categories:
-  - mlops
+category:  mlops
 tags:
   - [mlops, mlflow]
 

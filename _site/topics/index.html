@@ -18,7 +18,7 @@
 <meta property="og:title" content="Topics">
 <meta property="og:description" content="">
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://0.0.0.0:4001/topics/">
+<meta property="og:url" content="http://0.0.0.0:4000/topics/">
 
 <!-- JavaScript -->
 <script>
@@ -74,15 +74,15 @@ document.addEventListener('click', function(event) {
     <div class="sidebar-stats">
         <div class="stat-item">
             <span class="stat-label">Total Posts</span>
-            <span class="stat-value">71</span>
+            <span class="stat-value">73</span>
         </div>
         <div class="stat-item">
             <span class="stat-label">Topics</span>
-            <span class="stat-value">11</span>
+            <span class="stat-value">0</span>
         </div>
         <div class="stat-item">
             <span class="stat-label">Tags</span>
-            <span class="stat-value">41</span>
+            <span class="stat-value">55</span>
         </div>
     </div>
 </aside>
@@ -112,262 +112,110 @@ document.addEventListener('click', function(event) {
 </header>
     
     <main class="main-content">
-        <!-- 검색 섹션 -->
-<section class="search-section">
-    <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" class="search-input" placeholder="카테고리나 태그를 검색해보세요..." id="searchInput" />
-    </div>
-</section>
+        
+        <!-- 토픽 목록 페이지 -->
+        <div class="topics-grid-layout">
+            <header class="page-header">
+                <h1 class="page-title">Topics</h1>
+                <p class="page-description">토픽별로 정리된 포스트들입니다</p>
+            </header>
 
-<!-- 토픽 그리드 -->
-<section class="topics-grid">
-    
-    
-    
-    
-    
-    <a href="/topics/linux/" class="category-card linux">
-        <div class="category-header">
-            <div class="category-icon linux">
-                <i class="fab fa-linux"></i>
-            </div>
-            <div class="category-info">
-                <h3>Linux</h3>
+            <div class="topics-grid">
                 
                 
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                Linux 시스템 관리
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/algorithm/" class="category-card algorithm">
-        <div class="category-header">
-            <div class="category-icon algorithm">
-                <i class="fas fa-code"></i>
-            </div>
-            <div class="category-info">
-                <h3>Algorithm</h3>
+                <a href="/topics/airflow/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">Apache Airflow</h2>
+                        
+                        <span class="post-count">6개의 포스트</span>
+                    </div>
+                    <p class="topic-description">Apache Airflow와 워크플로우 관리 관련 포스트</p>
+                </a>
                 
+                <a href="/topics/algorithm/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">알고리즘</h2>
+                        
+                        <span class="post-count">32개의 포스트</span>
+                    </div>
+                    <p class="topic-description">알고리즘 문제 풀이와 코딩 테스트 준비</p>
+                </a>
                 
-                <div class="category-count">8개 포스트</div>
+                <a href="/topics/database/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">데이터베이스</h2>
+                        
+                        <span class="post-count">3개의 포스트</span>
+                    </div>
+                    <p class="topic-description">데이터베이스 설계와 관리 관련 포스트</p>
+                </a>
+                
+                <a href="/topics/docker/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">Docker</h2>
+                        
+                        <span class="post-count">7개의 포스트</span>
+                    </div>
+                    <p class="topic-description">컨테이너 기술과 DevOps 관련 포스트</p>
+                </a>
+                
+                <a href="/topics/git/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">Git</h2>
+                        
+                        <span class="post-count">0개의 포스트</span>
+                    </div>
+                    <p class="topic-description">Git 버전 관리와 협업 관련 포스트</p>
+                </a>
+                
+                <a href="/topics/github-blog/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">GitHub 블로그</h2>
+                        
+                        <span class="post-count">0개의 포스트</span>
+                    </div>
+                    <p class="topic-description">GitHub Pages와 Jekyll 블로그 관련 포스트</p>
+                </a>
+                
+                <a href="/topics/kafka/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">Apache Kafka</h2>
+                        
+                        <span class="post-count">0개의 포스트</span>
+                    </div>
+                    <p class="topic-description">Apache Kafka와 데이터 스트리밍 관련 포스트</p>
+                </a>
+                
+                <a href="/topics/linux/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">Linux</h2>
+                        
+                        <span class="post-count">2개의 포스트</span>
+                    </div>
+                    <p class="topic-description">Linux 시스템 관리와 명령어 관련 포스트</p>
+                </a>
+                
+                <a href="/topics/mlops/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">MLOps</h2>
+                        
+                        <span class="post-count">2개의 포스트</span>
+                    </div>
+                    <p class="topic-description">MLOps와 모델 운영 관련 포스트</p>
+                </a>
+                
+                <a href="/topics/spark/" class="topic-card">
+                    <div class="topic-header">
+                        <h2 class="topic-title">Apache Spark</h2>
+                        
+                        <span class="post-count">8개의 포스트</span>
+                    </div>
+                    <p class="topic-description">Apache Spark와 빅데이터 처리 관련 포스트</p>
+                </a>
+                
             </div>
         </div>
-        <div class="category-description">
-            
-                알고리즘 문제 풀이와 코딩
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/projects/" class="category-card projects">
-        <div class="category-header">
-            <div class="category-icon projects">
-                <i class="fas fa-project-diagram"></i>
-            </div>
-            <div class="category-info">
-                <h3>Projects</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                프로젝트 포트폴리오
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/airflow/" class="category-card airflow">
-        <div class="category-header">
-            <div class="category-icon airflow">
-                <i class="fas fa-wind"></i>
-            </div>
-            <div class="category-info">
-                <h3>Airflow</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                Apache Airflow 워크플로우
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/docker/" class="category-card docker">
-        <div class="category-header">
-            <div class="category-icon docker">
-                <i class="fab fa-docker"></i>
-            </div>
-            <div class="category-info">
-                <h3>Docker</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                컨테이너 기술과 DevOps 관련 포스트
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/database/" class="category-card database">
-        <div class="category-header">
-            <div class="category-icon database">
-                <i class="fas fa-database"></i>
-            </div>
-            <div class="category-info">
-                <h3>Database</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                데이터베이스 설계와 관리
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/mlops/" class="category-card mlops">
-        <div class="category-header">
-            <div class="category-icon mlops">
-                <i class="fas fa-cogs"></i>
-            </div>
-            <div class="category-info">
-                <h3>Mlops</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                MLOps와 모델 운영
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/spark/" class="category-card spark">
-        <div class="category-header">
-            <div class="category-icon spark">
-                <i class="fas fa-fire"></i>
-            </div>
-            <div class="category-info">
-                <h3>Spark</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                Apache Spark와 빅데이터 처리
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/googledecerti/" class="category-card googledecerti">
-        <div class="category-header">
-            <div class="category-icon googledecerti">
-                <i class="fab fa-google"></i>
-            </div>
-            <div class="category-info">
-                <h3>Googledecerti</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                googledecerti 관련 포스트
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-    
-    <a href="/topics/fastapi/" class="category-card fastapi">
-        <div class="category-header">
-            <div class="category-icon fastapi">
-                <i class="fas fa-rocket"></i>
-            </div>
-            <div class="category-info">
-                <h3>Fastapi</h3>
-                
-                
-                <div class="category-count">8개 포스트</div>
-            </div>
-        </div>
-        <div class="category-description">
-            
-                FastAPI 웹 개발
-            
-        </div>
-        <div class="category-stats-bar">
-            <span class="recent-posts">최근 포스트 8개</span>
-            <span class="view-all">전체보기 →</span>
-        </div>
-    </a>
-    
-</section>
-
+        
     </main>
 </div>
 

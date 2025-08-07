@@ -10,10 +10,10 @@ layout: default
         <header class="post-header">
             <div class="post-meta">
                 <span class="post-category">
-                    {% if page.categories.first %}
-                        {{ page.categories.first }}
-                    {% elsif page.category %}
-                        {{ page.category }}
+                    {% if page.topics.first %}
+                        {{ page.topics.first }}
+                    {% elsif page.topic %}
+                        {{ page.topic }}
                     {% else %}
                         General
                     {% endif %}
@@ -94,7 +94,7 @@ layout: default
                         <h4 class="related-card-title">{{ post.title }}</h4>
                         <p class="related-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
                         <div class="related-card-meta">
-                            <span>{{ post.category }}</span>
+                            <span>{{ post.topics.first }}</span>
                             <span>{{ post.date | date: "%Y-%m-%d" }}</span>
                         </div>
                     </a>

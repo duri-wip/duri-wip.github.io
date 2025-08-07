@@ -2,8 +2,7 @@
 title: "Images and Container"
 excerpt: "이미지와 컨테이너의 개념과 사용법"
 
-categories:
-  - docker
+category:  docker
 tags:
   - [Docker]
 

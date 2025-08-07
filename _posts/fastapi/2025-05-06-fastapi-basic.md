@@ -2,8 +2,7 @@
 title: "FastAPI 기초: ASGI와 URL 이해하기"
 excerpt: "FastAPI의 기본 개념과 ASGI, URL 구조에 대해 알아본다"
 
-categories:
-  - fastapi
+category:  fastapi
 tags:
   - [fastapi, asgi, url, web]
 

@@ -2,10 +2,9 @@
 title: "정렬된 배열에 대한 merge"
 excerpt: "Grind75 :   week 1"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, Grind75]
 
 permalink: /algorithm/merge-sorted-array
 

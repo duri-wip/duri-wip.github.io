@@ -2,8 +2,7 @@
 title: "Spark 클러스터 구축하기2"
 excerpt: "로컬에 설치하고 jupyter 붙이기"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark]
 

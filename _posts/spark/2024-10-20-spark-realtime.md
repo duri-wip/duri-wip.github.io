@@ -2,8 +2,7 @@
 title: "실시간 데이터 처리와 Spark"
 excerpt: "실시간 데이터 처리 아키텍처에서 spark를 사용하는 이유"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark]
 

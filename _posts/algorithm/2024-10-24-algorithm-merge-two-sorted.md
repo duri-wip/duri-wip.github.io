@@ -2,10 +2,9 @@
 title: "두 정렬된 리스트 병합"
 excerpt: "Grind75 :   week 1"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, Grind75]
 
 permalink: /algorithm/merge-two-sorted
 

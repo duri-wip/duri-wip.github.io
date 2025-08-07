@@ -29,6 +29,9 @@ collections:
   pages:
     output: true
     permalink: /:name/
+  topics:
+    output: true
+    permalink: /topics/:name/
 
 # 플러그인
 plugins:
@@ -43,9 +46,9 @@ paginate: 10
 paginate_path: "/page:num/"
 
 # 아카이브 설정
-category_archive:
+topic_archive:
   type: liquid
-  path: /categories/
+  path: /topics/
 tag_archive:
   type: liquid
   path: /tags/

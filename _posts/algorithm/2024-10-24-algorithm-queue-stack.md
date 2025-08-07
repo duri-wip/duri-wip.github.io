@@ -2,10 +2,9 @@
 title: "스택을 사용해서 queue 실행하기"
 excerpt: "Grind75 :   week 1"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, Grind75]
 
 permalink: /algorithm/implementing-queue-using-stack
 

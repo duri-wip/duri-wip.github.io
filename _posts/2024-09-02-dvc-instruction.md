@@ -1,20 +1,14 @@
-<!-- ---
-title: "도커 스토리지의 구조와 관리법"
-excerpt: "Docker Storage"
-
-categories:
-  - docker
+---
+title: "DVC 사용법 가이드"
+excerpt: "데이터 버전 관리를 위한 DVC 도구 사용법"
+category: mlops
 tags:
-  - [Docker]
-
-permalink: /docker/docker-storage/
-
+  - [DVC, MLOps, 버전관리, Git]
 toc: true
 toc_sticky: true
-
-date: 2024-09-01
-last_modified_at: 2024-10-01
---- -->
+date: 2024-09-02
+last_modified_at: 2024-09-02
+---
 ## dvc 사용법
 
 ### 1. 설치
@@ -84,7 +78,7 @@ dvc init
 
 ### 3. connection 관리
 
-Airflow의 Connection 기능을 사용해 GitHub 자격 증명을 관리하면, 자격 증명을 안전하게 저장하고 DAG 내에서 이를 쉽게 사용할 수 있습니다. 이 방법은 GitHub의 OAuth 토큰이나 SSH 키를 활용하는 방식으로 자격 증명을 자동화하는 데 유용합니다.
+Airflow의 Connection 기능을 사용해 GitHub 자격 증명을 관리하면, 자격 증명을 안전하게 저장하고 DAG 내에서 이를 쉽게 사용할 수 있습니다. 이 방법은 GitHub의 OAuth 토큰이나 SSH 키를 활용하는 방식으로 자동화하는 데 유용합니다.
 
 1. Airflow Connection 생성
    먼저 Airflow UI에서 GitHub에 대한 자격 증명을 저장할 Connection을 생성해야 합니다.

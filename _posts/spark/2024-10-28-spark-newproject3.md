@@ -2,8 +2,7 @@
 title: "Spark 클러스터 구축하기3"
 excerpt: "로컬에 설치하고 클러스터 구성하기"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark]
 

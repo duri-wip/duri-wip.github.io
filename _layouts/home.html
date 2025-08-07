@@ -203,10 +203,10 @@ layout: default
                     <div class="featured-badge">Featured</div>
                     <div class="post-meta">
                         <span class="post-category">
-                            {% if post.categories.first %}
-                                {{ post.categories.first }}
-                            {% elsif post.category %}
-                                {{ post.category }}
+                            {% if post.topics.first %}
+                                {{ post.topics.first }}
+                            {% elsif post.topic %}
+                                {{ post.topic }}
                             {% else %}
                                 General
                             {% endif %}

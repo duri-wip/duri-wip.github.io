@@ -2,8 +2,9 @@
 title: "Airflow 대그에서 파이썬 함수와 데코레이터"
 excerpt: "데코레이터 사용하기"
 
-categories: [airflow]
-tags: [decorator, python, task]
+category:  airflow
+tags: 
+  - [decorator, python, task]
 
 permalink: /airflow/decorator/
 

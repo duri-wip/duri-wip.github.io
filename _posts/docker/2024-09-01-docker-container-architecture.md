@@ -2,8 +2,7 @@
 title: "도커 아키텍처"
 excerpt: "도커의 핵심 구성 요소와 그 역할"
 
-categories:
-  - docker
+category:  docker
 tags:
   - [Docker]
 

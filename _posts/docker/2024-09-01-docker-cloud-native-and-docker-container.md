@@ -2,8 +2,7 @@
 title: "클라우드 네이티브와 도커"
 excerpt: "도커 컨테이너를 활용한 애플리케이션 개발 과정"
 
-categories:
-  - docker
+category:  docker
 tags:
   - [Docker]
 

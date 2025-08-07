@@ -2,8 +2,7 @@
 title: "HA 패턴 중 하트비트 기반 솔루션, pacemaker"
 excerpt: "Hearbeat solution in database HA"
 
-categories:
-  - database
+category:  database
 tags:
   - [Database, HA]
 

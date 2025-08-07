@@ -2,8 +2,7 @@
 title: "태스크에 SLA 사용하기"
 excerpt: "airflow 성능 최적화"
 
-categories:
-  - airflow
+category:  airflow
 taxanomy:
   - Airflow
 

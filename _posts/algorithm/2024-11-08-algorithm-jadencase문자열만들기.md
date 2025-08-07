@@ -2,10 +2,9 @@
 title: "Jaden Case"
 excerpt: "Programmers level 2"
 
-categories:
-  - algorithm
+category:  algorithm
 tags:
-  - [Algorithm]
+  - [알고리즘, 프로그래머스]
 
 permalink: /algorithm/jaden-case
 toc: true

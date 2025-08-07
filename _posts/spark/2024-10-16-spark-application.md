@@ -2,8 +2,7 @@
 title: "Spark 애플리케이션"
 excerpt: "애플리케이션의 구조와 실행하기"
 
-categories:
-  - spark
+category:  spark
 tags:
   - [Spark]
 

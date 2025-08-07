@@ -2,8 +2,7 @@
 title: "도커파일의 context"
 excerpt: "도커 빌드시 컨텍스트의 개념"
 
-categories:
-  - docker
+category:  docker
 tags:
   - [Docker]
 

@@ -1,20 +1,15 @@
-<!-- ---
-title: "도커 스토리지의 구조와 관리법"
-excerpt: "Docker Storage"
-
-categories:
-  - docker
+---
+title: "YAML 파일 사용법과 기본 개념"
+excerpt: "구성 파일 작성을 위한 YAML 기초"
+category: docker
 tags:
-  - [Docker]
-
-permalink: /docker/docker-storage/
-
+  - [YAML, Configuration, Docker]
 toc: true
 toc_sticky: true
-
 date: 2024-09-01
 last_modified_at: 2024-10-01
---- -->
+---
+
 - 0.  YAML? : yaml 파일 사용법
 
 ## YAML

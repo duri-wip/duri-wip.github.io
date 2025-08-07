@@ -2,8 +2,7 @@
 title: "도커 네트워크의 구조"
 excerpt: "Docker Network"
 
-categories:
-  - docker
+category:  docker
 tags:
   - [Docker]
 
