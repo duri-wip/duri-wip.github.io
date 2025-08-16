@@ -2,20 +2,21 @@
 title: "LangChain Output Parser 완전 정복"
 excerpt: "구조화된 출력을 위한 Output Parser 활용법"
 category: genai
-tags: 
+tags:
   - [LangChain, Output Parser, Pydantic, study]
 study_name: "LangChain 마스터"
 study_status: "completed"
 study_description: "LangChain을 활용한 AI 애플리케이션 개발 학습"
 toc: true
 toc_sticky: true
-date: 2024-03-05
-last_modified_at: 2024-03-05
+date: 2025-07-29
+last_modified_at: 2025-07-29
 ---
 
 # 아웃풋 형식 지정하기
 
 ## Output Parser 개념
+
 특정 형식으로 출력하도록 지정하는 프롬프트 작성과 응답 텍스트의 변환 기능을 제공합니다. PydanticOutputParser는 langchain의 output parser 중 하나로 LLM 출력을 파이썬 객체로 변환합니다.
 
 ### Pydantic Output Parser 사용법
@@ -40,7 +41,7 @@ print(format_instructions)
 from langchain_core.prompts import ChatPromptTemplate
 
 prompt = ChatPromptTemplate.from_messages([
-    ("system", 
+    ("system",
      "사용자가 입력한 국가의 수도를 출력해주세요.",
      "{format_instructions}"),
      ("human", "{input}")
@@ -55,6 +56,7 @@ print(prompt_value.messages[1].content)
 ```
 
 ### String Output Parser 사용법
+
 LLM의 출력을 텍스트로 변환하는데 사용됩니다. LCEL과 연관됩니다.
 
 ```python
@@ -73,6 +75,7 @@ print(ai_message)
 ### 1. 고급 Output Parser 종류
 
 **JsonOutputParser:**
+
 ```python
 from langchain_core.output_parsers import JsonOutputParser
 from pydantic import BaseModel, Field
@@ -91,6 +94,7 @@ prompt = ChatPromptTemplate.from_template(
 ```
 
 **CommaSeparatedListOutputParser:**
+
 ```python
 from langchain_core.output_parsers import CommaSeparatedListOutputParser
 
@@ -100,6 +104,7 @@ format_instructions = output_parser.get_format_instructions()
 ```
 
 **DatetimeOutputParser:**
+
 ```python
 from langchain_core.output_parsers import DatetimeOutputParser
 
@@ -117,17 +122,17 @@ import re
 
 class EmailListParser(BaseOutputParser[List[str]]):
     """이메일 주소 목록을 파싱하는 커스텀 파서"""
-    
+
     def parse(self, text: str) -> List[str]:
         # 이메일 패턴 정규식
         email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
         emails = re.findall(email_pattern, text)
-        
+
         if not emails:
             raise OutputParserException(f"No valid emails found in: {text}")
-        
+
         return emails
-    
+
     def get_format_instructions(self) -> str:
         return "응답에는 유효한 이메일 주소들을 포함해주세요."
 
@@ -153,7 +158,7 @@ class Task(BaseModel):
     priority: Priority = Field(description="작업 우선순위")
     due_date: Optional[str] = Field(description="마감일 (YYYY-MM-DD)")
     tags: List[str] = Field(description="작업 태그 목록")
-    
+
     @validator('due_date')
     def validate_date_format(cls, v):
         if v is not None:
@@ -170,12 +175,14 @@ class Task(BaseModel):
 ### 1. PydanticOutputParser vs JsonOutputParser의 차이
 
 **PydanticOutputParser:**
+
 - Pydantic 모델 기반 검증
 - 타입 안전성 보장
 - 복잡한 중첩 구조 지원
 - 자동 필드 검증
 
 **JsonOutputParser:**
+
 - 단순 JSON 파싱
 - Pydantic 모델 선택적 사용
 - 더 빠른 처리 속도
@@ -187,7 +194,7 @@ class Task(BaseModel):
 # 잘못된 예시
 prompt = ChatPromptTemplate.from_template("날씨 정보를 JSON으로 주세요")
 
-# 올바른 예시  
+# 올바른 예시
 prompt = ChatPromptTemplate.from_template(
     "날씨 정보를 다음 형식으로 주세요:\n{format_instructions}\n질문: {query}"
 )
@@ -226,6 +233,7 @@ except Exception as e:
 ### 4. 성능 최적화 팁
 
 **1. 간단한 구조 선호:**
+
 ```python
 # 복잡한 중첩보다는 평면적 구조
 class SimpleTask(BaseModel):
@@ -235,6 +243,7 @@ class SimpleTask(BaseModel):
 ```
 
 **2. 선택적 필드 활용:**
+
 ```python
 class FlexibleResponse(BaseModel):
     required_field: str
@@ -242,6 +251,7 @@ class FlexibleResponse(BaseModel):
 ```
 
 **3. Enum 활용으로 값 제한:**
+
 ```python
 class Status(str, Enum):
     PENDING = "pending"
@@ -252,10 +262,12 @@ class Status(str, Enum):
 ### 5. 실제 프로덕션 환경에서의 주의사항
 
 **토큰 비용 고려:**
+
 - 복잡한 format_instructions는 토큰을 많이 소모
 - 자주 사용되는 파서는 캐싱 고려
 
 **에러 복구:**
+
 ```python
 def robust_parse(parser, text, max_attempts=3):
     for attempt in range(max_attempts):
@@ -270,6 +282,7 @@ def robust_parse(parser, text, max_attempts=3):
 ```
 
 **로깅과 모니터링:**
+
 - 파싱 실패율 추적
 - 자주 실패하는 패턴 분석
 - LLM 응답 품질 개선을 위한 프롬프트 조정

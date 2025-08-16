@@ -1,0 +1,257 @@
+/* ==========================================================================
+   반응형 디자인
+   ========================================================================== */
+
+/* 모바일 메뉴 토글 버튼 (기본적으로 숨김) */
+.mobile-menu-toggle {
+    display: none;
+}
+
+/* 태블릿 (768px 이하) */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        width: 280px;
+        height: 100vh;
+        transition: left 0.3s ease;
+        z-index: 1000;
+    }
+    
+    .sidebar.active {
+        left: 0;
+    }
+    
+    /* 모바일 메뉴 토글 버튼 */
+    .mobile-menu-toggle {
+        display: block;
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 1001;
+        background: $accent-primary;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        border-radius: $radius-sm;
+        cursor: pointer;
+    }
+    
+    /* 즐겨찾기 포스트 반응형 */
+    
+    
+    .featured-section {
+        padding: $space-lg;
+    }
+    
+    /* 포스트 헤더 반응형 */
+    .post-header {
+        margin-bottom: $space-xl;
+        padding-bottom: $space-lg;
+    }
+    
+    .post-title {
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .post-info {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $space-md;
+    }
+    
+    .post-stats {
+        gap: $space-md;
+    }
+    
+    /* 포스트 콘텐츠 반응형 */
+    .post-content h1 {
+        font-size: 1.8rem;
+        margin: 1.5rem 0 1rem 0;
+    }
+    
+    .post-content h2 {
+        font-size: 1.5rem;
+        margin: 1.5rem 0 0.8rem 0;
+        padding: 0.8rem 0.8rem 0.8rem 1.2rem;
+    }
+    
+    .post-content h3 {
+        font-size: 1.3rem;
+        margin: 1.2rem 0 0.6rem 0;
+    }
+    
+    .post-content p {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .post-content ul, .post-content ol {
+        padding-left: 2rem;
+    }
+    
+    .post-content h2 + ul,
+    .post-content h2 + ol {
+        padding: 1rem 1.5rem;
+        margin: 0.8rem 0 1.5rem 0;
+    }
+}
+
+/* 모바일 (480px 이하) */
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100%;
+    }
+    
+    .main-content {
+        padding: $space-md;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    /* 프로젝트 페이지 반응형 */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: $space-lg;
+    }
+    
+    .project-image {
+        height: 140px;
+    }
+    
+    .project-title {
+        font-size: 0.95rem;
+    }
+    
+    .project-excerpt {
+        font-size: 0.85rem;
+    }
+    
+    /* 홈페이지 포스트 카드 반응형 */
+    .posts-grid {
+        grid-template-columns: 1fr;
+        gap: $space-lg;
+    }
+    
+    .post-image {
+        height: 150px;
+    }
+    
+    .post-title {
+        font-size: 1.1rem;
+    }
+    
+    .post-excerpt {
+        font-size: 0.85rem;
+    }
+    
+    /* 즐겨찾기 포스트 모바일 반응형 */
+    
+    
+    .featured-section {
+        padding: $space-md;
+    }
+    
+    .featured-section .section-header {
+        margin-bottom: $space-lg;
+    }
+}
+
+/* 태블릿 (1024px 이하) */
+@media (max-width: 1024px) {
+    .layout-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "header"
+            "main";
+    }
+    
+    .post-layout,
+    .study-layout,
+    .categories-layout {
+        grid-template-columns: 1fr;
+        grid-template-areas: "main";
+    }
+    
+    .sidebar {
+        display: none;
+    }
+    
+    .posts-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: $space-lg;
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        padding: $space-md;
+    }
+    
+    .nav-menu {
+        gap: $space-md;
+        flex-wrap: wrap;
+    }
+    
+    .main-content {
+        padding: $space-lg;
+    }
+    
+    .study-layout,
+    .categories-layout {
+        padding: $space-md;
+    }
+    
+    .posts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $space-md;
+    }
+    
+    .banner-section {
+        height: 200px;
+    }
+    
+    .page-title {
+        font-size: 2rem;
+    }
+    
+    .timeline {
+        padding-left: $space-lg;
+    }
+    
+    .timeline-content {
+        margin-left: 0;
+    }
+    
+    .study-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $space-sm;
+    }
+    
+    .study-stats,
+    .category-stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .topics-grid {
+        grid-template-columns: 1fr;
+        gap: $space-lg;
+    }
+    
+    /* 즐겨찾기 포스트 반응형 */
+    
+    
+    .featured-section {
+        padding: $space-lg;
+    }
+}

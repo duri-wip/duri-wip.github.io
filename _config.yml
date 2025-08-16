@@ -33,6 +33,15 @@ collections:
     output: true
     permalink: /topics/:name/
 
+# 프로젝트 포스트를 컬렉션으로 인식
+defaults:
+  - scope:
+      path: "_posts/projects"
+      type: "posts"
+    values:
+      layout: "post"
+      collection: "projects"
+
 # 플러그인
 plugins:
   - jekyll-feed

@@ -11,6 +11,7 @@ featured: true
 show_date: true
 comments: true
 share: true
+image: /assets/images/project_img/yeardream/v2x_architecture.png
 ---
 
 # About

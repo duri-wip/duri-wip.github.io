@@ -1,0 +1,258 @@
+/* ==========================================================================
+   공통 레이아웃
+   ========================================================================== */
+
+/* 기본 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: $bg-primary;
+    color: $text-primary;
+    line-height: 1.6;
+    font-size: 16px;
+}
+
+/* 스크롤 진행률 표시기 */
+.scroll-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: $accent-primary;
+    z-index: 1000;
+    transition: width 0.3s ease;
+}
+
+/* 프로젝트 레이아웃 */
+.projects-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $space-2xl $space-lg;
+}
+
+.page-header {
+    text-align: center;
+    margin-bottom: $space-2xl;
+}
+
+.page-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin-bottom: $space-md;
+}
+
+.page-description {
+    font-size: 1.1rem;
+    color: $text-muted;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: $space-lg;
+    margin-top: $space-2xl;
+}
+
+/* 프로젝트 카드 개선 */
+.project-card {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    border: 1px solid $border-color;
+    position: relative;
+}
+
+.project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: $accent-primary;
+}
+
+.project-image {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05);
+}
+
+.project-content {
+    padding: $space-md;
+}
+
+.project-title {
+    font-size: 1.0rem;
+    font-weight: 600;
+    margin-bottom: $space-sm;
+    line-height: 1.3;
+}
+
+.project-title a {
+    color: $text-primary;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.project-title a:hover {
+    color: $accent-primary;
+}
+
+.project-excerpt {
+    color: $text-secondary;
+    margin-bottom: $space-sm;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+.project-tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-xs;
+    margin-bottom: $space-sm;
+}
+
+.tech-tag {
+    background: $accent-tertiary;
+    color: $accent-dark;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: $accent-primary;
+    color: white;
+}
+
+.project-date {
+    color: $text-muted;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* 빈 상태 스타일 */
+.empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: $space-2xl;
+    color: $text-muted;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: $space-md;
+    color: $accent-primary;
+}
+
+.empty-state h3 {
+    font-size: 1.5rem;
+    margin-bottom: $space-sm;
+    color: $text-primary;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* 카테고리 페이지 레이아웃 */
+.category-posts-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: $space-2xl $space-lg;
+}
+
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $space-lg;
+    margin-top: $space-2xl;
+}
+
+/* 홈페이지 레이아웃 */
+.layout-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+        "sidebar header"
+        "sidebar main";
+    min-height: 100vh;
+}
+
+/* 반응형 레이아웃 */
+@media (max-width: 1024px) {
+    .layout-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "header"
+            "main";
+    }
+    
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .layout-container {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "header"
+            "main";
+    }
+    
+    .main-content {
+        margin-left: 0;
+        padding: $space-md;
+    }
+}
+
+/* 포스트 레이아웃 */
+.post-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr 240px;
+    grid-template-areas: 
+        "sidebar main toc";
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    gap: $space-xl;
+    padding: $space-lg;
+}
+
+/* /Study/Categories 레이아웃 */
+.study-layout,
+.categories-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-areas: "sidebar main";
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    gap: $space-xl;
+    padding: $space-lg;
+}

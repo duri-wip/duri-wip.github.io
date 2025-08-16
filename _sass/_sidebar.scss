@@ -1,0 +1,181 @@
+/* ==========================================================================
+   사이드바
+   ========================================================================== */
+.sidebar {
+    grid-area: sidebar;
+    background: $bg-secondary;
+    border-right: 1px solid $border-color;
+    padding: $space-xl;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100vh;
+    overflow-y: auto;
+    z-index: 100;
+}
+
+.back-to-home {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    color: $accent-primary;
+    text-decoration: none;
+    font-weight: 500;
+    margin-bottom: $space-xl;
+    padding: $space-sm $space-md;
+    border-radius: $radius-sm;
+    transition: all 0.3s ease;
+    margin-top: $space-xl; /* 헤더와 겹치지 않도록 상단 여백 추가 */
+}
+
+.back-to-home:hover {
+    background: rgba(228, 54, 54, 0.1);
+    color: $accent-primary;
+}
+
+.blog-info {
+    text-align: center;
+    margin-bottom: $space-xl;
+}
+
+.blog-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin-bottom: $space-sm;
+}
+
+.blog-subtitle {
+    color: $text-secondary;
+    font-size: 0.9rem;
+}
+
+.profile-section {
+    text-align: center;
+    margin-bottom: $space-2xl;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid $accent-primary;
+    margin-bottom: $space-lg;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    filter: contrast(1.2) brightness(1.1);
+    background: radial-gradient(circle, transparent 30%, rgba(228, 54, 54, 0.1) 70%);
+}
+
+.profile-avatar:hover {
+    transform: scale(1.05);
+    filter: contrast(1.3) brightness(1.2) saturate(1.1);
+}
+
+.profile-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin-bottom: $space-sm;
+}
+
+.profile-title {
+    font-size: 1rem;
+    color: $accent-primary;
+    font-weight: 500;
+    margin-bottom: $space-md;
+}
+
+.profile-bio {
+    font-size: 0.9rem;
+    color: $text-secondary;
+    line-height: 1.5;
+    margin-bottom: $space-lg;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: $space-md;
+    margin-bottom: $space-2xl;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: $bg-card;
+    border-radius: $radius-sm;
+    color: $text-secondary;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.social-link:hover {
+    background: $accent-primary;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(228, 54, 54, 0.4);
+}
+
+.sidebar-stats {
+    background: $bg-hover;
+    border-radius: $radius-md;
+    padding: $space-lg;
+    border: 1px solid $border-color;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: $space-sm 0;
+    border-bottom: 1px solid $border-color;
+}
+
+.stat-item:last-child {
+    border-bottom: none;
+}
+
+.stat-label {
+    color: $text-secondary;
+    font-size: 0.9rem;
+}
+
+.stat-value {
+    color: $accent-primary;
+    font-weight: 600;
+}
+
+/* 사이드바 네비게이션 */
+.sidebar-nav {
+    list-style: none;
+}
+
+.sidebar-nav .nav-item {
+    margin-bottom: $space-sm;
+}
+
+.sidebar-nav .nav-item a {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    color: $text-secondary;
+    text-decoration: none;
+    padding: $space-sm $space-md;
+    border-radius: $radius-sm;
+    transition: all 0.3s ease;
+}
+
+.sidebar-nav .nav-item a:hover {
+    background: $bg-hover;
+    color: $accent-primary;
+}
+
+.sidebar-nav .nav-item.active a {
+    background: rgba(228, 54, 54, 0.1);
+    color: $accent-primary;
+}

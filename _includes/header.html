@@ -1,7 +1,7 @@
 <header class="header">
-    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <!-- <button class="mobile-menu-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
-    </button>
+    </button> -->
     <nav>
         <ul class="nav-menu">
             <li class="nav-item {% if page.url == '/' %}active{% endif %}">
@@ -15,9 +15,6 @@
             </li>
             <li class="nav-item {% if page.url contains '/projects' %}active{% endif %}">
                 <a href="{{ '/projects/' | relative_url }}"><i class="fas fa-folder"></i> Projects</a>
-            </li>
-            <li class="nav-item {% if page.url contains '/contact' %}active{% endif %}">
-                <a href="{{ '/contact/' | relative_url }}"><i class="fas fa-envelope"></i> Contact</a>
             </li>
         </ul>
     </nav>

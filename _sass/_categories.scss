@@ -1,0 +1,483 @@
+/* ==========================================================================
+   토픽 페이지 - 토픽 그리드
+   ========================================================================== */
+.topics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $space-xl;
+    margin-bottom: $space-2xl;
+}
+
+.category-card {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $space-xl;
+    border: 1px solid $border-color;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: $accent-primary;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.category-card:hover::before {
+    transform: scaleX(1);
+}
+
+.category-card:hover {
+    transform: translateY(-6px);
+    box-shadow: $shadow-lg;
+    border-color: $accent-primary;
+}
+
+.category-card.docker:hover { border-color: $docker-color; }
+.category-card.database:hover { border-color: $database-color; }
+.category-card.spark:hover { border-color: $spark-color; }
+.category-card.algorithm:hover { border-color: $algorithm-color; }
+.category-card.ml:hover { border-color: $ml-color; }
+.category-card.python:hover { border-color: $python-color; }
+
+.category-header {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    margin-bottom: $space-lg;
+}
+
+.category-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: $radius-md;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: white;
+    flex-shrink: 0;
+}
+
+.category-icon.docker { background: $docker-color; }
+.category-icon.database { background: $database-color; }
+.category-icon.spark { background: $spark-color; }
+.category-icon.algorithm { background: $algorithm-color; }
+.category-icon.ml { background: $ml-color; }
+.category-icon.python { background: $python-color; }
+
+.category-info h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: $space-xs;
+}
+
+.category-count {
+    font-size: 0.9rem;
+    color: $text-muted;
+}
+
+.category-description {
+    color: $text-secondary;
+    line-height: 1.6;
+    margin-bottom: $space-lg;
+}
+
+.category-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-xs;
+    margin-bottom: $space-lg;
+}
+
+.category-tag {
+    background: $bg-card;
+    color: $text-secondary;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    font-size: 0.8rem;
+    border: 1px solid $border-color;
+}
+
+.category-stats-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $space-md;
+    border-top: 1px solid $border-color;
+}
+
+.recent-posts {
+    font-size: 0.85rem;
+    color: $text-muted;
+}
+
+.view-all {
+    font-size: 0.85rem;
+    color: $accent-primary;
+    font-weight: 500;
+}
+
+/* ==========================================================================
+   태그 클라우드
+   ========================================================================== */
+.tag-cloud-section {
+    background: $bg-hover;
+    border-radius: $radius-xl;
+    padding: $space-2xl;
+    border: 1px solid $border-color;
+    margin-bottom: $space-2xl;
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-md;
+    justify-content: center;
+}
+
+.tag-cloud-item {
+    background: $bg-card;
+    color: $text-secondary;
+    padding: $space-sm $space-md;
+    border-radius: $radius-md;
+    text-decoration: none;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    box-shadow: $shadow-sm;
+}
+
+.tag-cloud-item:hover {
+    background: $accent-primary;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+}
+
+.tag-cloud-item.size-1 { font-size: 0.8rem; }
+.tag-cloud-item.size-2 { font-size: 0.9rem; }
+.tag-cloud-item.size-3 { font-size: 1rem; }
+.tag-cloud-item.size-4 { font-size: 1.1rem; }
+.tag-cloud-item.size-5 { font-size: 1.2rem; }
+
+
+
+
+/* ==========================================================================
+   포스트 카드 그리드
+   ========================================================================== */
+   .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $space-lg;
+}
+
+.post-card {
+    background: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    padding: $space-sm;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: $shadow-sm;
+}
+
+.post-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: $accent-primary;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.post-card:hover::before {
+    transform: scaleX(1);
+}
+
+.post-card:hover {
+    border-color: $accent-primary;
+    box-shadow: 0 4px 12px rgba(228, 54, 54, 0.3);
+    transform: translateY(-4px);
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    margin-bottom: $space-md;
+    font-size: 0.85rem;
+    color: $text-muted;
+}
+
+.post-category {
+    background: rgba(228, 54, 54, 0.1);
+    color: $accent-primary;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: $space-md;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.post-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.post-card:hover .post-title {
+    color: $accent-primary;
+}
+
+.post-excerpt {
+    color: $text-secondary;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: $space-lg;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.post-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: $space-md;
+    border-top: 1px solid $border-color;
+}
+
+.read-time {
+    font-size: 0.85rem;
+    color: $text-muted;
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+}
+
+.post-tags {
+    display: flex;
+    gap: $space-xs;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: $bg-card;
+    color: $text-secondary;
+    padding: 2px $space-xs;
+    border-radius: $radius-sm;
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background: $accent-primary;
+    color: white;
+}
+
+
+
+/* 토픽 그리드 레이아웃 */
+.topics-grid-layout {
+    padding: 2rem;
+  
+    .page-header {
+      margin-bottom: 2rem;
+      text-align: center;
+  
+      .page-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #333;
+      }
+  
+      .page-description {
+        font-size: 1.1rem;
+        color: #666;
+      }
+    }
+  
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 1rem;
+    }
+  
+    .topic-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+  
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+  
+      .topic-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+  
+        .topic-title {
+          font-size: 1.5rem;
+          margin: 0;
+          color: #333;
+        }
+  
+        .post-count {
+          font-size: 0.9rem;
+          color: #666;
+          background: #f5f5f5;
+          padding: 0.3rem 0.8rem;
+          border-radius: 20px;
+        }
+      }
+  
+      .topic-description {
+        color: #666;
+        font-size: 1rem;
+        margin: 0;
+        line-height: 1.5;
+      }
+    }
+  }
+  
+  /* 개별 토픽 페이지 스타일 */
+  .topics-layout {
+    padding: 2rem;
+  
+    .page-header {
+      margin-bottom: 2rem;
+  
+      .page-title {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+        color: #333;
+      }
+  
+      .page-description {
+        font-size: 1.1rem;
+        color: #666;
+      }
+    }
+  
+    .posts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+  
+    .post-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+  
+      &:hover {
+        transform: translateY(-3px);
+      }
+  
+      .post-meta {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
+        color: #666;
+      }
+  
+      .post-title {
+        font-size: 1.3rem;
+        margin: 0 0 1rem;
+        
+        a {
+          color: #333;
+          text-decoration: none;
+          
+          &:hover {
+            color: #007bff;
+          }
+        }
+      }
+  
+      .post-excerpt {
+        font-size: 0.95rem;
+        color: #666;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+  
+      .post-tags {
+        margin-bottom: 1rem;
+        
+        .tag {
+          display: inline-block;
+          padding: 0.2rem 0.6rem;
+          margin-right: 0.5rem;
+          margin-bottom: 0.5rem;
+          background: #f5f5f5;
+          border-radius: 15px;
+          font-size: 0.85rem;
+          color: #666;
+          text-decoration: none;
+          
+          &:hover {
+            background: #e9ecef;
+          }
+        }
+      }
+  
+      .post-footer {
+        .read-more {
+          display: inline-block;
+          color: #007bff;
+          text-decoration: none;
+          font-size: 0.95rem;
+          
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #666;
+    }
+  }

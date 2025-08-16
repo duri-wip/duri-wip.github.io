@@ -1,0 +1,327 @@
+<h1 id="lcel이란">LCEL이란?</h1>
+
+<p>LangChain에서 chain을 구성하는 방법입니다. 프롬프트나 LLM을 <code class="language-plaintext highlighter-rouge">|</code> 로 연결하여 작성하고 처리의 연쇄를 구성합니다.</p>
+
+<h2 id="유스케이스">유스케이스</h2>
+
+<ul>
+  <li>프롬프트 템플릿을 채우고, 그 결과를 챗 모델에 제공하고 결과를 파이썬 객체로 변환하고 싶다.</li>
+  <li>프롬프팅으로 단계별로 생각하게 하고 그 결과를 요약하게 하고 싶다</li>
+  <li>출력을 얻은 후에 서비스 정책에 위반되지 않는지 확인하고 싶다</li>
+  <li>출력 결과를 바탕으로 SQL을 실행하여 데이터를 분석하고 싶다.</li>
+</ul>
+
+<h2 id="1-prompt와-model-연결하기">1. Prompt와 Model 연결하기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">You are a helpful assistant that can answer questions.</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-4o-mini</span><span class="sh">"</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1"># 체인 생성
+</span><span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span>
+
+<span class="n">ai_message</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">What is the capital of France?</span><span class="sh">"</span><span class="p">})</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ai_message</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="2-prompt-model-output-parser-연결하기">2. Prompt, Model, Output Parser 연결하기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">You are a helpful assistant that can answer questions.</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-4o-mini</span><span class="sh">"</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">프랑스에서 가장 맛있다고 하는 요리는?</span><span class="sh">"</span><span class="p">})</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="3-prompt-model-pydantic-output-parser-연결하기">3. Prompt, Model, Pydantic Output Parser 연결하기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">PydanticOutputParser</span>
+<span class="kn">from</span> <span class="n">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="c1"># 응답 형식 모델 설정
+</span><span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">dish</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">먹고싶은 음식의 이름</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">recipe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">음식의 요리법</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">ingredient</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">필요한 재료의 목록</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 연쇄 처리할 부분
+</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">사용자가 입력한 음식의 요리법과 필요한 재료목록을 찾아주세요.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">{format_instructions}</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">output_parser</span> <span class="o">=</span> <span class="nc">PydanticOutputParser</span><span class="p">(</span><span class="n">pydantic_object</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">)</span>
+<span class="n">prompt_input</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">partial</span><span class="p">(</span>
+    <span class="n">format_instructions</span> <span class="o">=</span> <span class="n">output_parser</span><span class="p">.</span><span class="nf">get_format_instructions</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-4o-mini</span><span class="sh">"</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">).</span><span class="nf">bind</span><span class="p">(</span>
+    <span class="n">response_format</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">json_object</span><span class="sh">"</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="n">prompt_input</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="n">output_parser</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">당근 카레</span><span class="sh">"</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="4-간단한-구조화된-출력-방법">4. 간단한 구조화된 출력 방법</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 동일한 기능을 하는 간단한 다른 방법
+</span><span class="n">chain2</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span><span class="p">.</span><span class="nf">with_structured_output</span><span class="p">(</span><span class="n">Recipe</span><span class="p">)</span>
+
+<span class="n">output2</span> <span class="o">=</span> <span class="n">chain2</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">양파 카레</span><span class="sh">"</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="-추가로-알아볼-내용">📚 추가로 알아볼 내용</h2>
+
+<h3 id="1-lcel의-고급-연산자들">1. LCEL의 고급 연산자들</h3>
+
+<p><strong>RunnableParallel (병렬 실행):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableParallel</span>
+
+<span class="c1"># 여러 작업을 동시에 실행
+</span><span class="n">parallel_chain</span> <span class="o">=</span> <span class="nc">RunnableParallel</span><span class="p">(</span>
+    <span class="n">summary</span><span class="o">=</span><span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">(),</span>
+    <span class="n">keywords</span><span class="o">=</span><span class="n">keyword_prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">(),</span>
+    <span class="n">sentiment</span><span class="o">=</span><span class="n">sentiment_prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>RunnableLambda (함수 변환):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableLambda</span>
+
+<span class="k">def</span> <span class="nf">format_input</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="nf">upper</span><span class="p">()}</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="n">format_input</span><span class="p">)</span> <span class="o">|</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span>
+</code></pre></div></div>
+
+<p><strong>RunnableBranch (조건부 분기):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableBranch</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="nc">RunnableBranch</span><span class="p">(</span>
+    <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sh">"</span><span class="s">question</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">x</span><span class="p">.</span><span class="nf">lower</span><span class="p">(),</span> <span class="n">question_chain</span><span class="p">),</span>
+    <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sh">"</span><span class="s">summary</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">x</span><span class="p">.</span><span class="nf">lower</span><span class="p">(),</span> <span class="n">summary_chain</span><span class="p">),</span>
+    <span class="n">default_chain</span>  <span class="c1"># 기본값
+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-체인-디버깅과-모니터링">2. 체인 디버깅과 모니터링</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 중간 결과 확인
+</span><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnablePassthrough</span>
+
+<span class="k">def</span> <span class="nf">debug_print</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Debug: </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">debug_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">prompt</span>
+    <span class="o">|</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="n">debug_print</span><span class="p">)</span>  <span class="c1"># 프롬프트 결과 확인
+</span>    <span class="o">|</span> <span class="n">model</span>
+    <span class="o">|</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="n">debug_print</span><span class="p">)</span>  <span class="c1"># 모델 응답 확인
+</span>    <span class="o">|</span> <span class="n">output_parser</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>LangSmith 트레이싱:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">os</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">"</span><span class="s">LANGCHAIN_TRACING_V2</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">true</span><span class="sh">"</span>
+<span class="n">os</span><span class="p">.</span><span class="n">environ</span><span class="p">[</span><span class="sh">"</span><span class="s">LANGCHAIN_API_KEY</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">your-api-key</span><span class="sh">"</span>
+
+<span class="c1"># 자동으로 모든 체인 실행이 트레이싱됨
+</span></code></pre></div></div>
+
+<h3 id="3-에러-핸들링-전략">3. 에러 핸들링 전략</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableWithFallbacks</span>
+
+<span class="c1"># 메인 체인이 실패하면 폴백 체인 실행
+</span><span class="n">resilient_chain</span> <span class="o">=</span> <span class="n">primary_chain</span><span class="p">.</span><span class="nf">with_fallbacks</span><span class="p">([</span><span class="n">fallback_chain</span><span class="p">])</span>
+
+<span class="c1"># 커스텀 에러 핸들링
+</span><span class="k">def</span> <span class="nf">safe_invoke</span><span class="p">(</span><span class="n">chain</span><span class="p">,</span> <span class="n">input_data</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Error occurred: </span><span class="si">{</span><span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span>
+
+<span class="n">safe_chain</span> <span class="o">=</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nf">safe_invoke</span><span class="p">(</span><span class="n">main_chain</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="4-스트리밍-최적화">4. 스트리밍 최적화</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 토큰 단위 스트리밍
+</span><span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">.</span><span class="nf">stream</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">긴 텍스트를 처리하세요</span><span class="sh">"</span><span class="p">}):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="sh">""</span><span class="p">,</span> <span class="n">flush</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># 배치 처리로 효율성 증대
+</span><span class="n">inputs</span> <span class="o">=</span> <span class="p">[{</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sa">f</span><span class="sh">"</span><span class="s">질문 </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="sh">"</span><span class="p">}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="n">results</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">batch</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="-학습하면서-알게-된-점">🔍 학습하면서 알게 된 점</h2>
+
+<h3 id="1-파이프-연산자의-내부-동작-원리">1. 파이프 연산자(|)의 내부 동작 원리</h3>
+
+<p>LCEL의 <code class="language-plaintext highlighter-rouge">|</code> 연산자는 Python의 <code class="language-plaintext highlighter-rouge">__or__</code> 매직 메서드를 오버라이드합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 내부적으로 이렇게 동작
+</span><span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nc">RunnableSequence</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="n">self</span><span class="p">,</span> <span class="n">last</span><span class="o">=</span><span class="n">other</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>핵심 인사이트:</strong></p>
+
+<ul>
+  <li>각 Runnable은 <code class="language-plaintext highlighter-rouge">invoke()</code>, <code class="language-plaintext highlighter-rouge">stream()</code>, <code class="language-plaintext highlighter-rouge">batch()</code> 메서드를 구현</li>
+  <li>타입 힌트를 통해 입출력 타입 검증 가능</li>
+  <li>체인은 실제로 RunnableSequence 객체</li>
+</ul>
+
+<h3 id="2-입출력-타입-일치의-중요성">2. 입출력 타입 일치의 중요성</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 타입 불일치 예시 (에러 발생)
+</span><span class="n">prompt_returns_messages</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello {name}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">parser_expects_string</span> <span class="o">=</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="c1"># 올바른 연결
+</span><span class="n">chain</span> <span class="o">=</span> <span class="n">prompt_returns_messages</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="n">parser_expects_string</span>
+</code></pre></div></div>
+
+<p><strong>주의사항:</strong></p>
+
+<ul>
+  <li>ChatPromptTemplate → AIMessage 객체 출력</li>
+  <li>StrOutputParser → AIMessage.content (string) 추출</li>
+  <li>중간에 모델이 AIMessage 생성해야 함</li>
+</ul>
+
+<h3 id="3-with_structured_output의-장점">3. with_structured_output()의 장점</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 기존 방식 (복잡함)
+</span><span class="n">chain1</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span><span class="p">.</span><span class="nf">bind</span><span class="p">(</span><span class="n">response_format</span><span class="o">=</span><span class="p">{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">json_object</span><span class="sh">"</span><span class="p">})</span>
+    <span class="o">|</span> <span class="nc">PydanticOutputParser</span><span class="p">(</span><span class="n">pydantic_object</span><span class="o">=</span><span class="n">Recipe</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># 새로운 방식 (간단함)
+</span><span class="n">chain2</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span><span class="p">.</span><span class="nf">with_structured_output</span><span class="p">(</span><span class="n">Recipe</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>내부적으로 수행되는 작업:</strong></p>
+
+<ol>
+  <li>프롬프트에 JSON 스키마 자동 추가</li>
+  <li>Function Calling 또는 JSON 모드 설정</li>
+  <li>자동 파싱 및 검증</li>
+</ol>
+
+<h3 id="4-성능-최적화-팁">4. 성능 최적화 팁</h3>
+
+<p><strong>1. 불필요한 중간 변환 제거:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 비효율적
+</span><span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span> <span class="o">|</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="nb">str</span><span class="p">.</span><span class="n">strip</span><span class="p">)</span>
+
+<span class="c1"># 효율적
+</span><span class="k">def</span> <span class="nf">clean_output</span><span class="p">(</span><span class="n">ai_msg</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">ai_msg</span><span class="p">.</span><span class="n">content</span><span class="p">.</span><span class="nf">strip</span><span class="p">()</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="n">clean_output</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>2. 캐싱 활용:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain.globals</span> <span class="kn">import</span> <span class="n">set_llm_cache</span>
+<span class="kn">from</span> <span class="n">langchain.cache</span> <span class="kn">import</span> <span class="n">InMemoryCache</span>
+
+<span class="nf">set_llm_cache</span><span class="p">(</span><span class="nc">InMemoryCache</span><span class="p">())</span>
+<span class="c1"># 동일한 입력에 대해 캐시된 결과 반환
+</span></code></pre></div></div>
+
+<h3 id="5-실제-프로덕션-환경에서의-베스트-프랙티스">5. 실제 프로덕션 환경에서의 베스트 프랙티스</h3>
+
+<p><strong>1. 환경별 설정 분리:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># config.py
+</span><span class="k">class</span> <span class="nc">Config</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="sh">"</span><span class="s">development</span><span class="sh">"</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">env</span> <span class="o">==</span> <span class="sh">"</span><span class="s">production</span><span class="sh">"</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.1</span>  <span class="c1"># 안정적
+</span>            <span class="n">self</span><span class="p">.</span><span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">500</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.7</span>  <span class="c1"># 창의적
+</span>            <span class="n">self</span><span class="p">.</span><span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="nc">Config</span><span class="p">(</span><span class="n">os</span><span class="p">.</span><span class="nf">getenv</span><span class="p">(</span><span class="sh">"</span><span class="s">ENVIRONMENT</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">development</span><span class="sh">"</span><span class="p">))</span>
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="n">config</span><span class="p">.</span><span class="n">temperature</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>2. 에러 복구 체인:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_resilient_chain</span><span class="p">(</span><span class="n">primary</span><span class="p">,</span> <span class="n">fallback</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">primary</span><span class="p">.</span><span class="nf">with_fallbacks</span><span class="p">([</span>
+        <span class="n">fallback</span><span class="p">,</span>
+        <span class="nc">RunnableLambda</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sh">"</span><span class="s">죄송합니다. 일시적 오류가 발생했습니다.</span><span class="sh">"</span><span class="p">)</span>
+    <span class="p">])</span>
+</code></pre></div></div>
+
+<p><strong>3. 로깅 및 메트릭:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+
+<span class="k">def</span> <span class="nf">measure_chain_performance</span><span class="p">(</span><span class="n">chain</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">input_data</span><span class="p">):</span>
+        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+        <span class="n">duration</span> <span class="o">=</span> <span class="n">time</span><span class="p">.</span><span class="nf">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start_time</span>
+
+        <span class="c1"># 메트릭 수집
+</span>        <span class="n">logger</span><span class="p">.</span><span class="nf">info</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Chain execution took </span><span class="si">{</span><span class="n">duration</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">s</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+
+    <span class="k">return</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="n">wrapper</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="6-메모리-효율성-고려사항">6. 메모리 효율성 고려사항</h3>
+
+<p><strong>스트리밍 활용:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 메모리 효율적인 대용량 처리
+</span><span class="k">def</span> <span class="nf">process_large_document</span><span class="p">(</span><span class="n">doc_chunks</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">doc_chunks</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">chain</span><span class="p">.</span><span class="nf">stream</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="n">chunk</span><span class="p">})</span>
+</code></pre></div></div>
+
+<p><strong>가비지 컬렉션:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">gc</span>
+
+<span class="c1"># 대량 배치 처리 후 메모리 정리
+</span><span class="n">results</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">batch</span><span class="p">(</span><span class="n">large_input_list</span><span class="p">)</span>
+<span class="n">gc</span><span class="p">.</span><span class="nf">collect</span><span class="p">()</span>  <span class="c1"># 명시적 가비지 컬렉션
+</span></code></pre></div></div>

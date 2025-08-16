@@ -15,12 +15,12 @@ layout: default
             {% else %}
                 <div class="banner-placeholder">
                     <i class="fas fa-image"></i>
-                    <p>{{ site.banner_text | default: "귀여운 이미지를 넣어주세요 ✨" }}</p>
+                    <p>{{ site.banner_text | default: "배너 이미지가 없습니다." }}</p>
                 </div>
             {% endif %}
         </section>
 
-        <!-- 스터디 현황 섹션 (새로 추가) -->
+        <!-- 스터디 현황 섹션 -->
         <section class="section study-overview">
             <div class="section-header">
                 <div>
@@ -28,7 +28,6 @@ layout: default
                         <i class="fas fa-graduation-cap"></i>
                         현재 스터디 현황
                     </h2>
-                    <p class="section-subtitle">진행중인 학습과 목표를 확인해보세요</p>
                 </div>
                 <a href="{{ '/study/' | relative_url }}" class="view-all-link">전체 보기</a>
             </div>
@@ -37,6 +36,7 @@ layout: default
                 {% comment %}
                 스터디 태그가 있는 포스트들을 그룹화해서 진행률 계산
                 {% endcomment %}
+
                 {% assign study_posts = site.posts | where_exp: "post", "post.tags contains 'study'" %}
                 {% assign study_groups = study_posts | group_by: 'study_name' %}
                 
@@ -48,7 +48,7 @@ layout: default
                 <div class="study-progress-card">
                     <div class="study-card-header">
                         <div class="study-info">
-                            <h3 class="study-name">{{ group.name | default: "일반 스터디" }}</h3>
+                            <h3 class="study-name">{{ group.name | default: "" }}</h3>
                             <div class="study-meta">
                                 <span class="study-count">{{ total_posts }}개 포스트</span>
                                 <span class="study-separator">•</span>
@@ -79,108 +79,6 @@ layout: default
                     </div>
                 </div>
                 {% endfor %}
-                
-                {% comment %}
-                스터디 포스트가 없는 경우의 기본 카드들
-                {% endcomment %}
-                {% if study_groups.size == 0 %}
-                <div class="study-progress-card">
-                    <div class="study-card-header">
-                        <div class="study-info">
-                            <h3 class="study-name">Apache Spark 완벽 가이드</h3>
-                            <div class="study-meta">
-                                <span class="study-count">8개 포스트</span>
-                                <span class="study-separator">•</span>
-                                <span class="study-recent">2024.07.15</span>
-                            </div>
-                        </div>
-                        <div class="study-percentage">65%</div>
-                    </div>
-                    
-                    <div class="study-progress-bar">
-                        <div class="study-progress-fill" style="width: 65%"></div>
-                    </div>
-                    
-                    <div class="study-tags">
-                        <span class="study-tag">spark</span>
-                        <span class="study-tag">big-data</span>
-                        <span class="study-tag">scala</span>
-                        <span class="study-tag">pyspark</span>
-                    </div>
-                    
-                    <div class="study-latest">
-                        <h4>최근 포스트</h4>
-                        <a href="#" class="latest-post-link">
-                            Spark DataFrame 최적화 전략
-                        </a>
-                    </div>
-                </div>
-
-                <div class="study-progress-card">
-                    <div class="study-card-header">
-                        <div class="study-info">
-                            <h3 class="study-name">알고리즘 문제해결</h3>
-                            <div class="study-meta">
-                                <span class="study-count">15개 포스트</span>
-                                <span class="study-separator">•</span>
-                                <span class="study-recent">2024.08.01</span>
-                            </div>
-                        </div>
-                        <div class="study-percentage">42%</div>
-                    </div>
-                    
-                    <div class="study-progress-bar">
-                        <div class="study-progress-fill" style="width: 42%"></div>
-                    </div>
-                    
-                    <div class="study-tags">
-                        <span class="study-tag">algorithm</span>
-                        <span class="study-tag">python</span>
-                        <span class="study-tag">data-structure</span>
-                        <span class="study-tag">coding-test</span>
-                    </div>
-                    
-                    <div class="study-latest">
-                        <h4>최근 포스트</h4>
-                        <a href="#" class="latest-post-link">
-                            동적 계획법으로 최적화 문제 해결하기
-                        </a>
-                    </div>
-                </div>
-
-                <div class="study-progress-card">
-                    <div class="study-card-header">
-                        <div class="study-info">
-                            <h3 class="study-name">MLOps 파이프라인</h3>
-                            <div class="study-meta">
-                                <span class="study-count">3개 포스트</span>
-                                <span class="study-separator">•</span>
-                                <span class="study-recent">예정</span>
-                            </div>
-                        </div>
-                        <div class="study-percentage">0%</div>
-                    </div>
-                    
-                    <div class="study-progress-bar">
-                        <div class="study-progress-fill planned" style="width: 0%"></div>
-                    </div>
-                    
-                    <div class="study-tags">
-                        <span class="study-tag">mlops</span>
-                        <span class="study-tag">mlflow</span>
-                        <span class="study-tag">kubeflow</span>
-                        <span class="study-tag">ci-cd</span>
-                    </div>
-                    
-                    <div class="study-latest">
-                        <h4>계획</h4>
-                        <span class="latest-post-link planned">
-                            10월부터 시작 예정
-                        </span>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
         </section>
 
         <!-- 즐겨찾기 포스트 섹션 -->
@@ -201,6 +99,11 @@ layout: default
                 {% for post in featured_posts %}
                 <article class="post-card">
                     <div class="featured-badge">Featured</div>
+                    {% if post.image %}
+                    <div class="post-image">
+                        <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                    </div>
+                    {% endif %}
                     <div class="post-meta">
                         <span class="post-category">
                             {% if post.topics.first %}
@@ -259,6 +162,11 @@ layout: default
                 {% assign recent_posts = site.posts | limit: 6 %}
                 {% for post in recent_posts %}
                 <article class="post-card">
+                    {% if post.image %}
+                    <div class="post-image">
+                        <img src="{{ post.image }}" alt="{{ post.title }}" loading="lazy">
+                    </div>
+                    {% endif %}
                     <div class="post-meta">
                         <span class="post-category">
                             {% if post.categories.first %}

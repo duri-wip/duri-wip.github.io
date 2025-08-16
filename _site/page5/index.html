@@ -9,7 +9,7 @@
 <!-- CSS -->
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link href="/assets/css/style.css" rel="stylesheet">
+<link href="/assets/css/style.css?v=1755313086" rel="stylesheet">
 
 <!-- 코드 하이라이팅 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
@@ -74,7 +74,7 @@ document.addEventListener('click', function(event) {
     <div class="sidebar-stats">
         <div class="stat-item">
             <span class="stat-label">Total Posts</span>
-            <span class="stat-value">73</span>
+            <span class="stat-value">83</span>
         </div>
         <div class="stat-item">
             <span class="stat-label">Topics</span>
@@ -82,14 +82,14 @@ document.addEventListener('click', function(event) {
         </div>
         <div class="stat-item">
             <span class="stat-label">Tags</span>
-            <span class="stat-value">55</span>
+            <span class="stat-value">71</span>
         </div>
     </div>
 </aside>
     <header class="header">
-    <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+    <!-- <button class="mobile-menu-toggle" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
-    </button>
+    </button> -->
     <nav>
         <ul class="nav-menu">
             <li class="nav-item ">
@@ -104,9 +104,6 @@ document.addEventListener('click', function(event) {
             <li class="nav-item ">
                 <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
             </li>
-            <li class="nav-item ">
-                <a href="/contact/"><i class="fas fa-envelope"></i> Contact</a>
-            </li>
         </ul>
     </nav>
 </header>
@@ -120,7 +117,7 @@ document.addEventListener('click', function(event) {
             
         </section>
 
-        <!-- 스터디 현황 섹션 (새로 추가) -->
+        <!-- 스터디 현황 섹션 -->
         <section class="section study-overview">
             <div class="section-header">
                 <div>
@@ -128,13 +125,13 @@ document.addEventListener('click', function(event) {
                         <i class="fas fa-graduation-cap"></i>
                         현재 스터디 현황
                     </h2>
-                    <p class="section-subtitle">진행중인 학습과 목표를 확인해보세요</p>
                 </div>
                 <a href="/study/" class="view-all-link">전체 보기</a>
             </div>
 
             <div class="study-progress-cards">
                 
+
                 
                 
                 
@@ -146,7 +143,57 @@ document.addEventListener('click', function(event) {
                 <div class="study-progress-card">
                     <div class="study-card-header">
                         <div class="study-info">
-                            <h3 class="study-name">알고리즘 마스터</h3>
+                            <h3 class="study-name">LangChain 마스터</h3>
+                            <div class="study-meta">
+                                <span class="study-count">6개 포스트</span>
+                                <span class="study-separator">•</span>
+                                <span class="study-recent">2025.08.06</span>
+                            </div>
+                        </div>
+                        <div class="study-percentage">100%</div>
+                    </div>
+                    
+                    <div class="study-progress-bar">
+                        <div class="study-progress-fill" style="width: 100%"></div>
+                    </div>
+                    
+                    <div class="study-tags">
+                        
+                        
+                        
+                        <span class="study-tag">AUTOMAT</span>
+                        
+                        
+                        
+                        <span class="study-tag">CO-STAR</span>
+                        
+                        
+                        
+                        <span class="study-tag">Chain</span>
+                        
+                        
+                        
+                        <span class="study-tag">Chain-of-Thought</span>
+                        
+                        
+                    </div>
+                    
+                    <div class="study-latest">
+                        <h4>최근 포스트</h4>
+                        <a href="/genai/prompt-engineering/" class="latest-post-link">
+                            프롬프트 엔지니어링 완전 정복
+                        </a>
+                    </div>
+                </div>
+                
+                
+                
+                
+                
+                <div class="study-progress-card">
+                    <div class="study-card-header">
+                        <div class="study-info">
+                            <h3 class="study-name">코테준비</h3>
                             <div class="study-meta">
                                 <span class="study-count">1개 포스트</span>
                                 <span class="study-separator">•</span>
@@ -183,10 +230,6 @@ document.addEventListener('click', function(event) {
                     </div>
                 </div>
                 
-                
-                
-                
-            </div>
         </section>
 
         <!-- 즐겨찾기 포스트 섹션 -->
@@ -207,6 +250,11 @@ document.addEventListener('click', function(event) {
                 
                 <article class="post-card">
                     <div class="featured-badge">Featured</div>
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/project_img/yeardream/flatfix_architecture.png" alt="이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처 : flatfix" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -238,6 +286,11 @@ document.addEventListener('click', function(event) {
                 
                 <article class="post-card">
                     <div class="featured-badge">Featured</div>
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/project_img/yeardream/plytube_architecture.png" alt="자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -269,6 +322,11 @@ document.addEventListener('click', function(event) {
                 
                 <article class="post-card">
                     <div class="featured-badge">Featured</div>
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/project_img/yeardream/v2x_architecture.png" alt="실시간 대용량 데이터 파이프라인 구축 : V2X 프로젝트" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -327,6 +385,85 @@ document.addEventListener('click', function(event) {
                 
                 
                 <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2025-08-09</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/jekyll/">Jekyll</a>
+                    </h3>
+                    <p class="post-excerpt">jekyll 에서 scss적용하기 메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도 되고, 가독성이나 유지보수 등을 위해서 _sass 폴더에 부분 파일을 넣고...</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2025-08-08</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/langgraph/">Langgraph</a>
+                    </h3>
+                    <p class="post-excerpt">state
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>2025-08-07</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/mcp-fastmcp/">Mcp Fastmcp</a>
+                    </h3>
+                    <p class="post-excerpt">mcp 서버
+mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방식의 비교
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -352,6 +489,193 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                genai
+                            
+                        </span>
+                        <span>2025-08-06</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/genai/prompt-engineering/">프롬프트 엔지니어링 완전 정복</a>
+                    </h3>
+                    <p class="post-excerpt">CO-STAR, AUTOMAT 프레임워크와 고급 프롬프트 패턴 활용법</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/Prompt Engineering" class="tag">Prompt Engineering</a>
+                            
+                            <a href="/tags/CO-STAR" class="tag">CO-STAR</a>
+                            
+                            <a href="/tags/AUTOMAT" class="tag">AUTOMAT</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                genai
+                            
+                        </span>
+                        <span>2025-08-04</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/genai/RAG-advance/">RAG 고급 기법 완전 정복</a>
+                    </h3>
+                    <p class="post-excerpt">HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/LangChain" class="tag">LangChain</a>
+                            
+                            <a href="/tags/RAG" class="tag">RAG</a>
+                            
+                            <a href="/tags/HyDE" class="tag">HyDE</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                genai
+                            
+                        </span>
+                        <span>2025-07-31</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/genai/RAG/">RAG (Retrieval-Augmented Generation) 완전 정복</a>
+                    </h3>
+                    <p class="post-excerpt">LangChain을 활용한 RAG 시스템 구축하기</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/LangChain" class="tag">LangChain</a>
+                            
+                            <a href="/tags/RAG" class="tag">RAG</a>
+                            
+                            <a href="/tags/Vector Store" class="tag">Vector Store</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                genai
+                            
+                        </span>
+                        <span>2025-07-29</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/genai/output-parse/">LangChain Output Parser 완전 정복</a>
+                    </h3>
+                    <p class="post-excerpt">구조화된 출력을 위한 Output Parser 활용법</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/LangChain" class="tag">LangChain</a>
+                            
+                            <a href="/tags/Output Parser" class="tag">Output Parser</a>
+                            
+                            <a href="/tags/Pydantic" class="tag">Pydantic</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                genai
+                            
+                        </span>
+                        <span>2025-07-28</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/genai/LCEL-advance/">LCEL 고급 활용법</a>
+                    </h3>
+                    <p class="post-excerpt">LangChain Expression Language의 심화 기능과 활용</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/LangChain" class="tag">LangChain</a>
+                            
+                            <a href="/tags/LCEL" class="tag">LCEL</a>
+                            
+                            <a href="/tags/Runnable" class="tag">Runnable</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                genai
+                            
+                        </span>
+                        <span>2025-07-24</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/genai/LCEL/">LCEL (LangChain Expression Language) 완전 정복</a>
+                    </h3>
+                    <p class="post-excerpt">LangChain에서 체인 구성하는 방법과 활용법</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
+                            
+                            <a href="/tags/LangChain" class="tag">LangChain</a>
+                            
+                            <a href="/tags/LCEL" class="tag">LCEL</a>
+                            
+                            <a href="/tags/Chain" class="tag">Chain</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -380,6 +704,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -408,6 +733,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -436,6 +762,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -466,6 +793,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -496,6 +824,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -522,6 +851,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -548,6 +878,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -574,6 +905,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -602,6 +934,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -630,6 +963,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -658,6 +992,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -686,6 +1021,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -714,6 +1050,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -742,6 +1079,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -770,6 +1108,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -798,6 +1137,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -826,6 +1166,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -852,6 +1193,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -880,6 +1222,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -906,6 +1249,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -932,6 +1276,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -960,6 +1305,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -988,6 +1334,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1016,6 +1363,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1044,6 +1392,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1072,6 +1421,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1100,6 +1450,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1128,6 +1479,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1153,6 +1505,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1179,6 +1532,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1207,6 +1561,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1235,6 +1590,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1261,6 +1617,11 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/post_img/apache-spark-ecosystem.webp" alt="Spark 애플리케이션" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1287,6 +1648,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1312,6 +1674,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1340,6 +1703,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1368,6 +1732,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1398,6 +1763,11 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/project_img/yeardream/flatfix_architecture.png" alt="이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처 : flatfix" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1428,6 +1798,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1456,6 +1827,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1484,6 +1856,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1512,6 +1885,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1540,6 +1914,11 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/project_img/yeardream/plytube_architecture.png" alt="자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1570,6 +1949,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1600,6 +1980,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1625,6 +2006,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1655,6 +2037,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1685,6 +2068,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1711,6 +2095,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1741,6 +2126,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1771,6 +2157,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1797,6 +2184,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1823,6 +2211,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1849,6 +2238,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1875,6 +2265,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1901,6 +2292,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1927,6 +2319,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1955,6 +2348,11 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/post_img/airflow-dag.png" alt="Airflow 대그에서 파이썬 함수와 데코레이터" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -1985,6 +2383,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2015,6 +2414,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2045,6 +2445,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2075,6 +2476,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2105,6 +2507,11 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
+                    <div class="post-image">
+                        <img src="/assets/images/project_img/yeardream/v2x_architecture.png" alt="실시간 대용량 데이터 파이프라인 구축 : V2X 프로젝트" loading="lazy">
+                    </div>
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2135,6 +2542,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2165,6 +2573,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2195,6 +2604,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2225,6 +2635,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2255,6 +2666,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2285,6 +2697,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2311,6 +2724,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2337,6 +2751,7 @@ document.addEventListener('click', function(event) {
                 </article>
                 
                 <article class="post-card">
+                    
                     <div class="post-meta">
                         <span class="post-category">
                             
@@ -2361,6 +2776,34 @@ document.addEventListener('click', function(event) {
                             <a href="/tags/BFS" class="tag">BFS</a>
                             
                             <a href="/tags/study" class="tag">study</a>
+                            
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="post-card">
+                    
+                    <div class="post-meta">
+                        <span class="post-category">
+                            
+                                General
+                            
+                        </span>
+                        <span>0202-08-07</span>
+                    </div>
+                    <h3 class="post-title">
+                        <a href="/mcp-fastmcp-basic/">Mcp Fastmcp Basic</a>
+                    </h3>
+                    <p class="post-excerpt">from fastapi import FastAPI
+from fastmcp import FastMCP
+from typing import Dict
+</p>
+                    <div class="post-footer">
+                        <span class="read-time">
+                            <i class="fas fa-clock"></i>
+                            5분 읽기
+                        </span>
+                        <div class="post-tags">
                             
                         </div>
                     </div>

@@ -1,0 +1,246 @@
+/* ==========================================================================
+   포스트 카드 그리드
+   ========================================================================== */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $space-lg;
+}
+
+/* 즐겨찾기 포스트 가로 스크롤 레이아웃 */
+.featured-posts {
+    margin-bottom: $space-2xl;
+}
+
+.featured-posts .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $space-lg;
+}
+
+.featured-posts .posts-grid::-webkit-scrollbar {
+    height: 8px;
+}
+
+.featured-posts .posts-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.featured-posts .posts-grid::-webkit-scrollbar-thumb {
+    background: $border-color;
+    border-radius: 4px;
+}
+
+.featured-posts .posts-grid::-webkit-scrollbar-thumb:hover {
+    background: $accent-primary;
+}
+
+
+
+
+/* 일반 포스트 그리드 */
+.regular-posts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: $space-lg;
+}
+
+.post-card {
+    background: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: $radius-lg;
+    padding: $space-md;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: $shadow-sm;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 포스트 이미지 스타일 */
+.post-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: $radius-md;
+    margin-bottom: $space-md;
+    position: relative;
+}
+
+.post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.post-card:hover .post-image img {
+    transform: scale(1.05);
+}
+
+.post-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: $accent-primary;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.post-card:hover::before {
+    transform: scaleX(1);
+}
+
+.post-card:hover {
+    border-color: $accent-primary;
+    box-shadow: 0 4px 12px rgba(228, 54, 54, 0.3);
+    transform: translateY(-4px);
+}
+
+.post-meta {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    margin-bottom: $space-md;
+    font-size: 0.85rem;
+    color: $text-muted;
+}
+
+.post-category {
+    background: rgba(228, 54, 54, 0.1);
+    color: $accent-primary;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: $space-md;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.post-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.post-card:hover .post-title {
+    color: $accent-primary;
+}
+
+.post-excerpt {
+    color: $text-secondary;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: $space-lg;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
+}
+
+.post-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: $space-md;
+    border-top: 1px solid $border-color;
+}
+
+.read-time {
+    font-size: 0.85rem;
+    color: $text-muted;
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+}
+
+.post-tags {
+    display: flex;
+    gap: $space-xs;
+    flex-wrap: wrap;
+}
+
+.tag {
+    background: $bg-card;
+    color: $text-secondary;
+    padding: 2px $space-xs;
+    border-radius: $radius-sm;
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.tag:hover {
+    background: $accent-primary;
+    color: white;
+}
+
+.post-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-lg;
+    flex-wrap: wrap;
+    gap: $space-md;
+}
+
+.author-info {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+}
+
+.author-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid $accent-primary;
+}
+
+.author-details {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+}
+
+.author-name {
+    font-weight: 600;
+    color: $text-primary;
+}
+
+/* ==========================================================================
+   즐겨찾기 포스트 특별 스타일
+   ========================================================================== */
+.featured-posts .post-card {
+    border: 1px solid $border-color;
+    background: rgba(228, 54, 54, 0.05);
+}
+
+.featured-posts .post-card::before {
+    display: none;
+}
+
+.featured-badge {
+    position: absolute;
+    top: $space-md;
+    right: $space-md;
+    background: $accent-primary;
+    color: white;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    font-size: 0.75rem;
+    font-weight: 600;
+}

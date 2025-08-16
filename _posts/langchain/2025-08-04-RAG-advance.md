@@ -2,15 +2,15 @@
 title: "RAG 고급 기법 완전 정복"
 excerpt: "HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법"
 category: genai
-tags: 
+tags:
   - [LangChain, RAG, HyDE, ReRank, Hybrid Search, study]
 study_name: "LangChain 마스터"
 study_status: "completed"
 study_description: "LangChain을 활용한 AI 애플리케이션 개발 학습"
 toc: true
 toc_sticky: true
-date: 2024-03-05
-last_modified_at: 2024-03-05
+date: 2025-08-04
+last_modified_at: 2025-08-04
 ---
 
 # RAG에 관한 다양한 고급 기법
@@ -18,6 +18,7 @@ last_modified_at: 2024-03-05
 ## 1. 검색 쿼리 관련 기법
 
 ### HyDE (Hypothetical Document Embeddings)
+
 - **개념**: 질의에 대한 가상의 답변(컨텍스트 없이) 생성 → 이 답변과 유사한 문서 검색 쿼리 생성
 - **목적**: 검색 쿼리의 품질 향상
 
@@ -25,7 +26,7 @@ last_modified_at: 2024-03-05
 
 ```python
 hypothetical_prompt = ChatPromptTemplate.from_template("""
-    다음 질문에 한 문장으로 답하세요. 
+    다음 질문에 한 문장으로 답하세요.
     질문 : {question}
     """)
 
@@ -40,9 +41,11 @@ hyde_rag_chain.invoke("langchain의 개요를 알려줘")
 ```
 
 #### 2. LangChain 모듈 활용
+
 - **HypotheticalDocumentEmbedder** 사용
 
 ### Multi-Query Generation
+
 - **개념**: 복수 검색 쿼리 생성으로 다양한 관점에서 검색
 
 #### 1. 직접 구현
@@ -56,7 +59,7 @@ class QueryGenerate(BaseModel):
 query_generate_prompt = ChatPromptTemplate.from_template("""\
     질문에 대해 벡터 데이터베이스에서 관련 문서를 검색하기 위한 3개의 서로 다른 검색 쿼리를 생성하세요.
     거리 기반 유사성 검색의 한계를 극복하기 위해 사용자의 질문에 대해 여러 관점을 제공하는 것이 목표입니다.
-                                                        
+
     질문 : {question}
     """)
 
@@ -77,6 +80,7 @@ multi_query_chain.invoke("langchain의 개요를 알려줘")
 **Note**: `map`은 LangChain 러너블이 제공하는 메서드 중 하나로, 원래 러너블의 인자와 반환값을 리스트화하는 메서드입니다.
 
 #### 2. LangChain 모듈 활용
+
 - **MultiQueryRetriever** 사용
 
 ## 2. 검색 후 기법: Reciprocal Rank Fusion (RRF)
@@ -84,6 +88,7 @@ multi_query_chain.invoke("langchain의 개요를 알려줘")
 여러 검색 결과의 순위를 융합해 정렬하는 기법입니다.
 
 ### RAG-Fusion
+
 - **개념**: 여러 검색 쿼리를 생성하고 이를 결과를 정렬하기
 
 ```python
@@ -127,6 +132,7 @@ rag_fusion_chain.invoke("langchain의 개요를 알려줘")
 ```
 
 ### ReRank
+
 - **개념**: 어떤 검색 쿼리에 대한 여러 검색 결과를 정렬하기
 - **장점**: 리랭크용 머신러닝 모델을 사용해서 검색 결과를 정렬. 임베딩 벡터의 유사도 검색보다 계산비용이 높은 대신 랭킹 정확도가 높음
 
@@ -162,6 +168,7 @@ rerank_chain.invoke("langchain의 개요를 알려줘")
 **Note**: RunnablePassthrough assign을 통해 {question, context}의 출력이 rerank함수의 인자 inp에 전달됩니다.
 
 #### 2. LangChain 모듈 활용
+
 - **ContextualCompressionRetriever** 사용
 
 ## 3. 복수의 리트리버를 사용하는 기법
@@ -272,6 +279,7 @@ rag_chain.invoke("langchain의 개요를 알려줘")
 ```
 
 #### 2. LangChain 모듈 활용
+
 - **EnsembleRetriever** 사용
 
 ## 📚 추가로 알아볼 내용
@@ -279,12 +287,13 @@ rag_chain.invoke("langchain의 개요를 알려줘")
 ### 1. 최신 RAG 기법들
 
 **Contextual Retrieval (컨텍스트 보강 검색):**
+
 ```python
 from langchain_core.prompts import ChatPromptTemplate
 
 # 각 청크에 컨텍스트 정보 추가
 context_prompt = ChatPromptTemplate.from_template("""
-다음 문서 청크에 대해 전체 문서의 맥락을 고려하여 
+다음 문서 청크에 대해 전체 문서의 맥락을 고려하여
 간단한 배경 설명을 추가해주세요.
 
 전체 문서 주제: {document_topic}
@@ -307,6 +316,7 @@ def add_context_to_chunks(chunks, document_topic):
 ```
 
 **Parent Document Retriever (상위 문서 검색):**
+
 ```python
 from langchain.retrievers import ParentDocumentRetriever
 from langchain.storage import InMemoryStore
@@ -326,6 +336,7 @@ retriever = ParentDocumentRetriever(
 ```
 
 **Multi-Vector Retriever (다중 벡터 검색):**
+
 ```python
 from langchain.retrievers.multi_vector import MultiVectorRetriever
 
@@ -333,7 +344,7 @@ from langchain.retrievers.multi_vector import MultiVectorRetriever
 def create_multi_representations(doc):
     return {
         "summary": summarize_chain.invoke(doc),
-        "keywords": keyword_chain.invoke(doc), 
+        "keywords": keyword_chain.invoke(doc),
         "questions": question_gen_chain.invoke(doc),
         "original": doc.page_content
     }
@@ -348,6 +359,7 @@ multi_retriever = MultiVectorRetriever(
 ### 2. 고급 평가 및 최적화
 
 **A/B Testing for RAG:**
+
 ```python
 import random
 from dataclasses import dataclass
@@ -358,17 +370,17 @@ class RAGVariant:
     name: str
     retriever: any
     prompt: str
-    
+
 class RAGExperiment:
     def __init__(self, variants: List[RAGVariant]):
         self.variants = variants
         self.results = []
-    
+
     def run_experiment(self, test_questions, sample_ratio=0.5):
         for question in test_questions:
             # 랜덤하게 variant 선택
             variant = random.choice(self.variants)
-            
+
             if random.random() < sample_ratio:
                 result = self.evaluate_variant(variant, question)
                 self.results.append({
@@ -376,7 +388,7 @@ class RAGExperiment:
                     "question": question,
                     "result": result
                 })
-    
+
     def evaluate_variant(self, variant, question):
         # 실제 평가 로직
         context = variant.retriever.get_relevant_documents(question)
@@ -385,32 +397,34 @@ class RAGExperiment:
 ```
 
 **Dynamic Retrieval Optimization:**
+
 ```python
 class AdaptiveRetriever:
     def __init__(self, retrievers, performance_tracker):
         self.retrievers = retrievers
         self.tracker = performance_tracker
         self.weights = {name: 1.0 for name in retrievers.keys()}
-    
+
     def get_relevant_documents(self, query):
         # 성능 기반으로 retriever 선택
         best_retriever = self.select_best_retriever(query)
         docs = self.retrievers[best_retriever].get_relevant_documents(query)
-        
+
         # 결과 품질 피드백 수집
         self.tracker.record_retrieval(best_retriever, query, docs)
         return docs
-    
+
     def select_best_retriever(self, query):
         # 쿼리 유형 분석해서 최적 retriever 선택
         query_type = self.classify_query(query)
-        return max(self.retrievers.keys(), 
+        return max(self.retrievers.keys(),
                   key=lambda r: self.weights[r] * self.get_type_affinity(r, query_type))
 ```
 
 ### 3. 고급 프롬프트 엔지니어링
 
 **Self-RAG (자기 반성 RAG):**
+
 ```python
 self_rag_prompt = ChatPromptTemplate.from_template("""
 질문: {question}
@@ -419,7 +433,7 @@ self_rag_prompt = ChatPromptTemplate.from_template("""
 1단계: 검색된 정보가 질문에 관련이 있는지 평가하세요.
 관련성 점수: [1-10]
 
-2단계: 관련성이 7점 이상이면 답변을 생성하고, 
+2단계: 관련성이 7점 이상이면 답변을 생성하고,
 그렇지 않으면 "추가 정보가 필요합니다"라고 응답하세요.
 
 3단계: 생성한 답변이 검색된 정보에 기반하고 있는지 확인하세요.
@@ -431,13 +445,13 @@ self_rag_prompt = ChatPromptTemplate.from_template("""
 def self_rag_chain(question):
     # 1차 검색
     initial_docs = retriever.get_relevant_documents(question)
-    
+
     # 자기 평가
     evaluation = self_rag_prompt.invoke({
         "question": question,
         "context": format_docs(initial_docs)
     })
-    
+
     # 추가 검색 필요시
     if "추가 정보가 필요합니다" in evaluation:
         # 쿼리 확장 또는 다른 검색 전략 시도
@@ -448,45 +462,46 @@ def self_rag_chain(question):
             "question": question,
             "context": format_docs(initial_docs + additional_docs)
         })
-    
+
     return evaluation
 ```
 
 ### 4. 고급 검색 기법
 
 **Iterative Retrieval (반복 검색):**
+
 ```python
 def iterative_retrieval(question, max_iterations=3):
     all_docs = []
     current_question = question
-    
+
     for i in range(max_iterations):
         # 현재 질문으로 검색
         docs = retriever.get_relevant_documents(current_question)
         all_docs.extend(docs)
-        
+
         # 검색 결과로 후속 질문 생성
         follow_up_prompt = ChatPromptTemplate.from_template("""
         원본 질문: {original_question}
         검색 결과: {search_results}
-        
+
         이 검색 결과를 바탕으로, 원본 질문에 더 완전히 답하기 위해
         추가로 필요한 정보를 찾기 위한 검색 쿼리를 생성하세요.
-        
+
         추가 검색 쿼리:
         """)
-        
+
         follow_up = follow_up_prompt.invoke({
             "original_question": question,
             "search_results": format_docs(docs)
         })
-        
+
         current_question = follow_up
-        
+
         # 충분한 정보 수집 확인
         if self.is_sufficient_information(all_docs, question):
             break
-    
+
     return all_docs
 ```
 
@@ -495,11 +510,13 @@ def iterative_retrieval(question, max_iterations=3):
 ### 1. HyDE의 실제 효과와 한계
 
 **효과가 좋은 경우:**
+
 - 전문 도메인 질문 (의료, 법률, 기술)
 - 추상적 개념에 대한 질문
 - 사용자 질문이 모호한 경우
 
 **효과가 제한적인 경우:**
+
 - 사실 확인 질문
 - 매우 구체적인 데이터 검색
 - 실시간 정보가 필요한 경우
@@ -512,22 +529,23 @@ def should_use_hyde(question):
         "전문적": ["기술", "의료", "법률", "학술"],
         "불명확": ["?", "어떻게", "왜", "설명"]
     }
-    
+
     for category, keywords in indicators.items():
         if any(keyword in question for keyword in keywords):
             return True, category
-    
+
     return False, "구체적_사실_질문"
 ```
 
 ### 2. 멀티 쿼리의 최적 개수
 
 실험 결과, **3-5개의 쿼리**가 최적:
+
 ```python
 def optimal_multi_query_count(question_complexity):
     if question_complexity == "simple":
         return 2  # 원본 + 1개 변형
-    elif question_complexity == "medium": 
+    elif question_complexity == "medium":
         return 3  # 원본 + 2개 변형
     else:  # complex
         return 5  # 원본 + 4개 변형
@@ -539,7 +557,7 @@ def optimal_multi_query_count(question_complexity):
 def analyze_rrf_k_impact():
     """RRF k 값이 결과에 미치는 영향 분석"""
     k_values = [1, 10, 30, 60, 100]
-    
+
     for k in k_values:
         print(f"\nk={k}:")
         print(f"상위권 문서 가중치: {1/(1+k):.3f}")
@@ -547,7 +565,8 @@ def analyze_rrf_k_impact():
 ```
 
 **결과:**
-- k=1: 순위 차이 극대화 (상위 문서 압도적 우위)  
+
+- k=1: 순위 차이 극대화 (상위 문서 압도적 우위)
 - k=60: 균형잡힌 가중치 (기본값)
 - k=100: 순위 차이 최소화 (모든 문서 비슷한 가중치)
 
@@ -557,29 +576,30 @@ def analyze_rrf_k_impact():
 def find_optimal_hybrid_ratio(dense_retriever, sparse_retriever, test_queries):
     """밀집/희소 검색의 최적 결합 비율 탐색"""
     ratios = [0.3, 0.5, 0.7]  # 밀집 벡터 비율
-    
+
     best_ratio = 0.5
     best_score = 0
-    
+
     for ratio in ratios:
         # 각 비율로 하이브리드 검색 수행
         hybrid_retriever = EnsembleRetriever(
             retrievers=[dense_retriever, sparse_retriever],
             weights=[ratio, 1-ratio]
         )
-        
+
         # 평가 점수 계산
         score = evaluate_retriever(hybrid_retriever, test_queries)
         if score > best_score:
             best_score = score
             best_ratio = ratio
-    
+
     return best_ratio
 ```
 
 **일반적인 경험값:**
+
 - 기술 문서: 밀집 70% + 희소 30%
-- 뉴스/일반: 밀집 50% + 희소 50% 
+- 뉴스/일반: 밀집 50% + 희소 50%
 - FAQ: 밀집 40% + 희소 60%
 
 ### 5. ReRank 모델의 선택 기준
@@ -593,7 +613,7 @@ rerank_models = {
         "용도": "프로덕션"
     },
     "bge-reranker-large": {
-        "언어": "영어 중심", 
+        "언어": "영어 중심",
         "성능": "중간",
         "비용": "무료",
         "용도": "실험/프로토타입"
@@ -610,6 +630,7 @@ rerank_models = {
 ### 6. 실제 프로덕션에서의 성능 최적화 경험
 
 **청킹 전략 최적화:**
+
 ```python
 def adaptive_chunking(document, content_type):
     """문서 유형에 따른 적응적 청킹"""
@@ -618,19 +639,20 @@ def adaptive_chunking(document, content_type):
         "legal": {"chunk_size": 1200, "separators": ["\n\n", "\\n\\d+\\.", ". "]},
         "technical": {"chunk_size": 800, "separators": ["\n\n", "\n### ", "\n- "]}
     }
-    
+
     strategy = strategies.get(content_type, {"chunk_size": 1000, "separators": ["\n\n", "\n", ". "]})
-    
+
     splitter = RecursiveCharacterTextSplitter(
         chunk_size=strategy["chunk_size"],
         chunk_overlap=int(strategy["chunk_size"] * 0.1),  # 10% 겹침
         separators=strategy["separators"]
     )
-    
+
     return splitter.split_documents([document])
 ```
 
 **벡터 DB 성능 최적화:**
+
 ```python
 def optimize_vector_db():
     """벡터 DB 성능 최적화 팁"""

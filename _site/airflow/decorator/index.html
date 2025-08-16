@@ -1,4 +1,148 @@
-<h1 id="데코레이터란">데코레이터란?</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airflow 대그에서 파이썬 함수와 데코레이터 - Duri's Work In Progress</title>
+<meta name="description" content="데코레이터 사용하기">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css?v=1755313086" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Airflow 대그에서 파이썬 함수와 데코레이터">
+<meta property="og:description" content="데코레이터 사용하기">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://0.0.0.0:4000/airflow/decorator/">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+
+    <div class="post-layout">
+    <aside class="sidebar">
+    
+    <div class="profile-section">
+        <img src="/assets/images/avatar.png" 
+             alt="Duri" class="profile-avatar">
+        <h2 class="profile-name">Duri</h2>
+        <p class="profile-title">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+        
+        <div class="social-links">
+            
+            <a href="https://github.com/duri-wip" class="social-link">
+                <i class="fab fa-github"></i>
+            </a>
+            
+            
+            
+            <a href="mailto:8s.eow.ooc@gmail.com" class="social-link">
+                <i class="fas fa-envelope"></i>
+            </a>
+            
+            
+        </div>
+    </div>
+    <!-- 메인 페이지용 통계 -->
+    <div class="sidebar-stats">
+        <div class="stat-item">
+            <span class="stat-label">Total Posts</span>
+            <span class="stat-value">83</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Topics</span>
+            <span class="stat-value">0</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-label">Tags</span>
+            <span class="stat-value">71</span>
+        </div>
+    </div>
+</aside>
+    
+    <main class="main-content">
+        <!-- 포스트 헤더 -->
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="post-category">
+                    
+                        General
+                    
+                </span>
+                <span>•</span>
+                <span>2024년 09월 01일</span>
+                <span>•</span>
+                <span>5분 읽기</span>
+            </div>
+            
+            <h1 class="post-title">Airflow 대그에서 파이썬 함수와 데코레이터</h1>
+            
+            
+            
+            <div class="post-info">
+                <div class="author-info">
+                    <img src="/assets/images/avatar.png" alt="Duri" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">Duri</span>
+                        <span class="post-date">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</span>
+                    </div>
+                </div>
+                
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>0 views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>0 likes</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/decorator" class="tag">decorator</a>
+                
+                <a href="/tags/python" class="tag">python</a>
+                
+                <a href="/tags/task" class="tag">task</a>
+                
+            </div>
+            
+        </header>
+
+        <!-- 포스트 콘텐츠 -->
+        <article class="post-content">
+            <h1 id="데코레이터란">데코레이터란?</h1>
 
 <p>데코레이터는 기존 함수를 감싸서 바깥에 추가 기능을 덧붙이는 파이썬 문법. 함수의 인자로 또 다른 함수를 전달하여, 함수의 실행 전후로 특정 작업을 처리하거나 함수를 수정할 수 있는 유용한 방법이다.</p>
 
@@ -103,3 +247,152 @@ sample_task 끝
 </code></pre></div></div>
 
 <p>이 코드에서 <code class="language-plaintext highlighter-rouge">extract_data</code> 태스크는 데이터를 반환하고, 그 데이터는 <code class="language-plaintext highlighter-rouge">process_data</code> 태스크로 전달된다.</p>
+
+        </article>
+
+        <!-- 포스트 하단 -->
+        <footer class="post-footer">
+            <div class="post-actions">
+                <div class="like-share">
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-heart"></i>
+                        좋아요
+                    </a>
+                    <a href="#" class="action-btn">
+                        <i class="fas fa-share"></i>
+                        공유
+                    </a>
+                </div>
+            </div>
+
+            <!-- 관련 포스트 -->
+            
+            
+            <div class="related-posts">
+                <h3 class="related-title">
+                    <i class="fas fa-bookmark"></i>
+                    관련 포스트
+                </h3>
+                <div class="related-grid">
+                    
+                    <a href="/jekyll/" class="related-card">
+                        <h4 class="related-card-title">Jekyll</h4>
+                        <p class="related-card-excerpt">jekyll 에서 scss적용하기 메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도...</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-08-09</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/langgraph/" class="related-card">
+                        <h4 class="related-card-title">Langgraph</h4>
+                        <p class="related-card-excerpt">state
+</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-08-08</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/mcp-fastmcp/" class="related-card">
+                        <h4 class="related-card-title">Mcp Fastmcp</h4>
+                        <p class="related-card-excerpt">mcp 서버
+mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방식의 비교
+</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-08-07</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/DB-nosql-and-vectordb/" class="related-card">
+                        <h4 class="related-card-title">Db Nosql And Vectordb</h4>
+                        <p class="related-card-excerpt">
+</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-08-07</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/genai/prompt-engineering/" class="related-card">
+                        <h4 class="related-card-title">프롬프트 엔지니어링 완전 정복</h4>
+                        <p class="related-card-excerpt">CO-STAR, AUTOMAT 프레임워크와 고급 프롬프트 패턴 활용법</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-08-06</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/genai/RAG-advance/" class="related-card">
+                        <h4 class="related-card-title">RAG 고급 기법 완전 정복</h4>
+                        <p class="related-card-excerpt">HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-08-04</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/genai/RAG/" class="related-card">
+                        <h4 class="related-card-title">RAG (Retrieval-Augmented Generation) 완전 정복</h4>
+                        <p class="related-card-excerpt">LangChain을 활용한 RAG 시스템 구축하기</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-31</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/genai/output-parse/" class="related-card">
+                        <h4 class="related-card-title">LangChain Output Parser 완전 정복</h4>
+                        <p class="related-card-excerpt">구조화된 출력을 위한 Output Parser 활용법</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-29</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/genai/LCEL-advance/" class="related-card">
+                        <h4 class="related-card-title">LCEL 고급 활용법</h4>
+                        <p class="related-card-excerpt">LangChain Expression Language의 심화 기능과 활용</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-28</span>
+                        </div>
+                    </a>
+                    
+                    <a href="/genai/LCEL/" class="related-card">
+                        <h4 class="related-card-title">LCEL (LangChain Expression Language) 완전 정복</h4>
+                        <p class="related-card-excerpt">LangChain에서 체인 구성하는 방법과 활용법</p>
+                        <div class="related-card-meta">
+                            <span></span>
+                            <span>2025-07-24</span>
+                        </div>
+                    </a>
+                    
+                </div>
+            </div>
+            
+        </footer>
+    </main>
+
+    <!-- TOC -->
+    <aside class="toc-sidebar">
+        <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            목차
+        </h3>
+        <div id="toc"></div>
+    </aside>
+</div>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

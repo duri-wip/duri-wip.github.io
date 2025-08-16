@@ -5,14 +5,6 @@ permalink: /topics/
 description: "토픽별로 정리된 포스트들입니다"
 ---
 
-<!-- 검색 섹션 -->
-<section class="search-section">
-    <div class="search-container">
-        <i class="fas fa-search search-icon"></i>
-        <input type="text" class="search-input" placeholder="토픽이나 태그를 검색해보세요..." id="searchInput">
-    </div>
-</section>
-
 <!-- 토픽 그리드 -->
 <section class="topics-grid">
     {% assign normalized_topics = "" | split: "" %}

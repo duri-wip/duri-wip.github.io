@@ -1,0 +1,268 @@
+/* ==========================================================================
+   스터디 페이지 - 통계 섹션
+   ========================================================================== */
+.study-stats,
+.category-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: $space-lg;
+    margin-bottom: $space-2xl;
+}
+
+.stat-card {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $space-xl;
+    border: 1px solid $border-color;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: $shadow-sm;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: $accent-primary;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: $accent-secondary;
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    background: rgba(228, 54, 54, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto $space-md;
+    font-size: 1.5rem;
+    color: $accent-primary;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $accent-primary;
+    margin-bottom: $space-xs;
+}
+
+/* ==========================================================================
+   스터디 페이지 - 타임라인
+   ========================================================================== */
+.timeline-section {
+    margin-bottom: $space-2xl;
+}
+
+.timeline {
+    position: relative;
+    padding-left: $space-2xl;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $border-color;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: $space-2xl;
+    opacity: 0;
+    animation: slideInRight 0.6s ease forwards;
+}
+
+.timeline-item:nth-child(1) { animation-delay: 0.1s; }
+.timeline-item:nth-child(2) { animation-delay: 0.2s; }
+.timeline-item:nth-child(3) { animation-delay: 0.3s; }
+.timeline-item:nth-child(4) { animation-delay: 0.4s; }
+
+.timeline-dot {
+    position: absolute;
+    left: -32px;
+    top: $space-md;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    color: white;
+    font-weight: 600;
+    z-index: 2;
+}
+
+.timeline-dot.in-progress {
+    background: $accent-primary;
+    box-shadow: 0 0 0 4px rgba(228, 54, 54, 0.2);
+    animation: pulse 2s infinite;
+}
+
+.timeline-dot.completed {
+    background: $success;
+}
+
+.timeline-dot.planned {
+    background: $text-muted;
+}
+
+.timeline-content {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $space-xl;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+    margin-left: $space-md;
+    box-shadow: $shadow-sm;
+}
+
+.timeline-content:hover {
+    border-color: $accent-primary;
+    box-shadow: $shadow-md;
+}
+
+.study-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $space-md;
+}
+
+.study-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: $space-xs;
+}
+
+.study-period {
+    font-size: 0.85rem;
+    color: $text-muted;
+}
+
+.study-status {
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.study-status.in-progress {
+    background: rgba(228, 54, 54, 0.15);
+    color: $accent-primary;
+}
+
+.study-status.completed {
+    background: rgba(16, 185, 129, 0.15);
+    color: $success;
+}
+
+.study-status.planned {
+    background: rgba(128, 128, 128, 0.15);
+    color: $text-muted;
+}
+
+.study-description {
+    color: $text-secondary;
+    margin-bottom: $space-lg;
+    line-height: 1.6;
+}
+
+.study-progress {
+    margin-bottom: $space-lg;
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: $space-sm;
+}
+
+.progress-label {
+    font-size: 0.9rem;
+    color: $text-secondary;
+}
+
+.progress-percentage {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: $accent-primary;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: $bg-secondary;
+    border-radius: $radius-sm;
+    overflow: hidden;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, $accent-primary, $accent-dark);
+    border-radius: $radius-sm;
+    transition: width 0.8s ease;
+}
+
+.study-technologies {
+    display: flex;
+    gap: $space-xs;
+    flex-wrap: wrap;
+    margin-bottom: $space-lg;
+}
+
+.tech-tag {
+    background: $bg-card;
+    color: $text-secondary;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    font-size: 0.8rem;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+}
+
+.tech-tag:hover {
+    background: $accent-primary;
+    color: white;
+    border-color: $accent-primary;
+}
+
+.study-links {
+    display: flex;
+    gap: $space-md;
+    flex-wrap: wrap;
+}
+
+.study-link {
+    display: flex;
+    align-items: center;
+    gap: $space-xs;
+    color: $accent-primary;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: $space-xs $space-sm;
+    border-radius: $radius-sm;
+    transition: all 0.3s ease;
+}
+
+.study-link:hover {
+    background: rgba(228, 54, 54, 0.1);
+    color: $accent-primary;
+}
+

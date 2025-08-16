@@ -1,0 +1,291 @@
+<h1 id="langchain">langchain</h1>
+
+<p>목차</p>
+<ol>
+  <li>패키지 그룹 소개</li>
+  <li>openai 프레임워크에서 싱글턴 질의 보내기</li>
+  <li>대화내용 함께 보내기</li>
+  <li>프롬프트 템플릿 사용하기</li>
+  <li>message holder 사용하기</li>
+  <li>멀티모달 기능을 이용하여 이미지 입력하기</li>
+</ol>
+
+<h2 id="langchain-패키지-그룹-소개">langchain 패키지 그룹 소개</h2>
+
+<ol>
+  <li>
+    <p>langchain-core
+추상화와 LCEL을 제공한다.</p>
+  </li>
+  <li>
+    <p>partners
+언어 모델 통합 클래스를 제공함. partners에서 제공되지 않는 모델은 community 패키지에서 제공된다.</p>
+  </li>
+  <li>
+    <p>langchain, langchain-text-splitters, langchain-experimental
+청킹 기능, 다양한 실험 기능을 제공한다.</p>
+  </li>
+</ol>
+
+<h3 id="설치">설치</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">langchain</span><span class="o">-</span><span class="n">core</span> <span class="n">langchain</span><span class="o">-</span><span class="n">openai</span> <span class="n">pydantic</span>
+</code></pre></div></div>
+
+<h2 id="open-ai-프레임워크-사용">open ai 프레임워크 사용</h2>
+<h3 id="1-싱글턴-질의-보내기">1. 싱글턴 질의 보내기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">OpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">OpenAI</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-3.5-turbo-instruct</span><span class="sh">"</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">api_key</span> <span class="o">=</span> <span class="sh">"</span><span class="s">api_key</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, world!</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-대화-내용-함께-보내기">2. 대화 내용 함께 보내기</h3>
+<p><strong>ChatOpenAI vs OpenAI 비교</strong></p>
+<ol>
+  <li>OpenAI는 단순 텍스트 입력만 가능하지만, ChatOpenAI는 대화 내용을 함께 보낼 수 있음</li>
+  <li>OpenAI는 단일 질의에 적합하고, ChatOpenAI는 대화형 상호작용에 적합함</li>
+  <li>OpenAI는 gpt-3.5-turbo-instruct 같은 명령어 기반 모델을, ChatOpenAI는 gpt-4 같은 채팅 기반 모델을 사용</li>
+  <li>ChatOpenAI는 SystemMessage로 AI의 역할을 지정할 수 있음</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.messages</span> <span class="kn">import</span> <span class="n">AIMessage</span><span class="p">,</span> <span class="n">HumanMessage</span><span class="p">,</span> <span class="n">SystemMessage</span>
+<span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-4o-mini</span><span class="sh">"</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">api_key</span> <span class="o">=</span> <span class="sh">"</span><span class="s">api_key</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nc">SystemMessage</span><span class="p">(</span><span class="n">content</span> <span class="o">=</span> <span class="sh">"</span><span class="s">당신은 사용자에게 음식의 레시피를 알려주는 요리사입니다. 조리 순서와 방법을 알려주세요.</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">HumanMessage</span><span class="p">(</span><span class="n">content</span> <span class="o">=</span> <span class="sh">"</span><span class="s">치즈 요리를 먹고 싶습니다.</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">AIMessage</span><span class="p">(</span><span class="n">content</span> <span class="o">=</span> <span class="sh">"</span><span class="s">어떤 치즈 요리를 좋아하시나요?</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">HumanMessage</span><span class="p">(</span><span class="n">content</span> <span class="o">=</span> <span class="sh">"</span><span class="s">치즈 퐁듀 레시피를 알려주세요.</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">ai_message</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ai_message</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-chat-prompt-template-사용하기">3. chat prompt template 사용하기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">You are a helpful assistant that can answer questions.</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">prompt_value</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">What is the capital of France?</span><span class="sh">"</span><span class="p">})</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">prompt_value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="4-messageholder">4. messageholder</h3>
+<p>여러 메시지가 들어가는 플레이스 홀더를 넣기</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.messages</span> <span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span> <span class="n">AIMessage</span>
+<span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span><span class="p">,</span> <span class="n">MessagesPlaceholder</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">You are a helpful assistant that can answer questions.</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">MessagesPlaceholder</span><span class="p">(</span><span class="sh">"</span><span class="s">chat_history</span><span class="sh">"</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">prompt_value</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span>
+    <span class="sh">"</span><span class="s">chat_history</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span>
+        <span class="nc">HumanMessage</span><span class="p">(</span><span class="n">content</span> <span class="o">=</span> <span class="sh">"</span><span class="s">What is the capital of France?</span><span class="sh">"</span><span class="p">),</span>
+        <span class="nc">AIMessage</span><span class="p">(</span><span class="n">content</span> <span class="o">=</span> <span class="sh">"</span><span class="s">The capital of France is Paris.</span><span class="sh">"</span><span class="p">)</span>
+    <span class="p">],</span>
+    <span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">What is the capital of Germany?</span><span class="sh">"</span>
+<span class="p">})</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">prompt_value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="멀티모달-기능">멀티모달 기능</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">import</span> <span class="n">base64</span>
+
+<span class="k">def</span> <span class="nf">encode_image_to_base64</span><span class="p">(</span><span class="n">image_path</span><span class="p">):</span>
+    <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="sh">"</span><span class="s">rb</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">image_file</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64encode</span><span class="p">(</span><span class="n">image_file</span><span class="p">.</span><span class="nf">read</span><span class="p">()).</span><span class="nf">decode</span><span class="p">(</span><span class="sh">'</span><span class="s">utf-8</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span>
+        <span class="sh">"</span><span class="s">user</span><span class="sh">"</span><span class="p">,</span>
+        <span class="p">[</span>
+            <span class="p">{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">},</span>
+            <span class="p">{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">image_url</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">image_url</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">url</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">{url_input}</span><span class="sh">"</span><span class="p">}},</span>
+            <span class="p">{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">image_url</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">image_url</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">url</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">data:image/jpeg;base64,{local_image}</span><span class="sh">"</span><span class="p">}}</span>
+        <span class="p">]</span>
+    <span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># URL 이미지 사용
+</span><span class="n">url_prompt_value</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span>
+    <span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">What is the capital of France?</span><span class="sh">"</span><span class="p">,</span> 
+    <span class="sh">"</span><span class="s">url_input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">https://i.imgur.com/ZcQmbtY.jpg</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">local_image</span><span class="sh">"</span><span class="p">:</span> <span class="sh">""</span>
+<span class="p">})</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">URL 이미지 결과:</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">url_prompt_value</span><span class="p">)</span>
+
+<span class="c1"># 로컬 이미지 사용
+</span><span class="n">local_image_path</span> <span class="o">=</span> <span class="sh">"</span><span class="s">path/to/your/local/image.jpg</span><span class="sh">"</span>
+<span class="n">base64_image</span> <span class="o">=</span> <span class="nf">encode_image_to_base64</span><span class="p">(</span><span class="n">local_image_path</span><span class="p">)</span>
+<span class="n">local_prompt_value</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span>
+    <span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">What is the capital of France?</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">url_input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">""</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">local_image</span><span class="sh">"</span><span class="p">:</span> <span class="n">base64_image</span>
+<span class="p">})</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">로컬 이미지 결과:</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">local_prompt_value</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="-추가로-알아볼-내용">📚 추가로 알아볼 내용</h2>
+
+<h3 id="1-langchain-아키텍처-심화-이해">1. LangChain 아키텍처 심화 이해</h3>
+
+<p><strong>핵심 컴포넌트들의 상호작용:</strong></p>
+<ul>
+  <li><strong>Models</strong>: LLM, Chat Models, Text Embedding Models</li>
+  <li><strong>Prompts</strong>: Prompt Templates, Example Selectors, Output Parsers</li>
+  <li><strong>Memory</strong>: Conversation Buffer, Summary Memory, Vector Store Memory</li>
+  <li><strong>Chains</strong>: LLM Chain, Sequential Chain, Router Chain</li>
+  <li><strong>Agents</strong>: Tool-using AI agents that can reason and act</li>
+  <li><strong>Callbacks</strong>: 실행 과정 모니터링 및 로깅</li>
+</ul>
+
+<h3 id="2-메시지-타입별-활용-전략">2. 메시지 타입별 활용 전략</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Function Message 활용 (Tool Calling)
+</span><span class="kn">from</span> <span class="n">langchain_core.messages</span> <span class="kn">import</span> <span class="n">FunctionMessage</span>
+
+<span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nc">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sh">"</span><span class="s">You are a helpful assistant with access to tools</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sh">"</span><span class="s">What</span><span class="sh">'</span><span class="s">s the weather like?</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">FunctionMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="sh">"</span><span class="s">{</span><span class="sh">'</span><span class="s">temperature</span><span class="sh">'</span><span class="s">: 22, </span><span class="sh">'</span><span class="s">condition</span><span class="sh">'</span><span class="s">: </span><span class="sh">'</span><span class="s">sunny</span><span class="sh">'</span><span class="s">}</span><span class="sh">"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">get_weather</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">]</span>
+</code></pre></div></div>
+
+<p><strong>주요 메시지 타입:</strong></p>
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">SystemMessage</code>: AI의 역할과 행동 지침 설정</li>
+  <li><code class="language-plaintext highlighter-rouge">HumanMessage</code>: 사용자 입력</li>
+  <li><code class="language-plaintext highlighter-rouge">AIMessage</code>: AI 응답 (tool_calls 포함 가능)</li>
+  <li><code class="language-plaintext highlighter-rouge">FunctionMessage</code>: 함수 실행 결과 (deprecated, ToolMessage 사용 권장)</li>
+  <li><code class="language-plaintext highlighter-rouge">ToolMessage</code>: Tool 실행 결과</li>
+</ul>
+
+<h3 id="3-temperature-설정의-실제-영향">3. Temperature 설정의 실제 영향</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 창의적 작업 (temperature=0.7-1.0)
+</span><span class="n">creative_model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>  <span class="c1"># 스토리텔링, 브레인스토밍
+</span>
+<span class="c1"># 일관된 답변 (temperature=0.0-0.3)  
+</span><span class="n">factual_model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>   <span class="c1"># 사실 확인, 코드 생성
+</span>
+<span class="c1"># 균형잡힌 작업 (temperature=0.3-0.7)
+</span><span class="n">balanced_model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>  <span class="c1"># 일반적인 대화
+</span></code></pre></div></div>
+
+<h2 id="-학습하면서-알게-된-점">🔍 학습하면서 알게 된 점</h2>
+
+<h3 id="1-openai-vs-chatopenai의-실제-차이점">1. OpenAI vs ChatOpenAI의 실제 차이점</h3>
+
+<p><strong>OpenAI 클래스:</strong></p>
+<ul>
+  <li>Completion API 기반 (GPT-3.5-turbo-instruct)</li>
+  <li>단순 텍스트 in/out</li>
+  <li>레거시 모델 지원</li>
+  <li>프롬프트 엔지니어링이 더 중요</li>
+</ul>
+
+<p><strong>ChatOpenAI 클래스:</strong></p>
+<ul>
+  <li>Chat Completions API 기반 (GPT-4, GPT-3.5-turbo)</li>
+  <li>구조화된 대화 형식</li>
+  <li>Function Calling 지원</li>
+  <li>시스템 메시지로 역할 정의 가능</li>
+</ul>
+
+<h3 id="2-messagesplaceholder의-강력함">2. MessagesPlaceholder의 강력함</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 동적으로 대화 히스토리 길이 조절
+</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">You are a helpful assistant</span><span class="sh">"</span><span class="p">),</span>
+    <span class="nc">MessagesPlaceholder</span><span class="p">(</span><span class="sh">"</span><span class="s">chat_history</span><span class="sh">"</span><span class="p">,</span> <span class="n">optional</span><span class="o">=</span><span class="bp">True</span><span class="p">),</span>  <span class="c1"># 없어도 됨
+</span>    <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="c1"># 빈 히스토리도 처리 가능
+</span><span class="n">result</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Hello</span><span class="sh">"</span><span class="p">})</span>  <span class="c1"># chat_history 없어도 작동
+</span></code></pre></div></div>
+
+<h3 id="3-멀티모달-처리-시-주의사항">3. 멀티모달 처리 시 주의사항</h3>
+
+<p><strong>이미지 크기 제한:</strong></p>
+<ul>
+  <li>GPT-4V: 이미지당 20MB, base64 인코딩 시 더 커짐</li>
+  <li>해상도: 최대 2048x2048 권장</li>
+</ul>
+
+<p><strong>비용 최적화:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 이미지 크기 최적화 함수
+</span><span class="kn">from</span> <span class="n">PIL</span> <span class="kn">import</span> <span class="n">Image</span>
+
+<span class="k">def</span> <span class="nf">optimize_image_for_llm</span><span class="p">(</span><span class="n">image_path</span><span class="p">,</span> <span class="n">max_size</span><span class="o">=</span><span class="p">(</span><span class="mi">1024</span><span class="p">,</span> <span class="mi">1024</span><span class="p">)):</span>
+    <span class="k">with</span> <span class="n">Image</span><span class="p">.</span><span class="nf">open</span><span class="p">(</span><span class="n">image_path</span><span class="p">)</span> <span class="k">as</span> <span class="n">img</span><span class="p">:</span>
+        <span class="n">img</span><span class="p">.</span><span class="nf">thumbnail</span><span class="p">(</span><span class="n">max_size</span><span class="p">,</span> <span class="n">Image</span><span class="p">.</span><span class="n">Resampling</span><span class="p">.</span><span class="n">LANCZOS</span><span class="p">)</span>
+        <span class="c1"># 메모리에서 base64로 인코딩
+</span>        <span class="kn">import</span> <span class="n">io</span>
+        <span class="nb">buffer</span> <span class="o">=</span> <span class="n">io</span><span class="p">.</span><span class="nc">BytesIO</span><span class="p">()</span>
+        <span class="n">img</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="nb">buffer</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="sh">'</span><span class="s">JPEG</span><span class="sh">'</span><span class="p">,</span> <span class="n">quality</span><span class="o">=</span><span class="mi">85</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">base64</span><span class="p">.</span><span class="nf">b64encode</span><span class="p">(</span><span class="nb">buffer</span><span class="p">.</span><span class="nf">getvalue</span><span class="p">()).</span><span class="nf">decode</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="4-api-키-관리-best-practices">4. API 키 관리 Best Practices</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 환경변수 사용 (권장)
+</span><span class="kn">import</span> <span class="n">os</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">getenv</span><span class="p">(</span><span class="sh">"</span><span class="s">OPENAI_API_KEY</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># .env 파일 사용
+</span><span class="kn">from</span> <span class="n">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="nf">load_dotenv</span><span class="p">()</span>
+
+<span class="c1"># 키 검증
+</span><span class="k">if</span> <span class="ow">not</span> <span class="n">api_key</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sh">"</span><span class="s">OpenAI API key not found</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 프록시 설정 (기업 환경)
+</span><span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span>
+    <span class="n">openai_proxy</span><span class="o">=</span><span class="sh">"</span><span class="s">http://proxy.company.com:8080</span><span class="sh">"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="5-실제-프로덕션에서의-고려사항">5. 실제 프로덕션에서의 고려사항</h3>
+
+<p><strong>에러 핸들링:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.exceptions</span> <span class="kn">import</span> <span class="n">LangChainException</span>
+<span class="kn">import</span> <span class="n">time</span>
+
+<span class="k">def</span> <span class="nf">retry_llm_call</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">messages</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">max_retries</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">model</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+        <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attempt</span> <span class="o">==</span> <span class="n">max_retries</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span>
+            <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">2</span> <span class="o">**</span> <span class="n">attempt</span><span class="p">)</span>  <span class="c1"># Exponential backoff
+</span></code></pre></div></div>
+
+<p><strong>비용 모니터링:</strong></p>
+<ul>
+  <li>Token 계산기 활용</li>
+  <li>요청 로깅</li>
+  <li>Rate limiting 구현</li>
+</ul>

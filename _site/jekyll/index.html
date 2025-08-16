@@ -1,0 +1,805 @@
+<p>jekyll 에서 scss적용하기
+메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도 되고, 가독성이나 유지보수 등을 위해서 _sass 폴더에 부분 파일을 넣고 style.scss 파일에서 임포트해서 쓰는 게 일반적이다.</p>
+
+<p>예를 들어
+홈페이지에 섹션을 둔다고 했을때, 이런식으로 만들고 싶다.</p>
+
+<p>–
+&lt; 홈페이지 &gt;
+—–헤더——
+사이드바 섹션1
+섹션2
+–</p>
+
+<p>그럴때 메인 파일에서 스타일을 import 한다.</p>
+
+<blockquote>
+  <p>style.scss</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+---
+
+@import header
+@import sidebar
+@import section1
+@import section2
+@import main
+@import layout
+@import variables
+
+
+</code></pre></div></div>
+
+<p>그리고 만들 페이지의 레이아웃은 홈페이지에 적용할 것이므로 홈페이지용 레이아웃을 만든다.</p>
+
+<blockquote>
+  <p>_layouts/home.html</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: default
+---
+
+&lt;div class="home-sections"&gt;
+  &lt;!-- 섹션1 --&gt;
+  &lt;section class="section section-1"&gt;
+    &lt;h2 class="section-title"&gt;섹션1&lt;/h2&gt;
+    &lt;div class="section-content"&gt;
+      &lt;p&gt;첫 번째 섹션의 내용입니다. 그라데이션 배경과 흰색 텍스트를 사용합니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- 섹션2 --&gt;
+  &lt;section class="section section-2"&gt;
+    &lt;h2 class="section-title"&gt;섹션2&lt;/h2&gt;
+    &lt;div class="section-content"&gt;
+      &lt;div class="content-item"&gt;
+        &lt;h3&gt;서브 제목 1&lt;/h3&gt;
+        &lt;p&gt;두 번째 섹션의 첫 번째 아이템입니다.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="content-item"&gt;
+        &lt;h3&gt;서브 제목 2&lt;/h3&gt;
+        &lt;p&gt;두 번째 섹션의 두 번째 아이템입니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre></div></div>
+
+<p>레이아웃 파일은 템플릿 엔진 역할을 한다.</p>
+
+<ul>
+  <li>템플릿 엔진이란?
+마크다운파일이나 html 파일이 실제로는 이 레이아웃을 감싸서 완성된 웹페이지가 된다.
+또한 같은 구조의 페이지들이 많을 때, 각각의 마크다운 파일에 html 구조를 반복해서 작성할 필요가 없다는 장점이 있다.</li>
+</ul>
+
+<p>예를 들어서 이런 마크다운 파일을 레이아웃으로 감싸서 배포하고 싶은 경우가 있다.
+프론트 매터는 이렇게 작성되어 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: post
+...
+---
+</code></pre></div></div>
+
+<p>이 파일은 layouts의 post.html파일을 기본으로 참조하게 된다.
+그리고 마크다운의 내용을 &lt;div class="post-layout"&gt;
+    &lt;aside class="sidebar"&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="profile-section"&gt;
+    &lt;img src="/assets/images/avatar.png" 
+         alt="Duri" class="profile-avatar"&gt;
+    &lt;h2 class="profile-name"&gt;Duri&lt;/h2&gt;
+    &lt;p class="profile-title"&gt;˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°&lt;/p&gt;
+    &lt;p class="profile-bio"&gt;데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.&lt;/p&gt;
+    
+    &lt;div class="social-links"&gt;
+        
+        &lt;a href="https://github.com/duri-wip" class="social-link"&gt;
+            &lt;i class="fab fa-github"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+        
+        
+        
+        &lt;a href="mailto:8s.eow.ooc@gmail.com" class="social-link"&gt;
+            &lt;i class="fas fa-envelope"&gt;&lt;/i&gt;
+        &lt;/a&gt;
+        
+        
+    &lt;/div&gt;
+&lt;/div&gt;
+&lt;!-- 메인 페이지용 통계 --&gt;
+&lt;div class="sidebar-stats"&gt;
+    &lt;div class="stat-item"&gt;
+        &lt;span class="stat-label"&gt;Total Posts&lt;/span&gt;
+        &lt;span class="stat-value"&gt;83&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-item"&gt;
+        &lt;span class="stat-label"&gt;Topics&lt;/span&gt;
+        &lt;span class="stat-value"&gt;0&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class="stat-item"&gt;
+        &lt;span class="stat-label"&gt;Tags&lt;/span&gt;
+        &lt;span class="stat-value"&gt;71&lt;/span&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+<p>&lt;/aside&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;main class="main-content"&gt;
+    &lt;!-- 포스트 헤더 --&gt;
+    &lt;header class="post-header"&gt;
+        &lt;div class="post-meta"&gt;
+            &lt;span class="post-category"&gt;
+                
+                    projects
+                
+            &lt;/span&gt;
+            &lt;span&gt;•&lt;/span&gt;
+            &lt;span&gt;2024년 10월 15일&lt;/span&gt;
+            &lt;span&gt;•&lt;/span&gt;
+            &lt;span&gt;5분 읽기&lt;/span&gt;
+        &lt;/div&gt;
+        
+        &lt;h1 class="post-title"&gt;이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처 : flatfix&lt;/h1&gt;
+        
+        
+        
+        &lt;div class="post-info"&gt;
+            &lt;div class="author-info"&gt;
+                &lt;img src="/assets/images/avatar.png" alt="Duri" class="author-avatar"&gt;
+                &lt;div class="author-details"&gt;
+                    &lt;span class="author-name"&gt;Duri&lt;/span&gt;
+                    &lt;span class="post-date"&gt;˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            &lt;div class="post-stats"&gt;
+                &lt;div class="stat-item"&gt;
+                    &lt;i class="fas fa-eye"&gt;&lt;/i&gt;
+                    &lt;span&gt;0 views&lt;/span&gt;
+                &lt;/div&gt;
+                &lt;div class="stat-item"&gt;
+                    &lt;i class="fas fa-heart"&gt;&lt;/i&gt;
+                    &lt;span&gt;0 likes&lt;/span&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+        
+        &lt;div class="post-tags"&gt;
+            
+            &lt;a href="/tags/flatfix" class="tag"&gt;flatfix&lt;/a&gt;
+            
+            &lt;a href="/tags/mlops" class="tag"&gt;mlops&lt;/a&gt;
+            
+            &lt;a href="/tags/image-classification" class="tag"&gt;image-classification&lt;/a&gt;
+            
+            &lt;a href="/tags/spark" class="tag"&gt;spark&lt;/a&gt;
+            
+            &lt;a href="/tags/kafka" class="tag"&gt;kafka&lt;/a&gt;
+            
+        &lt;/div&gt;
+        
+    &lt;/header&gt;
+
+    &lt;!-- 포스트 콘텐츠 --&gt;
+    &lt;article class="post-content"&gt;
+        &lt;h1 id="about"&gt;About&lt;/h1&gt;
+</code></pre></div></div>
+
+<h2 id="프로젝트-개요">프로젝트 개요</h2>
+
+<ul>
+  <li>정상, 결함 타이어 이미지를 수집하여 이진분류 머신러닝 모델을 개발하고 이를 기반으로 한 mlops 레벨 2 아키텍처 구현하기.</li>
+  <li>사용자에게 타이어 결함 여부를 알려주는 서비스 구축하기.</li>
+</ul>
+
+<h2 id="프로젝트-규모-및-일정">프로젝트 규모 및 일정</h2>
+
+<ul>
+  <li>팀원 : 4명</li>
+  <li>기간 : 08.28 ~ 10.11</li>
+</ul>
+
+<h2 id="역할">역할</h2>
+
+<p>• 이진 분류 머신러닝 모델 개발
+• mlops 자동화 파이프라인 설계 및 구축
+• 추론 서버 운영을 위한 백엔드 구축
+• 데이터 파이프라인 설계</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p><img src="/assets/images/project_img/yeardream/flatfix_architecture.png" alt="flatfix_architecture" width="100%" /></p>
+
+<h3 id="개요">개요</h3>
+
+<h4 id="1-데이터-파이프라인">1. 데이터 파이프라인</h4>
+
+<ul>
+  <li>정비소에서 업로드한 이미지를 s3 데이터레이크에 저장</li>
+  <li>에어플로우 dag 및 cdc 프로세스를 통해 카프카로 최신 데이터 폴더 경로 전달, 스파크가 이를 기반으로 어노테이션 파일 생성</li>
+  <li>이미지데이터 관리와 데이터 손실 방지 및 데이터 정합성 확인을 위해 활용</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/mlflow 모델 등록 s3버킷 확인.gif" alt="" width="100%" /></p>
+
+<h4 id="2-mlops-자동화-파이프라인">2. MLOps 자동화 파이프라인</h4>
+
+<ul>
+  <li>데이터레이크에 저장된 데이터를 기반으로 이진분류 머신러닝 모델 개발</li>
+  <li>깃헙 액션을 통해 CI / CD 파이프라인 관리</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/모델 학습 워크플로우.gif" alt="" width="100%" /></p>
+
+<h4 id="3-모니터링">3. 모니터링</h4>
+
+<ul>
+  <li>카프카, 스파크 클러스터 및 모델 서버의 성능을 프로메테우스와 그라파나로 모니터링</li>
+  <li>스파크 워커 다운, 모델 성능 저하 시 슬랙 알림 발송</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/production monitoring.gif" alt="" width="100%" /></p>
+
+<h4 id="4-테스트-및-배포">4. 테스트 및 배포</h4>
+
+<ul>
+  <li>Stage 모델과 Production 모델을 따로 관리하며 테스트 서버에 배포해 확인 후 운영 모델로 승격</li>
+  <li>운영 모델의 온라인 메트릭 수집을 통해 실제 모델 성능 모니터링</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;/article&gt;
+
+    &lt;!-- 포스트 하단 --&gt;
+    &lt;footer class="post-footer"&gt;
+        &lt;div class="post-actions"&gt;
+            &lt;div class="like-share"&gt;
+                &lt;a href="#" class="action-btn"&gt;
+                    &lt;i class="fas fa-heart"&gt;&lt;/i&gt;
+                    좋아요
+                &lt;/a&gt;
+                &lt;a href="#" class="action-btn"&gt;
+                    &lt;i class="fas fa-share"&gt;&lt;/i&gt;
+                    공유
+                &lt;/a&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;!-- 관련 포스트 --&gt;
+        
+        
+        &lt;div class="related-posts"&gt;
+            &lt;h3 class="related-title"&gt;
+                &lt;i class="fas fa-bookmark"&gt;&lt;/i&gt;
+                관련 포스트
+            &lt;/h3&gt;
+            &lt;div class="related-grid"&gt;
+                
+                &lt;a href="/jekyll/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;Jekyll&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;jekyll 에서 scss적용하기 메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도...&lt;/p&gt;
+                    &lt;div class="related-card-meta"&gt;
+                        &lt;span&gt;&lt;/span&gt;
+                        &lt;span&gt;2025-08-09&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/a&gt;
+                
+                &lt;a href="/langgraph/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;Langgraph&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;state
+</code></pre></div></div>
+<p>&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            <span></span>
+                            <span>2025-08-08</span>
+                        &lt;/div&gt;
+                    &lt;/a&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                &lt;a href="/mcp-fastmcp/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;Mcp Fastmcp&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;mcp 서버 mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방식의 비교
+</code></pre></div></div>
+<p>&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            <span></span>
+                            <span>2025-08-07</span>
+                        &lt;/div&gt;
+                    &lt;/a&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                &lt;a href="/DB-nosql-and-vectordb/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;Db Nosql And Vectordb&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;
+</code></pre></div></div>
+<p>&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            <span></span>
+                            <span>2025-08-07</span>
+                        &lt;/div&gt;
+                    &lt;/a&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                &lt;a href="/genai/prompt-engineering/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;프롬프트 엔지니어링 완전 정복&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;CO-STAR, AUTOMAT 프레임워크와 고급 프롬프트 패턴 활용법&lt;/p&gt;
+                    &lt;div class="related-card-meta"&gt;
+                        &lt;span&gt;&lt;/span&gt;
+                        &lt;span&gt;2025-08-06&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/a&gt;
+                
+                &lt;a href="/genai/RAG-advance/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;RAG 고급 기법 완전 정복&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법&lt;/p&gt;
+                    &lt;div class="related-card-meta"&gt;
+                        &lt;span&gt;&lt;/span&gt;
+                        &lt;span&gt;2025-08-04&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/a&gt;
+                
+                &lt;a href="/genai/RAG/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;RAG (Retrieval-Augmented Generation) 완전 정복&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;LangChain을 활용한 RAG 시스템 구축하기&lt;/p&gt;
+                    &lt;div class="related-card-meta"&gt;
+                        &lt;span&gt;&lt;/span&gt;
+                        &lt;span&gt;2025-07-31&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/a&gt;
+                
+                &lt;a href="/genai/output-parse/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;LangChain Output Parser 완전 정복&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;구조화된 출력을 위한 Output Parser 활용법&lt;/p&gt;
+                    &lt;div class="related-card-meta"&gt;
+                        &lt;span&gt;&lt;/span&gt;
+                        &lt;span&gt;2025-07-29&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/a&gt;
+                
+                &lt;a href="/genai/LCEL-advance/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;LCEL 고급 활용법&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;LangChain Expression Language의 심화 기능과 활용&lt;/p&gt;
+                    &lt;div class="related-card-meta"&gt;
+                        &lt;span&gt;&lt;/span&gt;
+                        &lt;span&gt;2025-07-28&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/a&gt;
+                
+                &lt;a href="/genai/LCEL/" class="related-card"&gt;
+                    &lt;h4 class="related-card-title"&gt;LCEL (LangChain Expression Language) 완전 정복&lt;/h4&gt;
+                    &lt;p class="related-card-excerpt"&gt;LangChain에서 체인 구성하는 방법과 활용법&lt;/p&gt;
+                    &lt;div class="related-card-meta"&gt;
+                        &lt;span&gt;&lt;/span&gt;
+                        &lt;span&gt;2025-07-24&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/a&gt;
+                
+            &lt;/div&gt;
+        &lt;/div&gt;
+        
+    &lt;/footer&gt;
+&lt;/main&gt;
+
+&lt;!-- TOC --&gt;
+&lt;aside class="toc-sidebar"&gt;
+    &lt;h3 class="toc-title"&gt;
+        &lt;i class="fas fa-list"&gt;&lt;/i&gt;
+        목차
+    &lt;/h3&gt;
+    &lt;div id="toc"&gt;&lt;/div&gt;
+&lt;/aside&gt;
+</code></pre></div></div>
+<p>&lt;/div&gt;에서 참조해서 완성된 html 파일을 생성한다.
+예를들어서 레이아웃 파일이 이렇게 구성되어있는 경우에</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: default
+---
+
+&lt;article class="post"&gt;
+  &lt;header class="post-header"&gt;
+    &lt;h1 class="post-title"&gt;Jekyll&lt;/h1&gt;
+    &lt;p class="post-meta"&gt;2025-08-09&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;div class="post-content"&gt;
+    &lt;div class="post-layout"&gt;
+    &lt;aside class="sidebar"&gt;
+    
+    &lt;div class="profile-section"&gt;
+        &lt;img src="/assets/images/avatar.png" 
+             alt="Duri" class="profile-avatar"&gt;
+        &lt;h2 class="profile-name"&gt;Duri&lt;/h2&gt;
+        &lt;p class="profile-title"&gt;˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°&lt;/p&gt;
+        &lt;p class="profile-bio"&gt;데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.&lt;/p&gt;
+        
+        &lt;div class="social-links"&gt;
+            
+            &lt;a href="https://github.com/duri-wip" class="social-link"&gt;
+                &lt;i class="fab fa-github"&gt;&lt;/i&gt;
+            &lt;/a&gt;
+            
+            
+            
+            &lt;a href="mailto:8s.eow.ooc@gmail.com" class="social-link"&gt;
+                &lt;i class="fas fa-envelope"&gt;&lt;/i&gt;
+            &lt;/a&gt;
+            
+            
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;!-- 메인 페이지용 통계 --&gt;
+    &lt;div class="sidebar-stats"&gt;
+        &lt;div class="stat-item"&gt;
+            &lt;span class="stat-label"&gt;Total Posts&lt;/span&gt;
+            &lt;span class="stat-value"&gt;83&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="stat-item"&gt;
+            &lt;span class="stat-label"&gt;Topics&lt;/span&gt;
+            &lt;span class="stat-value"&gt;0&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class="stat-item"&gt;
+            &lt;span class="stat-label"&gt;Tags&lt;/span&gt;
+            &lt;span class="stat-value"&gt;71&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/aside&gt;
+    
+    &lt;main class="main-content"&gt;
+        &lt;!-- 포스트 헤더 --&gt;
+        &lt;header class="post-header"&gt;
+            &lt;div class="post-meta"&gt;
+                &lt;span class="post-category"&gt;
+                    
+                        projects
+                    
+                &lt;/span&gt;
+                &lt;span&gt;•&lt;/span&gt;
+                &lt;span&gt;2024년 10월 15일&lt;/span&gt;
+                &lt;span&gt;•&lt;/span&gt;
+                &lt;span&gt;5분 읽기&lt;/span&gt;
+            &lt;/div&gt;
+            
+            &lt;h1 class="post-title"&gt;이미지 분류 머신러닝 모델링을 기반으로 한 mlops lv2 아키텍처 : flatfix&lt;/h1&gt;
+            
+            
+            
+            &lt;div class="post-info"&gt;
+                &lt;div class="author-info"&gt;
+                    &lt;img src="/assets/images/avatar.png" alt="Duri" class="author-avatar"&gt;
+                    &lt;div class="author-details"&gt;
+                        &lt;span class="author-name"&gt;Duri&lt;/span&gt;
+                        &lt;span class="post-date"&gt;˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+                
+                &lt;div class="post-stats"&gt;
+                    &lt;div class="stat-item"&gt;
+                        &lt;i class="fas fa-eye"&gt;&lt;/i&gt;
+                        &lt;span&gt;0 views&lt;/span&gt;
+                    &lt;/div&gt;
+                    &lt;div class="stat-item"&gt;
+                        &lt;i class="fas fa-heart"&gt;&lt;/i&gt;
+                        &lt;span&gt;0 likes&lt;/span&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+            
+            &lt;div class="post-tags"&gt;
+                
+                &lt;a href="/tags/flatfix" class="tag"&gt;flatfix&lt;/a&gt;
+                
+                &lt;a href="/tags/mlops" class="tag"&gt;mlops&lt;/a&gt;
+                
+                &lt;a href="/tags/image-classification" class="tag"&gt;image-classification&lt;/a&gt;
+                
+                &lt;a href="/tags/spark" class="tag"&gt;spark&lt;/a&gt;
+                
+                &lt;a href="/tags/kafka" class="tag"&gt;kafka&lt;/a&gt;
+                
+            &lt;/div&gt;
+            
+        &lt;/header&gt;
+
+        &lt;!-- 포스트 콘텐츠 --&gt;
+        &lt;article class="post-content"&gt;
+            &lt;h1 id="about"&gt;About&lt;/h1&gt;
+
+&lt;h2 id="프로젝트-개요"&gt;프로젝트 개요&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정상, 결함 타이어 이미지를 수집하여 이진분류 머신러닝 모델을 개발하고 이를 기반으로 한 mlops 레벨 2 아키텍처 구현하기.&lt;/li&gt;
+  &lt;li&gt;사용자에게 타이어 결함 여부를 알려주는 서비스 구축하기.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="프로젝트-규모-및-일정"&gt;프로젝트 규모 및 일정&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;팀원 : 4명&lt;/li&gt;
+  &lt;li&gt;기간 : 08.28 ~ 10.11&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id="역할"&gt;역할&lt;/h2&gt;
+
+&lt;p&gt;• 이진 분류 머신러닝 모델 개발
+• mlops 자동화 파이프라인 설계 및 구축
+• 추론 서버 운영을 위한 백엔드 구축
+• 데이터 파이프라인 설계&lt;/p&gt;
+
+&lt;h2 id="architecture"&gt;Architecture&lt;/h2&gt;
+
+&lt;p&gt;&lt;img src="/assets/images/project_img/yeardream/flatfix_architecture.png" alt="flatfix_architecture" width="100%" /&gt;&lt;/p&gt;
+
+&lt;h3 id="개요"&gt;개요&lt;/h3&gt;
+
+&lt;h4 id="1-데이터-파이프라인"&gt;1. 데이터 파이프라인&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;정비소에서 업로드한 이미지를 s3 데이터레이크에 저장&lt;/li&gt;
+  &lt;li&gt;에어플로우 dag 및 cdc 프로세스를 통해 카프카로 최신 데이터 폴더 경로 전달, 스파크가 이를 기반으로 어노테이션 파일 생성&lt;/li&gt;
+  &lt;li&gt;이미지데이터 관리와 데이터 손실 방지 및 데이터 정합성 확인을 위해 활용&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src="/assets/images/project_img/yeardream/gifs/mlflow 모델 등록 s3버킷 확인.gif" alt="" width="100%" /&gt;&lt;/p&gt;
+
+&lt;h4 id="2-mlops-자동화-파이프라인"&gt;2. MLOps 자동화 파이프라인&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;데이터레이크에 저장된 데이터를 기반으로 이진분류 머신러닝 모델 개발&lt;/li&gt;
+  &lt;li&gt;깃헙 액션을 통해 CI / CD 파이프라인 관리&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src="/assets/images/project_img/yeardream/gifs/모델 학습 워크플로우.gif" alt="" width="100%" /&gt;&lt;/p&gt;
+
+&lt;h4 id="3-모니터링"&gt;3. 모니터링&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;카프카, 스파크 클러스터 및 모델 서버의 성능을 프로메테우스와 그라파나로 모니터링&lt;/li&gt;
+  &lt;li&gt;스파크 워커 다운, 모델 성능 저하 시 슬랙 알림 발송&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src="/assets/images/project_img/yeardream/gifs/production monitoring.gif" alt="" width="100%" /&gt;&lt;/p&gt;
+
+&lt;h4 id="4-테스트-및-배포"&gt;4. 테스트 및 배포&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Stage 모델과 Production 모델을 따로 관리하며 테스트 서버에 배포해 확인 후 운영 모델로 승격&lt;/li&gt;
+  &lt;li&gt;운영 모델의 온라인 메트릭 수집을 통해 실제 모델 성능 모니터링&lt;/li&gt;
+&lt;/ul&gt;
+
+        &lt;/article&gt;
+
+        &lt;!-- 포스트 하단 --&gt;
+        &lt;footer class="post-footer"&gt;
+            &lt;div class="post-actions"&gt;
+                &lt;div class="like-share"&gt;
+                    &lt;a href="#" class="action-btn"&gt;
+                        &lt;i class="fas fa-heart"&gt;&lt;/i&gt;
+                        좋아요
+                    &lt;/a&gt;
+                    &lt;a href="#" class="action-btn"&gt;
+                        &lt;i class="fas fa-share"&gt;&lt;/i&gt;
+                        공유
+                    &lt;/a&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+
+            &lt;!-- 관련 포스트 --&gt;
+            
+            
+            &lt;div class="related-posts"&gt;
+                &lt;h3 class="related-title"&gt;
+                    &lt;i class="fas fa-bookmark"&gt;&lt;/i&gt;
+                    관련 포스트
+                &lt;/h3&gt;
+                &lt;div class="related-grid"&gt;
+                    
+                    &lt;a href="/jekyll/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;Jekyll&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;jekyll 에서 scss적용하기 메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도...&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-08-09&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/langgraph/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;Langgraph&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;state
+&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-08-08&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/mcp-fastmcp/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;Mcp Fastmcp&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;mcp 서버
+mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방식의 비교
+&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-08-07&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/DB-nosql-and-vectordb/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;Db Nosql And Vectordb&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;
+&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-08-07&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/genai/prompt-engineering/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;프롬프트 엔지니어링 완전 정복&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;CO-STAR, AUTOMAT 프레임워크와 고급 프롬프트 패턴 활용법&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-08-06&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/genai/RAG-advance/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;RAG 고급 기법 완전 정복&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-08-04&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/genai/RAG/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;RAG (Retrieval-Augmented Generation) 완전 정복&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;LangChain을 활용한 RAG 시스템 구축하기&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-07-31&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/genai/output-parse/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;LangChain Output Parser 완전 정복&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;구조화된 출력을 위한 Output Parser 활용법&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-07-29&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/genai/LCEL-advance/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;LCEL 고급 활용법&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;LangChain Expression Language의 심화 기능과 활용&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-07-28&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                    &lt;a href="/genai/LCEL/" class="related-card"&gt;
+                        &lt;h4 class="related-card-title"&gt;LCEL (LangChain Expression Language) 완전 정복&lt;/h4&gt;
+                        &lt;p class="related-card-excerpt"&gt;LangChain에서 체인 구성하는 방법과 활용법&lt;/p&gt;
+                        &lt;div class="related-card-meta"&gt;
+                            &lt;span&gt;&lt;/span&gt;
+                            &lt;span&gt;2025-07-24&lt;/span&gt;
+                        &lt;/div&gt;
+                    &lt;/a&gt;
+                    
+                &lt;/div&gt;
+            &lt;/div&gt;
+            
+        &lt;/footer&gt;
+    &lt;/main&gt;
+
+    &lt;!-- TOC --&gt;
+    &lt;aside class="toc-sidebar"&gt;
+        &lt;h3 class="toc-title"&gt;
+            &lt;i class="fas fa-list"&gt;&lt;/i&gt;
+            목차
+        &lt;/h3&gt;
+        &lt;div id="toc"&gt;&lt;/div&gt;
+    &lt;/aside&gt;
+&lt;/div&gt;  &lt;!-- 여기에 마크다운 내용이 들어감 --&gt;
+  &lt;/div&gt;
+
+  &lt;footer class="post-footer"&gt;
+    &lt;div class="post-categories"&gt;
+      
+    &lt;/div&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;
+</code></pre></div></div>
+
+<p>page의 프론트 매터에서 만든 요소들이 <code class="language-plaintext highlighter-rouge">{ {...} }</code>안에 들어간다</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">{ {...} }</code>의 이름은?? 이게 갤러맷인가 그런건가</p>
+</blockquote>
+
+<p>레이아웃 없이 사용할 수도 있고, 다른 레이아웃을 사용할 수도 있다.
+그리고 레이아웃간의 상속관계가 존재해서 상속을 받은 스타일대로 적용될 수도 있다.</p>
+
+<p>여기에 적용되는 스타일은 이렇게 정의한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+.home-sections {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// 섹션 공통 스타일
+.section {
+  margin: 60px 0;
+  padding: 40px 0;
+
+  &amp;-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+  }
+
+  &amp;-content {
+    line-height: 1.6;
+  }
+}
+
+// 섹션1 스타일
+.section-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+
+  .section-title {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .section-content {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}
+
+// 섹션2 스타일
+.section-2 {
+  background-color: #f8f9fa;
+
+  .section-title {
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+  }
+
+  .section-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+}
+</code></pre></div></div>
+
+<p>스타일에도 적용 우선순위가 있다.</p>
+
+<ol>
+  <li>전역 스타일 &gt; layout.scss가 정의한다.</li>
+  <li>레이아웃별 스타일 &gt; 각각의 scss가 정의한다.</li>
+  <li>페이지별 개별 스타일
+페이지 안에서 개별적으로 스타일을 적용해서 사용할 수도 잇다.</li>
+</ol>
+
+<p>그러니까 스타일은 레이아웃과 독립적으로 있으며, 레이아웃은 html 구조만 담당한다. 스타일은 css 파일에서 관리하며, 모든 페이지가 같은 css 파일을 공유한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- HTML에서 클래스로 스타일 구분 --&gt;
+&lt;div class="post"&gt;     &lt;!-- 포스트 스타일 --&gt;
+&lt;div class="page"&gt;     &lt;!-- 페이지 스타일 --&gt;
+&lt;div class="home"&gt;     &lt;!-- 홈페이지 스타일 --&gt;
+```s
+</code></pre></div></div>

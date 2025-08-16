@@ -1,9 +1,10 @@
 ---
+layout: post
 title: "Airflow 대그에서 파이썬 함수와 데코레이터"
 excerpt: "데코레이터 사용하기"
 
-category:  airflow
-tags: 
+category: airflow
+tags:
   - [decorator, python, task]
 
 permalink: /airflow/decorator/
@@ -13,6 +14,7 @@ toc_sticky: true
 
 date: 2024-09-01
 last_modified_at: 2024-09-29
+image: /assets/images/post_img/airflow-dag.png
 ---
 
 # 데코레이터란?

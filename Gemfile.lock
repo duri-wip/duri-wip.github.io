@@ -10,7 +10,6 @@ GEM
       http_parser.rb (~> 0)
     eventmachine (1.2.7)
     ffi (1.17.2-arm64-darwin)
-    ffi (1.17.2-x86_64-linux-gnu)
     forwardable-extended (2.6.0)
     http_parser.rb (0.8.0)
     i18n (1.14.7)
@@ -71,7 +70,6 @@ GEM
 
 PLATFORMS
   arm64-darwin-24
-  x86_64-linux-gnu
 
 DEPENDENCIES
   http_parser.rb (~> 0.6.0)

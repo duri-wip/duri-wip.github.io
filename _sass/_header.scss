@@ -1,0 +1,40 @@
+/* ==========================================================================
+   헤더
+   ========================================================================== */
+.header {
+    grid-area: header;
+    background: $bg-secondary;
+    border-bottom: 1px solid $border-color;
+    padding: $space-lg $space-xl;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    margin-left: 0px; /* 사이드바 너비(280px) + 여백(20px) */
+}
+
+.nav-menu {
+    display: flex;
+    gap: $space-xl;
+    list-style: none;
+}
+
+.nav-item a {
+    color: $text-secondary;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+    padding: $space-sm $space-md;
+    border-radius: $radius-sm;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-item a:hover {
+    color: $accent-primary;
+    background: rgba(228, 54, 54, 0.15);
+}
+
+.nav-item.active a {
+    color: $accent-primary;
+    background: rgba(228, 54, 54, 0.2);
+}

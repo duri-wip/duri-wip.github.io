@@ -2,15 +2,15 @@
 title: "LCEL 고급 활용법"
 excerpt: "LangChain Expression Language의 심화 기능과 활용"
 category: genai
-tags: 
+tags:
   - [LangChain, LCEL, Runnable, Chain, study]
 study_name: "LangChain 마스터"
 study_status: "completed"
 study_description: "LangChain을 활용한 AI 애플리케이션 개발 학습"
 toc: true
 toc_sticky: true
-date: 2024-03-05
-last_modified_at: 2024-03-05
+date: 2025-07-28
+last_modified_at: 2025-08-01
 ---
 
 # LCEL의 작동 원리
@@ -25,11 +25,13 @@ RunnableSequence를 invoke하면 runnable이 순서대로 invoke됩니다.
 ## Runnable의 실행 방법
 
 Runnable의 실행 방법으로는 3가지가 있습니다:
+
 - **invoke**: 동기 실행
 - **stream**: 스트리밍 실행
 - **batch**: 배치 실행
 
 비동기로 실행할 수 있는 방법으로도 3가지가 제공됩니다:
+
 - **ainvoke**: 비동기 실행
 - **astream**: 비동기 스트리밍
 - **abatch**: 비동기 배치
@@ -396,13 +398,14 @@ print(output2)
 ## 지원하는 데이터베이스
 
 SQLite 말고 다른 데이터베이스의 통합도 제공합니다:
+
 - 인메모리
 - SQLAlchemy가 지원하는 각종 관계형 데이터베이스
 - Redis
 - DynamoDB
 - CosmosDB
 - Momento
-등
+  등
 
 ## 메모리
 
@@ -418,6 +421,7 @@ LangChain의 러너블을 간편하게 REST API로 만들기 위한 패키지입
 ### 1. 고급 Runnable 패턴들
 
 **RunnableGenerator (스트리밍 생성기):**
+
 ```python
 from langchain_core.runnables import RunnableGenerator
 
@@ -429,7 +433,7 @@ def streaming_splitter(input: Iterator[str]) -> Iterator[str]:
         while '. ' in buffer:
             sentence, buffer = buffer.split('. ', 1)
             yield sentence + '. '
-    
+
     if buffer:
         yield buffer
 
@@ -437,6 +441,7 @@ streaming_chain = model | RunnableGenerator(streaming_splitter)
 ```
 
 **RunnableRetry (재시도 로직):**
+
 ```python
 from langchain_core.runnables import RunnableRetry
 
@@ -449,6 +454,7 @@ retry_chain = RunnableRetry(
 ```
 
 **RunnableWithMessageHistory (대화 이력 관리):**
+
 ```python
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_community.chat_message_histories import SQLChatMessageHistory
@@ -467,6 +473,7 @@ chain_with_history = RunnableWithMessageHistory(
 ### 2. 복잡한 라우팅 전략
 
 **Multi-Modal Routing:**
+
 ```python
 from typing import Literal
 
@@ -486,17 +493,18 @@ routing_chain = RunnableLambda(route_by_type)
 ```
 
 **Semantic Routing:**
+
 ```python
 from langchain_community.utils.math import cosine_similarity
 
 def semantic_router(query: str, route_embeddings: dict):
     query_embedding = embeddings.embed_query(query)
-    
+
     similarities = {}
     for route, embedding in route_embeddings.items():
         sim = cosine_similarity([query_embedding], [embedding])[0][0]
         similarities[route] = sim
-    
+
     best_route = max(similarities, key=similarities.get)
     return route_chains[best_route]
 ```
@@ -504,21 +512,23 @@ def semantic_router(query: str, route_embeddings: dict):
 ### 3. 고급 병렬 처리 패턴
 
 **조건부 병렬 실행:**
+
 ```python
 def conditional_parallel(input_data):
     base_tasks = {"summary": summary_chain}
-    
+
     # 조건에 따라 추가 작업 결정
     if len(input_data.get("text", "")) > 1000:
         base_tasks["keywords"] = keyword_chain
-    
+
     if input_data.get("analyze_sentiment", False):
         base_tasks["sentiment"] = sentiment_chain
-    
+
     return RunnableParallel(base_tasks).invoke(input_data)
 ```
 
 **단계적 병렬 처리:**
+
 ```python
 # Phase 1: 기본 분석
 phase1 = RunnableParallel({
@@ -526,16 +536,16 @@ phase1 = RunnableParallel({
     "classification": classification_chain
 })
 
-# Phase 2: Phase 1 결과를 기반으로 한 고급 분석  
+# Phase 2: Phase 1 결과를 기반으로 한 고급 분석
 def phase2_router(phase1_results):
     tasks = {}
-    
+
     if phase1_results["classification"] == "technical":
         tasks["tech_analysis"] = technical_chain
-    
+
     if len(phase1_results["entities"]) > 5:
         tasks["entity_relations"] = relation_chain
-        
+
     return RunnableParallel(tasks).invoke(phase1_results)
 
 two_phase_chain = phase1 | RunnableLambda(phase2_router)
@@ -544,12 +554,13 @@ two_phase_chain = phase1 | RunnableLambda(phase2_router)
 ### 4. 메모리 최적화 고급 기법
 
 **청크별 스트림 처리:**
+
 ```python
 def chunked_processing(large_input: str, chunk_size: int = 1000):
     """대용량 텍스트를 청크별로 스트림 처리"""
-    chunks = [large_input[i:i+chunk_size] 
+    chunks = [large_input[i:i+chunk_size]
               for i in range(0, len(large_input), chunk_size)]
-    
+
     for chunk in chunks:
         yield chain.stream({"input": chunk})
 
@@ -560,6 +571,7 @@ for chunk_result in chunked_processing(huge_document):
 ```
 
 **메모리 사용량 모니터링:**
+
 ```python
 import psutil
 import os
@@ -568,12 +580,12 @@ def memory_monitor(func):
     def wrapper(*args, **kwargs):
         process = psutil.Process(os.getpid())
         initial_memory = process.memory_info().rss / 1024 / 1024  # MB
-        
+
         result = func(*args, **kwargs)
-        
+
         final_memory = process.memory_info().rss / 1024 / 1024
         print(f"Memory usage: {final_memory - initial_memory:.2f} MB")
-        
+
         return result
     return wrapper
 
@@ -591,26 +603,27 @@ async def detailed_streaming_analysis():
     events = []
     async for event in chain.astream_events("분석할 텍스트", version="v2"):
         event_type = event["event"]
-        
+
         if event_type == "on_chat_model_start":
             print("🚀 LLM 호출 시작")
             events.append(("llm_start", event["data"]))
-            
+
         elif event_type == "on_chat_model_stream":
             token = event["data"]["chunk"].content
             print(token, end="", flush=True)
-            
+
         elif event_type == "on_retriever_end":
             docs = event["data"]["output"]
             print(f"\n📚 검색된 문서 수: {len(docs)}")
-            
+
         elif event_type == "on_chain_end":
             print("\n✅ 체인 완료")
-            
+
     return events
 ```
 
 **핵심 인사이트:**
+
 - `astream_events`는 디버깅과 사용자 경험 개선에 핵심적
 - 각 컴포넌트의 실행 시간과 결과를 실시간 추적 가능
 - 사용자에게 진행 상황을 시각적으로 보여줄 수 있음
@@ -673,22 +686,22 @@ complex_chain = (
 class GracefulDegradationChain:
     def __init__(self, primary_chain, fallback_chain, simple_fallback):
         self.primary = primary_chain
-        self.fallback = fallback_chain  
+        self.fallback = fallback_chain
         self.simple = simple_fallback
-        
+
     def invoke(self, input_data):
         # 1차 시도: 주요 체인
         try:
             return self.primary.invoke(input_data)
         except Exception as e1:
             print(f"Primary chain failed: {e1}")
-            
+
             # 2차 시도: 폴백 체인
             try:
                 return self.fallback.invoke(input_data)
             except Exception as e2:
                 print(f"Fallback chain failed: {e2}")
-                
+
                 # 3차 시도: 간단한 응답
                 try:
                     return self.simple.invoke(input_data)
@@ -711,56 +724,58 @@ resilient_chain = GracefulDegradationChain(
 ### 5. 성능 최적화의 실전 경험
 
 **배치 처리 최적화:**
+
 ```python
 def optimized_batch_processing(inputs, batch_size=10):
     """메모리 효율적인 배치 처리"""
     results = []
-    
+
     for i in range(0, len(inputs), batch_size):
         batch = inputs[i:i+batch_size]
-        
+
         # 배치별 처리
         batch_results = chain.batch(batch)
         results.extend(batch_results)
-        
+
         # 메모리 정리 (선택적)
         if i % 100 == 0:  # 100개 배치마다
             import gc
             gc.collect()
-            
+
     return results
 ```
 
 **캐싱 전략:**
+
 ```python
 import hashlib
 from functools import wraps
 
 def smart_cache(ttl=3600):
     cache = {}
-    
+
     def decorator(func):
         @wraps(func)
         def wrapper(input_data):
             # 입력 해시 생성
             input_str = str(sorted(input_data.items()) if isinstance(input_data, dict) else input_data)
             cache_key = hashlib.md5(input_str.encode()).hexdigest()
-            
+
             # 캐시 확인
             if cache_key in cache:
                 result, timestamp = cache[cache_key]
                 if time.time() - timestamp < ttl:
                     return result
-                    
+
             # 새로 계산
             result = func(input_data)
             cache[cache_key] = (result, time.time())
-            
+
             # 캐시 크기 관리 (LRU 방식)
             if len(cache) > 1000:
                 oldest_key = min(cache, key=lambda k: cache[k][1])
                 del cache[oldest_key]
-                
+
             return result
         return wrapper
     return decorator
@@ -773,6 +788,7 @@ def cached_chain_invoke(input_data):
 ### 6. 프로덕션 환경에서의 교훈
 
 **모니터링 통합:**
+
 ```python
 from datetime import datetime
 import json
@@ -781,24 +797,24 @@ class ProductionChainWrapper:
     def __init__(self, chain, logger=None):
         self.chain = chain
         self.logger = logger
-        
+
     def invoke(self, input_data):
         start_time = datetime.now()
-        
+
         try:
             result = self.chain.invoke(input_data)
-            
+
             # 성공 로그
             duration = (datetime.now() - start_time).total_seconds()
             self._log_success(input_data, result, duration)
-            
+
             return result
-            
+
         except Exception as e:
             duration = (datetime.now() - start_time).total_seconds()
             self._log_error(input_data, e, duration)
             raise
-    
+
     def _log_success(self, input_data, result, duration):
         log_data = {
             "timestamp": datetime.now().isoformat(),
@@ -807,10 +823,10 @@ class ProductionChainWrapper:
             "input_tokens": self._estimate_tokens(str(input_data)),
             "output_tokens": self._estimate_tokens(str(result))
         }
-        
+
         if self.logger:
             self.logger.info(json.dumps(log_data))
-    
+
     def _estimate_tokens(self, text):
         # 간단한 토큰 추정 (실제로는 tiktoken 사용 권장)
         return len(text.split()) * 1.3
