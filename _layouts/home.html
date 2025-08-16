@@ -155,13 +155,13 @@ layout: default
                     </h2>
                     <p class="section-subtitle">새로 업데이트된 글들을 확인해보세요</p>
                 </div>
-                <a href="/archive/" class="view-all-link">전체 보기</a>
             </div>
 
             <div class="recent-posts-list">
-                {% assign recent_posts = site.posts | limit: 8 %}
+                {% assign recent_posts = site.posts | limit: 12 %}
                 {% for post in recent_posts %}
-                <article class="recent-post-item">
+                {% assign loop_index = forloop.index %}
+                <article class="recent-post-item{% if loop_index > 5 %} hidden-post{% endif %}">
                     <a href="{{ post.url }}" class="recent-post-link">
                         <div class="recent-post-content">
                             <h3 class="recent-post-title">{{ post.title }}</h3>
@@ -196,6 +196,15 @@ layout: default
                 </article>
                 {% endfor %}
             </div>
+            
+            {% if recent_posts.size > 5 %}
+            <div class="load-more-container">
+                <button class="load-more-btn" onclick="toggleMorePosts()">
+                    <span class="load-more-text">더보기</span>
+                    <i class="fas fa-chevron-down load-more-icon"></i>
+                </button>
+            </div>
+            {% endif %}
         </section>
     </main>
 </div>

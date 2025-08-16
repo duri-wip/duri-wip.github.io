@@ -384,6 +384,26 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
 
 @media (max-width: 480px) { .recent-posts-list { gap: 0.75rem; } .recent-post-item { padding: 0.75rem; } .recent-post-link { flex-direction: column; align-items: flex-start; gap: 0.75rem; } .recent-post-arrow { align-self: flex-end; margin-left: 0; } }
 
+/* ========================================================================== 숨겨진 포스트 및 더보기 버튼 ========================================================================== */
+.hidden-post { display: none; }
+
+.load-more-container { text-align: center; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #d4cfa0; }
+
+.load-more-btn { background: #ffffff; border: 2px solid #d4cfa0; border-radius: 16px; padding: 1rem 2rem; cursor: pointer; transition: all 0.3s ease; font-family: inherit; font-size: 0.95rem; font-weight: 500; color: #000000; display: flex; align-items: center; gap: 0.75rem; margin: 0 auto; position: relative; overflow: hidden; }
+
+.load-more-btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(228, 54, 54, 0.1), transparent); transition: left 0.5s ease; }
+
+.load-more-btn:hover::before { left: 100%; }
+
+.load-more-btn:hover { border-color: #e43636; background: #f8f4e0; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); color: #e43636; }
+
+.load-more-icon { transition: transform 0.3s ease; font-size: 0.8rem; }
+
+.load-more-btn.expanded .load-more-icon { transform: rotate(180deg); }
+
+/* 반응형 더보기 버튼 */
+@media (max-width: 768px) { .load-more-btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; } .load-more-container { margin-top: 1.5rem; padding-top: 1rem; } }
+
 /* ========================================================================== 스터디 페이지 - 통계 섹션 ========================================================================== */
 .study-stats, .category-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
 

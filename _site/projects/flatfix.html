@@ -9,7 +9,7 @@
 <!-- CSS -->
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?v=1755313753" rel="stylesheet">
+<link href="/assets/css/style.css?v=1755314092" rel="stylesheet">
 
 <!-- 코드 하이라이팅 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
@@ -38,6 +38,34 @@ document.addEventListener('click', function(event) {
         }
     }
 });
+
+// 최근 포스트 더보기 기능
+function toggleMorePosts() {
+    const hiddenPosts = document.querySelectorAll('.hidden-post');
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    const loadMoreText = document.querySelector('.load-more-text');
+    const loadMoreIcon = document.querySelector('.load-more-icon');
+    
+    const isExpanded = loadMoreBtn.classList.contains('expanded');
+    
+    if (isExpanded) {
+        // 접기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'none';
+        });
+        loadMoreText.textContent = '더보기';
+        loadMoreIcon.style.transform = 'rotate(0deg)';
+        loadMoreBtn.classList.remove('expanded');
+    } else {
+        // 펼치기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'block';
+        });
+        loadMoreText.textContent = '접기';
+        loadMoreIcon.style.transform = 'rotate(180deg)';
+        loadMoreBtn.classList.add('expanded');
+    }
+}
 </script>
 
 </head>

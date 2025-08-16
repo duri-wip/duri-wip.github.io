@@ -35,4 +35,32 @@ document.addEventListener('click', function(event) {
         }
     }
 });
+
+// 최근 포스트 더보기 기능
+function toggleMorePosts() {
+    const hiddenPosts = document.querySelectorAll('.hidden-post');
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    const loadMoreText = document.querySelector('.load-more-text');
+    const loadMoreIcon = document.querySelector('.load-more-icon');
+    
+    const isExpanded = loadMoreBtn.classList.contains('expanded');
+    
+    if (isExpanded) {
+        // 접기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'none';
+        });
+        loadMoreText.textContent = '더보기';
+        loadMoreIcon.style.transform = 'rotate(0deg)';
+        loadMoreBtn.classList.remove('expanded');
+    } else {
+        // 펼치기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'block';
+        });
+        loadMoreText.textContent = '접기';
+        loadMoreIcon.style.transform = 'rotate(180deg)';
+        loadMoreBtn.classList.add('expanded');
+    }
+}
 </script>

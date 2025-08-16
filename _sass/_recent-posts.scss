@@ -189,3 +189,82 @@
         margin-left: 0;
     }
 }
+
+/* ==========================================================================
+   숨겨진 포스트 및 더보기 버튼
+   ========================================================================== */
+
+.hidden-post {
+    display: none;
+}
+
+.load-more-container {
+    text-align: center;
+    margin-top: $space-xl;
+    padding-top: $space-lg;
+    border-top: 1px solid $border-color;
+}
+
+.load-more-btn {
+    background: $bg-card;
+    border: 2px solid $border-color;
+    border-radius: $radius-lg;
+    padding: $space-md $space-xl;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+
+.load-more-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(228, 54, 54, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.load-more-btn:hover::before {
+    left: 100%;
+}
+
+.load-more-btn:hover {
+    border-color: $accent-primary;
+    background: $bg-hover;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+    color: $accent-primary;
+}
+
+.load-more-icon {
+    transition: transform 0.3s ease;
+    font-size: 0.8rem;
+}
+
+.load-more-btn.expanded .load-more-icon {
+    transform: rotate(180deg);
+}
+
+/* 반응형 더보기 버튼 */
+@media (max-width: 768px) {
+    .load-more-btn {
+        padding: $space-sm $space-lg;
+        font-size: 0.9rem;
+    }
+    
+    .load-more-container {
+        margin-top: $space-lg;
+        padding-top: $space-md;
+    }
+}
