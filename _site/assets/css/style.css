@@ -338,6 +338,52 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
 
 .featured-badge { position: absolute; top: 1rem; right: 1rem; background: #e43636; color: white; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
 
+/* ========================================================================== 최근 포스트 리스트 스타일 ========================================================================== */
+.recent-posts-list { display: flex; flex-direction: column; gap: 1rem; }
+
+.recent-post-item { background: #ffffff; border: 1px solid #d4cfa0; border-radius: 12px; padding: 1.5rem; transition: all 0.3s ease; position: relative; overflow: hidden; }
+
+.recent-post-item::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #e43636; transform: scaleY(0); transition: transform 0.3s ease; }
+
+.recent-post-item:hover::before { transform: scaleY(1); }
+
+.recent-post-item:hover { background: #f8f4e0; border-color: #e43636; transform: translateX(4px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
+
+.recent-post-link { display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: inherit; width: 100%; }
+
+.recent-post-content { flex: 1; min-width: 0; /* flexbox에서 텍스트 오버플로우 방지 */ }
+
+.recent-post-title { font-size: 1.1rem; font-weight: 600; color: #000000; margin-bottom: 0.5rem; line-height: 1.4; transition: color 0.3s ease; }
+
+.recent-post-excerpt { font-size: 0.9rem; color: #333333; line-height: 1.5; margin-bottom: 0.75rem; opacity: 0.8; transition: opacity 0.3s ease; }
+
+.recent-post-item:hover .recent-post-title { color: #e43636; }
+
+.recent-post-item:hover .recent-post-excerpt { opacity: 1; color: #000000; }
+
+.recent-post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; font-size: 0.85rem; color: #666666; flex-wrap: wrap; }
+
+.recent-post-category { background: rgba(228, 54, 54, 0.1); color: #e43636; padding: 2px 0.5rem; border-radius: 6px; font-weight: 500; font-size: 0.8rem; }
+
+.recent-post-date { font-weight: 500; }
+
+.recent-post-reading-time { color: #333333; }
+
+.recent-post-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+.recent-tag { background: #E2DDB4; color: #333333; padding: 2px 0.5rem; border-radius: 6px; font-size: 0.75rem; border: 1px solid #d4cfa0; transition: all 0.3s ease; }
+
+.recent-post-item:hover .recent-tag { background: rgba(228, 54, 54, 0.1); color: #e43636; border-color: #e43636; }
+
+.recent-post-arrow { flex-shrink: 0; margin-left: 1.5rem; color: #666666; font-size: 0.9rem; transition: all 0.3s ease; }
+
+.recent-post-item:hover .recent-post-arrow { color: #e43636; transform: translateX(4px); }
+
+/* 반응형 디자인 */
+@media (max-width: 768px) { .recent-post-item { padding: 1rem; } .recent-post-meta { flex-direction: column; align-items: flex-start; gap: 0.5rem; } .recent-post-arrow { margin-left: 1rem; } .recent-post-title { font-size: 1rem; } .recent-post-excerpt { font-size: 0.85rem; } }
+
+@media (max-width: 480px) { .recent-posts-list { gap: 0.75rem; } .recent-post-item { padding: 0.75rem; } .recent-post-link { flex-direction: column; align-items: flex-start; gap: 0.75rem; } .recent-post-arrow { align-self: flex-end; margin-left: 0; } }
+
 /* ========================================================================== 스터디 페이지 - 통계 섹션 ========================================================================== */
 .study-stats, .category-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
 

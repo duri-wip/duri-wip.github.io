@@ -1,0 +1,191 @@
+/* ==========================================================================
+   최근 포스트 리스트 스타일
+   ========================================================================== */
+
+.recent-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+}
+
+.recent-post-item {
+    background: $bg-card;
+    border: 1px solid $border-color;
+    border-radius: $radius-md;
+    padding: $space-lg;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recent-post-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: $accent-primary;
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.recent-post-item:hover::before {
+    transform: scaleY(1);
+}
+
+.recent-post-item:hover {
+    background: $bg-hover;
+    border-color: $accent-primary;
+    transform: translateX(4px);
+    box-shadow: $shadow-md;
+}
+
+.recent-post-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: inherit;
+    width: 100%;
+}
+
+.recent-post-content {
+    flex: 1;
+    min-width: 0; /* flexbox에서 텍스트 오버플로우 방지 */
+}
+
+.recent-post-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: $space-xs;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.recent-post-excerpt {
+    font-size: 0.9rem;
+    color: $text-secondary;
+    line-height: 1.5;
+    margin-bottom: $space-sm;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.recent-post-item:hover .recent-post-title {
+    color: $accent-primary;
+}
+
+.recent-post-item:hover .recent-post-excerpt {
+    opacity: 1;
+    color: $text-primary;
+}
+
+.recent-post-meta {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    margin-bottom: $space-sm;
+    font-size: 0.85rem;
+    color: $text-muted;
+    flex-wrap: wrap;
+}
+
+.recent-post-category {
+    background: rgba(228, 54, 54, 0.1);
+    color: $accent-primary;
+    padding: 2px $space-xs;
+    border-radius: $radius-sm;
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+.recent-post-date {
+    font-weight: 500;
+}
+
+.recent-post-reading-time {
+    color: $text-secondary;
+}
+
+.recent-post-tags {
+    display: flex;
+    gap: $space-xs;
+    flex-wrap: wrap;
+}
+
+.recent-tag {
+    background: $bg-secondary;
+    color: $text-secondary;
+    padding: 2px $space-xs;
+    border-radius: $radius-sm;
+    font-size: 0.75rem;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+}
+
+.recent-post-item:hover .recent-tag {
+    background: rgba(228, 54, 54, 0.1);
+    color: $accent-primary;
+    border-color: $accent-primary;
+}
+
+.recent-post-arrow {
+    flex-shrink: 0;
+    margin-left: $space-lg;
+    color: $text-muted;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.recent-post-item:hover .recent-post-arrow {
+    color: $accent-primary;
+    transform: translateX(4px);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .recent-post-item {
+        padding: $space-md;
+    }
+    
+    .recent-post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $space-xs;
+    }
+    
+    .recent-post-arrow {
+        margin-left: $space-md;
+    }
+    
+    .recent-post-title {
+        font-size: 1rem;
+    }
+    
+    .recent-post-excerpt {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .recent-posts-list {
+        gap: $space-sm;
+    }
+    
+    .recent-post-item {
+        padding: $space-sm;
+    }
+    
+    .recent-post-link {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: $space-sm;
+    }
+    
+    .recent-post-arrow {
+        align-self: flex-end;
+        margin-left: 0;
+    }
+}
