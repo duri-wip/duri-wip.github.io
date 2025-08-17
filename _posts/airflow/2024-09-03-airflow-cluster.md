@@ -1,8 +1,9 @@
 ---
+layout: post
 title: "Airflow 클러스터 구성하기"
 excerpt: "airflow cluster"
 
-category:  airflow
+category: airflow
 tags:
   - [Decorator]
 
@@ -14,6 +15,7 @@ toc_sticky: true
 date: 2024-09-03
 last_modified_at: 2024-09-29
 ---
+
 # Airflow 클러스터 구성하기
 
 ## 1. 환경 요구사항
@@ -44,6 +46,7 @@ curl https://pyenv.run | bash
 ```
 
 3. shell 파일 수정
+
 ```
 export PATH="$HOME/.pyenv/bin:$PATH"
 eval "$(pyenv init --path)"
@@ -116,9 +119,8 @@ sql_alchemy_conn = postgresql+psycopg2://'user':'password'@localhost/airflow_db
 broker_url = redis://localhost:6379/0
 result_backend = db+postgresql://'user':'password'@localhost/airflow_db
 
-
 5. 각 노드에서 워커, 스케줄러, 웹서버 시작(웹서버는 마스터에서만 띄운다)
-> airflow webserver --port 8080
+   > airflow webserver --port 8080
 
 > airflow scheduler
 

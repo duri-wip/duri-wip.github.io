@@ -85,46 +85,200 @@ layout: post
 
 <p>이 파일은 layouts의 post.html파일을 기본으로 참조하게 된다.
 그리고 마크다운의 내용을 &lt;div class="post-layout"&gt;
-    &lt;aside class="sidebar"&gt;</p>
+    &lt;aside class="sidebar post-sidebar"&gt;
+    <!-- 뒤로 돌아가기 -->
+    &lt;div class="back-navigation"&gt;
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            뒤로 돌아가기
+        </a>
+    &lt;/div&gt;</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;div class="profile-section"&gt;
-    &lt;img src="/assets/images/avatar.png" 
-         alt="Duri" class="profile-avatar"&gt;
-    &lt;h2 class="profile-name"&gt;Duri&lt;/h2&gt;
-    &lt;p class="profile-title"&gt;˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°&lt;/p&gt;
-    &lt;p class="profile-bio"&gt;데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.&lt;/p&gt;
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- 카테고리 네비게이션 --&gt;
+&lt;div class="category-navigation"&gt;
+    &lt;h3 class="nav-title"&gt;
+        &lt;i class="fas fa-folder"&gt;&lt;/i&gt;
+        카테고리
+    &lt;/h3&gt;
     
-    &lt;div class="social-links"&gt;
-        
-        &lt;a href="https://github.com/duri-wip" class="social-link"&gt;
-            &lt;i class="fab fa-github"&gt;&lt;/i&gt;
-        &lt;/a&gt;
+    &lt;nav class="category-list"&gt;
         
         
+            
+                &lt;a href="/topics/airflow/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    airflow
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        6
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
         
-        &lt;a href="mailto:8s.eow.ooc@gmail.com" class="social-link"&gt;
-            &lt;i class="fas fa-envelope"&gt;&lt;/i&gt;
-        &lt;/a&gt;
+            
+                &lt;a href="/topics/algorithm/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    algorithm
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        32
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
         
+            
+                &lt;a href="/topics/database/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    database
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        3
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/docker/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    docker
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        7
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/fastapi/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    fastapi
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        2
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/genai/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    genai
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        7
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/googledecerti/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    googleDEcerti
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        3
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/linux/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    linux
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        2
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/mlops/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    mlops
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        2
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/spark/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    spark
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        8
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+            
+                &lt;a href="/topics/test/" class="category-item "&gt;
+                    &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                    test
+                    &lt;span class="post-count"&gt;
+                        
+                        
+                        1
+                    &lt;/span&gt;
+                &lt;/a&gt;
+            
+        
+    &lt;/nav&gt;
+&lt;/div&gt;
+
+&lt;!-- 최근 포스트 --&gt;
+&lt;div class="recent-posts-nav"&gt;
+    &lt;h3 class="nav-title"&gt;
+        &lt;i class="fas fa-clock"&gt;&lt;/i&gt;
+        최근 포스트
+    &lt;/h3&gt;
+    
+    &lt;div class="recent-list"&gt;
+        
+            &lt;a href="/test/doc-style/" class="recent-item "&gt;
+                &lt;span class="recent-title"&gt;문서 스타일 테스트 포스트&lt;/span&gt;
+                &lt;span class="recent-date"&gt;08.16&lt;/span&gt;
+            &lt;/a&gt;
+        
+            &lt;a href="/jekyll/" class="recent-item "&gt;
+                &lt;span class="recent-title"&gt;Jekyll&lt;/span&gt;
+                &lt;span class="recent-date"&gt;08.09&lt;/span&gt;
+            &lt;/a&gt;
+        
+            &lt;a href="/langgraph/" class="recent-item "&gt;
+                &lt;span class="recent-title"&gt;Langgraph&lt;/span&gt;
+                &lt;span class="recent-date"&gt;08.08&lt;/span&gt;
+            &lt;/a&gt;
+        
+            &lt;a href="/mcp-fastmcp/" class="recent-item "&gt;
+                &lt;span class="recent-title"&gt;Mcp Fastmcp&lt;/span&gt;
+                &lt;span class="recent-date"&gt;08.07&lt;/span&gt;
+            &lt;/a&gt;
+        
+            &lt;a href="/DB-nosql-and-vectordb/" class="recent-item "&gt;
+                &lt;span class="recent-title"&gt;Db Nosql And Vectordb&lt;/span&gt;
+                &lt;span class="recent-date"&gt;08.07&lt;/span&gt;
+            &lt;/a&gt;
         
     &lt;/div&gt;
 &lt;/div&gt;
-&lt;!-- 메인 페이지용 통계 --&gt;
-&lt;div class="sidebar-stats"&gt;
-    &lt;div class="stat-item"&gt;
-        &lt;span class="stat-label"&gt;Total Posts&lt;/span&gt;
-        &lt;span class="stat-value"&gt;83&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="stat-item"&gt;
-        &lt;span class="stat-label"&gt;Topics&lt;/span&gt;
-        &lt;span class="stat-value"&gt;0&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class="stat-item"&gt;
-        &lt;span class="stat-label"&gt;Tags&lt;/span&gt;
-        &lt;span class="stat-value"&gt;71&lt;/span&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
+
+&lt;!-- 관련 포스트 --&gt;
 </code></pre></div></div>
+
 <p>&lt;/aside&gt;</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;main class="main-content"&gt;
@@ -252,136 +406,10 @@ layout: post
 </ul>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    &lt;/article&gt;
-
-    &lt;!-- 포스트 하단 --&gt;
-    &lt;footer class="post-footer"&gt;
-        &lt;div class="post-actions"&gt;
-            &lt;div class="like-share"&gt;
-                &lt;a href="#" class="action-btn"&gt;
-                    &lt;i class="fas fa-heart"&gt;&lt;/i&gt;
-                    좋아요
-                &lt;/a&gt;
-                &lt;a href="#" class="action-btn"&gt;
-                    &lt;i class="fas fa-share"&gt;&lt;/i&gt;
-                    공유
-                &lt;/a&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-
-        &lt;!-- 관련 포스트 --&gt;
-        
-        
-        &lt;div class="related-posts"&gt;
-            &lt;h3 class="related-title"&gt;
-                &lt;i class="fas fa-bookmark"&gt;&lt;/i&gt;
-                관련 포스트
-            &lt;/h3&gt;
-            &lt;div class="related-grid"&gt;
-                
-                &lt;a href="/jekyll/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;Jekyll&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;jekyll 에서 scss적용하기 메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도...&lt;/p&gt;
-                    &lt;div class="related-card-meta"&gt;
-                        &lt;span&gt;&lt;/span&gt;
-                        &lt;span&gt;2025-08-09&lt;/span&gt;
-                    &lt;/div&gt;
-                &lt;/a&gt;
-                
-                &lt;a href="/langgraph/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;Langgraph&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;state
-</code></pre></div></div>
-<p>&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            <span></span>
-                            <span>2025-08-08</span>
-                        &lt;/div&gt;
-                    &lt;/a&gt;</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                &lt;a href="/mcp-fastmcp/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;Mcp Fastmcp&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;mcp 서버 mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방식의 비교
-</code></pre></div></div>
-<p>&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            <span></span>
-                            <span>2025-08-07</span>
-                        &lt;/div&gt;
-                    &lt;/a&gt;</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                &lt;a href="/DB-nosql-and-vectordb/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;Db Nosql And Vectordb&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;
-</code></pre></div></div>
-<p>&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            <span></span>
-                            <span>2025-08-07</span>
-                        &lt;/div&gt;
-                    &lt;/a&gt;</p>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                &lt;a href="/genai/prompt-engineering/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;프롬프트 엔지니어링 완전 정복&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;CO-STAR, AUTOMAT 프레임워크와 고급 프롬프트 패턴 활용법&lt;/p&gt;
-                    &lt;div class="related-card-meta"&gt;
-                        &lt;span&gt;&lt;/span&gt;
-                        &lt;span&gt;2025-08-06&lt;/span&gt;
-                    &lt;/div&gt;
-                &lt;/a&gt;
-                
-                &lt;a href="/genai/RAG-advance/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;RAG 고급 기법 완전 정복&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법&lt;/p&gt;
-                    &lt;div class="related-card-meta"&gt;
-                        &lt;span&gt;&lt;/span&gt;
-                        &lt;span&gt;2025-08-04&lt;/span&gt;
-                    &lt;/div&gt;
-                &lt;/a&gt;
-                
-                &lt;a href="/genai/RAG/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;RAG (Retrieval-Augmented Generation) 완전 정복&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;LangChain을 활용한 RAG 시스템 구축하기&lt;/p&gt;
-                    &lt;div class="related-card-meta"&gt;
-                        &lt;span&gt;&lt;/span&gt;
-                        &lt;span&gt;2025-07-31&lt;/span&gt;
-                    &lt;/div&gt;
-                &lt;/a&gt;
-                
-                &lt;a href="/genai/output-parse/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;LangChain Output Parser 완전 정복&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;구조화된 출력을 위한 Output Parser 활용법&lt;/p&gt;
-                    &lt;div class="related-card-meta"&gt;
-                        &lt;span&gt;&lt;/span&gt;
-                        &lt;span&gt;2025-07-29&lt;/span&gt;
-                    &lt;/div&gt;
-                &lt;/a&gt;
-                
-                &lt;a href="/genai/LCEL-advance/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;LCEL 고급 활용법&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;LangChain Expression Language의 심화 기능과 활용&lt;/p&gt;
-                    &lt;div class="related-card-meta"&gt;
-                        &lt;span&gt;&lt;/span&gt;
-                        &lt;span&gt;2025-07-28&lt;/span&gt;
-                    &lt;/div&gt;
-                &lt;/a&gt;
-                
-                &lt;a href="/genai/LCEL/" class="related-card"&gt;
-                    &lt;h4 class="related-card-title"&gt;LCEL (LangChain Expression Language) 완전 정복&lt;/h4&gt;
-                    &lt;p class="related-card-excerpt"&gt;LangChain에서 체인 구성하는 방법과 활용법&lt;/p&gt;
-                    &lt;div class="related-card-meta"&gt;
-                        &lt;span&gt;&lt;/span&gt;
-                        &lt;span&gt;2025-07-24&lt;/span&gt;
-                    &lt;/div&gt;
-                &lt;/a&gt;
-                
-            &lt;/div&gt;
-        &lt;/div&gt;
-        
-    &lt;/footer&gt;
 &lt;/main&gt;
 
-&lt;!-- TOC --&gt;
-&lt;aside class="toc-sidebar"&gt;
+&lt;!-- 플로팅 TOC --&gt;
+&lt;aside class="floating-toc" id="floating-toc"&gt;
     &lt;h3 class="toc-title"&gt;
         &lt;i class="fas fa-list"&gt;&lt;/i&gt;
         목차
@@ -389,7 +417,116 @@ layout: post
     &lt;div id="toc"&gt;&lt;/div&gt;
 &lt;/aside&gt;
 </code></pre></div></div>
-<p>&lt;/div&gt;에서 참조해서 완성된 html 파일을 생성한다.
+<p>&lt;/div&gt;</p>
+
+<!-- 플로팅 목차 자바스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingToc = document.getElementById('floating-toc');
+    const tocList = document.getElementById('toc');
+    const postContent = document.querySelector('.post-content');
+    
+    if (!postContent) return;
+    
+    // 목차 자동 생성
+    function generateTOC() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) return;
+        
+        let tocHTML = '<ul>';
+        let currentLevel = 0;
+        
+        headings.forEach((heading, index) => {
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = heading.id || `heading-${index}`;
+            heading.id = id;
+            
+            const text = heading.textContent.trim();
+            
+            if (level > currentLevel) {
+                tocHTML += '<ul>'.repeat(level - currentLevel);
+            } else if (level < currentLevel) {
+                tocHTML += '</ul>'.repeat(currentLevel - level);
+            }
+            
+            tocHTML += `<li><a href="#${id}" data-heading="${id}">${text}</a></li>`;
+            currentLevel = level;
+        });
+        
+        tocHTML += '</ul>'.repeat(currentLevel);
+        tocList.innerHTML = tocHTML;
+        
+        // 목차 링크 클릭 이벤트
+        tocList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // 현재 보고 있는 섹션 하이라이트
+    function highlightCurrentSection() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const tocLinks = tocList.querySelectorAll('a');
+        
+        let currentHeading = null;
+        const scrollTop = window.pageYOffset;
+        
+        headings.forEach(heading => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 100) {
+                currentHeading = heading;
+            }
+        });
+        
+        tocLinks.forEach(link => link.classList.remove('active'));
+        
+        if (currentHeading) {
+            const activeLink = tocList.querySelector(`a[data-heading="${currentHeading.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    }
+    
+    // 스크롤 시 목차 표시/숨김 및 하이라이트
+    function handleScroll() {
+        const scrollTop = window.pageYOffset;
+        const postHeader = document.querySelector('.post-header');
+        const postContentBottom = postContent.offsetTop + postContent.offsetHeight;
+        
+        // 헤더 상단부터 목차 표시
+        const headerTop = postHeader ? postHeader.offsetTop : 200;
+        
+        if (scrollTop >= headerTop && scrollTop <= postContentBottom + 200) {
+            floatingToc.classList.add('visible');
+        } else {
+            floatingToc.classList.remove('visible');
+        }
+        
+        highlightCurrentSection();
+    }
+    
+    // 초기화
+    generateTOC();
+    
+    // 이벤트 리스너
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    
+    // 초기 실행
+    setTimeout(handleScroll, 100);
+});
+</script>
+<p>에서 참조해서 완성된 html 파일을 생성한다.
 예를들어서 레이아웃 파일이 이렇게 구성되어있는 경우에</p>
 
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
@@ -404,45 +541,199 @@ layout: default
 
   &lt;div class="post-content"&gt;
     &lt;div class="post-layout"&gt;
-    &lt;aside class="sidebar"&gt;
+    &lt;aside class="sidebar post-sidebar"&gt;
+    &lt;!-- 뒤로 돌아가기 --&gt;
+    &lt;div class="back-navigation"&gt;
+        &lt;a href="javascript:history.back()" class="back-link"&gt;
+            &lt;i class="fas fa-arrow-left"&gt;&lt;/i&gt;
+            뒤로 돌아가기
+        &lt;/a&gt;
+    &lt;/div&gt;
     
-    &lt;div class="profile-section"&gt;
-        &lt;img src="/assets/images/avatar.png" 
-             alt="Duri" class="profile-avatar"&gt;
-        &lt;h2 class="profile-name"&gt;Duri&lt;/h2&gt;
-        &lt;p class="profile-title"&gt;˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°&lt;/p&gt;
-        &lt;p class="profile-bio"&gt;데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.&lt;/p&gt;
+    &lt;!-- 카테고리 네비게이션 --&gt;
+    &lt;div class="category-navigation"&gt;
+        &lt;h3 class="nav-title"&gt;
+            &lt;i class="fas fa-folder"&gt;&lt;/i&gt;
+            카테고리
+        &lt;/h3&gt;
         
-        &lt;div class="social-links"&gt;
-            
-            &lt;a href="https://github.com/duri-wip" class="social-link"&gt;
-                &lt;i class="fab fa-github"&gt;&lt;/i&gt;
-            &lt;/a&gt;
+        &lt;nav class="category-list"&gt;
             
             
+                
+                    &lt;a href="/topics/airflow/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        airflow
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            6
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
             
-            &lt;a href="mailto:8s.eow.ooc@gmail.com" class="social-link"&gt;
-                &lt;i class="fas fa-envelope"&gt;&lt;/i&gt;
-            &lt;/a&gt;
+                
+                    &lt;a href="/topics/algorithm/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        algorithm
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            32
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
             
+                
+                    &lt;a href="/topics/database/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        database
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            3
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/docker/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        docker
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            7
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/fastapi/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        fastapi
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            2
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/genai/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        genai
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            7
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/googledecerti/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        googleDEcerti
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            3
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/linux/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        linux
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            2
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/mlops/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        mlops
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            2
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/spark/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        spark
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            8
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+                
+                    &lt;a href="/topics/test/" class="category-item "&gt;
+                        &lt;i class="fas fa-chevron-right"&gt;&lt;/i&gt;
+                        test
+                        &lt;span class="post-count"&gt;
+                            
+                            
+                            1
+                        &lt;/span&gt;
+                    &lt;/a&gt;
+                
+            
+        &lt;/nav&gt;
+    &lt;/div&gt;
+    
+    &lt;!-- 최근 포스트 --&gt;
+    &lt;div class="recent-posts-nav"&gt;
+        &lt;h3 class="nav-title"&gt;
+            &lt;i class="fas fa-clock"&gt;&lt;/i&gt;
+            최근 포스트
+        &lt;/h3&gt;
+        
+        &lt;div class="recent-list"&gt;
+            
+                &lt;a href="/test/doc-style/" class="recent-item "&gt;
+                    &lt;span class="recent-title"&gt;문서 스타일 테스트 포스트&lt;/span&gt;
+                    &lt;span class="recent-date"&gt;08.16&lt;/span&gt;
+                &lt;/a&gt;
+            
+                &lt;a href="/jekyll/" class="recent-item "&gt;
+                    &lt;span class="recent-title"&gt;Jekyll&lt;/span&gt;
+                    &lt;span class="recent-date"&gt;08.09&lt;/span&gt;
+                &lt;/a&gt;
+            
+                &lt;a href="/langgraph/" class="recent-item "&gt;
+                    &lt;span class="recent-title"&gt;Langgraph&lt;/span&gt;
+                    &lt;span class="recent-date"&gt;08.08&lt;/span&gt;
+                &lt;/a&gt;
+            
+                &lt;a href="/mcp-fastmcp/" class="recent-item "&gt;
+                    &lt;span class="recent-title"&gt;Mcp Fastmcp&lt;/span&gt;
+                    &lt;span class="recent-date"&gt;08.07&lt;/span&gt;
+                &lt;/a&gt;
+            
+                &lt;a href="/DB-nosql-and-vectordb/" class="recent-item "&gt;
+                    &lt;span class="recent-title"&gt;Db Nosql And Vectordb&lt;/span&gt;
+                    &lt;span class="recent-date"&gt;08.07&lt;/span&gt;
+                &lt;/a&gt;
             
         &lt;/div&gt;
     &lt;/div&gt;
-    &lt;!-- 메인 페이지용 통계 --&gt;
-    &lt;div class="sidebar-stats"&gt;
-        &lt;div class="stat-item"&gt;
-            &lt;span class="stat-label"&gt;Total Posts&lt;/span&gt;
-            &lt;span class="stat-value"&gt;83&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div class="stat-item"&gt;
-            &lt;span class="stat-label"&gt;Topics&lt;/span&gt;
-            &lt;span class="stat-value"&gt;0&lt;/span&gt;
-        &lt;/div&gt;
-        &lt;div class="stat-item"&gt;
-            &lt;span class="stat-label"&gt;Tags&lt;/span&gt;
-            &lt;span class="stat-value"&gt;71&lt;/span&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
+    
+    &lt;!-- 관련 포스트 --&gt;
+    
 &lt;/aside&gt;
     
     &lt;main class="main-content"&gt;
@@ -569,141 +860,125 @@ layout: default
 &lt;/ul&gt;
 
         &lt;/article&gt;
-
-        &lt;!-- 포스트 하단 --&gt;
-        &lt;footer class="post-footer"&gt;
-            &lt;div class="post-actions"&gt;
-                &lt;div class="like-share"&gt;
-                    &lt;a href="#" class="action-btn"&gt;
-                        &lt;i class="fas fa-heart"&gt;&lt;/i&gt;
-                        좋아요
-                    &lt;/a&gt;
-                    &lt;a href="#" class="action-btn"&gt;
-                        &lt;i class="fas fa-share"&gt;&lt;/i&gt;
-                        공유
-                    &lt;/a&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-
-            &lt;!-- 관련 포스트 --&gt;
-            
-            
-            &lt;div class="related-posts"&gt;
-                &lt;h3 class="related-title"&gt;
-                    &lt;i class="fas fa-bookmark"&gt;&lt;/i&gt;
-                    관련 포스트
-                &lt;/h3&gt;
-                &lt;div class="related-grid"&gt;
-                    
-                    &lt;a href="/jekyll/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;Jekyll&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;jekyll 에서 scss적용하기 메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도...&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-08-09&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/langgraph/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;Langgraph&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;state
-&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-08-08&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/mcp-fastmcp/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;Mcp Fastmcp&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;mcp 서버
-mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방식의 비교
-&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-08-07&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/DB-nosql-and-vectordb/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;Db Nosql And Vectordb&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;
-&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-08-07&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/genai/prompt-engineering/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;프롬프트 엔지니어링 완전 정복&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;CO-STAR, AUTOMAT 프레임워크와 고급 프롬프트 패턴 활용법&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-08-06&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/genai/RAG-advance/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;RAG 고급 기법 완전 정복&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-08-04&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/genai/RAG/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;RAG (Retrieval-Augmented Generation) 완전 정복&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;LangChain을 활용한 RAG 시스템 구축하기&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-07-31&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/genai/output-parse/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;LangChain Output Parser 완전 정복&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;구조화된 출력을 위한 Output Parser 활용법&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-07-29&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/genai/LCEL-advance/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;LCEL 고급 활용법&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;LangChain Expression Language의 심화 기능과 활용&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-07-28&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                    &lt;a href="/genai/LCEL/" class="related-card"&gt;
-                        &lt;h4 class="related-card-title"&gt;LCEL (LangChain Expression Language) 완전 정복&lt;/h4&gt;
-                        &lt;p class="related-card-excerpt"&gt;LangChain에서 체인 구성하는 방법과 활용법&lt;/p&gt;
-                        &lt;div class="related-card-meta"&gt;
-                            &lt;span&gt;&lt;/span&gt;
-                            &lt;span&gt;2025-07-24&lt;/span&gt;
-                        &lt;/div&gt;
-                    &lt;/a&gt;
-                    
-                &lt;/div&gt;
-            &lt;/div&gt;
-            
-        &lt;/footer&gt;
     &lt;/main&gt;
 
-    &lt;!-- TOC --&gt;
-    &lt;aside class="toc-sidebar"&gt;
+    &lt;!-- 플로팅 TOC --&gt;
+    &lt;aside class="floating-toc" id="floating-toc"&gt;
         &lt;h3 class="toc-title"&gt;
             &lt;i class="fas fa-list"&gt;&lt;/i&gt;
             목차
         &lt;/h3&gt;
         &lt;div id="toc"&gt;&lt;/div&gt;
     &lt;/aside&gt;
-&lt;/div&gt;  &lt;!-- 여기에 마크다운 내용이 들어감 --&gt;
+&lt;/div&gt;
+
+&lt;!-- 플로팅 목차 자바스크립트 --&gt;
+&lt;script&gt;
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingToc = document.getElementById('floating-toc');
+    const tocList = document.getElementById('toc');
+    const postContent = document.querySelector('.post-content');
+    
+    if (!postContent) return;
+    
+    // 목차 자동 생성
+    function generateTOC() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) return;
+        
+        let tocHTML = '&lt;ul&gt;';
+        let currentLevel = 0;
+        
+        headings.forEach((heading, index) =&gt; {
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = heading.id || `heading-${index}`;
+            heading.id = id;
+            
+            const text = heading.textContent.trim();
+            
+            if (level &gt; currentLevel) {
+                tocHTML += '&lt;ul&gt;'.repeat(level - currentLevel);
+            } else if (level &lt; currentLevel) {
+                tocHTML += '&lt;/ul&gt;'.repeat(currentLevel - level);
+            }
+            
+            tocHTML += `&lt;li&gt;&lt;a href="#${id}" data-heading="${id}"&gt;${text}&lt;/a&gt;&lt;/li&gt;`;
+            currentLevel = level;
+        });
+        
+        tocHTML += '&lt;/ul&gt;'.repeat(currentLevel);
+        tocList.innerHTML = tocHTML;
+        
+        // 목차 링크 클릭 이벤트
+        tocList.querySelectorAll('a').forEach(link =&gt; {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // 현재 보고 있는 섹션 하이라이트
+    function highlightCurrentSection() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const tocLinks = tocList.querySelectorAll('a');
+        
+        let currentHeading = null;
+        const scrollTop = window.pageYOffset;
+        
+        headings.forEach(heading =&gt; {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top &lt;= 100) {
+                currentHeading = heading;
+            }
+        });
+        
+        tocLinks.forEach(link =&gt; link.classList.remove('active'));
+        
+        if (currentHeading) {
+            const activeLink = tocList.querySelector(`a[data-heading="${currentHeading.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    }
+    
+    // 스크롤 시 목차 표시/숨김 및 하이라이트
+    function handleScroll() {
+        const scrollTop = window.pageYOffset;
+        const postHeader = document.querySelector('.post-header');
+        const postContentBottom = postContent.offsetTop + postContent.offsetHeight;
+        
+        // 헤더 상단부터 목차 표시
+        const headerTop = postHeader ? postHeader.offsetTop : 200;
+        
+        if (scrollTop &gt;= headerTop &amp;&amp; scrollTop &lt;= postContentBottom + 200) {
+            floatingToc.classList.add('visible');
+        } else {
+            floatingToc.classList.remove('visible');
+        }
+        
+        highlightCurrentSection();
+    }
+    
+    // 초기화
+    generateTOC();
+    
+    // 이벤트 리스너
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    
+    // 초기 실행
+    setTimeout(handleScroll, 100);
+});
+&lt;/script&gt;  &lt;!-- 여기에 마크다운 내용이 들어감 --&gt;
   &lt;/div&gt;
 
   &lt;footer class="post-footer"&gt;

@@ -9,7 +9,7 @@
 <!-- CSS -->
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?v=1755314092" rel="stylesheet">
+<link href="/assets/css/style.css?v=1755325996" rel="stylesheet">
 
 <!-- 코드 하이라이팅 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 <meta property="og:title" content="Duri's Work In Progress">
 <meta property="og:description" content="열심히 배우고 있습니다.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="http://0.0.0.0:4000/page7/">
+<meta property="og:url" content="http://localhost:4000/page7/">
 
 <!-- JavaScript -->
 <script>
@@ -72,6 +72,29 @@ function toggleMorePosts() {
 <body>
     <!-- 스크롤 진행률 표시기 -->
     <div class="scroll-progress"></div>
+    
+    <!-- 전체 사이트 헤더 -->
+    <header class="header">
+    <!-- <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button> -->
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item ">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/topics/"><i class="fas fa-tags"></i> Topics</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
     <div class="layout-container">
     <aside class="sidebar">
@@ -102,7 +125,7 @@ function toggleMorePosts() {
     <div class="sidebar-stats">
         <div class="stat-item">
             <span class="stat-label">Total Posts</span>
-            <span class="stat-value">83</span>
+            <span class="stat-value">84</span>
         </div>
         <div class="stat-item">
             <span class="stat-label">Topics</span>
@@ -110,7 +133,7 @@ function toggleMorePosts() {
         </div>
         <div class="stat-item">
             <span class="stat-label">Tags</span>
-            <span class="stat-value">71</span>
+            <span class="stat-value">74</span>
         </div>
     </div>
 </aside>
@@ -413,6 +436,41 @@ function toggleMorePosts() {
                 
                 
                 <article class="recent-post-item">
+                    <a href="/test/doc-style/" class="recent-post-link">
+                        <div class="recent-post-content">
+                            <h3 class="recent-post-title">문서 스타일 테스트 포스트</h3>
+                            
+                            <p class="recent-post-excerpt">새로운 doc 스타일이 제대로 적용되는지 확인하는 테스트 포스트입니다.</p>
+                            
+                            <div class="recent-post-meta">
+                                <span class="recent-post-category">
+                                    
+                                        [test]
+                                    
+                                </span>
+                                <span class="recent-post-date">2025.08.16</span>
+                                <span class="recent-post-reading-time">5분 읽기</span>
+                            </div>
+                            
+                            <div class="recent-post-tags">
+                                
+                                <span class="recent-tag">#style</span>
+                                
+                                <span class="recent-tag">#test</span>
+                                
+                                <span class="recent-tag">#doc</span>
+                                
+                            </div>
+                            
+                        </div>
+                        <div class="recent-post-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </div>
+                    </a>
+                </article>
+                
+                
+                <article class="recent-post-item">
                     <a href="/jekyll/" class="recent-post-link">
                         <div class="recent-post-content">
                             <h3 class="recent-post-title">Jekyll</h3>
@@ -516,7 +574,7 @@ mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방�
                 </article>
                 
                 
-                <article class="recent-post-item">
+                <article class="recent-post-item hidden-post">
                     <a href="/genai/prompt-engineering/" class="recent-post-link">
                         <div class="recent-post-content">
                             <h3 class="recent-post-title">프롬프트 엔지니어링 완전 정복</h3>

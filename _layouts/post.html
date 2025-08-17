@@ -3,7 +3,7 @@ layout: default
 ---
 
 <div class="post-layout">
-    {% include sidebar.html %}
+    {% include post-sidebar.html %}
     
     <main class="main-content">
         <!-- 포스트 헤더 -->
@@ -64,49 +64,10 @@ layout: default
         <article class="post-content">
             {{ content }}
         </article>
-
-        <!-- 포스트 하단 -->
-        <footer class="post-footer">
-            <div class="post-actions">
-                <div class="like-share">
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-heart"></i>
-                        좋아요
-                    </a>
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-share"></i>
-                        공유
-                    </a>
-                </div>
-            </div>
-
-            <!-- 관련 포스트 -->
-            {% assign related_posts = site.related_posts | limit: 3 %}
-            {% if related_posts.size > 0 %}
-            <div class="related-posts">
-                <h3 class="related-title">
-                    <i class="fas fa-bookmark"></i>
-                    관련 포스트
-                </h3>
-                <div class="related-grid">
-                    {% for post in related_posts %}
-                    <a href="{{ post.url }}" class="related-card">
-                        <h4 class="related-card-title">{{ post.title }}</h4>
-                        <p class="related-card-excerpt">{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
-                        <div class="related-card-meta">
-                            <span>{{ post.topics.first }}</span>
-                            <span>{{ post.date | date: "%Y-%m-%d" }}</span>
-                        </div>
-                    </a>
-                    {% endfor %}
-                </div>
-            </div>
-            {% endif %}
-        </footer>
     </main>
 
-    <!-- TOC -->
-    <aside class="toc-sidebar">
+    <!-- 플로팅 TOC -->
+    <aside class="floating-toc" id="floating-toc">
         <h3 class="toc-title">
             <i class="fas fa-list"></i>
             목차
@@ -114,3 +75,111 @@ layout: default
         <div id="toc"></div>
     </aside>
 </div>
+
+<!-- 플로팅 목차 자바스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingToc = document.getElementById('floating-toc');
+    const tocList = document.getElementById('toc');
+    const postContent = document.querySelector('.post-content');
+    
+    if (!postContent) return;
+    
+    // 목차 자동 생성
+    function generateTOC() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) return;
+        
+        let tocHTML = '<ul>';
+        let currentLevel = 0;
+        
+        headings.forEach((heading, index) => {
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = heading.id || `heading-${index}`;
+            heading.id = id;
+            
+            const text = heading.textContent.trim();
+            
+            if (level > currentLevel) {
+                tocHTML += '<ul>'.repeat(level - currentLevel);
+            } else if (level < currentLevel) {
+                tocHTML += '</ul>'.repeat(currentLevel - level);
+            }
+            
+            tocHTML += `<li><a href="#${id}" data-heading="${id}">${text}</a></li>`;
+            currentLevel = level;
+        });
+        
+        tocHTML += '</ul>'.repeat(currentLevel);
+        tocList.innerHTML = tocHTML;
+        
+        // 목차 링크 클릭 이벤트
+        tocList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // 현재 보고 있는 섹션 하이라이트
+    function highlightCurrentSection() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const tocLinks = tocList.querySelectorAll('a');
+        
+        let currentHeading = null;
+        const scrollTop = window.pageYOffset;
+        
+        headings.forEach(heading => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 100) {
+                currentHeading = heading;
+            }
+        });
+        
+        tocLinks.forEach(link => link.classList.remove('active'));
+        
+        if (currentHeading) {
+            const activeLink = tocList.querySelector(`a[data-heading="${currentHeading.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    }
+    
+    // 스크롤 시 목차 표시/숨김 및 하이라이트
+    function handleScroll() {
+        const scrollTop = window.pageYOffset;
+        const postHeader = document.querySelector('.post-header');
+        const postContentBottom = postContent.offsetTop + postContent.offsetHeight;
+        
+        // 헤더 상단부터 목차 표시
+        const headerTop = postHeader ? postHeader.offsetTop : 200;
+        
+        if (scrollTop >= headerTop && scrollTop <= postContentBottom + 200) {
+            floatingToc.classList.add('visible');
+        } else {
+            floatingToc.classList.remove('visible');
+        }
+        
+        highlightCurrentSection();
+    }
+    
+    // 초기화
+    generateTOC();
+    
+    // 이벤트 리스너
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    
+    // 초기 실행
+    setTimeout(handleScroll, 100);
+});
+</script>

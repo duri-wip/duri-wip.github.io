@@ -9,7 +9,7 @@
 <!-- CSS -->
 <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<link href="/assets/css/style.css?v=1755314092" rel="stylesheet">
+<link href="/assets/css/style.css?v=1755325996" rel="stylesheet">
 
 <!-- 코드 하이라이팅 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 <meta property="og:title" content="Airflow 대그에서 파이썬 함수와 데코레이터">
 <meta property="og:description" content="데코레이터 사용하기">
 <meta property="og:type" content="article">
-<meta property="og:url" content="http://0.0.0.0:4000/airflow/decorator/">
+<meta property="og:url" content="http://localhost:4000/airflow/decorator/">
 
 <!-- JavaScript -->
 <script>
@@ -72,47 +72,273 @@ function toggleMorePosts() {
 <body>
     <!-- 스크롤 진행률 표시기 -->
     <div class="scroll-progress"></div>
+    
+    <!-- 전체 사이트 헤더 -->
+    <header class="header">
+    <!-- <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button> -->
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item ">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/topics/"><i class="fas fa-tags"></i> Topics</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+        </ul>
+    </nav>
+</header>
 
     <div class="post-layout">
-    <aside class="sidebar">
+    <aside class="sidebar post-sidebar">
+    <!-- 뒤로 돌아가기 -->
+    <div class="back-navigation">
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            뒤로 돌아가기
+        </a>
+    </div>
     
-    <div class="profile-section">
-        <img src="/assets/images/avatar.png" 
-             alt="Duri" class="profile-avatar">
-        <h2 class="profile-name">Duri</h2>
-        <p class="profile-title">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
-        <p class="profile-bio">데이터 엔지니어링과 머신러닝에 열정을 가진 개발자입니다. 새로운 기술을 배우고 공유하는 것을 좋아합니다.</p>
+    <!-- 카테고리 네비게이션 -->
+    <div class="category-navigation">
+        <h3 class="nav-title">
+            <i class="fas fa-folder"></i>
+            카테고리
+        </h3>
         
-        <div class="social-links">
-            
-            <a href="https://github.com/duri-wip" class="social-link">
-                <i class="fab fa-github"></i>
-            </a>
+        <nav class="category-list">
             
             
+                
+                    <a href="/topics/airflow/" class="category-item active">
+                        <i class="fas fa-chevron-right"></i>
+                        airflow
+                        <span class="post-count">
+                            
+                            
+                            6
+                        </span>
+                    </a>
+                
             
-            <a href="mailto:8s.eow.ooc@gmail.com" class="social-link">
-                <i class="fas fa-envelope"></i>
-            </a>
+                
+                    <a href="/topics/algorithm/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        algorithm
+                        <span class="post-count">
+                            
+                            
+                            32
+                        </span>
+                    </a>
+                
             
+                
+                    <a href="/topics/database/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        database
+                        <span class="post-count">
+                            
+                            
+                            3
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/docker/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        docker
+                        <span class="post-count">
+                            
+                            
+                            7
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/fastapi/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        fastapi
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/genai/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        genai
+                        <span class="post-count">
+                            
+                            
+                            7
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/googledecerti/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        googleDEcerti
+                        <span class="post-count">
+                            
+                            
+                            3
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/linux/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        linux
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/mlops/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        mlops
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/spark/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        spark
+                        <span class="post-count">
+                            
+                            
+                            8
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/test/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        test
+                        <span class="post-count">
+                            
+                            
+                            1
+                        </span>
+                    </a>
+                
+            
+        </nav>
+    </div>
+    
+    <!-- 최근 포스트 -->
+    <div class="recent-posts-nav">
+        <h3 class="nav-title">
+            <i class="fas fa-clock"></i>
+            최근 포스트
+        </h3>
+        
+        <div class="recent-list">
+            
+                <a href="/test/doc-style/" class="recent-item ">
+                    <span class="recent-title">문서 스타일 테스트 포스트</span>
+                    <span class="recent-date">08.16</span>
+                </a>
+            
+                <a href="/jekyll/" class="recent-item ">
+                    <span class="recent-title">Jekyll</span>
+                    <span class="recent-date">08.09</span>
+                </a>
+            
+                <a href="/langgraph/" class="recent-item ">
+                    <span class="recent-title">Langgraph</span>
+                    <span class="recent-date">08.08</span>
+                </a>
+            
+                <a href="/mcp-fastmcp/" class="recent-item ">
+                    <span class="recent-title">Mcp Fastmcp</span>
+                    <span class="recent-date">08.07</span>
+                </a>
+            
+                <a href="/DB-nosql-and-vectordb/" class="recent-item ">
+                    <span class="recent-title">Db Nosql And Vectordb</span>
+                    <span class="recent-date">08.07</span>
+                </a>
             
         </div>
     </div>
-    <!-- 메인 페이지용 통계 -->
-    <div class="sidebar-stats">
-        <div class="stat-item">
-            <span class="stat-label">Total Posts</span>
-            <span class="stat-value">83</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">Topics</span>
-            <span class="stat-value">0</span>
-        </div>
-        <div class="stat-item">
-            <span class="stat-label">Tags</span>
-            <span class="stat-value">71</span>
+    
+    <!-- 관련 포스트 -->
+    
+    <div class="related-posts-nav">
+        <h3 class="nav-title">
+            <i class="fas fa-tags"></i>
+            airflow 포스트
+        </h3>
+        
+        <div class="related-list">
+            
+            
+                
+                    <a href="/airflow/sla/" class="related-item">
+                        <span class="related-title">태스크에 SLA 사용하기</span>
+                        <span class="related-date">09.11</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/dag-xcom/" class="related-item">
+                        <span class="related-title">Airflow에서의 Xcom</span>
+                        <span class="related-date">09.10</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/dag-parallelize/" class="related-item">
+                        <span class="related-title">Airflow 대그 병렬로 수행하기</span>
+                        <span class="related-date">09.03</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/airflow-cluster/" class="related-item">
+                        <span class="related-title">Airflow 클러스터 구성하기</span>
+                        <span class="related-date">09.03</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/context" class="related-item">
+                        <span class="related-title">Airflow에서 context와 args, kw...</span>
+                        <span class="related-date">09.02</span>
+                    </a>
+                
+            
+                
+            
         </div>
     </div>
+    
 </aside>
     
     <main class="main-content">
@@ -277,134 +503,10 @@ sample_task 끝
 <p>이 코드에서 <code class="language-plaintext highlighter-rouge">extract_data</code> 태스크는 데이터를 반환하고, 그 데이터는 <code class="language-plaintext highlighter-rouge">process_data</code> 태스크로 전달된다.</p>
 
         </article>
-
-        <!-- 포스트 하단 -->
-        <footer class="post-footer">
-            <div class="post-actions">
-                <div class="like-share">
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-heart"></i>
-                        좋아요
-                    </a>
-                    <a href="#" class="action-btn">
-                        <i class="fas fa-share"></i>
-                        공유
-                    </a>
-                </div>
-            </div>
-
-            <!-- 관련 포스트 -->
-            
-            
-            <div class="related-posts">
-                <h3 class="related-title">
-                    <i class="fas fa-bookmark"></i>
-                    관련 포스트
-                </h3>
-                <div class="related-grid">
-                    
-                    <a href="/jekyll/" class="related-card">
-                        <h4 class="related-card-title">Jekyll</h4>
-                        <p class="related-card-excerpt">jekyll 에서 scss적용하기 메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도...</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-08-09</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/langgraph/" class="related-card">
-                        <h4 class="related-card-title">Langgraph</h4>
-                        <p class="related-card-excerpt">state
-</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-08-08</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/mcp-fastmcp/" class="related-card">
-                        <h4 class="related-card-title">Mcp Fastmcp</h4>
-                        <p class="related-card-excerpt">mcp 서버
-mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방식의 비교
-</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-08-07</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/DB-nosql-and-vectordb/" class="related-card">
-                        <h4 class="related-card-title">Db Nosql And Vectordb</h4>
-                        <p class="related-card-excerpt">
-</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-08-07</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/genai/prompt-engineering/" class="related-card">
-                        <h4 class="related-card-title">프롬프트 엔지니어링 완전 정복</h4>
-                        <p class="related-card-excerpt">CO-STAR, AUTOMAT 프레임워크와 고급 프롬프트 패턴 활용법</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-08-06</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/genai/RAG-advance/" class="related-card">
-                        <h4 class="related-card-title">RAG 고급 기법 완전 정복</h4>
-                        <p class="related-card-excerpt">HyDE, Multi-Query, RAG-Fusion, ReRank, Hybrid Search 등 고급 RAG 기법</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-08-04</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/genai/RAG/" class="related-card">
-                        <h4 class="related-card-title">RAG (Retrieval-Augmented Generation) 완전 정복</h4>
-                        <p class="related-card-excerpt">LangChain을 활용한 RAG 시스템 구축하기</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-07-31</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/genai/output-parse/" class="related-card">
-                        <h4 class="related-card-title">LangChain Output Parser 완전 정복</h4>
-                        <p class="related-card-excerpt">구조화된 출력을 위한 Output Parser 활용법</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-07-29</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/genai/LCEL-advance/" class="related-card">
-                        <h4 class="related-card-title">LCEL 고급 활용법</h4>
-                        <p class="related-card-excerpt">LangChain Expression Language의 심화 기능과 활용</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-07-28</span>
-                        </div>
-                    </a>
-                    
-                    <a href="/genai/LCEL/" class="related-card">
-                        <h4 class="related-card-title">LCEL (LangChain Expression Language) 완전 정복</h4>
-                        <p class="related-card-excerpt">LangChain에서 체인 구성하는 방법과 활용법</p>
-                        <div class="related-card-meta">
-                            <span></span>
-                            <span>2025-07-24</span>
-                        </div>
-                    </a>
-                    
-                </div>
-            </div>
-            
-        </footer>
     </main>
 
-    <!-- TOC -->
-    <aside class="toc-sidebar">
+    <!-- 플로팅 TOC -->
+    <aside class="floating-toc" id="floating-toc">
         <h3 class="toc-title">
             <i class="fas fa-list"></i>
             목차
@@ -412,6 +514,114 @@ mcp 서버를 따로 구축하는 것과  llm 서버 내부에 구축하는 방�
         <div id="toc"></div>
     </aside>
 </div>
+
+<!-- 플로팅 목차 자바스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingToc = document.getElementById('floating-toc');
+    const tocList = document.getElementById('toc');
+    const postContent = document.querySelector('.post-content');
+    
+    if (!postContent) return;
+    
+    // 목차 자동 생성
+    function generateTOC() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) return;
+        
+        let tocHTML = '<ul>';
+        let currentLevel = 0;
+        
+        headings.forEach((heading, index) => {
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = heading.id || `heading-${index}`;
+            heading.id = id;
+            
+            const text = heading.textContent.trim();
+            
+            if (level > currentLevel) {
+                tocHTML += '<ul>'.repeat(level - currentLevel);
+            } else if (level < currentLevel) {
+                tocHTML += '</ul>'.repeat(currentLevel - level);
+            }
+            
+            tocHTML += `<li><a href="#${id}" data-heading="${id}">${text}</a></li>`;
+            currentLevel = level;
+        });
+        
+        tocHTML += '</ul>'.repeat(currentLevel);
+        tocList.innerHTML = tocHTML;
+        
+        // 목차 링크 클릭 이벤트
+        tocList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // 현재 보고 있는 섹션 하이라이트
+    function highlightCurrentSection() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const tocLinks = tocList.querySelectorAll('a');
+        
+        let currentHeading = null;
+        const scrollTop = window.pageYOffset;
+        
+        headings.forEach(heading => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 100) {
+                currentHeading = heading;
+            }
+        });
+        
+        tocLinks.forEach(link => link.classList.remove('active'));
+        
+        if (currentHeading) {
+            const activeLink = tocList.querySelector(`a[data-heading="${currentHeading.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    }
+    
+    // 스크롤 시 목차 표시/숨김 및 하이라이트
+    function handleScroll() {
+        const scrollTop = window.pageYOffset;
+        const postHeader = document.querySelector('.post-header');
+        const postContentBottom = postContent.offsetTop + postContent.offsetHeight;
+        
+        // 헤더 상단부터 목차 표시
+        const headerTop = postHeader ? postHeader.offsetTop : 200;
+        
+        if (scrollTop >= headerTop && scrollTop <= postContentBottom + 200) {
+            floatingToc.classList.add('visible');
+        } else {
+            floatingToc.classList.remove('visible');
+        }
+        
+        highlightCurrentSection();
+    }
+    
+    // 초기화
+    generateTOC();
+    
+    // 이벤트 리스너
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    
+    // 초기 실행
+    setTimeout(handleScroll, 100);
+});
+</script>
 
     <script>
         // 스크롤 진행률 표시기

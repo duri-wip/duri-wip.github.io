@@ -1,4 +1,402 @@
-<h1 id="xcom을-활용한-task-간-데이터-교환">XCom을 활용한 Task 간 데이터 교환</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airflow에서의 Xcom - Duri's Work In Progress</title>
+<meta name="description" content="어떨때 xcom을 써야할까?">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css?v=1755325996" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Airflow에서의 Xcom">
+<meta property="og:description" content="어떨때 xcom을 써야할까?">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:4000/airflow/dag-xcom/">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+
+// 최근 포스트 더보기 기능
+function toggleMorePosts() {
+    const hiddenPosts = document.querySelectorAll('.hidden-post');
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    const loadMoreText = document.querySelector('.load-more-text');
+    const loadMoreIcon = document.querySelector('.load-more-icon');
+    
+    const isExpanded = loadMoreBtn.classList.contains('expanded');
+    
+    if (isExpanded) {
+        // 접기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'none';
+        });
+        loadMoreText.textContent = '더보기';
+        loadMoreIcon.style.transform = 'rotate(0deg)';
+        loadMoreBtn.classList.remove('expanded');
+    } else {
+        // 펼치기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'block';
+        });
+        loadMoreText.textContent = '접기';
+        loadMoreIcon.style.transform = 'rotate(180deg)';
+        loadMoreBtn.classList.add('expanded');
+    }
+}
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+    
+    <!-- 전체 사이트 헤더 -->
+    <header class="header">
+    <!-- <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button> -->
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item ">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/topics/"><i class="fas fa-tags"></i> Topics</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <div class="post-layout">
+    <aside class="sidebar post-sidebar">
+    <!-- 뒤로 돌아가기 -->
+    <div class="back-navigation">
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            뒤로 돌아가기
+        </a>
+    </div>
+    
+    <!-- 카테고리 네비게이션 -->
+    <div class="category-navigation">
+        <h3 class="nav-title">
+            <i class="fas fa-folder"></i>
+            카테고리
+        </h3>
+        
+        <nav class="category-list">
+            
+            
+                
+                    <a href="/topics/airflow/" class="category-item active">
+                        <i class="fas fa-chevron-right"></i>
+                        airflow
+                        <span class="post-count">
+                            
+                            
+                            6
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/algorithm/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        algorithm
+                        <span class="post-count">
+                            
+                            
+                            32
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/database/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        database
+                        <span class="post-count">
+                            
+                            
+                            3
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/docker/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        docker
+                        <span class="post-count">
+                            
+                            
+                            7
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/fastapi/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        fastapi
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/genai/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        genai
+                        <span class="post-count">
+                            
+                            
+                            7
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/googledecerti/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        googleDEcerti
+                        <span class="post-count">
+                            
+                            
+                            3
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/linux/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        linux
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/mlops/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        mlops
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/spark/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        spark
+                        <span class="post-count">
+                            
+                            
+                            8
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/test/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        test
+                        <span class="post-count">
+                            
+                            
+                            1
+                        </span>
+                    </a>
+                
+            
+        </nav>
+    </div>
+    
+    <!-- 최근 포스트 -->
+    <div class="recent-posts-nav">
+        <h3 class="nav-title">
+            <i class="fas fa-clock"></i>
+            최근 포스트
+        </h3>
+        
+        <div class="recent-list">
+            
+                <a href="/test/doc-style/" class="recent-item ">
+                    <span class="recent-title">문서 스타일 테스트 포스트</span>
+                    <span class="recent-date">08.16</span>
+                </a>
+            
+                <a href="/jekyll/" class="recent-item ">
+                    <span class="recent-title">Jekyll</span>
+                    <span class="recent-date">08.09</span>
+                </a>
+            
+                <a href="/langgraph/" class="recent-item ">
+                    <span class="recent-title">Langgraph</span>
+                    <span class="recent-date">08.08</span>
+                </a>
+            
+                <a href="/mcp-fastmcp/" class="recent-item ">
+                    <span class="recent-title">Mcp Fastmcp</span>
+                    <span class="recent-date">08.07</span>
+                </a>
+            
+                <a href="/DB-nosql-and-vectordb/" class="recent-item ">
+                    <span class="recent-title">Db Nosql And Vectordb</span>
+                    <span class="recent-date">08.07</span>
+                </a>
+            
+        </div>
+    </div>
+    
+    <!-- 관련 포스트 -->
+    
+    <div class="related-posts-nav">
+        <h3 class="nav-title">
+            <i class="fas fa-tags"></i>
+            airflow 포스트
+        </h3>
+        
+        <div class="related-list">
+            
+            
+                
+                    <a href="/airflow/sla/" class="related-item">
+                        <span class="related-title">태스크에 SLA 사용하기</span>
+                        <span class="related-date">09.11</span>
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/airflow/dag-parallelize/" class="related-item">
+                        <span class="related-title">Airflow 대그 병렬로 수행하기</span>
+                        <span class="related-date">09.03</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/airflow-cluster/" class="related-item">
+                        <span class="related-title">Airflow 클러스터 구성하기</span>
+                        <span class="related-date">09.03</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/context" class="related-item">
+                        <span class="related-title">Airflow에서 context와 args, kw...</span>
+                        <span class="related-date">09.02</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/decorator/" class="related-item">
+                        <span class="related-title">Airflow 대그에서 파이썬 함수와 데코레이터</span>
+                        <span class="related-date">09.01</span>
+                    </a>
+                
+            
+        </div>
+    </div>
+    
+</aside>
+    
+    <main class="main-content">
+        <!-- 포스트 헤더 -->
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="post-category">
+                    
+                        General
+                    
+                </span>
+                <span>•</span>
+                <span>2024년 09월 10일</span>
+                <span>•</span>
+                <span>5분 읽기</span>
+            </div>
+            
+            <h1 class="post-title">Airflow에서의 Xcom</h1>
+            
+            
+            
+            <div class="post-info">
+                <div class="author-info">
+                    <img src="/assets/images/avatar.png" alt="Duri" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">Duri</span>
+                        <span class="post-date">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</span>
+                    </div>
+                </div>
+                
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>0 views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>0 likes</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/dag" class="tag">dag</a>
+                
+                <a href="/tags/python" class="tag">python</a>
+                
+                <a href="/tags/xcom" class="tag">xcom</a>
+                
+            </div>
+            
+        </header>
+
+        <!-- 포스트 콘텐츠 -->
+        <article class="post-content">
+            <h1 id="xcom을-활용한-task-간-데이터-교환">XCom을 활용한 Task 간 데이터 교환</h1>
 
 <p>Airflow의 XCom(다른 Task 간 교환 가능한 값)은 태스크 간에 데이터를 전달하는 수단이다. XCom은 Task가 실행 중 생성한 데이터를 다른 Task에서 가져와 사용할 수 있게 한다. 기본적으로 작은 데이터를 전달할 때 사용되며, 큰 데이터는 별도 스토리지를 사용해 저장하는 것이 권장된다. 1GB이상의 데이터의 경우에는 별도 스토리지를 사용하는 것이 일반적이다.</p>
 
@@ -78,3 +476,136 @@ xcom_push_return()&gt;&gt;xcom_pull_return_by_method()
 <h3 id="4-가시성-및-관리의-어려움">4. <strong>가시성 및 관리의 어려움</strong></h3>
 
 <p>웹 UI에서 XCom 데이터를 확인하거나 관리하는 것이 어려워질 수 있다. XCom은 디버깅 목적으로도 사용되기 때문에, 작은 데이터만 저장하는 것이 XCom 사용 시 더 직관적이고 관리하기 쉽다.</p>
+
+        </article>
+    </main>
+
+    <!-- 플로팅 TOC -->
+    <aside class="floating-toc" id="floating-toc">
+        <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            목차
+        </h3>
+        <div id="toc"></div>
+    </aside>
+</div>
+
+<!-- 플로팅 목차 자바스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingToc = document.getElementById('floating-toc');
+    const tocList = document.getElementById('toc');
+    const postContent = document.querySelector('.post-content');
+    
+    if (!postContent) return;
+    
+    // 목차 자동 생성
+    function generateTOC() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) return;
+        
+        let tocHTML = '<ul>';
+        let currentLevel = 0;
+        
+        headings.forEach((heading, index) => {
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = heading.id || `heading-${index}`;
+            heading.id = id;
+            
+            const text = heading.textContent.trim();
+            
+            if (level > currentLevel) {
+                tocHTML += '<ul>'.repeat(level - currentLevel);
+            } else if (level < currentLevel) {
+                tocHTML += '</ul>'.repeat(currentLevel - level);
+            }
+            
+            tocHTML += `<li><a href="#${id}" data-heading="${id}">${text}</a></li>`;
+            currentLevel = level;
+        });
+        
+        tocHTML += '</ul>'.repeat(currentLevel);
+        tocList.innerHTML = tocHTML;
+        
+        // 목차 링크 클릭 이벤트
+        tocList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // 현재 보고 있는 섹션 하이라이트
+    function highlightCurrentSection() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const tocLinks = tocList.querySelectorAll('a');
+        
+        let currentHeading = null;
+        const scrollTop = window.pageYOffset;
+        
+        headings.forEach(heading => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 100) {
+                currentHeading = heading;
+            }
+        });
+        
+        tocLinks.forEach(link => link.classList.remove('active'));
+        
+        if (currentHeading) {
+            const activeLink = tocList.querySelector(`a[data-heading="${currentHeading.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    }
+    
+    // 스크롤 시 목차 표시/숨김 및 하이라이트
+    function handleScroll() {
+        const scrollTop = window.pageYOffset;
+        const postHeader = document.querySelector('.post-header');
+        const postContentBottom = postContent.offsetTop + postContent.offsetHeight;
+        
+        // 헤더 상단부터 목차 표시
+        const headerTop = postHeader ? postHeader.offsetTop : 200;
+        
+        if (scrollTop >= headerTop && scrollTop <= postContentBottom + 200) {
+            floatingToc.classList.add('visible');
+        } else {
+            floatingToc.classList.remove('visible');
+        }
+        
+        highlightCurrentSection();
+    }
+    
+    // 초기화
+    generateTOC();
+    
+    // 이벤트 리스너
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    
+    // 초기 실행
+    setTimeout(handleScroll, 100);
+});
+</script>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

@@ -404,6 +404,228 @@ body { font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
 /* 반응형 더보기 버튼 */
 @media (max-width: 768px) { .load-more-btn { padding: 0.75rem 1.5rem; font-size: 0.9rem; } .load-more-container { margin-top: 1.5rem; padding-top: 1rem; } }
 
+/* ========================================================================== 문서 상세 페이지 스타일 (포스트 전용) ========================================================================== */
+/* ========================================================================== 문서 콘텐츠 영역 ========================================================================== */
+.post-layout .post-content { padding: 1.5rem; margin: 1rem 0; line-height: 1.7; font-size: 1.05rem; color: #000000; }
+
+/* 제목 스타일링 */
+.post-layout .post-content h1, .post-layout .post-content h2, .post-layout .post-content h3, .post-layout .post-content h4, .post-layout .post-content h5, .post-layout .post-content h6 { color: #000000; font-weight: 600; margin-top: 2rem; margin-bottom: 1rem; line-height: 1.3; }
+
+.post-layout .post-content h1 { font-size: 2rem; color: #e43636; border-bottom: 2px solid #e43636; padding-bottom: 0.75rem; margin-bottom: 1.5rem; }
+
+.post-layout .post-content h2 { font-size: 1.6rem; color: #e43636; position: relative; padding-left: 1rem; margin-top: 2.5rem; }
+
+.post-layout .post-content h2::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #e43636; border-radius: 2px; }
+
+.post-layout .post-content h3 { font-size: 1.3rem; color: #000000; margin-top: 2rem; }
+
+.post-layout .post-content h4 { font-size: 1.1rem; color: #333333; margin-top: 1.5rem; }
+
+/* 문단 스타일 */
+.post-layout .post-content p { margin-bottom: 1.5rem; text-align: justify; word-break: keep-all; }
+
+/* 리스트 스타일 */
+.post-layout .post-content ul, .post-layout .post-content ol { margin-bottom: 1.5rem; padding-left: 2rem; }
+
+.post-layout .post-content li { margin-bottom: 0.5rem; line-height: 1.6; }
+
+.post-layout .post-content ul li { list-style-type: disc; }
+
+.post-layout .post-content ol li { list-style-type: decimal; }
+
+/* 인용구 스타일 */
+.post-layout .post-content blockquote { background: #f8f4e0; border-left: 4px solid #e43636; padding: 1.5rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; font-style: italic; color: #333333; position: relative; }
+
+.post-layout .post-content blockquote::before { content: '"'; position: absolute; top: -10px; left: 10px; font-size: 3rem; color: #e43636; opacity: 0.3; }
+
+/* 코드 스타일 */
+.post-layout .post-content code { background: #E2DDB4; padding: 3px 6px; border-radius: 6px; font-family: 'Fira Code', 'Monaco', 'Consolas', monospace; font-size: 0.9em; color: #c42e2e; border: 1px solid #d4cfa0; }
+
+.post-layout .post-content pre { background: #1e1e1e; color: #d4d4d4; padding: 1.5rem; border-radius: 12px; overflow-x: auto; margin: 1.5rem 0; border: 1px solid #333; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+.post-layout .post-content pre code { background: none; color: inherit; padding: 0; border: none; font-size: 0.95em; }
+
+/* 이미지 스타일 */
+.post-layout .post-content img { max-width: 100%; height: auto; border-radius: 12px; margin: 1.5rem auto; display: block; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); border: 1px solid #d4cfa0; }
+
+/* 테이블 스타일 */
+.post-layout .post-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; background: #ffffff; border-radius: 6px; overflow: hidden; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); border: 1px solid #d4cfa0; }
+
+.post-layout .post-content th, .post-layout .post-content td { padding: 0.75rem 1rem; text-align: left; border-bottom: 1px solid #d4cfa0; }
+
+.post-layout .post-content th { background: #E2DDB4; font-weight: 600; color: #000000; border-bottom: 2px solid #d4cfa0; }
+
+.post-layout .post-content tr:hover { background: #f8f4e0; }
+
+/* 링크 스타일 */
+.post-layout .post-content a { color: #e43636; text-decoration: underline; transition: color 0.3s ease; }
+
+.post-layout .post-content a:hover { color: #c42e2e; text-decoration: none; }
+
+/* 강조 텍스트 */
+.post-layout .post-content strong { color: #000000; font-weight: 700; }
+
+.post-layout .post-content em { font-style: italic; color: #333333; }
+
+/* 수평선 */
+.post-layout .post-content hr { border: none; height: 2px; background: linear-gradient(90deg, transparent, #d4cfa0, transparent); margin: 2rem 0; }
+
+/* ========================================================================== 포스트 헤더 스타일 (카드 형태) ========================================================================== */
+.post-layout .post-header { background: #ffffff; border: 1px solid #d4cfa0; border-radius: 16px; padding: 2rem; margin-bottom: 2rem; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+
+.post-layout .post-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; font-size: 0.85rem; color: #666666; }
+
+.post-layout .post-category { background: rgba(228, 54, 54, 0.1); color: #e43636; padding: 0.5rem 0.75rem; border-radius: 6px; font-weight: 500; font-size: 0.8rem; }
+
+.post-layout .post-title { font-size: 2.2rem; font-weight: 700; color: #000000; margin-bottom: 1rem; line-height: 1.2; }
+
+.post-layout .post-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #d4cfa0; flex-wrap: wrap; gap: 1rem; }
+
+.post-layout .author-info { display: flex; align-items: center; gap: 1rem; }
+
+.post-layout .author-avatar { width: 48px; height: 48px; border-radius: 50%; border: 2px solid #e43636; object-fit: cover; }
+
+.post-layout .author-details { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.post-layout .author-name { font-weight: 600; color: #000000; font-size: 0.95rem; }
+
+.post-layout .post-date { font-size: 0.85rem; color: #666666; }
+
+.post-layout .post-stats { display: flex; gap: 1.5rem; }
+
+.post-layout .stat-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #666666; }
+
+.post-layout .stat-item i { color: #e43636; }
+
+.post-layout .post-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 1rem; }
+
+.post-layout .post-tags .tag { background: #E2DDB4; color: #333333; padding: 0.5rem 0.75rem; border-radius: 6px; font-size: 0.8rem; text-decoration: none; border: 1px solid #d4cfa0; transition: all 0.3s ease; }
+
+.post-layout .post-tags .tag:hover { background: #e43636; color: white; border-color: #e43636; }
+
+/* 사용하지 않는 doc- 클래스들 제거됨 */
+.like-share { display: flex; justify-content: center; gap: 1.5rem; }
+
+.action-btn { background: #f8f4e0; border: 1px solid #d4cfa0; color: #000000; padding: 1rem 2rem; border-radius: 12px; text-decoration: none; display: flex; align-items: center; gap: 0.75rem; transition: all 0.3s ease; font-weight: 500; }
+
+.action-btn:hover { background: #e43636; color: white; border-color: #e43636; transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
+
+.action-btn i { font-size: 1.1rem; }
+
+/* 관련 포스트 */
+.related-posts { border-top: 1px solid #d4cfa0; padding-top: 2rem; }
+
+.related-title { font-size: 1.4rem; font-weight: 600; color: #000000; margin-bottom: 2rem; display: flex; align-items: center; gap: 0.75rem; }
+
+.related-title i { color: #e43636; }
+
+.related-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+
+.related-card { background: #f8f4e0; border: 1px solid #d4cfa0; border-radius: 12px; padding: 1.5rem; text-decoration: none; color: inherit; transition: all 0.3s ease; position: relative; overflow: hidden; }
+
+.related-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: #e43636; transform: scaleX(0); transition: transform 0.3s ease; }
+
+.related-card:hover::before { transform: scaleX(1); }
+
+.related-card:hover { border-color: #e43636; transform: translateY(-4px); box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); }
+
+.related-card-title { font-size: 1rem; font-weight: 600; color: #000000; margin-bottom: 0.75rem; line-height: 1.3; transition: color 0.3s ease; }
+
+.related-card:hover .related-card-title { color: #e43636; }
+
+.related-card-excerpt { font-size: 0.9rem; color: #333333; margin-bottom: 1rem; line-height: 1.5; }
+
+.related-card-meta { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: #666666; }
+
+/* 플로팅 목차 */
+.floating-toc { position: fixed; right: 20px; top: 50%; transform: translateY(-50%); width: 240px; max-height: 60vh; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid #d4cfa0; border-radius: 16px; padding: 1rem; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1); z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); overflow-y: auto; }
+
+.floating-toc.visible { opacity: 1; visibility: visible; }
+
+.floating-toc.visible:hover { background: rgba(255, 255, 255, 0.98); transform: translateY(-50%) scale(1.02); box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15); }
+
+/* 기존 사이드바 TOC 숨기기 */
+.toc-sidebar { display: none; }
+
+/* 플로팅 목차 제목 */
+.floating-toc .toc-title { font-size: 0.95rem; font-weight: 600; color: #000000; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; border-bottom: 1px solid #d4cfa0; padding-bottom: 0.5rem; }
+
+.floating-toc .toc-title i { color: #e43636; font-size: 0.9rem; }
+
+/* 플로팅 목차 리스트 */
+.floating-toc #toc { font-size: 0.85rem; line-height: 1.4; }
+
+.floating-toc #toc ul { list-style: none; padding-left: 0; margin: 0; }
+
+.floating-toc #toc li { margin-bottom: 2px; }
+
+.floating-toc #toc a { color: #333333; text-decoration: none; padding: 6px 8px; display: block; transition: all 0.2s ease; border-radius: 4px; border-left: 3px solid transparent; position: relative; overflow: hidden; }
+
+.floating-toc #toc a:hover { color: #e43636; background: rgba(228, 54, 54, 0.08); border-left-color: #e43636; transform: translateX(2px); }
+
+.floating-toc #toc a.active { color: #e43636; background: rgba(228, 54, 54, 0.12); border-left-color: #e43636; font-weight: 500; }
+
+/* 중첩 목차 들여쓰기 */
+.floating-toc #toc ul ul a { padding-left: 20px; font-size: 0.8rem; }
+
+.floating-toc #toc ul ul ul a { padding-left: 32px; font-size: 0.75rem; }
+
+/* ========================================================================== 넓은 화면에서 콘텐츠 영역 확장 ========================================================================== */
+@media (min-width: 1020px) { .post-layout .main-content { padding: 1.5rem 1rem; max-width: calc(100% - 20px); } .post-layout .post-header, .post-layout .post-content { width: 100%; max-width: none; } }
+
+/* ========================================================================== 포스트 사이드바 스타일 ========================================================================== */
+.post-sidebar { padding: 1.5rem; }
+
+.back-navigation { margin-bottom: 2rem; }
+
+.back-link { display: flex; align-items: center; gap: 0.75rem; color: #333333; text-decoration: none; padding: 0.75rem 1rem; border-radius: 12px; border: 1px solid #d4cfa0; transition: all 0.3s ease; font-size: 0.9rem; }
+
+.back-link:hover { color: #e43636; border-color: #e43636; background: rgba(228, 54, 54, 0.05); transform: translateX(-2px); }
+
+.category-navigation, .recent-posts-nav, .related-posts-nav { margin-bottom: 2rem; }
+
+.nav-title { font-size: 1rem; font-weight: 600; color: #000000; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.75rem; border-bottom: 1px solid #d4cfa0; padding-bottom: 0.75rem; }
+
+.nav-title i { color: #e43636; font-size: 0.9rem; }
+
+.category-list { display: flex; flex-direction: column; gap: 2px; }
+
+.category-item { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 1rem; color: #333333; text-decoration: none; border-radius: 6px; transition: all 0.2s ease; font-size: 0.9rem; }
+
+.category-item:hover { color: #e43636; background: rgba(228, 54, 54, 0.05); transform: translateX(4px); }
+
+.category-item.active { color: #e43636; background: rgba(228, 54, 54, 0.1); font-weight: 500; }
+
+.category-item i { font-size: 0.7rem; margin-right: 0.5rem; transition: transform 0.2s ease; }
+
+.category-item:hover i { transform: translateX(2px); }
+
+.post-count { background: #E2DDB4; color: #666666; padding: 2px 6px; border-radius: 6px; font-size: 0.75rem; min-width: 20px; text-align: center; }
+
+.category-item:hover .post-count { background: rgba(228, 54, 54, 0.1); color: #e43636; }
+
+.recent-list, .related-list { display: flex; flex-direction: column; gap: 0.5rem; }
+
+.recent-item, .related-item { display: flex; flex-direction: column; padding: 0.75rem; color: #333333; text-decoration: none; border-radius: 6px; transition: all 0.2s ease; border-left: 2px solid transparent; }
+
+.recent-item:hover, .related-item:hover { color: #e43636; background: rgba(228, 54, 54, 0.05); border-left-color: #e43636; }
+
+.recent-item.current { color: #e43636; background: rgba(228, 54, 54, 0.1); border-left-color: #e43636; font-weight: 500; }
+
+.recent-title, .related-title { font-size: 0.85rem; line-height: 1.3; margin-bottom: 2px; }
+
+.recent-date, .related-date { font-size: 0.75rem; color: #666666; }
+
+/* 플로팅 목차 모바일 반응형 */
+@media (max-width: 1200px) { .floating-toc { right: 10px; width: 200px; font-size: 0.8rem; } }
+
+@media (max-width: 768px) { .floating-toc { display: none; } }
+
+/* ========================================================================== 반응형 디자인 ========================================================================== */
+@media (max-width: 768px) { .post-layout .post-content { padding: 1.5rem; margin: 1rem 0; font-size: 1rem; } .post-layout .post-content h1 { font-size: 1.7rem; } .post-layout .post-content h2 { font-size: 1.4rem; padding-left: 0.75rem; } .post-layout .post-content h2::before { width: 3px; } .post-layout .post-content h3 { font-size: 1.2rem; } .post-layout .post-header { padding: 1.5rem; margin-bottom: 1.5rem; } .doc-title { font-size: 1.8rem; } .doc-meta { flex-direction: column; align-items: flex-start; gap: 0.5rem; } }
+
+@media (max-width: 480px) { .post-layout .post-content { padding: 1rem; border-radius: 6px; } .post-layout .post-content pre { padding: 1rem; font-size: 0.85rem; } .post-layout .post-content table { font-size: 0.85rem; } .post-layout .post-content th, .post-layout .post-content td { padding: 0.5rem 0.75rem; } }
+
 /* ========================================================================== 스터디 페이지 - 통계 섹션 ========================================================================== */
 .study-stats, .category-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem; }
 

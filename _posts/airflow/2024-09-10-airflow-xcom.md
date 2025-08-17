@@ -1,8 +1,9 @@
 ---
+layout: post
 title: "Airflow에서의 Xcom"
 excerpt: "어떨때 xcom을 써야할까?"
 
-category:  airflow
+category: airflow
 tags:
   - [dag, python, xcom]
 

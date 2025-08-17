@@ -1,10 +1,409 @@
-<h1 id="airflow에서-context와-args-kwargs의-활용">Airflow에서 Context와 args, kwargs의 활용</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Airflow에서 context와 args, kwargs의 활용 - Duri's Work In Progress</title>
+<meta name="description" content="Context 활용법">
+
+<!-- CSS -->
+<link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="/assets/css/style.css?v=1755325996" rel="stylesheet">
+
+<!-- 코드 하이라이팅 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Airflow에서 context와 args, kwargs의 활용">
+<meta property="og:description" content="Context 활용법">
+<meta property="og:type" content="article">
+<meta property="og:url" content="http://localhost:4000/airflow/context">
+
+<!-- JavaScript -->
+<script>
+function toggleSidebar() {
+    const sidebar = document.querySelector('.sidebar');
+    sidebar.classList.toggle('active');
+}
+
+// 모바일에서 사이드바 외부 클릭 시 닫기
+document.addEventListener('click', function(event) {
+    const sidebar = document.querySelector('.sidebar');
+    const mobileToggle = document.querySelector('.mobile-menu-toggle');
+    
+    if (window.innerWidth <= 768) {
+        if (!sidebar.contains(event.target) && !mobileToggle.contains(event.target)) {
+            sidebar.classList.remove('active');
+        }
+    }
+});
+
+// 최근 포스트 더보기 기능
+function toggleMorePosts() {
+    const hiddenPosts = document.querySelectorAll('.hidden-post');
+    const loadMoreBtn = document.querySelector('.load-more-btn');
+    const loadMoreText = document.querySelector('.load-more-text');
+    const loadMoreIcon = document.querySelector('.load-more-icon');
+    
+    const isExpanded = loadMoreBtn.classList.contains('expanded');
+    
+    if (isExpanded) {
+        // 접기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'none';
+        });
+        loadMoreText.textContent = '더보기';
+        loadMoreIcon.style.transform = 'rotate(0deg)';
+        loadMoreBtn.classList.remove('expanded');
+    } else {
+        // 펼치기
+        hiddenPosts.forEach(post => {
+            post.style.display = 'block';
+        });
+        loadMoreText.textContent = '접기';
+        loadMoreIcon.style.transform = 'rotate(180deg)';
+        loadMoreBtn.classList.add('expanded');
+    }
+}
+</script>
+
+</head>
+<body>
+    <!-- 스크롤 진행률 표시기 -->
+    <div class="scroll-progress"></div>
+    
+    <!-- 전체 사이트 헤더 -->
+    <header class="header">
+    <!-- <button class="mobile-menu-toggle" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </button> -->
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item ">
+                <a href="/"><i class="fas fa-home"></i> Home</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/topics/"><i class="fas fa-tags"></i> Topics</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/study/"><i class="fas fa-graduation-cap"></i> Study</a>
+            </li>
+            <li class="nav-item ">
+                <a href="/projects/"><i class="fas fa-folder"></i> Projects</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+    <div class="post-layout">
+    <aside class="sidebar post-sidebar">
+    <!-- 뒤로 돌아가기 -->
+    <div class="back-navigation">
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            뒤로 돌아가기
+        </a>
+    </div>
+    
+    <!-- 카테고리 네비게이션 -->
+    <div class="category-navigation">
+        <h3 class="nav-title">
+            <i class="fas fa-folder"></i>
+            카테고리
+        </h3>
+        
+        <nav class="category-list">
+            
+            
+                
+                    <a href="/topics/airflow/" class="category-item active">
+                        <i class="fas fa-chevron-right"></i>
+                        airflow
+                        <span class="post-count">
+                            
+                            
+                            6
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/algorithm/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        algorithm
+                        <span class="post-count">
+                            
+                            
+                            32
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/database/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        database
+                        <span class="post-count">
+                            
+                            
+                            3
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/docker/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        docker
+                        <span class="post-count">
+                            
+                            
+                            7
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/fastapi/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        fastapi
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/genai/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        genai
+                        <span class="post-count">
+                            
+                            
+                            7
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/googledecerti/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        googleDEcerti
+                        <span class="post-count">
+                            
+                            
+                            3
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/linux/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        linux
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/mlops/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        mlops
+                        <span class="post-count">
+                            
+                            
+                            2
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/spark/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        spark
+                        <span class="post-count">
+                            
+                            
+                            8
+                        </span>
+                    </a>
+                
+            
+                
+                    <a href="/topics/test/" class="category-item ">
+                        <i class="fas fa-chevron-right"></i>
+                        test
+                        <span class="post-count">
+                            
+                            
+                            1
+                        </span>
+                    </a>
+                
+            
+        </nav>
+    </div>
+    
+    <!-- 최근 포스트 -->
+    <div class="recent-posts-nav">
+        <h3 class="nav-title">
+            <i class="fas fa-clock"></i>
+            최근 포스트
+        </h3>
+        
+        <div class="recent-list">
+            
+                <a href="/test/doc-style/" class="recent-item ">
+                    <span class="recent-title">문서 스타일 테스트 포스트</span>
+                    <span class="recent-date">08.16</span>
+                </a>
+            
+                <a href="/jekyll/" class="recent-item ">
+                    <span class="recent-title">Jekyll</span>
+                    <span class="recent-date">08.09</span>
+                </a>
+            
+                <a href="/langgraph/" class="recent-item ">
+                    <span class="recent-title">Langgraph</span>
+                    <span class="recent-date">08.08</span>
+                </a>
+            
+                <a href="/mcp-fastmcp/" class="recent-item ">
+                    <span class="recent-title">Mcp Fastmcp</span>
+                    <span class="recent-date">08.07</span>
+                </a>
+            
+                <a href="/DB-nosql-and-vectordb/" class="recent-item ">
+                    <span class="recent-title">Db Nosql And Vectordb</span>
+                    <span class="recent-date">08.07</span>
+                </a>
+            
+        </div>
+    </div>
+    
+    <!-- 관련 포스트 -->
+    
+    <div class="related-posts-nav">
+        <h3 class="nav-title">
+            <i class="fas fa-tags"></i>
+            airflow 포스트
+        </h3>
+        
+        <div class="related-list">
+            
+            
+                
+                    <a href="/airflow/sla/" class="related-item">
+                        <span class="related-title">태스크에 SLA 사용하기</span>
+                        <span class="related-date">09.11</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/dag-xcom/" class="related-item">
+                        <span class="related-title">Airflow에서의 Xcom</span>
+                        <span class="related-date">09.10</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/dag-parallelize/" class="related-item">
+                        <span class="related-title">Airflow 대그 병렬로 수행하기</span>
+                        <span class="related-date">09.03</span>
+                    </a>
+                
+            
+                
+                    <a href="/airflow/airflow-cluster/" class="related-item">
+                        <span class="related-title">Airflow 클러스터 구성하기</span>
+                        <span class="related-date">09.03</span>
+                    </a>
+                
+            
+                
+            
+                
+                    <a href="/airflow/decorator/" class="related-item">
+                        <span class="related-title">Airflow 대그에서 파이썬 함수와 데코레이터</span>
+                        <span class="related-date">09.01</span>
+                    </a>
+                
+            
+        </div>
+    </div>
+    
+</aside>
+    
+    <main class="main-content">
+        <!-- 포스트 헤더 -->
+        <header class="post-header">
+            <div class="post-meta">
+                <span class="post-category">
+                    
+                        General
+                    
+                </span>
+                <span>•</span>
+                <span>2024년 09월 02일</span>
+                <span>•</span>
+                <span>5분 읽기</span>
+            </div>
+            
+            <h1 class="post-title">Airflow에서 context와 args, kwargs의 활용</h1>
+            
+            
+            
+            <div class="post-info">
+                <div class="author-info">
+                    <img src="/assets/images/avatar.png" alt="Duri" class="author-avatar">
+                    <div class="author-details">
+                        <span class="author-name">Duri</span>
+                        <span class="post-date">˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</span>
+                    </div>
+                </div>
+                
+                <div class="post-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>0 views</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>0 likes</span>
+                    </div>
+                </div>
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <a href="/tags/Decorator" class="tag">Decorator</a>
+                
+                <a href="/tags/Python" class="tag">Python</a>
+                
+                <a href="/tags/Context" class="tag">Context</a>
+                
+            </div>
+            
+        </header>
+
+        <!-- 포스트 콘텐츠 -->
+        <article class="post-content">
+            <h1 id="airflow에서-context와-args-kwargs의-활용">Airflow에서 Context와 args, kwargs의 활용</h1>
 
 <p>Airflow에서 <code class="language-plaintext highlighter-rouge">args</code>,<code class="language-plaintext highlighter-rouge">kwargs</code>를 사용하면 파이썬 함수의 인자를 유연하게 다룰 수 있다. 이 개념과 함께 airflow의 context활용 방법을 함께 설명한다.</p>
 
 <h2 id="args와-kwargs란">args와 kwargs란?</h2>
 
 <h3 id="args-사용법"><code class="language-plaintext highlighter-rouge">args</code> 사용법</h3>
+
 <p><code class="language-plaintext highlighter-rouge">*args</code>는 여러 개의 값을 튜플 형태로 받는다. 함수에서 인자의 개수가 미리 정해져 있지 않을 때 유용하다. 인덱스를 사용해 값을 꺼낼 수 있지만, 어떤 값이 어떤 인덱스에 위치하는지 명확하지 않은 단점이 있다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">regist</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
@@ -20,6 +419,7 @@
 <p>위 예시에서 <code class="language-plaintext highlighter-rouge">name</code>과 <code class="language-plaintext highlighter-rouge">sex</code>는 필수 인자로 취급되고, <code class="language-plaintext highlighter-rouge">*args</code>는 추가적인 인자를 받는다. name, sex는 필수적으로 받아오는데 그 뒤의 인자들은 임의적으로 존재할 수 있는 경우에 인자가 2개 있으면 2개를 다 받아오고, 1개만 있으면 1개만 더 맏아오고, 없으면 없는대로 취급하는 유연한 처리가 가능하다.</p>
 
 <h3 id="kwargs-사용법"><code class="language-plaintext highlighter-rouge">kwargs</code> 사용법</h3>
+
 <p><code class="language-plaintext highlighter-rouge">**kwargs</code>는 키-값 쌍의 형태로 여러 인자를 받는다. 딕셔너리처럼 값을 다룰 수 있어, 인자 이름을 지정해 값을 꺼낼 수 있는 장점이 있다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">regist</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -35,6 +435,7 @@
 <p><code class="language-plaintext highlighter-rouge">kwargs.get()</code>을 사용하면 키가 존재하지 않을 때 기본값을 설정할 수 있습니다.</p>
 
 <h3 id="args와-kwargs-함께-사용하기"><code class="language-plaintext highlighter-rouge">args</code>와 <code class="language-plaintext highlighter-rouge">kwargs</code> 함께 사용하기</h3>
+
 <p><code class="language-plaintext highlighter-rouge">args</code>와 <code class="language-plaintext highlighter-rouge">kwargs</code>는 함께 사용할 수 있다. 이때, <code class="language-plaintext highlighter-rouge">*args</code>가 먼저, <code class="language-plaintext highlighter-rouge">**kwargs</code>는 그 뒤에 오도록 사용한다.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sample_func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -108,3 +509,135 @@
 
 <p><code class="language-plaintext highlighter-rouge">use_macros</code> 함수가 <code class="language-plaintext highlighter-rouge">context</code> 정보를 사용해 현재와 이전, 그리고 다음 실행 날짜를 출력한다. <code class="language-plaintext highlighter-rouge">provide_context=True</code> 옵션을 사용해 <code class="language-plaintext highlighter-rouge">PythonOperator</code>는 자동으로 해당 정보를 함수로 전달한다.</p>
 
+        </article>
+    </main>
+
+    <!-- 플로팅 TOC -->
+    <aside class="floating-toc" id="floating-toc">
+        <h3 class="toc-title">
+            <i class="fas fa-list"></i>
+            목차
+        </h3>
+        <div id="toc"></div>
+    </aside>
+</div>
+
+<!-- 플로팅 목차 자바스크립트 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const floatingToc = document.getElementById('floating-toc');
+    const tocList = document.getElementById('toc');
+    const postContent = document.querySelector('.post-content');
+    
+    if (!postContent) return;
+    
+    // 목차 자동 생성
+    function generateTOC() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        if (headings.length === 0) return;
+        
+        let tocHTML = '<ul>';
+        let currentLevel = 0;
+        
+        headings.forEach((heading, index) => {
+            const level = parseInt(heading.tagName.charAt(1));
+            const id = heading.id || `heading-${index}`;
+            heading.id = id;
+            
+            const text = heading.textContent.trim();
+            
+            if (level > currentLevel) {
+                tocHTML += '<ul>'.repeat(level - currentLevel);
+            } else if (level < currentLevel) {
+                tocHTML += '</ul>'.repeat(currentLevel - level);
+            }
+            
+            tocHTML += `<li><a href="#${id}" data-heading="${id}">${text}</a></li>`;
+            currentLevel = level;
+        });
+        
+        tocHTML += '</ul>'.repeat(currentLevel);
+        tocList.innerHTML = tocHTML;
+        
+        // 목차 링크 클릭 이벤트
+        tocList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    }
+    
+    // 현재 보고 있는 섹션 하이라이트
+    function highlightCurrentSection() {
+        const headings = postContent.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        const tocLinks = tocList.querySelectorAll('a');
+        
+        let currentHeading = null;
+        const scrollTop = window.pageYOffset;
+        
+        headings.forEach(heading => {
+            const rect = heading.getBoundingClientRect();
+            if (rect.top <= 100) {
+                currentHeading = heading;
+            }
+        });
+        
+        tocLinks.forEach(link => link.classList.remove('active'));
+        
+        if (currentHeading) {
+            const activeLink = tocList.querySelector(`a[data-heading="${currentHeading.id}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
+        }
+    }
+    
+    // 스크롤 시 목차 표시/숨김 및 하이라이트
+    function handleScroll() {
+        const scrollTop = window.pageYOffset;
+        const postHeader = document.querySelector('.post-header');
+        const postContentBottom = postContent.offsetTop + postContent.offsetHeight;
+        
+        // 헤더 상단부터 목차 표시
+        const headerTop = postHeader ? postHeader.offsetTop : 200;
+        
+        if (scrollTop >= headerTop && scrollTop <= postContentBottom + 200) {
+            floatingToc.classList.add('visible');
+        } else {
+            floatingToc.classList.remove('visible');
+        }
+        
+        highlightCurrentSection();
+    }
+    
+    // 초기화
+    generateTOC();
+    
+    // 이벤트 리스너
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleScroll);
+    
+    // 초기 실행
+    setTimeout(handleScroll, 100);
+});
+</script>
+
+    <script>
+        // 스크롤 진행률 표시기
+        window.addEventListener('scroll', () => {
+            const scrollTop = document.documentElement.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrollPercent = (scrollTop / scrollHeight) * 100;
+            document.querySelector('.scroll-progress').style.width = scrollPercent + '%';
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<aside class="sidebar post-sidebar">
+    <!-- 뒤로 돌아가기 -->
+    <div class="back-navigation">
+        <a href="javascript:history.back()" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            뒤로 돌아가기
+        </a>
+    </div>
+    
+    <!-- 관련 포스트 -->
+    {% if page.category %}
+    <div class="related-posts-nav">
+        <h3 class="nav-title">
+            <i class="fas fa-tags"></i>
+            {{ page.category }} 포스트
+        </h3>
+        
+        <div class="related-list">
+            {% assign related_posts = site.posts | where: 'category', page.category | limit: 5 %}
+            {% for post in related_posts %}
+                {% unless post.url == page.url %}
+                    <a href="{{ post.url }}" class="related-item">
+                        <span class="related-title">{{ post.title | truncate: 30 }}</span>
+                        <span class="related-date">{{ post.date | date: "%m.%d" }}</span>
+                    </a>
+                {% endunless %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- 카테고리 네비게이션 -->
+    <div class="category-navigation">
+        <h3 class="nav-title">
+            <i class="fas fa-folder"></i>
+            카테고리
+        </h3>
+        
+        <nav class="category-list">
+            {% assign categories = site.posts | map: 'category' | compact | uniq | sort %}
+            {% for category in categories %}
+                {% if category and category != '' %}
+                    <a href="/topics/{{ category | downcase }}/" class="category-item {% if page.category == category %}active{% endif %}">
+                        <i class="fas fa-chevron-right"></i>
+                        {{ category }}
+                        <span class="post-count">
+                            {% assign count = 0 %}
+                            {% for post in site.posts %}
+                                {% if post.category == category %}
+                                    {% assign count = count | plus: 1 %}
+                                {% endif %}
+                            {% endfor %}
+                            {{ count }}
+                        </span>
+                    </a>
+                {% endif %}
+            {% endfor %}
+        </nav>
+    </div>
+    
+</aside>
