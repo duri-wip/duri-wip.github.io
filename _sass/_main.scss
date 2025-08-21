@@ -1,0 +1,455 @@
+/* ==========================================================================
+   메인 콘텐츠 영역
+   ========================================================================== */
+.main-content {
+    grid-area: main;
+    padding: $space-xl;
+    max-width: 100%;
+    margin-left: 0px;
+}
+
+/* 반응형 메인 콘텐츠 */
+@media (max-width: 1024px) {
+    .main-content {
+        margin-left: 0;
+        padding: $space-lg;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: $space-md;
+    }
+}
+
+/* 페이지 헤더 */
+.page-header {
+    text-align: center;
+    margin-bottom: $space-2xl;
+}
+
+.page-title {
+    font-size: 2.0rem;
+    font-weight: 700;
+    color: $text-primary;
+    margin-bottom: $space-md;
+    position: relative;
+}
+
+.page-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: $accent-primary;
+    border-radius: 2px;
+}
+
+.page-subtitle {
+    font-size: 1.1rem;
+    color: $text-secondary;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   배너 섹션
+   ========================================================================== */
+.banner-section {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    border: 1px solid $border-color;
+    overflow: hidden;
+    margin-bottom: $space-2xl;
+    position: relative;
+    height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+// .banner-overlay {
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+//     background: rgba(246, 239, 210, 0.3);
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+// }
+
+.banner-placeholder {
+    text-align: center;
+    color: $text-secondary;
+}
+
+.banner-placeholder i {
+    font-size: 3rem;
+    color: $accent-primary;
+    margin-bottom: $space-md;
+}
+
+/* ==========================================================================
+   섹션 공통 스타일
+   ========================================================================== */
+.section {
+    margin-bottom: $space-2xl;
+    position: relative;
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $space-xl;
+}
+
+.section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: $text-primary;
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+}
+
+.section-subtitle {
+    color: $text-secondary;
+    font-size: 1rem;
+    margin-top: $space-xs;
+}
+
+.view-all-link {
+    color: $accent-primary;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    padding: $space-sm $space-md;
+    border-radius: $radius-sm;
+    border: 1px solid $accent-primary;
+    transition: all 0.3s ease;
+}
+
+.view-all-link:hover {
+    background: $accent-primary;
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   스터디 섹션
+   ========================================================================== */
+
+.study-layout,
+.categories-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    grid-template-areas: "sidebar main";
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    gap: $space-xl;
+    padding: $space-lg;
+}
+   
+
+
+
+
+
+
+/* ==========================================================================
+   즐겨찾기 섹션 스타일링
+   ========================================================================== */
+.featured-section {
+    background: $bg-secondary;
+    border-radius: $radius-xl;
+    padding: $space-2xl;
+    border: 2px solid $border-color;
+    position: relative;
+    overflow: visible; /* 가로 스크롤을 위해 visible로 변경 */
+}
+
+.featured-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $accent-primary, $accent-dark);
+}
+
+.featured-section .section-header {
+    margin-bottom: $space-xl; /* 제목과 포스트 사이 간격 조정 */
+}
+
+.featured-section .section-title {
+    color: $accent-primary;
+}
+
+.featured-section .section-title i {
+    color: $accent-primary;
+    filter: drop-shadow(0 0 8px rgba(228, 54, 54, 0.3));
+}
+
+/* ==========================================================================
+   최근 포스트 섹션
+   ========================================================================== */
+.recent-section {
+    border-left: 4px solid $accent-primary;
+    padding-left: $space-xl;
+    margin-left: $space-md;
+}
+
+.recent-section .section-title i {
+    color: $accent-primary;
+}
+
+/* ==========================================================================
+   섹션 구분선
+   ========================================================================== */
+.section-divider {
+    margin: $space-2xl 0;
+    text-align: center;
+    position: relative;
+}
+
+.section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, $border-color, transparent);
+}
+
+.section-divider-content {
+    background: $bg-primary;
+    padding: 0 $space-lg;
+    color: $text-muted;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-sm;
+}
+
+/* ==========================================================================
+   홈페이지 스터디 현황 섹션
+   ========================================================================== */
+
+
+.study-overview {
+    background: $bg-hover;
+    border-radius: $radius-xl;
+    padding: $space-2xl;
+    border: 1px solid $border-color;
+    position: relative;
+    overflow: hidden;
+}
+
+.study-overview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, $accent-primary, $accent-dark);
+}
+
+.study-progress-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $space-lg;
+}
+
+.study-progress-card {
+    background: $bg-card;
+    border-radius: $radius-lg;
+    padding: $space-lg;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: $shadow-sm;
+}
+
+.study-progress-card:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-lg;
+    border-color: $accent-primary;
+}
+
+.study-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: $space-md;
+}
+
+.study-info .study-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin-bottom: $space-xs;
+}
+
+.study-meta {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    font-size: 0.85rem;
+    color: $text-muted;
+}
+
+.study-separator {
+    color: $border-color;
+}
+
+.study-percentage {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: $accent-primary;
+}
+
+.study-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: $bg-secondary;
+    border-radius: $radius-sm;
+    overflow: hidden;
+    margin-bottom: $space-lg;
+}
+
+.study-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, $accent-primary, $accent-dark);
+    border-radius: $radius-sm;
+    transition: width 0.8s ease;
+}
+
+.study-progress-fill.planned {
+    background: $text-muted;
+}
+
+.study-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $space-xs;
+    margin-bottom: $space-md;
+}
+
+.study-tag {
+    background: $bg-card;
+    color: $text-secondary;
+    padding: 2px $space-xs;
+    border-radius: $radius-sm;
+    font-size: 0.75rem;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+}
+
+.study-tag:hover {
+    background: $accent-primary;
+    color: white;
+    border-color: $accent-primary;
+}
+
+.study-latest h4 {
+    font-size: 0.9rem;
+    color: $text-secondary;
+    margin-bottom: $space-xs;
+}
+
+.latest-post-link {
+    color: $accent-primary;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+}
+
+.latest-post-link:hover {
+    color: $accent-dark;
+}
+
+.latest-post-link.planned {
+    color: $text-muted;
+    font-style: italic;
+}
+
+/* ==========================================================================
+   스터디 페이지 - 최근 포스트 미리보기
+   ========================================================================== */
+   .study-recent-posts {
+    margin-top: $space-lg;
+    padding-top: $space-lg;
+    border-top: 1px solid $border-color;
+}
+
+.study-recent-posts h4 {
+    font-size: 1rem;
+    color: $text-primary;
+    margin-bottom: $space-md;
+}
+
+.recent-posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+}
+
+.recent-post-item {
+    background: $bg-hover;
+    border-radius: $radius-sm;
+    padding: $space-sm $space-md;
+    border: 1px solid $border-color;
+    transition: all 0.3s ease;
+}
+
+.recent-post-item:hover {
+    background: $bg-hover;
+    border-color: $accent-primary;
+}
+
+.recent-post-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.recent-post-title {
+    color: $text-primary;
+    font-weight: 500;
+    font-size: 0.9rem;
+    flex: 1;
+    margin-right: $space-md;
+}
+
+.recent-post-date {
+    color: $text-muted;
+    font-size: 0.8rem;
+    flex-shrink: 0;
+}
+
+.recent-post-link:hover .recent-post-title {
+    color: $accent-primary;
+}

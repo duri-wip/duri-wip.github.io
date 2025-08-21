@@ -1,0 +1,74 @@
+<section class="recent-posts">
+    <h2 class="section-title">최근 게시물</h2>
+    <div class="posts-grid">
+        {% for post in site.posts limit:6 %}
+        <article class="post-card">
+            <h3>
+                <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit;">
+                    {{ post.title }}
+                </a>
+            </h3>
+            <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            <div class="post-meta">
+                <span class="post-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+                <a href="{{ post.url | relative_url }}" class="read-more">더 읽기</a>
+            </div>
+        </article>
+        {% else %}
+            <!-- 포스트가 없을 때 기본 예시 -->
+            <article class="post-card">
+                <h3>React Hooks 완벽 가이드</h3>
+                <p>React Hooks의 기본 개념부터 고급 패턴까지, 실무에서 활용할 수 있는 모든 것을 다룹니다. useState, useEffect 등의 기본 hooks부터 커스텀 hooks 작성까지 상세히 설명합니다.</p>
+                <div class="post-meta">
+                    <span class="post-date">2024.08.15</span>
+                    <a href="#" class="read-more">더 읽기</a>
+                </div>
+            </article>
+            
+            <article class="post-card">
+                <h3>JavaScript 비동기 프로그래밍</h3>
+                <p>Promise, async/await, 그리고 최신 비동기 패턴들을 실전 예제와 함께 설명합니다. 콜백 지옥을 피하고 깔끔한 비동기 코드를 작성하는 방법을 알아보세요.</p>
+                <div class="post-meta">
+                    <span class="post-date">2024.08.12</span>
+                    <a href="#" class="read-more">더 읽기</a>
+                </div>
+            </article>
+            
+            <article class="post-card">
+                <h3>웹 성능 최적화 전략</h3>
+                <p>로딩 속도를 개선하고 사용자 경험을 향상시키는 다양한 최적화 기법들을 소개합니다. 번들 크기 줄이기, 이미지 최적화, 레이지 로딩 등의 실용적인 팁을 다룹니다.</p>
+                <div class="post-meta">
+                    <span class="post-date">2024.08.08</span>
+                    <a href="#" class="read-more">더 읽기</a>
+                </div>
+            </article>
+            
+            <article class="post-card">
+                <h3>TypeScript 타입 시스템 이해하기</h3>
+                <p>TypeScript의 강력한 타입 시스템을 활용하여 더 안전하고 유지보수하기 쉬운 코드를 작성하는 방법을 알아봅니다. Generic, Union Type 등 고급 타입 활용법까지 다룹니다.</p>
+                <div class="post-meta">
+                    <span class="post-date">2024.08.05</span>
+                    <a href="#" class="read-more">더 읽기</a>
+                </div>
+            </article>
+            
+            <article class="post-card">
+                <h3>모던 CSS 레이아웃 기법</h3>
+                <p>Flexbox와 Grid를 활용한 모던 CSS 레이아웃 구성 방법을 소개합니다. 반응형 디자인을 고려한 실용적인 레이아웃 패턴들을 실제 예제와 함께 설명합니다.</p>
+                <div class="post-meta">
+                    <span class="post-date">2024.08.01</span>
+                    <a href="#" class="read-more">더 읽기</a>
+                </div>
+            </article>
+            
+            <article class="post-card">
+                <h3>Git 워크플로우 마스터하기</h3>
+                <p>효율적인 Git 사용법과 협업을 위한 워크플로우를 알아봅니다. Feature Branch, Git Flow, Rebase 등의 고급 기법을 통해 프로젝트 관리를 개선하는 방법을 다룹니다.</p>
+                <div class="post-meta">
+                    <span class="post-date">2024.07.28</span>
+                    <a href="#" class="read-more">더 읽기</a>
+                </div>
+            </article>
+        {% endfor %}
+    </div>
+</section>

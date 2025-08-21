@@ -1,0 +1,64 @@
+<section class="projects-section">
+    <h2 class="section-title">프로젝트</h2>
+    <div class="projects-grid">
+        {% if site.data.projects %}
+            {% for project in site.data.projects limit:6 %}
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <span class="project-tech">{{ project.tech }}</span>
+                </div>
+                <p class="project-description">{{ project.description }}</p>
+                <div class="project-links">
+                    {% if project.post_url %}
+                    <a href="{{ project.post_url }}" class="project-link">포스트 보기</a>
+                    {% endif %}
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" class="project-link" target="_blank">GitHub</a>
+                    {% endif %}
+                    {% if project.demo_url %}
+                    <a href="{{ project.demo_url }}" class="project-link" target="_blank">데모</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- 기본 프로젝트 예시 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">할일 관리 앱</h3>
+                    <span class="project-tech">React</span>
+                </div>
+                <p class="project-description">React와 TypeScript를 사용하여 만든 할일 관리 애플리케이션. 드래그 앤 드롭, 필터링, 로컬 스토리지 기능을 포함합니다.</p>
+                <div class="project-links">
+                    <a href="#" class="project-link">포스트 보기</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">날씨 대시보드</h3>
+                    <span class="project-tech">Vue.js</span>
+                </div>
+                <p class="project-description">Vue.js와 OpenWeather API를 활용한 반응형 날씨 대시보드. 차트와 애니메이션으로 직관적인 UI를 구현했습니다.</p>
+                <div class="project-links">
+                    <a href="#" class="project-link">포스트 보기</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+            
+            <div class="project-card">
+                <div class="project-header">
+                    <h3 class="project-title">블로그 플랫폼</h3>
+                    <span class="project-tech">Next.js</span>
+                </div>
+                <p class="project-description">Next.js와 Markdown을 기반으로 한 정적 블로그 플랫폼. SEO 최적화와 다크모드를 지원합니다.</p>
+                <div class="project-links">
+                    <a href="#" class="project-link">포스트 보기</a>
+                    <a href="#" class="project-link">GitHub</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</section>

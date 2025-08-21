@@ -1,0 +1,52 @@
+<aside class="sidebar">
+    <div class="profile-image"></div>
+    <div class="profile-info">
+        <h2>{{ site.author.name | default: "개발자 닉네임" }}</h2>
+        <p>{{ site.author.bio | default: "풀스택 개발자로서 새로운 기술을 탐구하고 학습하는 것을 좋아합니다." }}</p>
+    </div>
+    <div class="contact-links">
+        {% if site.author.github %}
+        <a href="https://github.com/{{ site.author.github }}" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        {% endif %}
+        {% if site.author.email %}
+        <a href="mailto:{{ site.author.email }}" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        {% endif %}
+    </div>
+    
+    <!-- 통계 섹션 -->
+    <div class="stats-section">
+        <h3 class="stats-title">블로그 통계</h3>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-number">{{ site.posts.size }}</span>
+                <span class="stat-label">총 포스트</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ site.categories.size }}</span>
+                <span class="stat-label">카테고리</span>
+            </div>
+        </div>
+        {% if site.posts.size > 0 %}
+        <div class="activity-item">
+            <span class="activity-label">마지막 포스트</span>
+            <span class="activity-value">{{ site.posts.first.date | date: "%m월 %d일" }}</span>
+        </div>
+        {% endif %}
+        <div class="activity-item">
+            <span class="activity-label">평균 글 길이</span>
+            <span class="activity-value">8분 읽기</span>
+        </div>
+        {% if site.posts.size > 0 %}
+        <div class="activity-item">
+            <span class="activity-label">가장 인기글</span>
+            <span class="activity-value">{{ site.posts.first.title | truncate: 10 }}</span>
+        </div>
+        {% endif %}
+    </div>
+</aside>

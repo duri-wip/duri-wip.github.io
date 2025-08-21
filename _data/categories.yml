@@ -1,0 +1,75 @@
+- name: "Frontend"
+  slug: "frontend"
+  description: "프론트엔드 개발 관련 글들"
+  color: "#3b82f6"
+  subcategories:
+    - "React"
+    - "Vue.js"
+    - "JavaScript"
+    - "CSS"
+    - "HTML"
+
+- name: "Backend"
+  slug: "backend"
+  description: "백엔드 개발 및 서버 관련 글들"
+  color: "#10b981"
+  subcategories:
+    - "Node.js"
+    - "Python"
+    - "Database"
+    - "API"
+
+- name: "DevOps"
+  slug: "devops"
+  description: "배포, 인프라, CI/CD 관련 글들"
+  color: "#f59e0b"
+  subcategories:
+    - "Docker"
+    - "AWS"
+    - "CI/CD"
+    - "Monitoring"
+
+- name: "Algorithm"
+  slug: "algorithm"
+  description: "알고리즘 및 자료구조 학습"
+  color: "#e43636"
+  subcategories:
+    - "Data Structure"
+    - "Problem Solving"
+    - "Coding Test"
+
+- name: "Study"
+  slug: "study"
+  description: "개인 학습 및 스터디 기록"
+  color: "#8b5cf6"
+  subcategories:
+    - "Book Review"
+    - "Course Review"
+    - "TIL"
+
+- name: "Project"
+  slug: "project"
+  description: "프로젝트 개발 과정 및 회고"
+  color: "#06b6d4"
+  subcategories:
+    - "Development"
+    - "Retrospective"
+    - "Planning"
+
+- name: "Tools"
+  slug: "tools"
+  description: "개발 도구 및 환경 설정"
+  color: "#84cc16"
+  subcategories:
+    - "VS Code"
+    - "Git"
+    - "Development Environment"
+
+- name: "Career"
+  slug: "career"
+  description: "개발자 커리어 및 성장"
+  color: "#f97316"
+  subcategories:
+    - "Interview"
+    - "Growth"
+    - "Networking"

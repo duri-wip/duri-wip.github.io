@@ -1,0 +1,39 @@
+- title: "알고리즘 문제해결 스터디"
+  description: "매일 한 문제씩 풀어보는 알고리즘 스터디입니다. 백준, 프로그래머스, 리트코드 문제를 중심으로 진행합니다."
+  status: "진행중"
+  progress: 73
+  current: 22
+  total: 30
+  related_posts:
+    - title: "이분탐색 정리"
+      url: "/algorithm/binary-search"
+    - title: "DFS/BFS 문제풀이"
+      url: "/algorithm/dfs-bfs"
+    - title: "다이나믹 프로그래밍"
+      url: "/algorithm/dynamic-programming"
+
+- title: "Next.js 13 완전정복"
+  description: "Next.js 13의 App Router와 새로운 기능들을 학습하고 실제 프로젝트에 적용해보는 스터디입니다."
+  status: "진행중"
+  progress: 45
+  current: 9
+  total: 20
+  related_posts:
+    - title: "App Router 기초"
+      url: "/frontend/nextjs-app-router"
+    - title: "Server Components"
+      url: "/frontend/server-components"
+
+- title: "Clean Code 실습"
+  description: "로버트 마틴의 Clean Code 책을 읽고 실제 코드에 적용해보는 스터디입니다."
+  status: "완료"
+  progress: 100
+  current: 17
+  total: 17
+  related_posts:
+    - title: "의미있는 이름 짓기"
+      url: "/coding/meaningful-names"
+    - title: "함수 작성 원칙"
+      url: "/coding/function-principles"
+    - title: "클린 코드 리팩토링 실습"
+      url: "/coding/clean-code-refactoring"

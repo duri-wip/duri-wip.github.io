@@ -1,0 +1,69 @@
+<section class="study-section">
+    <h2 class="section-title">진행중인 스터디</h2>
+    
+    {% if site.data.studies %}
+        {% for study in site.data.studies %}
+        <div class="study-card">
+            <div class="study-header">
+                <div>
+                    <h3 class="study-title">{{ study.title }}</h3>
+                    <div class="study-description">{{ study.description }}</div>
+                </div>
+                <span class="study-status">{{ study.status | default: "진행중" }}</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: {{ study.progress | default: 0 }}%"></div>
+            </div>
+            {% assign progress = study.progress | default: 0 %}
+            {% assign current = study.current | default: 0 %}
+            {% assign total = study.total | default: 30 %}
+            <div class="progress-text">{{ progress }}% 완료 ({{ current }}/{{ total }}일)</div>
+            {% if study.related_posts %}
+            <div class="study-posts">
+                {% for post in study.related_posts %}
+                <a href="{{ post.url | default: '#' }}" class="study-post-link">{{ post.title }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    {% else %}
+        <!-- 기본 스터디 예시 -->
+        <div class="study-card">
+            <div class="study-header">
+                <div>
+                    <h3 class="study-title">알고리즘 문제해결 스터디</h3>
+                    <div class="study-description">매일 한 문제씩 풀어보는 알고리즘 스터디입니다. 백준, 프로그래머스, 리트코드 문제를 중심으로 진행합니다.</div>
+                </div>
+                <span class="study-status">진행중</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 73%"></div>
+            </div>
+            <div class="progress-text">73% 완료 (22/30일)</div>
+            <div class="study-posts">
+                <a href="#" class="study-post-link">이분탐색 정리</a>
+                <a href="#" class="study-post-link">DFS/BFS 문제풀이</a>
+                <a href="#" class="study-post-link">다이나믹 프로그래밍</a>
+            </div>
+        </div>
+        
+        <div class="study-card">
+            <div class="study-header">
+                <div>
+                    <h3 class="study-title">Next.js 13 완전정복</h3>
+                    <div class="study-description">Next.js 13의 App Router와 새로운 기능들을 학습하고 실제 프로젝트에 적용해보는 스터디입니다.</div>
+                </div>
+                <span class="study-status">진행중</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 45%"></div>
+            </div>
+            <div class="progress-text">45% 완료 (9/20 챕터)</div>
+            <div class="study-posts">
+                <a href="#" class="study-post-link">App Router 기초</a>
+                <a href="#" class="study-post-link">Server Components</a>
+            </div>
+        </div>
+    {% endif %}
+</section>

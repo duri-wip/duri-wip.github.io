@@ -1,0 +1,108 @@
+:root {
+    /* 배경 색상 */
+    --bg-primary: #FAFAFA;
+    --bg-secondary: #F3F3F3;
+    --bg-card: #ffffff;
+    --bg-hover: #EFEFEF;
+    
+    /* 텍스트 색상 */
+    --text-primary: #000000;
+    --text-secondary: #333333;
+    --text-muted: #666666;
+    
+    /* 메인 컬러 시스템 */
+    --accent-primary: #e43636;
+    --accent-secondary: #ff6b9d;
+    --accent-tertiary: #ffd9e8;
+    --accent-dark: #c42e2e;
+    --accent-light: #fff0f5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    background: var(--bg-primary);
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--bg-card);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+/* 메인 콘텐츠 영역 */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 콘텐츠 영역 */
+.content {
+    flex: 1;
+    padding: 2rem;
+    background: var(--bg-card);
+}
+
+/* 섹션 제목 공통 스타일 */
+.section-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+    position: relative;
+    padding-left: 12px;
+}
+
+.section-title::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 18px;
+    background: var(--accent-primary);
+    border-radius: 2px;
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-primary);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .content {
+        padding: 1.5rem;
+    }
+}
