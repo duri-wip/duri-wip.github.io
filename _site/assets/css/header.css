@@ -1,0 +1,35 @@
+/* 헤더 스타일 */
+.header {
+    background: var(--bg-card);
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.nav-item a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-weight: 400;
+    font-size: 13px;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.nav-item a:hover {
+    color: var(--accent-primary);
+    background: var(--accent-light);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airflow 클러스터 구성하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">홈</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">카테고리</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">프로젝트</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Airflow 클러스터 구성하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 03일</time>
+            
+            <div class="post-categories">
+                
+                <span class="category-tag">DataEngineering</span>
+                
+                <span class="category-tag"></span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#airflow</span>
+                
+                <span class="tag">#cluster</span>
+                
+                <span class="tag">#distributed-computing</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="airflow-클러스터-구성하기">Airflow 클러스터 구성하기</h1>
+
+<h2 id="1-환경-요구사항">1. 환경 요구사항</h2>
+
+<ul>
+  <li>python</li>
+  <li>postgres DB</li>
+  <li>redis</li>
+  <li>celeryExecutor 를 지원하는 airflow</li>
+</ul>
+
+<h2 id="2-환경-구성">2. 환경 구성</h2>
+
+<h3 id="pyenv">Pyenv</h3>
+
+<ol>
+  <li>필요한 패키지 설치하기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install -y make build-essential libssl-dev zlib1g-dev \
+libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm \
+libncurses5-dev libncursesw5-dev xz-utils tk-dev \
+libffi-dev liblzma-dev python3-openssl git
+</code></pre></div></div>
+
+<ol>
+  <li>github에서 클론으로 pyenv 설치하기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>curl https://pyenv.run | bash
+</code></pre></div></div>
+
+<ol>
+  <li>shell 파일 수정</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+</code></pre></div></div>
+
+<ol>
+  <li>가상환경 생성
+    <blockquote>
+      <p>python 3.11.9 -&gt; airflow-env</p>
+    </blockquote>
+  </li>
+</ol>
+
+<h3 id="postgresql-metadb">PostgreSQL: metaDB</h3>
+
+<ol>
+  <li>설치하기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt update
+sudo apt install -y postgresql postgresql-contrib
+</code></pre></div></div>
+
+<ol>
+  <li>설치 확인</li>
+</ol>
+
+<blockquote>
+  <p>sudo systemctl status postgresql.service</p>
+</blockquote>
+
+<ol>
+  <li>새로운 데이터베이스와 유저 설정</li>
+</ol>
+
+<blockquote>
+  <p>database 명 : airflow_db</p>
+</blockquote>
+
+<blockquote>
+  <p>user 명 : user name</p>
+</blockquote>
+
+<blockquote>
+  <p>권한 : grant all</p>
+</blockquote>
+
+<h3 id="redis">Redis</h3>
+
+<ol>
+  <li>설치하기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sudo apt install redis-server
+</code></pre></div></div>
+
+<h3 id="airflow">Airflow</h3>
+
+<ol>
+  <li>pip 로 airflow와 celeryexecuter 설치하기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install apache-airflow[celery,postgres,redis]==2.*
+</code></pre></div></div>
+
+<ol>
+  <li>초기화</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>airflow db init
+</code></pre></div></div>
+
+<p>초기화를 해야 airflow.cfg파일이 구성된다.</p>
+
+<ol>
+  <li>사용자 생성</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>airflow users create --username admin --firstname FIRST --lastname LAST --role Admin --email admin@example.com
+</code></pre></div></div>
+
+<ol>
+  <li>meta DB와 연결 설정</li>
+</ol>
+
+<p>[core]
+executor = CeleryExecutor</p>
+
+<p>[database]
+sql_alchemy_conn = postgresql+psycopg2://’user’:’password’@localhost/airflow_db</p>
+
+<p>[celery]
+broker_url = redis://localhost:6379/0
+result_backend = db+postgresql://’user’:’password’@localhost/airflow_db</p>
+
+<ol>
+  <li>각 노드에서 워커, 스케줄러, 웹서버 시작(웹서버는 마스터에서만 띄운다)
+    <blockquote>
+      <p>airflow webserver –port 8080</p>
+    </blockquote>
+  </li>
+</ol>
+
+<blockquote>
+  <p>airflow scheduler</p>
+</blockquote>
+
+<blockquote>
+  <p>airflow celery worker</p>
+</blockquote>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/mlops/dvc-instruction/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">DVC 사용법 가이드</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/airflow-dag-parallize/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Airflow 대그 병렬로 수행하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">홈</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">카테고리</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">프로젝트</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Jekyll</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 09일</time>
+            
+            <div class="post-categories">
+                
+                <span class="category-tag"></span>
+                
+            </div>
+            
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>jekyll 에서 scss적용하기
+메인으로 assete/css/style.scss파일이 스타일시트 역할을 한다. 따라서 여기에 모든 내용을 붙여 넣어서 작성해도 되고, 가독성이나 유지보수 등을 위해서 _sass 폴더에 부분 파일을 넣고 style.scss 파일에서 임포트해서 쓰는 게 일반적이다.</p>
+
+<p>예를 들어
+홈페이지에 섹션을 둔다고 했을때, 이런식으로 만들고 싶다.</p>
+
+<p>–
+&lt; 홈페이지 &gt;
+—–헤더——
+사이드바 섹션1
+섹션2
+–</p>
+
+<p>그럴때 메인 파일에서 스타일을 import 한다.</p>
+
+<blockquote>
+  <p>style.scss</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+---
+
+@import header
+@import sidebar
+@import section1
+@import section2
+@import main
+@import layout
+@import variables
+
+
+</code></pre></div></div>
+
+<p>그리고 만들 페이지의 레이아웃은 홈페이지에 적용할 것이므로 홈페이지용 레이아웃을 만든다.</p>
+
+<blockquote>
+  <p>_layouts/home.html</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: default
+---
+
+&lt;div class="home-sections"&gt;
+  &lt;!-- 섹션1 --&gt;
+  &lt;section class="section section-1"&gt;
+    &lt;h2 class="section-title"&gt;섹션1&lt;/h2&gt;
+    &lt;div class="section-content"&gt;
+      &lt;p&gt;첫 번째 섹션의 내용입니다. 그라데이션 배경과 흰색 텍스트를 사용합니다.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;!-- 섹션2 --&gt;
+  &lt;section class="section section-2"&gt;
+    &lt;h2 class="section-title"&gt;섹션2&lt;/h2&gt;
+    &lt;div class="section-content"&gt;
+      &lt;div class="content-item"&gt;
+        &lt;h3&gt;서브 제목 1&lt;/h3&gt;
+        &lt;p&gt;두 번째 섹션의 첫 번째 아이템입니다.&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div class="content-item"&gt;
+        &lt;h3&gt;서브 제목 2&lt;/h3&gt;
+        &lt;p&gt;두 번째 섹션의 두 번째 아이템입니다.&lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/section&gt;
+</code></pre></div></div>
+
+<p>레이아웃 파일은 템플릿 엔진 역할을 한다.</p>
+
+<ul>
+  <li>템플릿 엔진이란?
+마크다운파일이나 html 파일이 실제로는 이 레이아웃을 감싸서 완성된 웹페이지가 된다.
+또한 같은 구조의 페이지들이 많을 때, 각각의 마크다운 파일에 html 구조를 반복해서 작성할 필요가 없다는 장점이 있다.</li>
+</ul>
+
+<p>예를 들어서 이런 마크다운 파일을 레이아웃으로 감싸서 배포하고 싶은 경우가 있다.
+프론트 매터는 이렇게 작성되어 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: post
+...
+---
+</code></pre></div></div>
+
+<p>이 파일은 layouts의 post.html파일을 기본으로 참조하게 된다.
+그리고 마크다운의 내용을 &lt;article class="post"&gt;
+    &lt;header class="post-header"&gt;
+        &lt;h1 class="post-title"&gt;LangGraph 활용하기&lt;/h1&gt;
+        &lt;div class="post-meta"&gt;
+            <time class="post-date">2025년 08월 08일</time></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        &lt;div class="post-categories"&gt;
+            
+            &lt;span class="category-tag"&gt;ML&amp;AI&lt;/span&gt;
+            
+            &lt;span class="category-tag"&gt;&lt;/span&gt;
+            
+        &lt;/div&gt;
+        
+        
+        &lt;div class="post-tags"&gt;
+            
+            &lt;span class="tag"&gt;#genai-llm&lt;/span&gt;
+            
+            &lt;span class="tag"&gt;#langchain&lt;/span&gt;
+            
+            &lt;span class="tag"&gt;#langgraph&lt;/span&gt;
+            
+            &lt;span class="tag"&gt;#workflow&lt;/span&gt;
+            
+            &lt;span class="tag"&gt;#state&lt;/span&gt;
+            
+        &lt;/div&gt;
+        
+    &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;div class="post-content"&gt;
+    &lt;h1 id="state"&gt;state&lt;/h1&gt;
+</code></pre></div></div>
+
+<p>각 노드에 의해 업데이트 된 값을 저장하기 위한 메커니즘으로, 이 스테이트에</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;/div&gt;
+
+&lt;footer class="post-footer"&gt;
+    &lt;div class="post-nav"&gt;
+        
+        &lt;a class="prev-post" href="/ml&amp;ai/mcp-fastmcp/"&gt;
+            &lt;span class="nav-label"&gt;이전 글&lt;/span&gt;
+            &lt;span class="nav-title"&gt;MCP 서버 구축 방식 비교&lt;/span&gt;
+        &lt;/a&gt;
+        
+        
+        
+        &lt;a class="next-post" href="/jekyll/"&gt;
+            &lt;span class="nav-label"&gt;다음 글&lt;/span&gt;
+            &lt;span class="nav-title"&gt;Jekyll&lt;/span&gt;
+        &lt;/a&gt;
+        
+    &lt;/div&gt;
+    
+    &lt;div class="back-to-home"&gt;
+        &lt;a href="/"&gt;← 홈으로 돌아가기&lt;/a&gt;
+    &lt;/div&gt;
+&lt;/footer&gt;
+</code></pre></div></div>
+<p>&lt;/article&gt;에서 참조해서 완성된 html 파일을 생성한다.
+예를들어서 레이아웃 파일이 이렇게 구성되어있는 경우에</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
+layout: default
+---
+
+&lt;article class="post"&gt;
+  &lt;header class="post-header"&gt;
+    &lt;h1 class="post-title"&gt;Jekyll&lt;/h1&gt;
+    &lt;p class="post-meta"&gt;2025-08-09&lt;/p&gt;
+  &lt;/header&gt;
+
+  &lt;div class="post-content"&gt;
+    &lt;article class="post"&gt;
+    &lt;header class="post-header"&gt;
+        &lt;h1 class="post-title"&gt;LangGraph 활용하기&lt;/h1&gt;
+        &lt;div class="post-meta"&gt;
+            &lt;time class="post-date"&gt;2025년 08월 08일&lt;/time&gt;
+            
+            &lt;div class="post-categories"&gt;
+                
+                &lt;span class="category-tag"&gt;ML&amp;AI&lt;/span&gt;
+                
+                &lt;span class="category-tag"&gt;&lt;/span&gt;
+                
+            &lt;/div&gt;
+            
+            
+            &lt;div class="post-tags"&gt;
+                
+                &lt;span class="tag"&gt;#genai-llm&lt;/span&gt;
+                
+                &lt;span class="tag"&gt;#langchain&lt;/span&gt;
+                
+                &lt;span class="tag"&gt;#langgraph&lt;/span&gt;
+                
+                &lt;span class="tag"&gt;#workflow&lt;/span&gt;
+                
+                &lt;span class="tag"&gt;#state&lt;/span&gt;
+                
+            &lt;/div&gt;
+            
+        &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;div class="post-content"&gt;
+        &lt;h1 id="state"&gt;state&lt;/h1&gt;
+
+&lt;p&gt;각 노드에 의해 업데이트 된 값을 저장하기 위한 메커니즘으로, 이 스테이트에&lt;/p&gt;
+
+    &lt;/div&gt;
+
+    &lt;footer class="post-footer"&gt;
+        &lt;div class="post-nav"&gt;
+            
+            &lt;a class="prev-post" href="/ml&amp;ai/mcp-fastmcp/"&gt;
+                &lt;span class="nav-label"&gt;이전 글&lt;/span&gt;
+                &lt;span class="nav-title"&gt;MCP 서버 구축 방식 비교&lt;/span&gt;
+            &lt;/a&gt;
+            
+            
+            
+            &lt;a class="next-post" href="/jekyll/"&gt;
+                &lt;span class="nav-label"&gt;다음 글&lt;/span&gt;
+                &lt;span class="nav-title"&gt;Jekyll&lt;/span&gt;
+            &lt;/a&gt;
+            
+        &lt;/div&gt;
+        
+        &lt;div class="back-to-home"&gt;
+            &lt;a href="/"&gt;← 홈으로 돌아가기&lt;/a&gt;
+        &lt;/div&gt;
+    &lt;/footer&gt;
+&lt;/article&gt;  &lt;!-- 여기에 마크다운 내용이 들어감 --&gt;
+  &lt;/div&gt;
+
+  &lt;footer class="post-footer"&gt;
+    &lt;div class="post-categories"&gt;
+      
+        &lt;span class="category"&gt;&lt;/span&gt;
+      
+    &lt;/div&gt;
+  &lt;/footer&gt;
+&lt;/article&gt;
+</code></pre></div></div>
+
+<p>page의 프론트 매터에서 만든 요소들이 <code class="language-plaintext highlighter-rouge">{ {...} }</code>안에 들어간다</p>
+
+<blockquote>
+  <p><code class="language-plaintext highlighter-rouge">{ {...} }</code>의 이름은?? 이게 갤러맷인가 그런건가</p>
+</blockquote>
+
+<p>레이아웃 없이 사용할 수도 있고, 다른 레이아웃을 사용할 수도 있다.
+그리고 레이아웃간의 상속관계가 존재해서 상속을 받은 스타일대로 적용될 수도 있다.</p>
+
+<p>여기에 적용되는 스타일은 이렇게 정의한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+.home-sections {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+// 섹션 공통 스타일
+.section {
+  margin: 60px 0;
+  padding: 40px 0;
+
+  &amp;-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 40px;
+    color: #333;
+  }
+
+  &amp;-content {
+    line-height: 1.6;
+  }
+}
+
+// 섹션1 스타일
+.section-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+
+  .section-title {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+
+  .section-content {
+    font-size: 1.1rem;
+    text-align: center;
+  }
+}
+
+// 섹션2 스타일
+.section-2 {
+  background-color: #f8f9fa;
+
+  .section-title {
+    color: #2c3e50;
+    border-bottom: 3px solid #3498db;
+    padding-bottom: 10px;
+  }
+
+  .section-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+  }
+}
+</code></pre></div></div>
+
+<p>스타일에도 적용 우선순위가 있다.</p>
+
+<ol>
+  <li>전역 스타일 &gt; layout.scss가 정의한다.</li>
+  <li>레이아웃별 스타일 &gt; 각각의 scss가 정의한다.</li>
+  <li>페이지별 개별 스타일
+페이지 안에서 개별적으로 스타일을 적용해서 사용할 수도 잇다.</li>
+</ol>
+
+<p>그러니까 스타일은 레이아웃과 독립적으로 있으며, 레이아웃은 html 구조만 담당한다. 스타일은 css 파일에서 관리하며, 모든 페이지가 같은 css 파일을 공유한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- HTML에서 클래스로 스타일 구분 --&gt;
+&lt;div class="post"&gt;     &lt;!-- 포스트 스타일 --&gt;
+&lt;div class="page"&gt;     &lt;!-- 페이지 스타일 --&gt;
+&lt;div class="home"&gt;     &lt;!-- 홈페이지 스타일 --&gt;
+```s
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml&ai/langgraph/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LangGraph 활용하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/fastapi-clean-architecture/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">FastAPI Clean Architecture</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

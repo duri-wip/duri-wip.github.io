@@ -1,0 +1,363 @@
+---
+layout: default
+title: 프로젝트
+permalink: /projects/
+---
+
+<div class="projects-page">
+    <header class="page-header">
+        <h1 class="page-title">프로젝트 포트폴리오</h1>
+        <p class="page-description">개발 과정과 결과물을 기록한 프로젝트들입니다</p>
+    </header>
+
+    <!-- 통계 및 필터 섹션 -->
+    <div class="projects-controls">
+        <!-- 통계 카드들 -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <div class="stat-info">
+                    {% assign total_projects = site.data.projects.size %}
+                    <span class="stat-number">{{ total_projects }}</span>
+                    <span class="stat-label">총 프로젝트</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    {% assign completed_projects = site.data.projects | where: "status", "completed" %}
+                    <span class="stat-number">{{ completed_projects.size }}</span>
+                    <span class="stat-label">완료</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-spinner"></i>
+                </div>
+                <div class="stat-info">
+                    {% assign ongoing_projects = site.data.projects | where: "status", "ongoing" %}
+                    <span class="stat-number">{{ ongoing_projects.size }}</span>
+                    <span class="stat-label">진행중</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="stat-info">
+                    {% assign all_techs = site.data.projects | map: "tech_stack" | join: "," | split: "," | uniq %}
+                    <span class="stat-number">{{ all_techs.size }}</span>
+                    <span class="stat-label">기술 스택</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 필터 및 정렬 -->
+        <div class="controls-bar">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-th"></i> 전체
+                </button>
+                <button class="filter-tab" data-filter="web">
+                    <i class="fas fa-globe"></i> 웹
+                </button>
+                <button class="filter-tab" data-filter="mobile">
+                    <i class="fas fa-mobile-alt"></i> 모바일
+                </button>
+                <button class="filter-tab" data-filter="data">
+                    <i class="fas fa-chart-bar"></i> 데이터
+                </button>
+                <button class="filter-tab" data-filter="ai">
+                    <i class="fas fa-brain"></i> AI/ML
+                </button>
+            </div>
+            
+            <div class="sort-controls">
+                <select id="sortSelect" class="sort-select">
+                    <option value="latest">최신순</option>
+                    <option value="oldest">오래된순</option>
+                    <option value="name">이름순</option>
+                    <option value="status">상태별</option>
+                </select>
+                
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 프로젝트 갤러리 -->
+    <div class="projects-gallery" id="projectsGallery">
+        {% for project in site.data.projects %}
+        <div class="project-card" 
+             data-category="{{ project.category | default: 'web' }}" 
+             data-status="{{ project.status | default: 'completed' }}"
+             data-date="{{ project.date | default: '2024-01-01' }}">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                {% if project.thumbnail %}
+                    <img src="{{ project.thumbnail }}" alt="{{ project.title }}" loading="lazy">
+                {% else %}
+                    <div class="placeholder-thumbnail">
+                        <i class="fas fa-image"></i>
+                        <span>{{ project.title | slice: 0, 2 | upcase }}</span>
+                    </div>
+                {% endif %}
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-{{ project.status | default: 'completed' }}">
+                    {% case project.status %}
+                        {% when 'completed' %}
+                            <i class="fas fa-check"></i> 완료
+                        {% when 'ongoing' %}
+                            <i class="fas fa-spinner"></i> 진행중
+                        {% when 'planned' %}
+                            <i class="fas fa-clock"></i> 계획중
+                        {% when 'paused' %}
+                            <i class="fas fa-pause"></i> 중단
+                        {% else %}
+                            <i class="fas fa-check"></i> 완료
+                    {% endcase %}
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        {% if project.demo_url %}
+                            <a href="{{ project.demo_url }}" class="overlay-btn demo-btn" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> 데모
+                            </a>
+                        {% endif %}
+                        {% if project.github_url %}
+                            <a href="{{ project.github_url }}" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        {% endif %}
+                        {% if project.post_url %}
+                            <a href="{{ project.post_url }}" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <span class="project-date">{{ project.date | date: "%Y.%m" }}</span>
+                </div>
+                
+                <p class="project-description">{{ project.description | truncate: 100 }}</p>
+                
+                <!-- 기술 스택 -->
+                {% if project.tech_stack %}
+                <div class="tech-stack">
+                    {% assign techs = project.tech_stack | split: "," %}
+                    {% for tech in techs limit:4 %}
+                        <span class="tech-badge tech-{{ tech | strip | downcase | replace: ".", "dot" | replace: " ", "-" }}">
+                            {{ tech | strip }}
+                        </span>
+                    {% endfor %}
+                    {% if techs.size > 4 %}
+                        <span class="tech-more">+{{ techs.size | minus: 4 }}</span>
+                    {% endif %}
+                </div>
+                {% endif %}
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        {% if project.team_size %}
+                            <i class="fas fa-users"></i>
+                            <span>{{ project.team_size }}명</span>
+                        {% else %}
+                            <i class="fas fa-user"></i>
+                            <span>개인</span>
+                        {% endif %}
+                    </div>
+                    
+                    {% if project.duration %}
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>{{ project.duration }}</span>
+                    </div>
+                    {% endif %}
+                    
+                    {% if project.role %}
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>{{ project.role }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                {% if project.post_url %}
+                    <a href="{{ project.post_url }}" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                {% endif %}
+                
+                <div class="action-links">
+                    {% if project.demo_url %}
+                        <a href="{{ project.demo_url }}" class="action-link" target="_blank" title="라이브 데모">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    {% endif %}
+                    {% if project.github_url %}
+                        <a href="{{ project.github_url }}" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    {% endif %}
+                    {% if project.architecture_image %}
+                        <button class="action-link" onclick="showArchitecture('{{ project.title }}', '{{ project.architecture_image }}')" title="아키텍처">
+                            <i class="fas fa-sitemap"></i>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        
+        <!-- 빈 상태 -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="fas fa-folder-open"></i>
+            <h3>프로젝트가 없습니다</h3>
+            <p>해당 필터에 맞는 프로젝트를 찾을 수 없습니다.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 아키텍처 모달 -->
+<div id="architectureModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">프로젝트 아키텍처</h3>
+            <button class="modal-close" onclick="closeArchitecture()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img id="architectureImage" src="" alt="아키텍처 다이어그램" style="width: 100%; height: auto;">
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const projectCards = document.querySelectorAll('.project-card');
+    const sortSelect = document.getElementById('sortSelect');
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const gallery = document.getElementById('projectsGallery');
+    const emptyState = document.getElementById('emptyState');
+    
+    // 필터 기능
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // 활성 탭 변경
+            filterTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            let visibleCount = 0;
+            
+            projectCards.forEach(card => {
+                const category = card.dataset.category;
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // 빈 상태 표시
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    });
+    
+    // 정렬 기능
+    sortSelect.addEventListener('change', function() {
+        const sortBy = this.value;
+        const cardsArray = Array.from(projectCards);
+        
+        cardsArray.sort((a, b) => {
+            switch(sortBy) {
+                case 'latest':
+                    return new Date(b.dataset.date) - new Date(a.dataset.date);
+                case 'oldest':
+                    return new Date(a.dataset.date) - new Date(b.dataset.date);
+                case 'name':
+                    return a.querySelector('.project-title').textContent.localeCompare(
+                        b.querySelector('.project-title').textContent
+                    );
+                case 'status':
+                    return a.dataset.status.localeCompare(b.dataset.status);
+                default:
+                    return 0;
+            }
+        });
+        
+        // DOM 재정렬
+        const parent = gallery;
+        cardsArray.forEach(card => parent.appendChild(card));
+    });
+    
+    // 뷰 전환 기능
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            viewBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const view = this.dataset.view;
+            gallery.classList.toggle('list-view', view === 'list');
+        });
+    });
+});
+
+// 아키텍처 모달 함수들
+function showArchitecture(title, imageSrc) {
+    document.getElementById('modalTitle').textContent = title + ' 아키텍처';
+    document.getElementById('architectureImage').src = imageSrc;
+    document.getElementById('architectureModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeArchitecture() {
+    document.getElementById('architectureModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// 모달 외부 클릭시 닫기
+document.getElementById('architectureModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeArchitecture();
+    }
+});
+
+// ESC 키로 모달 닫기
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeArchitecture();
+    }
+});
+</script>

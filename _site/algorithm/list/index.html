@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">홈</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">카테고리</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">프로젝트</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">배열</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 01일</time>
+            
+            <div class="post-categories">
+                
+                <span class="category-tag">algorithm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#알고리즘</span>
+                
+                <span class="tag">#혼자공부하는코딩테스트</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="배열의-개념">배열의 개념</h2>
+
+<p>배열은 인덱스와 값을 일대일 대응해 관리하는 자료구조. 모든 공간은 인덱스와 대응하므로 한번에 원하는 값에 접근할 수 있다.</p>
+
+<h3 id="리스트-컴프리핸션을-사용하기">리스트 컴프리핸션을 사용하기</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>arr = [0 for _ in range(6)]
+</code></pre></div></div>
+
+<h3 id="pop">pop</h3>
+
+<p>팝 할 인덱스를 인수로 받아 삭제하고 삭제한 데이터의 값을 반환</p>
+
+<h3 id="remove">remove</h3>
+
+<p>데이터 자체를 삭제. 인수로 받은 값이 처음 등장하는 위치의 데이터를 삭제한다.</p>
+
+<h2 id="문제">문제</h2>
+
+<h3 id="5-03-두개-뽑아서-더하기">5-03 두개 뽑아서 더하기</h3>
+
+<h3 id="5-04-모의고사">5-04 모의고사</h3>
+
+<h3 id="5-05-행렬의-곱셈">5-05 행렬의 곱셈</h3>
+
+<h3 id="5-06-실패율">5-06 실패율</h3>
+
+<h3 id="5-07-방문길이">5-07 방문길이</h3>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/algorithm/keys-and-rooms">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">keys and rooms</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/categories/data-engineering/airflow/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Airflow 대그에서 파이썬 함수와 데코레이터</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

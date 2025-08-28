@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>최대 폭탄 터뜨리기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">홈</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">카테고리</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">프로젝트</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">최대 폭탄 터뜨리기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 07월 10일</time>
+            
+            <div class="post-categories">
+                
+                <span class="category-tag">algorithm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#알고리즘</span>
+                
+                <span class="tag">#bfs</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="문제">문제</h2>
+
+<p>한 폭탄을 터뜨렸을때 그 반경 안에 들어오는 다른 폭탄은 연쇄적으로 터진다.
+이 원리를 계산하여 한 폭탄을 터뜨렸을때 가장 많이 연쇄 반응을 일으키는 개수를 구하여라.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from collections import deque
+from itertools import combinations
+
+class Solution:
+    def maximumDetonation(self, bombs: List[List[int]]) -&gt; int:
+        # init
+        n = len(bombs)
+        graph = [[] for _ in range(n)]
+
+        def is_connected(bomb1, bomb2):
+            x1, y1, r1 = bomb1
+            x2, y2, r2 = bomb2
+            dist = (x1 - x2)**2 + (y1 - y2)**2
+            return dist &lt;= r1**2
+
+        # graph
+        for i in range(n):
+            for j in range(n):
+                if i == j:
+                    continue
+                if is_connected(bombs[i], bombs[j]):
+                    graph[i].append(j)
+
+        # queue
+        def bfs(start):
+            visited = [False]*n
+            visited[start] = True
+            queue = deque([start])
+            cnt = 1
+
+            while queue:
+                node = queue.popleft()
+                for next_node in graph[node]:
+                    if not visited[next_node]:
+                        visited[next_node] = True
+                        queue.append(next_node)
+                        cnt += 1
+            return cnt
+
+
+        return max(bfs(i) for i in range(n))
+</code></pre></div></div>
+
+<p>여기서 중요했던건 visited 변수를 매 시도마다 초기화해줘야한다는 점이다.
+그래야 각각의 시도마다 어떤 폭탄이 터지는지 개수를 알맞게 셀 수 있다.</p>
+
+<p>그 다음으로는 폭탄의 거리를 계산할때 양방향이 아니라 한방향으로 계산해야한다는 점이다. 연쇄 반응이므로..</p>
+
+<p>그리고 연결 그래프를 만들때, 처음에는 combinations를 사용해서
+조합을 만들고 계산했는데, 그러면 1 -&gt; 2, 1 -&gt; 3 의 경우만 되고 2 -&gt; 1 , 3 -&gt; 1의 경우는 안되니까
+방향을 언제나 생각해야 함!!</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/algorithm/road">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">배달</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml&ai/LCEL/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">LCEL (LangChain Expression ...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

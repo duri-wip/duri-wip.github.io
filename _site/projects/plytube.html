@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">홈</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">카테고리</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">프로젝트</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 19일</time>
+            
+            <div class="post-categories">
+                
+                <span class="category-tag">Project</span>
+                
+                <span class="category-tag"></span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#development</span>
+                
+                <span class="tag">#plytube</span>
+                
+                <span class="tag">#lstm</span>
+                
+                <span class="tag">#youtube-api</span>
+                
+                <span class="tag">#airflow</span>
+                
+                <span class="tag">#mlflow</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="about">About</h1>
+
+<h2 id="프로젝트-개요">프로젝트 개요</h2>
+
+<ul>
+  <li>플레이리스트 영상 관련 채널의 정보를 수집하여 키워드만으로 플레이리스트 추천 서비스 구축</li>
+</ul>
+
+<h2 id="프로젝트-규모-및-일정">프로젝트 규모 및 일정</h2>
+
+<ul>
+  <li>팀원 : 2명</li>
+  <li>기간 : 08.12 ~ 09.19</li>
+</ul>
+
+<h2 id="역할">역할</h2>
+
+<p>• Youtube API를 활용한 Airflow dag를 구성하여 영상정보 수집 및 파싱
+• 플레이리스트 예측 모델링 및 모델 메트릭 수집, 버전 관리 및 CI 시스템 구축
+• 모델 서빙 및 CD 시스템 구축
+• 예측 서비스를 위한 백엔드 구축</p>
+
+<h2 id="architecture">Architecture</h2>
+
+<p><img src="/assets/images/project_img/yeardream/plytube_architecture.png" alt="plytube_architecture" width="100%" /></p>
+
+<h3 id="개요">개요</h3>
+
+<h4 id="1-youtube-데이터-수집-및-s3-postgresql에-저장">1. YouTube 데이터 수집 및 S3, PostgreSQL에 저장</h4>
+
+<ul>
+  <li>Airflow dag를 구성해 ‘playlist, 플리, 플레이리스트’ 키워드를 포함한 채널과 각 채널의 영상 정보를 수집.</li>
+  <li>댓글을 통해 노래정보 파싱해서 json으로 구성해 s3에 저장. 이 파일은 DVC로 버전 관리.</li>
+  <li>채널 및 영상정보는 SQLAlchemy로 PostgreSQL에 저장.</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/plytube_airflow_postgres.gif" alt="airflow to postgres" width="100%" /></p>
+
+<h4 id="2-모델-학습-트리거-및-성능-관리">2. 모델 학습 트리거 및 성능 관리</h4>
+
+<ul>
+  <li>LSTM 모델로 시계열 기반의 플레이리스트를 예측.</li>
+  <li>새로운 데이터셋은 DVC push를 통해 모델 서버에 트리거 되며, 모델 서버는 DVC pull을 받아 새로운 학습 진행.</li>
+  <li>MLflow를 이용해 학습 매개변수와 메트릭을 기록.</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/plytube_github_action.gif" alt="workflow" width="100%" /></p>
+
+<h4 id="3-lstm-모델-및-추론-서버-운영">3. LSTM 모델 및 추론 서버 운영</h4>
+
+<ul>
+  <li>자동화 파이프라인을 통해 새로운 학습 모델의 성능이 기존 모델보다 좋으면 운영 모델로 교체.</li>
+  <li>사용자가 선택한 값을 모델 구조에 맞게 전처리하고 추론한 예측값을 백엔드 서버에 반환</li>
+</ul>
+
+<h4 id="4-서비스-운영">4. 서비스 운영</h4>
+
+<ul>
+  <li>예측 시 프론트에서 받은 ‘노래’ 또는 ‘가수’ 값을 DB에 저장된 ‘노래-가수’ 또는 ‘가수-노래’ 형식과 매칭하여 이를 모델에 입력값으로 제공.</li>
+  <li>모델은 리스트 형태의 입력과 출력을 처리하되, 예측 시에는 단일 값을 받아 리스트로 반환.</li>
+</ul>
+
+<p><img src="/assets/images/project_img/yeardream/gifs/plytube_web.gif" alt="web" width="100%" /></p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/airflow-SLA/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">태스크에 SLA 사용하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/docker-context/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">도커파일의 context</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

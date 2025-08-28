@@ -1,0 +1,1293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로젝트</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">홈</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">카테고리</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">프로젝트</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <div class="projects-page">
+    <header class="page-header">
+        <h1 class="page-title">프로젝트 포트폴리오</h1>
+        <p class="page-description">개발 과정과 결과물을 기록한 프로젝트들입니다</p>
+    </header>
+
+    <!-- 통계 및 필터 섹션 -->
+    <div class="projects-controls">
+        <!-- 통계 카드들 -->
+        <div class="stats-cards">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <div class="stat-info">
+                    
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">총 프로젝트</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="stat-info">
+                    
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">완료</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-spinner"></i>
+                </div>
+                <div class="stat-info">
+                    
+                    <span class="stat-number">2</span>
+                    <span class="stat-label">진행중</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-tools"></i>
+                </div>
+                <div class="stat-info">
+                    
+                    <span class="stat-number">28</span>
+                    <span class="stat-label">기술 스택</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 필터 및 정렬 -->
+        <div class="controls-bar">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-th"></i> 전체
+                </button>
+                <button class="filter-tab" data-filter="web">
+                    <i class="fas fa-globe"></i> 웹
+                </button>
+                <button class="filter-tab" data-filter="mobile">
+                    <i class="fas fa-mobile-alt"></i> 모바일
+                </button>
+                <button class="filter-tab" data-filter="data">
+                    <i class="fas fa-chart-bar"></i> 데이터
+                </button>
+                <button class="filter-tab" data-filter="ai">
+                    <i class="fas fa-brain"></i> AI/ML
+                </button>
+            </div>
+            
+            <div class="sort-controls">
+                <select id="sortSelect" class="sort-select">
+                    <option value="latest">최신순</option>
+                    <option value="oldest">오래된순</option>
+                    <option value="name">이름순</option>
+                    <option value="status">상태별</option>
+                </select>
+                
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-btn" data-view="list">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 프로젝트 갤러리 -->
+    <div class="projects-gallery" id="projectsGallery">
+        
+        <div class="project-card" 
+             data-category="data" 
+             data-status="completed"
+             data-date="2024-08-01">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/data-pipeline-thumb.jpg" alt="실시간 데이터 파이프라인" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-completed">
+                    
+                            <i class="fas fa-check"></i> 완료
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                            <a href="https://pipeline-demo.example.com" class="overlay-btn demo-btn" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> 데모
+                            </a>
+                        
+                        
+                            <a href="https://github.com/username/data-pipeline" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/realtime-data-pipeline" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">실시간 데이터 파이프라인</h3>
+                    <span class="project-date">2024.08</span>
+                </div>
+                
+                <p class="project-description">Kafka와 Spark를 활용한 대용량 실시간 데이터 처리 파이프라인 구축 프로젝트</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-apache-kafka">
+                            Apache Kafka
+                        </span>
+                    
+                        <span class="tech-badge tech-apache-spark">
+                            Apache Spark
+                        </span>
+                    
+                        <span class="tech-badge tech-python">
+                            Python
+                        </span>
+                    
+                        <span class="tech-badge tech-docker">
+                            Docker
+                        </span>
+                    
+                    
+                        <span class="tech-more">+1</span>
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-users"></i>
+                            <span>3명</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>4개월</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>데이터 엔지니어</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/realtime-data-pipeline" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                        <a href="https://pipeline-demo.example.com" class="action-link" target="_blank" title="라이브 데모">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    
+                    
+                        <a href="https://github.com/username/data-pipeline" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                        <button class="action-link" onclick="showArchitecture('실시간 데이터 파이프라인', '/assets/images/projects/data-pipeline-arch.png')" title="아키텍처">
+                            <i class="fas fa-sitemap"></i>
+                        </button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card" 
+             data-category="ai" 
+             data-status="completed"
+             data-date="2024-07-15">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/recommendation-thumb.jpg" alt="AI 기반 추천 시스템" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-completed">
+                    
+                            <i class="fas fa-check"></i> 완료
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                        
+                            <a href="https://github.com/username/recommendation-system" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/ai-recommendation" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">AI 기반 추천 시스템</h3>
+                    <span class="project-date">2024.07</span>
+                </div>
+                
+                <p class="project-description">머신러닝을 활용한 개인화 상품 추천 시스템 개발</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-python">
+                            Python
+                        </span>
+                    
+                        <span class="tech-badge tech-tensorflow">
+                            TensorFlow
+                        </span>
+                    
+                        <span class="tech-badge tech-fastapi">
+                            FastAPI
+                        </span>
+                    
+                        <span class="tech-badge tech-redis">
+                            Redis
+                        </span>
+                    
+                    
+                        <span class="tech-more">+1</span>
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-users"></i>
+                            <span>2명</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>3개월</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>ML Engineer</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/ai-recommendation" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                    
+                        <a href="https://github.com/username/recommendation-system" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                        <button class="action-link" onclick="showArchitecture('AI 기반 추천 시스템', '/assets/images/projects/recommendation-arch.png')" title="아키텍처">
+                            <i class="fas fa-sitemap"></i>
+                        </button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card" 
+             data-category="mobile" 
+             data-status="completed"
+             data-date="2024-06-30">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/todo-app-thumb.jpg" alt="모바일 Todo 앱" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-completed">
+                    
+                            <i class="fas fa-check"></i> 완료
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                            <a href="https://play.google.com/store/apps/details?id=com.example.todo" class="overlay-btn demo-btn" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> 데모
+                            </a>
+                        
+                        
+                            <a href="https://github.com/username/mobile-todo" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/mobile-todo-app" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">모바일 Todo 앱</h3>
+                    <span class="project-date">2024.06</span>
+                </div>
+                
+                <p class="project-description">React Native로 개발한 크로스플랫폼 할일 관리 애플리케이션</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-react-native">
+                            React Native
+                        </span>
+                    
+                        <span class="tech-badge tech-typescript">
+                            TypeScript
+                        </span>
+                    
+                        <span class="tech-badge tech-redux">
+                            Redux
+                        </span>
+                    
+                        <span class="tech-badge tech-firebase">
+                            Firebase
+                        </span>
+                    
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-user"></i>
+                            <span>개인</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>2개월</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>프론트엔드 개발자</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/mobile-todo-app" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                        <a href="https://play.google.com/store/apps/details?id=com.example.todo" class="action-link" target="_blank" title="라이브 데모">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    
+                    
+                        <a href="https://github.com/username/mobile-todo" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card" 
+             data-category="web" 
+             data-status="ongoing"
+             data-date="2024-08-15">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/dashboard-thumb.jpg" alt="웹 대시보드 플랫폼" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-ongoing">
+                    
+                            <i class="fas fa-spinner"></i> 진행중
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                            <a href="https://dashboard.example.com" class="overlay-btn demo-btn" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> 데모
+                            </a>
+                        
+                        
+                            <a href="https://github.com/username/web-dashboard" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/web-dashboard" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">웹 대시보드 플랫폼</h3>
+                    <span class="project-date">2024.08</span>
+                </div>
+                
+                <p class="project-description">데이터 시각화를 위한 인터랙티브 웹 대시보드 플랫폼</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-react">
+                            React
+                        </span>
+                    
+                        <span class="tech-badge tech-typescript">
+                            TypeScript
+                        </span>
+                    
+                        <span class="tech-badge tech-d3dotjs">
+                            D3.js
+                        </span>
+                    
+                        <span class="tech-badge tech-nodedotjs">
+                            Node.js
+                        </span>
+                    
+                    
+                        <span class="tech-more">+1</span>
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-users"></i>
+                            <span>4명</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>진행중</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>풀스택 개발자</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/web-dashboard" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                        <a href="https://dashboard.example.com" class="action-link" target="_blank" title="라이브 데모">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    
+                    
+                        <a href="https://github.com/username/web-dashboard" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                        <button class="action-link" onclick="showArchitecture('웹 대시보드 플랫폼', '/assets/images/projects/dashboard-arch.png')" title="아키텍처">
+                            <i class="fas fa-sitemap"></i>
+                        </button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card" 
+             data-category="web" 
+             data-status="completed"
+             data-date="2024-05-20">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/monitoring-thumb.jpg" alt="클라우드 모니터링 시스템" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-completed">
+                    
+                            <i class="fas fa-check"></i> 완료
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                        
+                            <a href="https://github.com/username/cloud-monitoring" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/cloud-monitoring" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">클라우드 모니터링 시스템</h3>
+                    <span class="project-date">2024.05</span>
+                </div>
+                
+                <p class="project-description">AWS 리소스 모니터링 및 알림 시스템 구축</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-aws">
+                            AWS
+                        </span>
+                    
+                        <span class="tech-badge tech-cloudwatch">
+                            CloudWatch
+                        </span>
+                    
+                        <span class="tech-badge tech-lambda">
+                            Lambda
+                        </span>
+                    
+                        <span class="tech-badge tech-python">
+                            Python
+                        </span>
+                    
+                    
+                        <span class="tech-more">+1</span>
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-user"></i>
+                            <span>개인</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>1개월</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>DevOps 엔지니어</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/cloud-monitoring" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                    
+                        <a href="https://github.com/username/cloud-monitoring" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                        <button class="action-link" onclick="showArchitecture('클라우드 모니터링 시스템', '/assets/images/projects/monitoring-arch.png')" title="아키텍처">
+                            <i class="fas fa-sitemap"></i>
+                        </button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card" 
+             data-category="ai" 
+             data-status="planned"
+             data-date="2024-09-01">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/chatbot-thumb.jpg" alt="챗봇 서비스" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-planned">
+                    
+                            <i class="fas fa-clock"></i> 계획중
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                        
+                            <a href="https://github.com/username/chatbot" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/chatbot-service" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">챗봇 서비스</h3>
+                    <span class="project-date">2024.09</span>
+                </div>
+                
+                <p class="project-description">자연어 처리 기반 고객 서비스 챗봇 개발</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-python">
+                            Python
+                        </span>
+                    
+                        <span class="tech-badge tech-openai-api">
+                            OpenAI API
+                        </span>
+                    
+                        <span class="tech-badge tech-fastapi">
+                            FastAPI
+                        </span>
+                    
+                        <span class="tech-badge tech-docker">
+                            Docker
+                        </span>
+                    
+                    
+                        <span class="tech-more">+1</span>
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-user"></i>
+                            <span>개인</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>계획중</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>AI 개발자</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/chatbot-service" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                    
+                        <a href="https://github.com/username/chatbot" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card" 
+             data-category="web" 
+             data-status="ongoing"
+             data-date="2024-07-01">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/microservices-thumb.jpg" alt="마이크로서비스 아키텍처" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-ongoing">
+                    
+                            <i class="fas fa-spinner"></i> 진행중
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                        
+                            <a href="https://github.com/username/microservices" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/microservices" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">마이크로서비스 아키텍처</h3>
+                    <span class="project-date">2024.07</span>
+                </div>
+                
+                <p class="project-description">Docker와 Kubernetes를 활용한 마이크로서비스 구조 설계</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-docker">
+                            Docker
+                        </span>
+                    
+                        <span class="tech-badge tech-kubernetes">
+                            Kubernetes
+                        </span>
+                    
+                        <span class="tech-badge tech-nodedotjs">
+                            Node.js
+                        </span>
+                    
+                        <span class="tech-badge tech-postgresql">
+                            PostgreSQL
+                        </span>
+                    
+                    
+                        <span class="tech-more">+1</span>
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-users"></i>
+                            <span>5명</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>6개월</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>백엔드 개발자</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/microservices" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                    
+                        <a href="https://github.com/username/microservices" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                        <button class="action-link" onclick="showArchitecture('마이크로서비스 아키텍처', '/assets/images/projects/microservices-arch.png')" title="아키텍처">
+                            <i class="fas fa-sitemap"></i>
+                        </button>
+                    
+                </div>
+            </div>
+        </div>
+        
+        <div class="project-card" 
+             data-category="web" 
+             data-status="completed"
+             data-date="2024-04-15">
+            
+            <!-- 프로젝트 썸네일 -->
+            <div class="project-thumbnail">
+                
+                    <img src="/assets/images/projects/viz-library-thumb.jpg" alt="데이터 시각화 라이브러리" loading="lazy">
+                
+                
+                <!-- 상태 배지 -->
+                <div class="status-badge status-completed">
+                    
+                            <i class="fas fa-check"></i> 완료
+                        
+                </div>
+                
+                <!-- 호버 오버레이 -->
+                <div class="project-overlay">
+                    <div class="overlay-content">
+                        
+                            <a href="https://viz-library.example.com" class="overlay-btn demo-btn" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> 데모
+                            </a>
+                        
+                        
+                            <a href="https://github.com/username/viz-library" class="overlay-btn github-btn" target="_blank">
+                                <i class="fab fa-github"></i> 코드
+                            </a>
+                        
+                        
+                            <a href="/projects/data-viz-library" class="overlay-btn post-btn">
+                                <i class="fas fa-file-alt"></i> 포스트
+                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 프로젝트 정보 -->
+            <div class="project-info">
+                <div class="project-header">
+                    <h3 class="project-title">데이터 시각화 라이브러리</h3>
+                    <span class="project-date">2024.04</span>
+                </div>
+                
+                <p class="project-description">재사용 가능한 차트 컴포넌트 라이브러리 개발</p>
+                
+                <!-- 기술 스택 -->
+                
+                <div class="tech-stack">
+                    
+                    
+                        <span class="tech-badge tech-javascript">
+                            JavaScript
+                        </span>
+                    
+                        <span class="tech-badge tech-typescript">
+                            TypeScript
+                        </span>
+                    
+                        <span class="tech-badge tech-d3dotjs">
+                            D3.js
+                        </span>
+                    
+                        <span class="tech-badge tech-webpack">
+                            Webpack
+                        </span>
+                    
+                    
+                        <span class="tech-more">+1</span>
+                    
+                </div>
+                
+                
+                <!-- 프로젝트 메타 정보 -->
+                <div class="project-meta">
+                    <div class="meta-item">
+                        
+                            <i class="fas fa-user"></i>
+                            <span>개인</span>
+                        
+                    </div>
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-calendar"></i>
+                        <span>2개월</span>
+                    </div>
+                    
+                    
+                    
+                    <div class="meta-item">
+                        <i class="fas fa-user-tie"></i>
+                        <span>프론트엔드 개발자</span>
+                    </div>
+                    
+                </div>
+            </div>
+            
+            <!-- 카드 하단 액션 -->
+            <div class="project-actions">
+                
+                    <a href="/projects/data-viz-library" class="action-btn primary">
+                        <i class="fas fa-arrow-right"></i> 자세히 보기
+                    </a>
+                
+                
+                <div class="action-links">
+                    
+                        <a href="https://viz-library.example.com" class="action-link" target="_blank" title="라이브 데모">
+                            <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    
+                    
+                        <a href="https://github.com/username/viz-library" class="action-link" target="_blank" title="소스 코드">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    
+                    
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-- 빈 상태 -->
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <i class="fas fa-folder-open"></i>
+            <h3>프로젝트가 없습니다</h3>
+            <p>해당 필터에 맞는 프로젝트를 찾을 수 없습니다.</p>
+        </div>
+    </div>
+</div>
+
+<!-- 아키텍처 모달 -->
+<div id="architectureModal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">프로젝트 아키텍처</h3>
+            <button class="modal-close" onclick="closeArchitecture()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img id="architectureImage" src="" alt="아키텍처 다이어그램" style="width: 100%; height: auto;">
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterTabs = document.querySelectorAll('.filter-tab');
+    const projectCards = document.querySelectorAll('.project-card');
+    const sortSelect = document.getElementById('sortSelect');
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const gallery = document.getElementById('projectsGallery');
+    const emptyState = document.getElementById('emptyState');
+    
+    // 필터 기능
+    filterTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // 활성 탭 변경
+            filterTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            let visibleCount = 0;
+            
+            projectCards.forEach(card => {
+                const category = card.dataset.category;
+                if (filter === 'all' || category === filter) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // 빈 상태 표시
+            emptyState.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    });
+    
+    // 정렬 기능
+    sortSelect.addEventListener('change', function() {
+        const sortBy = this.value;
+        const cardsArray = Array.from(projectCards);
+        
+        cardsArray.sort((a, b) => {
+            switch(sortBy) {
+                case 'latest':
+                    return new Date(b.dataset.date) - new Date(a.dataset.date);
+                case 'oldest':
+                    return new Date(a.dataset.date) - new Date(b.dataset.date);
+                case 'name':
+                    return a.querySelector('.project-title').textContent.localeCompare(
+                        b.querySelector('.project-title').textContent
+                    );
+                case 'status':
+                    return a.dataset.status.localeCompare(b.dataset.status);
+                default:
+                    return 0;
+            }
+        });
+        
+        // DOM 재정렬
+        const parent = gallery;
+        cardsArray.forEach(card => parent.appendChild(card));
+    });
+    
+    // 뷰 전환 기능
+    viewBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            viewBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const view = this.dataset.view;
+            gallery.classList.toggle('list-view', view === 'list');
+        });
+    });
+});
+
+// 아키텍처 모달 함수들
+function showArchitecture(title, imageSrc) {
+    document.getElementById('modalTitle').textContent = title + ' 아키텍처';
+    document.getElementById('architectureImage').src = imageSrc;
+    document.getElementById('architectureModal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeArchitecture() {
+    document.getElementById('architectureModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// 모달 외부 클릭시 닫기
+document.getElementById('architectureModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closeArchitecture();
+    }
+});
+
+// ESC 키로 모달 닫기
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeArchitecture();
+    }
+});
+</script>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배달</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">홈</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">스터디</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">카테고리</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">프로젝트</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">배달</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 07월 10일</time>
+            
+            <div class="post-categories">
+                
+                <span class="category-tag">algorithm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#Algorithm</span>
+                
+                <span class="tag">#다익스트라</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="문제">문제</h2>
+
+<p>n개의 마을로 이루어진 나라에 양방향으로 통행할 수 있는 도로가 있다.
+마을 개수가 n, 각 마을을 연결하는 도로의 정보, 음식 배달이 가능한 시간 k가 매개변수로 주어질때
+음식 주문을 받을 수 있는 마을의 개수를 반환하시오.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import heapq
+
+def solution(n, road, k):
+    print(f"=== 다익스트라 알고리즘 시작 ===")
+    print(f"마을 개수: {n}, 배달 가능 시간: {k}")
+    print(f"도로 정보: {road}")
+    print()
+
+    # 각 노드에 연결된 간선을 저장할 리스트
+    graph = [[] for _ in range(n+1)]
+    print(f"초기 그래프: {graph}")
+    print()
+
+    # 출발점에서 각 노드까지의 최단 거리를 저장할 리스트
+    distances = [float("inf")] * (n+1)
+    print(f"초기 거리 배열: {distances}")
+
+    # 출발점은 0으로 초기화 --&gt; 왜 1이 출발점??
+    distances[1] = 0
+    print(f"출발점(1번 마을) 거리 초기화: {distances}")
+    print()
+
+    # 그래프 구성 --  양방향
+    print("=== 그래프 구성 ===")
+    for a, b, cost in road:
+        graph[a].append((b,cost))
+        graph[b].append((a, cost))
+        print(f"도로 추가: {a} ↔ {b} (거리: {cost})")
+        print(f"현재 그래프: {graph}")
+        print()
+
+    # 다익스트라 알고리즘 시작
+    heap = []
+    heapq.heappush(heap, (0,1)) # heap에 출발점 추가
+    print(f"=== 다익스트라 알고리즘 실행 ===")
+    print(f"초기 힙: {heap}")
+    print()
+
+    step = 1
+    while heap:
+        dist, node = heapq.heappop(heap)
+        print(f"--- Step {step} ---")
+        print(f"힙에서 꺼낸 노드: {node} (거리: {dist})")
+        print(f"현재 거리 배열: {distances}")
+
+        if dist &gt; distances[node]:
+            print(f"이미 더 짧은 경로가 존재하므로 건너뜀")
+            print()
+            continue
+
+        print(f"{node}번 마을에서 연결된 마을들 확인:")
+
+        for next_node, next_dist in graph[node]:
+            cost = dist + next_dist
+            print(f"  {node} → {next_node}: 현재거리({dist}) + 도로거리({next_dist}) = {cost}")
+            print(f"  기존 {next_node}번까지 거리: {distances[next_node]}")
+
+            if cost &lt; distances[next_node]:
+                distances[next_node] = cost
+                heapq.heappush(heap, (cost, next_node))
+                print(f"  ✅ 더 짧은 경로 발견! {next_node}번 거리를 {cost}로 업데이트")
+                print(f"  힙에 ({cost}, {next_node}) 추가")
+            else:
+                print(f"  ❌ 기존 경로가 더 짧음")
+            print()
+
+        print(f"현재 힙 상태: {heap}")
+        print()
+        step += 1
+
+    print(f"=== 최종 결과 ===")
+    print(f"각 마을까지의 최단 거리: {distances}")
+    reachable = [i for i, dist in enumerate(distances) if dist &lt;= k]
+    print(f"배달 가능한 마을들: {reachable}")
+    result = sum(1 for dist in distances if dist &lt;= k)
+    print(f"배달 가능한 마을 개수: {result}")
+
+    return result
+</code></pre></div></div>
+
+<p>heapq란??
+최소 heap 을 구현한 파이썬 라이브러리. 힙은 완전 이진 트리 구조로, 부모노드가 자식 노드보다 항상 작거나 같은 값을 가지는 특성을 가진다.
+heappop()으로 가장 작은 거리를 가진 노드를 빠르게 꺼낼 수 있다.</p>
+
+<p>이거랑 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>min_node = min(nodes, key=lambda x: distances[x])
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/algorithm/racing_road">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">경주로 건설</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/algorithm/max_explode">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">최대 폭탄 터뜨리기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

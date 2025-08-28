@@ -1,0 +1,433 @@
+---
+layout: default
+title: 스터디
+permalink: /study/
+---
+
+<div class="study-page">
+    <header class="page-header">
+        <h1 class="page-title">학습 대시보드</h1>
+        <p class="page-description">지속적인 학습과 성장을 기록하고 추적합니다</p>
+    </header>
+
+    <!-- 학습 통계 섹션 -->
+    <div class="study-stats">
+        <div class="stats-grid">
+            <div class="stat-card primary">
+                <div class="stat-icon">
+                    <i class="fas fa-fire"></i>
+                </div>
+                <div class="stat-content">
+                    {% assign ongoing_studies = site.data.studies | where: "status", "진행중" %}
+                    <span class="stat-number">{{ ongoing_studies.size }}</span>
+                    <span class="stat-label">진행중인 스터디</span>
+                </div>
+            </div>
+
+            <div class="stat-card success">
+                <div class="stat-icon">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <div class="stat-content">
+                    {% assign completed_studies = site.data.studies | where: "status", "완료" %}
+                    <span class="stat-number">{{ completed_studies.size }}</span>
+                    <span class="stat-label">완료한 스터디</span>
+                </div>
+            </div>
+
+            <div class="stat-card warning">
+                <div class="stat-icon">
+                    <i class="fas fa-calendar-check"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number" id="streakDays">15</span>
+                    <span class="stat-label">연속 학습일</span>
+                </div>
+            </div>
+
+            <div class="stat-card info">
+                <div class="stat-icon">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                    <span class="stat-number" id="totalHours">128</span>
+                    <span class="stat-label">총 학습시간</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 오늘의 목표 -->
+    <div class="today-goals">
+        <div class="goals-header">
+            <h2 class="section-title">
+                <i class="fas fa-target"></i>
+                오늘의 학습 목표
+            </h2>
+            <span class="today-date">{{ 'now' | date: "%Y년 %m월 %d일" }}</span>
+        </div>
+        
+        <div class="goals-progress">
+            <div class="goal-item">
+                <div class="goal-info">
+                    <span class="goal-text">알고리즘 문제 1개 해결</span>
+                    <span class="goal-status completed">완료</span>
+                </div>
+                <div class="goal-bar">
+                    <div class="goal-fill" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div class="goal-item">
+                <div class="goal-info">
+                    <span class="goal-text">Next.js 강의 1개 챕터</span>
+                    <span class="goal-status in-progress">진행중</span>
+                </div>
+                <div class="goal-bar">
+                    <div class="goal-fill" style="width: 60%"></div>
+                </div>
+            </div>
+            
+            <div class="goal-item">
+                <div class="goal-info">
+                    <span class="goal-text">블로그 포스트 작성</span>
+                    <span class="goal-status pending">예정</span>
+                </div>
+                <div class="goal-bar">
+                    <div class="goal-fill" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 진행중인 스터디 -->
+    <div class="ongoing-studies">
+        <h2 class="section-title">
+            <i class="fas fa-play-circle"></i>
+            진행중인 스터디
+        </h2>
+        
+        <div class="studies-grid">
+            {% for study in site.data.studies %}
+                {% if study.status == "진행중" %}
+                <div class="study-card active">
+                    <div class="study-header">
+                        <div class="study-info">
+                            <h3 class="study-title">{{ study.title }}</h3>
+                            <p class="study-description">{{ study.description }}</p>
+                        </div>
+                        <div class="study-status-badge status-ongoing">
+                            <i class="fas fa-play"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="study-progress">
+                        <div class="progress-info">
+                            <span class="progress-text">진행률</span>
+                            <span class="progress-percentage">{{ study.progress }}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: {{ study.progress }}%"></div>
+                        </div>
+                        <div class="progress-details">
+                            <span class="current-progress">{{ study.current }}/{{ study.total }}</span>
+                            <span class="remaining-days">{{ study.total | minus: study.current }}일 남음</span>
+                        </div>
+                    </div>
+                    
+                    {% if study.related_posts %}
+                    <div class="study-posts">
+                        <h4 class="posts-title">관련 포스트</h4>
+                        <div class="posts-list">
+                            {% for post in study.related_posts limit:3 %}
+                            <a href="{{ post.url }}" class="post-link">
+                                <i class="fas fa-file-alt"></i>
+                                {{ post.title }}
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="study-actions">
+                        <button class="action-btn primary" onclick="updateProgress('{{ study.title }}')">
+                            <i class="fas fa-plus"></i> 진도 업데이트
+                        </button>
+                        <button class="action-btn secondary" onclick="viewDetails('{{ study.title }}')">
+                            <i class="fas fa-chart-line"></i> 상세보기
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 학습 캘린더 -->
+    <div class="study-calendar">
+        <div class="calendar-header">
+            <h2 class="section-title">
+                <i class="fas fa-calendar"></i>
+                학습 캘린더
+            </h2>
+            <div class="calendar-legend">
+                <div class="legend-item">
+                    <div class="legend-color level-0"></div>
+                    <span>없음</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color level-1"></div>
+                    <span>적음</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color level-2"></div>
+                    <span>보통</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color level-3"></div>
+                    <span>많음</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="calendar-grid" id="studyCalendar">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+        
+        <div class="calendar-summary">
+            <div class="summary-item">
+                <span class="summary-label">이번 주 학습일</span>
+                <span class="summary-value">6일</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">이번 달 학습일</span>
+                <span class="summary-value">23일</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">최고 연속 학습</span>
+                <span class="summary-value">15일</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 완료된 스터디 -->
+    <div class="completed-studies">
+        <h2 class="section-title">
+            <i class="fas fa-check-circle"></i>
+            완료된 스터디
+        </h2>
+        
+        <div class="completed-grid">
+            {% for study in site.data.studies %}
+                {% if study.status == "완료" %}
+                <div class="study-card completed">
+                    <div class="completion-badge">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    
+                    <div class="study-info">
+                        <h3 class="study-title">{{ study.title }}</h3>
+                        <p class="study-description">{{ study.description }}</p>
+                    </div>
+                    
+                    <div class="completion-stats">
+                        <div class="stat-item">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>{{ study.total }}일 완료</span>
+                        </div>
+                        <div class="stat-item">
+                            <i class="fas fa-file-alt"></i>
+                            <span>{{ study.related_posts.size }}개 포스트</span>
+                        </div>
+                    </div>
+                    
+                    {% if study.related_posts %}
+                    <div class="study-posts compact">
+                        {% for post in study.related_posts limit:2 %}
+                        <a href="{{ post.url }}" class="post-link compact">
+                            {{ post.title }}
+                        </a>
+                        {% endfor %}
+                        {% if study.related_posts.size > 2 %}
+                        <span class="more-posts">외 {{ study.related_posts.size | minus: 2 }}개</span>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 최근 학습 활동 -->
+    <div class="recent-activities">
+        <h2 class="section-title">
+            <i class="fas fa-history"></i>
+            최근 학습 활동
+        </h2>
+        
+        <div class="activity-timeline">
+            <div class="activity-item">
+                <div class="activity-date">
+                    <span class="date">08.27</span>
+                    <span class="time">14:30</span>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-icon algorithm">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div class="activity-details">
+                        <h4 class="activity-title">이분탐색 문제 해결</h4>
+                        <p class="activity-description">백준 1654번 랜선 자르기 문제를 해결했습니다.</p>
+                        <a href="/algorithm/binary-search-1654" class="activity-link">포스트 보기 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-date">
+                    <span class="date">08.26</span>
+                    <span class="time">20:15</span>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-icon nextjs">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="activity-details">
+                        <h4 class="activity-title">Server Components 학습</h4>
+                        <p class="activity-description">Next.js 13의 Server Components 개념을 정리했습니다.</p>
+                        <a href="/frontend/nextjs-server-components" class="activity-link">포스트 보기 →</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="activity-item">
+                <div class="activity-date">
+                    <span class="date">08.25</span>
+                    <span class="time">19:00</span>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-icon algorithm">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="activity-details">
+                        <h4 class="activity-title">다이나믹 프로그래밍 복습</h4>
+                        <p class="activity-description">DP 기본 개념과 대표 문제들을 다시 정리했습니다.</p>
+                        <a href="/algorithm/dynamic-programming-review" class="activity-link">포스트 보기 →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="load-more">
+            <button class="load-more-btn">
+                <i class="fas fa-chevron-down"></i>
+                더 많은 활동 보기
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    generateStudyCalendar();
+    animateProgressBars();
+});
+
+// 학습 캘린더 생성
+function generateStudyCalendar() {
+    const calendar = document.getElementById('studyCalendar');
+    const today = new Date();
+    const startDate = new Date(today.getFullYear(), today.getMonth() - 3, 1);
+    const endDate = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+    
+    // 요일 헤더 생성
+    const daysHeader = document.createElement('div');
+    daysHeader.className = 'calendar-days-header';
+    ['일', '월', '화', '수', '목', '금', '토'].forEach(day => {
+        const dayElement = document.createElement('span');
+        dayElement.textContent = day;
+        dayElement.className = 'day-header';
+        daysHeader.appendChild(dayElement);
+    });
+    calendar.appendChild(daysHeader);
+    
+    // 월별로 캘린더 생성
+    let currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+        const monthContainer = document.createElement('div');
+        monthContainer.className = 'month-container';
+        
+        // 월 헤더
+        const monthHeader = document.createElement('div');
+        monthHeader.className = 'month-header';
+        monthHeader.textContent = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
+        monthContainer.appendChild(monthHeader);
+        
+        // 일 그리드
+        const daysGrid = document.createElement('div');
+        daysGrid.className = 'days-grid';
+        
+        const firstDay = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
+        const lastDay = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        const startPadding = firstDay.getDay();
+        
+        // 빈 칸 추가
+        for (let i = 0; i < startPadding; i++) {
+            const emptyDay = document.createElement('div');
+            emptyDay.className = 'day empty';
+            daysGrid.appendChild(emptyDay);
+        }
+        
+        // 실제 날짜들 추가
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const dayElement = document.createElement('div');
+            dayElement.className = 'day';
+            dayElement.dataset.date = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            
+            // 랜덤하게 학습 강도 설정 (실제로는 데이터에서 가져올 것)
+            const intensity = Math.random();
+            if (intensity > 0.7) dayElement.classList.add('level-3');
+            else if (intensity > 0.4) dayElement.classList.add('level-2');
+            else if (intensity > 0.1) dayElement.classList.add('level-1');
+            else dayElement.classList.add('level-0');
+            
+            // 오늘 날짜 표시
+            if (day === today.getDate() && currentDate.getMonth() === today.getMonth()) {
+                dayElement.classList.add('today');
+            }
+            
+            daysGrid.appendChild(dayElement);
+        }
+        
+        monthContainer.appendChild(daysGrid);
+        calendar.appendChild(monthContainer);
+        
+        currentDate.setMonth(currentDate.getMonth() + 1);
+    }
+}
+
+// 진행률 바 애니메이션
+function animateProgressBars() {
+    const progressBars = document.querySelectorAll('.progress-fill, .goal-fill');
+    progressBars.forEach((bar, index) => {
+        const width = bar.style.width;
+        bar.style.width = '0%';
+        setTimeout(() => {
+            bar.style.width = width;
+        }, index * 200);
+    });
+}
+
+// 진도 업데이트 함수
+function updateProgress(studyTitle) {
+    alert(`${studyTitle}의 진도를 업데이트합니다.`);
+    // 실제로는 서버에 업데이트 요청을 보낼 것
+}
+
+// 상세보기 함수
+function viewDetails(studyTitle) {
+    alert(`${studyTitle}의 상세 정보를 확인합니다.`);
+    // 실제로는 상세 페이지로 이동하거나 모달을 열 것
+}
+</script>

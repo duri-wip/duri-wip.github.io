@@ -1,10 +1,22 @@
 <aside class="sidebar">
-    <div class="profile-image"></div>
+    <img src="{{ site.author.avatar | relative_url }}" alt="{{ site.author.name }}" class="profile-image">
     <div class="profile-info">
         <h2>{{ site.author.name | default: "개발자 닉네임" }}</h2>
-        <p>{{ site.author.bio | default: "풀스택 개발자로서 새로운 기술을 탐구하고 학습하는 것을 좋아합니다." }}</p>
+        <p>{{ site.author.title }}</p>
+        <p>{{ site.author.bio }}</p>
     </div>
+    
     <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
         {% if site.author.github %}
         <a href="https://github.com/{{ site.author.github }}" class="contact-link" target="_blank">
             <i class="fab fa-github"></i>
@@ -19,34 +31,4 @@
         {% endif %}
     </div>
     
-    <!-- 통계 섹션 -->
-    <div class="stats-section">
-        <h3 class="stats-title">블로그 통계</h3>
-        <div class="stats-grid">
-            <div class="stat-item">
-                <span class="stat-number">{{ site.posts.size }}</span>
-                <span class="stat-label">총 포스트</span>
-            </div>
-            <div class="stat-item">
-                <span class="stat-number">{{ site.categories.size }}</span>
-                <span class="stat-label">카테고리</span>
-            </div>
-        </div>
-        {% if site.posts.size > 0 %}
-        <div class="activity-item">
-            <span class="activity-label">마지막 포스트</span>
-            <span class="activity-value">{{ site.posts.first.date | date: "%m월 %d일" }}</span>
-        </div>
-        {% endif %}
-        <div class="activity-item">
-            <span class="activity-label">평균 글 길이</span>
-            <span class="activity-value">8분 읽기</span>
-        </div>
-        {% if site.posts.size > 0 %}
-        <div class="activity-item">
-            <span class="activity-label">가장 인기글</span>
-            <span class="activity-value">{{ site.posts.first.title | truncate: 10 }}</span>
-        </div>
-        {% endif %}
-    </div>
 </aside>
