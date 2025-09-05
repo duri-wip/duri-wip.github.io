@@ -25,7 +25,6 @@
     border-bottom-color: var(--window-border);
     background-size: cover;
     background-position: center;
-    image-rendering: pixelated;
 }
 
 .profile-info h2 {
