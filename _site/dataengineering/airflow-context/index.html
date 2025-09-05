@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airflow에서 context와 args, kwargs의 활용</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Airflow에서 context와 args, kwargs의 활용</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 02일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">Airflow</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#airflow</span>
+                
+                <span class="tag">#context</span>
+                
+                <span class="tag">#python</span>
+                
+                <span class="tag">#decorator</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="airflow에서-context와-args-kwargs의-활용">Airflow에서 Context와 args, kwargs의 활용</h1>
+
+<p>Airflow에서 <code class="language-plaintext highlighter-rouge">args</code>,<code class="language-plaintext highlighter-rouge">kwargs</code>를 사용하면 파이썬 함수의 인자를 유연하게 다룰 수 있다. 이 개념과 함께 airflow의 context활용 방법을 함께 설명한다.</p>
+
+<h2 id="args와-kwargs란">args와 kwargs란?</h2>
+
+<h3 id="args-사용법"><code class="language-plaintext highlighter-rouge">args</code> 사용법</h3>
+
+<p><code class="language-plaintext highlighter-rouge">*args</code>는 여러 개의 값을 튜플 형태로 받는다. 함수에서 인자의 개수가 미리 정해져 있지 않을 때 유용하다. 인덱스를 사용해 값을 꺼낼 수 있지만, 어떤 값이 어떤 인덱스에 위치하는지 명확하지 않은 단점이 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">regist</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s">sex: </span><span class="si">{</span><span class="n">sex</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="bp">None</span>
+    <span class="n">p_num</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="bp">None</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">address: </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="se">\n</span><span class="s">phone number: </span><span class="si">{</span><span class="n">p_num</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="c1"># 함수 호출 예시
+</span><span class="nf">regist</span><span class="p">(</span><span class="sh">'</span><span class="s">Alice</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Female</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Seoul</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">010-1234-5678</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 예시에서 <code class="language-plaintext highlighter-rouge">name</code>과 <code class="language-plaintext highlighter-rouge">sex</code>는 필수 인자로 취급되고, <code class="language-plaintext highlighter-rouge">*args</code>는 추가적인 인자를 받는다. name, sex는 필수적으로 받아오는데 그 뒤의 인자들은 임의적으로 존재할 수 있는 경우에 인자가 2개 있으면 2개를 다 받아오고, 1개만 있으면 1개만 더 맏아오고, 없으면 없는대로 취급하는 유연한 처리가 가능하다.</p>
+
+<h3 id="kwargs-사용법"><code class="language-plaintext highlighter-rouge">kwargs</code> 사용법</h3>
+
+<p><code class="language-plaintext highlighter-rouge">**kwargs</code>는 키-값 쌍의 형태로 여러 인자를 받는다. 딕셔너리처럼 값을 다룰 수 있어, 인자 이름을 지정해 값을 꺼낼 수 있는 장점이 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">regist</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sex</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">name: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="se">\n</span><span class="s">sex: </span><span class="si">{</span><span class="n">sex</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">address</span><span class="sh">'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="n">p_num</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">p_num</span><span class="sh">'</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="s">address: </span><span class="si">{</span><span class="n">address</span><span class="si">}</span><span class="se">\n</span><span class="s">phone number: </span><span class="si">{</span><span class="n">p_num</span><span class="si">}</span><span class="sh">'</span><span class="p">)</span>
+
+<span class="c1"># 함수 호출 예시
+</span><span class="nf">regist</span><span class="p">(</span><span class="sh">'</span><span class="s">Alice</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">Female</span><span class="sh">'</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="sh">'</span><span class="s">Seoul</span><span class="sh">'</span><span class="p">,</span> <span class="n">p_num</span><span class="o">=</span><span class="sh">'</span><span class="s">010-1234-5678</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">kwargs.get()</code>을 사용하면 키가 존재하지 않을 때 기본값을 설정할 수 있습니다.</p>
+
+<h3 id="args와-kwargs-함께-사용하기"><code class="language-plaintext highlighter-rouge">args</code>와 <code class="language-plaintext highlighter-rouge">kwargs</code> 함께 사용하기</h3>
+
+<p><code class="language-plaintext highlighter-rouge">args</code>와 <code class="language-plaintext highlighter-rouge">kwargs</code>는 함께 사용할 수 있다. 이때, <code class="language-plaintext highlighter-rouge">*args</code>가 먼저, <code class="language-plaintext highlighter-rouge">**kwargs</code>는 그 뒤에 오도록 사용한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">sample_func</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">a: </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s">, b: </span><span class="si">{</span><span class="n">b</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">args: </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">kwargs: </span><span class="si">{</span><span class="n">kwargs</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="nf">sample_func</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">key1</span><span class="o">=</span><span class="sh">'</span><span class="s">value1</span><span class="sh">'</span><span class="p">,</span> <span class="n">key2</span><span class="o">=</span><span class="sh">'</span><span class="s">value2</span><span class="sh">'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="airflow에서의-context-활용">Airflow에서의 Context 활용</h2>
+
+<p>Airflow의 컨텍스트는 특정 태스크에 대한 실행 정보를 담고 있는 딕셔너리다. 이를 통해 현재 실행 중인 DAG, 태스크, 실행 시간 등 다양한 정보를 파라미터로 전달받을 수 있다. <code class="language-plaintext highlighter-rouge">@task</code> 데코레이터나 <code class="language-plaintext highlighter-rouge">PythonOperator</code>를 사용할 때, <code class="language-plaintext highlighter-rouge">context</code>를 함수에 전달하여 실행 흐름에 대한 정보를 활용할 수 있다.</p>
+
+<h3 id="context에-포함된-기본-항목">Context에 포함된 기본 항목</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">dag</code>: 현재 실행 중인 DAG 객체</li>
+  <li><code class="language-plaintext highlighter-rouge">dag_run</code>: 현재 실행 중인 DAGRun 객체</li>
+  <li><code class="language-plaintext highlighter-rouge">task</code>: 현재 실행 중인 태스크 객체</li>
+  <li><code class="language-plaintext highlighter-rouge">task_instance</code>: 태스크 인스턴스 객체</li>
+  <li><code class="language-plaintext highlighter-rouge">execution_date</code>: 태스크 실행 날짜 및 시간</li>
+  <li><code class="language-plaintext highlighter-rouge">ds</code>: 실행 날짜 (YYYY-MM-DD 형식)</li>
+  <li><code class="language-plaintext highlighter-rouge">ts</code>: 실행 시간 (YYYY-MM-DDTHH:MM:SS 형식)</li>
+  <li><code class="language-plaintext highlighter-rouge">prev_execution_date</code>: 이전 실행 날짜 및 시간</li>
+  <li><code class="language-plaintext highlighter-rouge">next_execution_date</code>: 다음 실행 날짜 및 시간</li>
+  <li><code class="language-plaintext highlighter-rouge">conf</code>: Airflow 전체 설정 정보 (configuration)</li>
+  <li><code class="language-plaintext highlighter-rouge">macros</code>: Airflow에서 사용할 수 있는 매크로 함수들</li>
+</ul>
+
+<h3 id="context-예시-매크로-활용">Context 예시: 매크로 활용</h3>
+
+<p>DAG 내에서 태스크가 실행될 때, <code class="language-plaintext highlighter-rouge">context</code> 정보를 받아 현재 실행 중인 날짜와 이전, 다음 실행 날짜를 출력합니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span> <span class="n">airflow.operators.python</span> <span class="kn">import</span> <span class="n">PythonOperator</span>
+<span class="kn">from</span> <span class="n">airflow.utils.dates</span> <span class="kn">import</span> <span class="n">days_ago</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+
+<span class="c1"># 기본 DAG 설정
+</span><span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">'</span><span class="s">owner</span><span class="sh">'</span><span class="p">:</span> <span class="sh">'</span><span class="s">airflow</span><span class="sh">'</span><span class="p">,</span>
+    <span class="sh">'</span><span class="s">start_date</span><span class="sh">'</span><span class="p">:</span> <span class="nf">days_ago</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="c1"># 매크로를 사용하는 함수
+</span><span class="k">def</span> <span class="nf">use_macros</span><span class="p">(</span><span class="o">**</span><span class="n">context</span><span class="p">):</span>
+    <span class="n">ds</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="sh">'</span><span class="s">ds</span><span class="sh">'</span><span class="p">]</span>  <span class="c1"># 현재 실행 날짜 (YYYY-MM-DD 형식)
+</span>    <span class="n">next_ds</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="sh">'</span><span class="s">next_execution_date</span><span class="sh">'</span><span class="p">]</span>  <span class="c1"># 다음 실행 날짜
+</span>    <span class="n">prev_ds</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="sh">'</span><span class="s">prev_execution_date</span><span class="sh">'</span><span class="p">]</span>  <span class="c1"># 이전 실행 날짜
+</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">현재 실행 날짜: </span><span class="si">{</span><span class="n">ds</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">다음 실행 날짜: </span><span class="si">{</span><span class="n">next_ds</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">이전 실행 날짜: </span><span class="si">{</span><span class="n">prev_ds</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># DAG 생성
+</span><span class="k">with</span> <span class="nc">DAG</span><span class="p">(</span>
+    <span class="sh">'</span><span class="s">macro_example_dag</span><span class="sh">'</span><span class="p">,</span>
+    <span class="n">default_args</span><span class="o">=</span><span class="n">default_args</span><span class="p">,</span>
+    <span class="n">schedule_interval</span><span class="o">=</span><span class="nf">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>  <span class="c1"># 매일 실행
+</span>    <span class="n">catchup</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="k">as</span> <span class="n">dag</span><span class="p">:</span>
+
+    <span class="c1"># PythonOperator에서 매크로 활용
+</span>    <span class="n">macro_task</span> <span class="o">=</span> <span class="nc">PythonOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="sh">'</span><span class="s">use_macros_task</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">python_callable</span><span class="o">=</span><span class="n">use_macros</span><span class="p">,</span>
+        <span class="n">provide_context</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>  <span class="c1"># context 정보를 함수에 전달
+</span>    <span class="p">)</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">use_macros</code> 함수가 <code class="language-plaintext highlighter-rouge">context</code> 정보를 사용해 현재와 이전, 그리고 다음 실행 날짜를 출력한다. <code class="language-plaintext highlighter-rouge">provide_context=True</code> 옵션을 사용해 <code class="language-plaintext highlighter-rouge">PythonOperator</code>는 자동으로 해당 정보를 함수로 전달한다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/tools/yaml-concept/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">YAML 파일 사용법과 기본 개념</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml&ai/dvc-instruction/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">DVC 사용법 가이드</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

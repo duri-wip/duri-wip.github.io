@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도커 아키텍처</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">도커 아키텍처</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 01일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">devops-infra</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#docker</span>
+                
+                <span class="tag">#container</span>
+                
+                <span class="tag">#architecture</span>
+                
+                <span class="tag">#devops</span>
+                
+                <span class="tag">#infrastructure</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="도커-컨테이너의-아키텍처">도커 컨테이너의 아키텍처</h1>
+
+<p><img src="/assets/images/post_img/docker-inside-architecture.png" alt="Docker Container Architecture" /></p>
+
+<p>도커는 도커 데몬, containerd, runC로 구성되어 있다.</p>
+
+<h2 id="1-docker-daemon-dockerd">1. Docker Daemon (<code class="language-plaintext highlighter-rouge">dockerd</code>)</h2>
+
+<p>도커 데몬은 도커의 핵십 백그라운드 프로세스로, 도커 컨테이너의 모든 주요 기능을 담당하며 클라이언트와의 상호작용을 처리한다. 이미지를 빌드하거나 컨테이너를 관리하는 역할을 주로 수행한다.</p>
+
+<p><strong>도커 데몬의 주요 구성 요소:</strong></p>
+
+<ul>
+  <li><strong>Docker CLI</strong>:<br />
+도커 명령줄 인터페이스(CLI)로, 사용자나 애플리케이션이 <code class="language-plaintext highlighter-rouge">dockerd</code>에게 명령을 내리는 도구. 사용자는 CLI를 통해 컨테이너 생성, 삭제, 네트워크 구성 등의 작업을 할 수 있다.</li>
+  <li>
+    <p><strong>Swarm Kit</strong>:<br />
+도커 데몬이 지원하는 클러스터 관리 도구. <strong>Swarm</strong>은 도커의 네이티브 오케스트레이션 도구로, 여러 대의 도커 호스트를 클러스터로 묶어 관리하고, 이 클러스터에서 컨테이너를 분산 배포한다. 클러스터를 관리하며, 애플리케이션을 여러 노드에 걸쳐 효율적으로 배포할 수 있다.</p>
+  </li>
+  <li>
+    <p><strong>Logs Management</strong>:<br />
+모든 도커 컨테이너의 로그를 관리하는 시스템. 도커 데몬은 컨테이너의 로그를 수집하고 관리하여 디버깅 및 모니터링 작업을 지원한다.</p>
+  </li>
+  <li>
+    <p><strong>Storage Management</strong>:<br />
+도커 데몬은 <strong>볼륨(Volumes)</strong>과 <strong>바인드 마운트(Bind Mounts)</strong>를 통해 컨테이너의 데이터를 영구적으로 저장할 수 있는 방법을 제공한다. 이를 통해 컨테이너가 중지되더라도 데이터가 유지되며, 컨테이너 간에 데이터를 공유할 수 있다.</p>
+  </li>
+  <li>
+    <p><strong>Libnetwork</strong>:<br />
+도커의 네트워킹 라이브러리로, 도커 컨테이너 간의 네트워크 통신을 설정한다. 도커는 기본적으로 <strong>브리지 네트워크(bridge network)</strong>를 사용하여 컨테이너들이 서로 통신할 수 있도록 한다. 이때, <strong>MAC 주소 기반(L2 레벨)</strong>으로 통신을 수행하며, 독립된 네트워크 환경을 제공한다.</p>
+  </li>
+  <li>
+    <p><strong>Build Kit</strong>:<br />
+도커 이미지 생성에 사용되는 도구. <strong>BuildKit</strong>은 도커의 빌드 성능을 최적화하고, 캐시 레이어를 효율적으로 사용하여 더 빠른 빌드를 가능하게 한다. 또한, 빌드 작업을 분산 처리할 수 있어 복잡한 빌드 과정을 최적화할 수 있다.</p>
+  </li>
+  <li>
+    <p><strong>DCT (Docker Content Trust)</strong>:<br />
+도커 컨텐츠의 보안성을 보장하는 기능. <strong>DCT</strong>를 통해 이미지의 서명 및 검증을 수행할 수 있어, 신뢰할 수 있는 소스에서 생성된 이미지만 사용하도록 설정할 수 있다. 이는 이미지 배포 시 보안을 강화하는 중요한 역할을 한다.</p>
+  </li>
+  <li><strong>Image Management</strong>:<br />
+도커 이미지의 생성, 삭제, 배포를 관리한다. 이미지는 도커 컨테이너의 템플릿 역할을 하며, 데몬은 이를 관리하여 필요할 때 빠르게 컨테이너를 시작할 수 있게 한다.</li>
+</ul>
+
+<h2 id="2-containerd">2. Containerd</h2>
+
+<p><code class="language-plaintext highlighter-rouge">containerd</code>는 도커의 핵심 컴포넌트 중 하나로, 컨테이너의 <strong>런타임 엔진</strong> 역할을 한다. 도커 데몬과 함께 작동하며, 컨테이너의 실행, 멈춤, 삭제 등의 생명주기를 관리한다. 이는 고수준의 API를 통해 컨테이너 작업을 처리하며, 다양한 컨테이너 엔진과 통합될 수 있다.</p>
+
+<ul>
+  <li><strong>CRI-O</strong>:<br />
+<strong>CRI-O</strong>는 쿠버네티스의 컨테이너 런타임 인터페이스(CRI)에 맞춘 경량화된 컨테이너 런타임으로, <code class="language-plaintext highlighter-rouge">containerd</code>와 함께 쿠버네티스 환경에서 도커 없이도 컨테이너를 실행할 수 있는 엔진이다. 도커가 아닌 <strong>OCI(Open Container Initiative)</strong> 표준 컨테이너를 실행할 수 있도록 설계되었다.</li>
+</ul>
+
+<h2 id="3-runc-container-runtime">3. RunC (Container Runtime)</h2>
+
+<p><code class="language-plaintext highlighter-rouge">runC</code>는 도커의 컨테이너를 실제로 실행하는 경량화된 <strong>컨테이너 런타임</strong>이다. <strong>Open Container Initiative(OCI)</strong> 표준을 따르며, 리눅스 시스템에서 도커가 제공하는 컨테이너의 격리 환경을 직접적으로 실행하고 관리한다. 도커와 다른 도구들도 이 런타임을 사용하여 컨테이너를 구동할 수 있다.</p>
+
+<ul>
+  <li><strong>컨테이너 생성에 관여</strong>:<br />
+<code class="language-plaintext highlighter-rouge">runC</code>는 도커 컨테이너가 생성되면 이를 실행하는 역할을 하며, 리눅스 네임스페이스와 cgroups를 통해 자원 격리와 제한을 설정한다.</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/docker-cloud-native-and-docker-container/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">클라우드 네이티브와 도커</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/docker-images-and-container/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Images and Container</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

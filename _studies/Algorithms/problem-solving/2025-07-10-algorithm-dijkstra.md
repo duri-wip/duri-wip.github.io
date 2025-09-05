@@ -1,0 +1,114 @@
+---
+title: "배달"
+excerpt: "다익스트라 알고리즘 기초: 최단 경로 구하기, 가중치"
+
+category:  algorithm
+tags:
+  - [Algorithm, 다익스트라]
+
+permalink: /algorithm/road
+toc: true
+toc_sticky: true
+
+date: 2025-07-10
+last_modified_at: 2025-07-10
+---
+
+## 문제
+
+n개의 마을로 이루어진 나라에 양방향으로 통행할 수 있는 도로가 있다.
+마을 개수가 n, 각 마을을 연결하는 도로의 정보, 음식 배달이 가능한 시간 k가 매개변수로 주어질때
+음식 주문을 받을 수 있는 마을의 개수를 반환하시오.
+
+## 풀이
+
+```
+import heapq
+
+def solution(n, road, k):
+    print(f"=== 다익스트라 알고리즘 시작 ===")
+    print(f"마을 개수: {n}, 배달 가능 시간: {k}")
+    print(f"도로 정보: {road}")
+    print()
+
+    # 각 노드에 연결된 간선을 저장할 리스트
+    graph = [[] for _ in range(n+1)]
+    print(f"초기 그래프: {graph}")
+    print()
+
+    # 출발점에서 각 노드까지의 최단 거리를 저장할 리스트
+    distances = [float("inf")] * (n+1)
+    print(f"초기 거리 배열: {distances}")
+
+    # 출발점은 0으로 초기화 --> 왜 1이 출발점??
+    distances[1] = 0
+    print(f"출발점(1번 마을) 거리 초기화: {distances}")
+    print()
+
+    # 그래프 구성 --  양방향
+    print("=== 그래프 구성 ===")
+    for a, b, cost in road:
+        graph[a].append((b,cost))
+        graph[b].append((a, cost))
+        print(f"도로 추가: {a} ↔ {b} (거리: {cost})")
+        print(f"현재 그래프: {graph}")
+        print()
+
+    # 다익스트라 알고리즘 시작
+    heap = []
+    heapq.heappush(heap, (0,1)) # heap에 출발점 추가
+    print(f"=== 다익스트라 알고리즘 실행 ===")
+    print(f"초기 힙: {heap}")
+    print()
+
+    step = 1
+    while heap:
+        dist, node = heapq.heappop(heap)
+        print(f"--- Step {step} ---")
+        print(f"힙에서 꺼낸 노드: {node} (거리: {dist})")
+        print(f"현재 거리 배열: {distances}")
+
+        if dist > distances[node]:
+            print(f"이미 더 짧은 경로가 존재하므로 건너뜀")
+            print()
+            continue
+
+        print(f"{node}번 마을에서 연결된 마을들 확인:")
+
+        for next_node, next_dist in graph[node]:
+            cost = dist + next_dist
+            print(f"  {node} → {next_node}: 현재거리({dist}) + 도로거리({next_dist}) = {cost}")
+            print(f"  기존 {next_node}번까지 거리: {distances[next_node]}")
+
+            if cost < distances[next_node]:
+                distances[next_node] = cost
+                heapq.heappush(heap, (cost, next_node))
+                print(f"  ✅ 더 짧은 경로 발견! {next_node}번 거리를 {cost}로 업데이트")
+                print(f"  힙에 ({cost}, {next_node}) 추가")
+            else:
+                print(f"  ❌ 기존 경로가 더 짧음")
+            print()
+
+        print(f"현재 힙 상태: {heap}")
+        print()
+        step += 1
+
+    print(f"=== 최종 결과 ===")
+    print(f"각 마을까지의 최단 거리: {distances}")
+    reachable = [i for i, dist in enumerate(distances) if dist <= k]
+    print(f"배달 가능한 마을들: {reachable}")
+    result = sum(1 for dist in distances if dist <= k)
+    print(f"배달 가능한 마을 개수: {result}")
+
+    return result
+```
+
+heapq란??
+최소 heap 을 구현한 파이썬 라이브러리. 힙은 완전 이진 트리 구조로, 부모노드가 자식 노드보다 항상 작거나 같은 값을 가지는 특성을 가진다.
+heappop()으로 가장 작은 거리를 가진 노드를 빠르게 꺼낼 수 있다.
+
+이거랑 같다.
+
+```
+min_node = min(nodes, key=lambda x: distances[x])
+```

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Jekyll</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 02일</time>
+            
+            <div class="post-categories">
+                
+                    
+                
+                
+            </div>
+            
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>블로그 구성하면서 페이지 로드시 동적으로 어떤일이 일어나는지 디버깅하기가 어려워서 그냥 공부하는 글.
+지금 어려움을 겪는건 이런 기능에서다.
+기능:
+대분류 카테고리 사이드바에서 선택 -&gt; 해당 카테고리의 소분류가 메인 콘텐츠 영역에 카드형식으로 뜸
+이 카드를 클릭하면 -&gt; 소분류에 해당되는 포스트가 피드형식으로 뜸</p>
+
+<p>🔍 동작 단계별 분석</p>
+
+<p>1단계: 페이지 로드 시 HTML 생성 (Jekyll/Liquid)</p>
+
+<p>위치: categories.html 라인 120-230</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 1. 카테고리별 서브카테고리 카드 생성 --&gt;</span>
+
+
+
+  <span class="c">&lt;!-- 2. 서브카테고리별 포스트 컨테이너 생성 --&gt;</span>
+
+  
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>여기서 생성되는 것들:</p>
+
+<ul>
+  <li>서브카테고리 카드 (클릭할 수 있는 버튼)</li>
+  <li>서브카테고리별 포스트 컨테이너 (숨겨진 상태)</li>
+</ul>
+
+<p>여기서 사용하는 subcat_slug, category_slug는</p>
+
+<ul>
+  <li>category_slug: 라인 125에서 <code class="language-plaintext highlighter-rouge">{% assign category_slug = category_name %}</code></li>
+  <li>subcat_slug: 라인 143에서 <code class="language-plaintext highlighter-rouge">{% assign subcat_slug = subcat_name %}</code></li>
+</ul>
+
+<p>이 변수들은 Jekyll의 Liquid 템플릿에서 <code class="language-plaintext highlighter-rouge">{% assign %}</code> 태그로 선언합니다.</p>
+
+<p>여기서 말하는 포스트컨테이너란?</p>
+
+<hr />
+
+<p>2단계: JavaScript 이벤트 리스너 등록</p>
+
+<p>위치: categories.html 라인 302-450</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMContentLoaded</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="c1">// 필요한 DOM 요소들 선택</span>
+<span class="kd">const</span> <span class="nx">categoryItems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.category-item</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">postsContainers</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.posts-container</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">currentCategoryTitle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">.current-category</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>dom 이란?
+<strong>DOM (Document Object Model)</strong>은 웹페이지의 HTML 구조를 JavaScript에서 조작할 수 있게 해주는 인터페이스예요.</p>
+
+<p><!-- 이 HTML이 있으면 --></p>
+<div class="subcategory-card" data-subcategory="genai-llm">
+      <h3 class="subcat-title">GenAI&amp;LLM</h3>
+  </div>
+
+<p>// JavaScript에서 이렇게 접근할 수 있어요
+const card = document.querySelector(‘.subcategory-card’);
+console.log(card.dataset.subcategory); // “genai-llm”
+console.log(card.querySelector(‘.subcat-title’).textContent); // “GenAI&amp;LLM”</p>
+
+<p>등록되는 이벤트들:</p>
+
+<ol>
+  <li>대분류 카테고리 클릭 이벤트</li>
+  <li>서브카테고리 카드 클릭 이벤트</li>
+  <li>브레드크럼 네비게이션 이벤트</li>
+</ol>
+
+<p>3단계: 대분류 카테고리 클릭 시 동작</p>
+
+<p>위치: categories.html 라인 307-338</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">categoryItems</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">item</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">category</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">category</span><span class="p">;</span> <span class="c1">// 예: "ML&amp;AI"</span>
+
+    <span class="c1">// 1. 사이드바에서 활성 표시</span>
+    <span class="nx">categoryItems</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">cat</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">cat</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="dl">"</span><span class="s2">active</span><span class="dl">"</span><span class="p">));</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="dl">"</span><span class="s2">active</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="c1">// 2. 모든 포스트 컨테이너 숨기기</span>
+    <span class="nx">postsContainers</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 3. 해당 카테고리의 서브카테고리 그리드 표시</span>
+    <span class="kd">const</span> <span class="nx">targetContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span>
+      <span class="s2">`[data-category-content="</span><span class="p">${</span><span class="nx">category</span><span class="p">}</span><span class="s2">"]`</span>
+    <span class="p">);</span>
+    <span class="nx">targetContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>확인할 수 있는 것들:</p>
+
+<ul>
+  <li>data-category-content=”ML&amp;AI” 컨테이너가 표시되는가?</li>
+  <li>서브카테고리 카드들이 보이는가?</li>
+</ul>
+
+<p>4단계: 서브카테고리 카드 클릭 시 동작 (핵심!)</p>
+
+<p>위치: categories.html 라인 333-353</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">subcatCard</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">subcategory</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">;</span> <span class="c1">// 예: "genai-llm"</span>
+    <span class="kd">const</span> <span class="nx">parentCategory</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span> <span class="c1">// 예: "ML&amp;AI"</span>
+
+    <span class="c1">// 1. 모든 컨테이너 숨기기</span>
+    <span class="nx">postsContainers</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 2. 해당 서브카테고리 컨테이너 찾기 및 표시</span>
+    <span class="kd">const</span> <span class="nx">subcatContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span>
+      <span class="s2">`[data-subcategory="</span><span class="p">${</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2">"][data-parent="</span><span class="p">${</span><span class="nx">parentCategory</span><span class="p">}</span><span class="s2">"]`</span>
+    <span class="p">);</span>
+
+    <span class="k">if </span><span class="p">(</span><span class="nx">subcatContainer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">subcatContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 3. 제목 업데이트</span>
+    <span class="kd">const</span> <span class="nx">subcatName</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcat-title</span><span class="dl">"</span><span class="p">).</span><span class="nx">textContent</span><span class="p">;</span>
+    <span class="nx">currentCategoryTitle</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">subcatName</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> 포스트</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>🐛 디버깅 체크포인트</p>
+
+<ol>
+  <li>HTML 구조 확인</li>
+</ol>
+
+<p>브라우저 개발자도구에서 확인해야 할 것들:</p>
+
+<p><!-- 서브카테고리 카드가 올바른 data 속성을 가지고 있는가? --></p>
+<div class="subcategory-card" data-subcategory="genai-llm" data-parent="ML&amp;AI">
+
+  <!-- 해당하는 포스트 컨테이너가 존재하는가? -->
+  <div class="posts-container subcategory-posts" data-subcategory="genai-llm" data-parent="ML&amp;AI" style="display: none;">
+
+2. JavaScript 디버깅 포인트
+
+콘솔에서 확인할 수 있는 것들:
+
+// 1. 서브카테고리 카드들이 올바른 데이터를 가지고 있는가?
+document.querySelectorAll('.subcategory-card').forEach(card =&gt; {
+console.log('Card:', card.dataset.subcategory, card.dataset.parent);
+});
+
+// 2. 서브카테고리 포스트 컨테이너들이 존재하는가?
+document.querySelectorAll('[data-subcategory]').forEach(container =&gt; {
+console.log('Container:', container.dataset.subcategory, container.dataset.parent);
+});
+
+// 3. 특정 선택자로 컨테이너를 찾을 수 있는가?
+const container = document.querySelector('[data-subcategory="genai-llm"][data-parent="ML&amp;AI"]');
+console.log('Found container:', container);
+
+3. 가능한 문제점들
+
+1. 데이터 속성 불일치
+
+   - 카드의 data-parent="ML&amp;AI"
+   - 컨테이너의 data-parent="ML&amp;AI" (HTML 인코딩)
+
+1. 중복 컨테이너
+
+   - 같은 data-subcategory를 가진 컨테이너가 여러 개
+
+1. CSS 선택자 문제
+
+   - 특수문자(&amp;) 때문에 선택자가 제대로 동작하지 않음
+
+1. 포스트 필터링 문제
+
+   - Jekyll에서 포스트가 올바른 서브카테고리로 분류되지 않음
+
+어떤 단계에서 문제가 생기는지 알려주시면 더 구체적으로 디버깅해드릴 수 있어요!
+</div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/fastapi-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94%EC%88%9C%EC%84%9C/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">FastAPI 개발 순서</span>
+            </a>
+            
+            
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

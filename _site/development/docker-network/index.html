@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도커 네트워크의 구조</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">도커 네트워크의 구조</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 01일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">devops-infra</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#devops-infra</span>
+                
+                <span class="tag">#docker</span>
+                
+                <span class="tag">#network</span>
+                
+                <span class="tag">#networking</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="docker-network">Docker network</h2>
+
+<h3 id="도커-0">도커 0</h3>
+
+<ul>
+  <li>도커 데몬이 실행될 때 도커 0라는 브릿지 네트워크가 기본으로 지정된다.</li>
+  <li>브릿지 네트워크는 모든 도커 호스트에 존재한다.</li>
+  <li>도커 호스트의 default network (172.17.0.0/16) 중에서도 172.17.0.1이 도커 0에 할당된다.</li>
+  <li>이 안에서 컨테이너가 실행되면 컨테이너가 실행되는 순서에 따라 ip address를 할당한다.</li>
+  <li>컨테이너의 게이트웨이는 도커 0가 되고, nat를 지원한다.</li>
+  <li>따라서 웹서버 컨테이너를 실행하면 게이트웨이인 도커0(172.17.0.1)을 통해 외부와 통신하게 된다.</li>
+  <li>외부유저는 포트를 가지고 접속하고, 포트 포워딩을 통해 내부 컨테이너에 접속할 수 있다.</li>
+</ul>
+
+<h3 id="컨테이너-네트워크-구성요소">컨테이너 네트워크 구성요소</h3>
+
+<ul>
+  <li>ip address : 할당된 ip</li>
+  <li>gateway address : docker 0</li>
+  <li>hostname : 컨테이너 id 중 앞 12문자</li>
+  <li>외부 접속이 가능하도록 하려면 포트 포워딩이 필요하다</li>
+</ul>
+
+<p>컨테이너 포트와 호스트 포트 매핑</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name web -p 80:80 nginx
+</code></pre></div></div>
+
+<p>web 컨테이너로 80번 포트에서 외부로 접속이 가능해진다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker inspect web
+curl 172.17.0.3 #내부에서 확인
+</code></pre></div></div>
+
+<p>외부에서 80번 포트로 접속 확인</p>
+
+<p>랜덤 포트 사용하기</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run -d --name web -p 80 nginx
+</code></pre></div></div>
+
+<p>여러개의 컨테이너를 띄우는 경우에 랜덤하게 사용하지 않는 포트를 사용하도록 하여 유연하게 대응할 수 있다.</p>
+
+<h3 id="docker-network-driver">docker network driver</h3>
+
+<ul>
+  <li>bridge : docker0. default driver</li>
+  <li>host : 컨테이너가 호스트의 ip주소를 가지도록 하는 것.</li>
+  <li>null
+    <ul>
+      <li>컨테이너에 네트워크를 설정하지 않음. 통신을 하지 못하도록 설정한다.</li>
+      <li>같은 네트워크를 가지는 컨테이너간에는 자유롭게 통신이 가능한데 이런 경우에 보안상 문제가 될 수 있으므로 차단하는 것.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run --net=bridge nginx
+docker run --net=host nginx
+docker run --net=none nginx
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/docker-images-and-container/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Images and Container</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/docker-storage/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">도커 스토리지의 구조와 관리법</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

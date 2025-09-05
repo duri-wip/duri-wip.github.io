@@ -1,0 +1,428 @@
+---
+layout: default
+title: 카테고리
+---
+
+<div class="categories-layout">
+    <!-- 카테고리 사이드바 -->
+    <aside class="categories-sidebar">
+        <div class="sidebar-header">
+            <h2 class="sidebar-title">카테고리</h2>
+            <div class="total-posts">총 {{ site.posts.size }}개 포스트</div>
+        </div>
+        
+        <div class="category-list">
+            <!-- 전체 보기 -->
+            <div class="category-item active" data-category="all">
+                <div class="category-info">
+                    <i class="fas fa-th-large category-icon"></i>
+                    <span class="category-name">전체</span>
+                </div>
+                <span class="post-count">{{ site.posts.size }}</span>
+            </div>
+            
+            {% assign sorted_categories = site.categories | sort %}
+            {% for category in sorted_categories %}
+                {% assign category_name = category[0] %}
+                {% assign category_posts = category[1] %}
+                {% assign post_count = category_posts.size %}
+                
+                <!-- 빈 카테고리 이름 필터링 -->
+                {% if category_name != "" and category_name != nil and post_count > 0 %}
+                    <!-- Generate slug from category name -->
+                    {% assign category_slug = category_name %}
+                        
+                    <div class="category-item" data-category="{{ category_slug }}">
+                        <div class="category-info">
+                            <i class="fas category-icon" style="color: #000000;"></i>
+                            <span class="category-name">{{ category_name }}</span>
+                        </div>
+                        <span class="post-count">{{ post_count }}</span>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+        
+        <!-- 태그 클라우드 -->
+        <div class="tags-section">
+            <h3 class="tags-title">인기 태그</h3>
+            <div class="tags-cloud">
+                {% assign sorted_tags = site.tags | sort %}
+                {% for tag in sorted_tags limit:15 %}
+                    {% assign tag_posts = tag[1] %}
+                    <span class="tag-item" data-tag="{{ tag[0] }}" style="font-size: {{ tag_posts.size | times: 2 | plus: 10 }}px;">
+                        {{ tag[0] }} ({{ tag_posts.size }})
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+    </aside>
+    
+    <!-- 메인 콘텐츠 -->
+    <main class="categories-main">
+        <div class="content-header">
+            <h1 class="current-category">전체 포스트</h1>
+        </div>
+        
+        <div class="posts-feed" id="postsFeed">
+            <!-- 전체 포스트 목록 (기본) -->
+            <div class="posts-container" data-category="all">
+                {% for post in site.posts %}
+                <article class="feed-post" data-category="{% if post.categories.first %}{{ post.categories.first }}{% else %}{{ post.category.first }}{% endif %}" data-subcategory="{{ post.subcategory | downcase }}">
+                    <div class="post-header">
+                        <h2 class="post-title">
+                            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                        </h2>
+                        <div class="post-meta">
+                            <span class="post-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+                            {% if post.categories.size > 0 %}
+                                <span class="post-category">{{ post.categories.first }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="post-excerpt">
+                        {{ post.excerpt | strip_html | truncate: 150 }}
+                    </div>
+                    
+                    {% if post.tags.size > 0 %}
+                    <div class="post-tags">
+                        {% for tag in post.tags limit:3 %}
+                            <span class="tag">#{{ tag }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                    
+                    <div class="post-footer">
+                        <a href="{{ post.url | relative_url }}" class="read-more">더 읽기</a>
+                    </div>
+                </article>
+                {% endfor %}
+            </div>
+            
+            <!-- 카테고리별 서브카테고리 그리드 -->
+            {% assign sorted_categories = site.categories | sort %}
+            {% for category in sorted_categories %}
+                {% assign category_name = category[0] %}
+                {% assign category_posts = category[1] %}
+                {% assign category_slug = category_name %}
+                
+                <!-- 서브카테고리별로 그룹화 -->
+                {% assign subcategories = category_posts | group_by: "subcategory" %}
+                
+                <div class="posts-container" data-category-content="{{ category_slug }}" style="display: none;">
+                    <div class="category-header">
+                        <h2>{{ category_name }}</h2>
+                        <p>{{ category_posts.size }}개의 포스트</p>
+                    </div>
+                    
+                    <!-- 서브카테고리가 제대로 설정된 포스트만 표시 -->
+                    {% assign valid_subcategories = subcategories | where_exp: "item", "item.name != ''" %}
+                    <div class="subcategories-grid">
+                        {% for subcat_group in valid_subcategories %}
+                            {% assign subcat_name = subcat_group.name %}
+                            {% assign subcat_posts = subcat_group.items %}
+                            {% assign subcat_slug = subcat_name %}
+                            
+                            <!-- DEBUG: category_name="{{ category_name }}" subcat_name="{{ subcat_name }}" posts={{ subcat_posts.size }} -->
+                            
+                            <div class="subcategory-card" data-subcategory="{{ subcat_slug }}" data-parent="{{ category_slug }}">
+                                <div class="subcat-header">
+                                    <i class="fas fa-folder-open"></i>
+                                    <h3 class="subcat-title">{{ subcat_name }}</h3>
+                                    <span class="subcat-count">{{ subcat_posts.size }}개</span>
+                                </div>
+                                
+                                <!-- 최근 포스트 미리보기 -->
+                                <div class="subcat-preview">
+                                    <h4>최근 글</h4>
+                                    {% for post in subcat_posts limit:3 %}
+                                    <div class="preview-post">
+                                        <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                                        <span class="preview-date">{{ post.date | date: "%m.%d" }}</span>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- 각 서브카테고리별 포스트 컨테이너들 -->
+                    {% for subcat_group in valid_subcategories %}
+                        {% assign subcat_name = subcat_group.name %}
+                        {% assign subcat_posts = subcat_group.items %}
+                        {% assign subcat_slug = subcat_name %}
+                        
+                        <div class="posts-container subcategory-posts" data-subcategory="{{ subcat_slug }}" data-parent="{{ category_slug }}" style="display: none;">
+                            <!-- 브레드크럼 -->
+                            <div class="breadcrumb-nav">
+                                <span class="breadcrumb-item" data-action="back-to-categories">카테고리</span>
+                                <span class="breadcrumb-separator">></span>
+                                <span class="breadcrumb-item" data-action="back-to-parent" data-category="{{ category_slug }}">{{ category_name }}</span>
+                                <span class="breadcrumb-separator">></span>
+                                <span class="breadcrumb-current">{{ subcat_name }}</span>
+                            </div>
+                            
+                            {% for post in subcat_posts %}
+                            <article class="feed-post" data-category="{% if post.categories.first %}{{ post.categories.first }}{% else %}{{ post.category.first }}{% endif %}" data-subcategory="{{ post.subcategory | downcase }}">
+                            <div class="post-header">
+                                <h2 class="post-title">
+                                    <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                                </h2>
+                                <div class="post-meta">
+                                    <span class="post-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+                                    <span class="post-category">{{ category_name }}</span>
+                                    <span class="post-subcategory">{{ subcat_name }}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="post-excerpt">
+                                {{ post.excerpt | strip_html | truncate: 150 }}
+                            </div>
+                            
+                            {% if post.tags.size > 0 %}
+                            <div class="post-tags">
+                                {% for tag in post.tags limit:5 %}
+                                    <span class="tag">#{{ tag }}</span>
+                                {% endfor %}
+                            </div>
+                            {% endif %}
+                            
+                            <div class="post-footer">
+                                <a href="{{ post.url | relative_url }}" class="read-more">더 읽기</a>
+                            </div>
+                        </article>
+                        {% endfor %}
+                        </div>
+                    {% endfor %}
+                    
+                    <!-- 전체 포스트 보기 버튼 -->
+                    <div class="view-all-posts">
+                        <button class="view-all-btn" data-category="{{ category_slug }}">
+                            {{ category_name }} 전체 포스트 보기 ({{ category_posts.size }}개)
+                        </button>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            
+            <!-- 카테고리 전체 포스트 목록 -->
+            {% for category in sorted_categories %}
+                {% assign category_name = category[0] %}
+                {% assign category_posts = category[1] %}
+                {% assign category_slug = category_name %}
+                
+                <div class="posts-container category-all-posts" data-category-all="{{ category_slug }}" style="display: none;">
+                    <!-- 브레드크럼 -->
+                    <div class="breadcrumb-nav">
+                        <span class="breadcrumb-item" data-action="back-to-categories">카테고리</span>
+                        <span class="breadcrumb-separator">></span>
+                        <span class="breadcrumb-item" data-action="back-to-parent" data-category="{{ category_slug }}">{{ category_name }}</span>
+                        <span class="breadcrumb-separator">></span>
+                        <span class="breadcrumb-current">전체 포스트</span>
+                    </div>
+                    
+                    {% for post in category_posts %}
+                    <article class="feed-post" data-category="{% if post.categories.first %}{{ post.categories.first }}{% else %}{{ post.category.first }}{% endif %}" data-subcategory="{{ post.subcategory | downcase }}">
+                        <div class="post-header">
+                            <h2 class="post-title">
+                                <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+                            </h2>
+                            <div class="post-meta">
+                                <span class="post-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+                                <span class="post-category">{{ category_name }}</span>
+                                {% if post.subcategory %}
+                                    <span class="post-subcategory">{{ post.subcategory }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="post-excerpt">
+                            {{ post.excerpt | strip_html | truncate: 150 }}
+                        </div>
+                        
+                        {% if post.tags.size > 0 %}
+                        <div class="post-tags">
+                            {% for tag in post.tags limit:5 %}
+                                <span class="tag">#{{ tag }}</span>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        
+                        <div class="post-footer">
+                            <a href="{{ post.url | relative_url }}" class="read-more">더 읽기</a>
+                            <span class="reading-time">{{ post.content | number_of_words | divided_by: 200 | plus: 1 }}분 읽기</span>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            
+        </div>
+    </main>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const categoryItems = document.querySelectorAll('.category-item');
+    const postsContainers = document.querySelectorAll('.posts-container');
+    const currentCategoryTitle = document.querySelector('.current-category');
+    
+    // 카테고리 클릭 이벤트 (대분류)
+    categoryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            const category = this.dataset.category;
+            
+            // // 활성 카테고리 표시
+            // categoryItems.forEach(cat => cat.classList.remove('active'));
+            // this.classList.add('active');
+            
+            // 모든 컨테이너 숨기기
+            postsContainers.forEach(container => {
+                container.style.display = 'none';
+            });
+            
+            // 해당 카테고리 컨테이너 표시
+            let targetContainer;
+            if (category === 'all') {
+                targetContainer = document.querySelector(`[data-category="${category}"]`);
+            } else {
+                targetContainer = document.querySelector(`[data-category-content="${category}"]`);
+            }
+            if (targetContainer) {
+                targetContainer.style.display = 'block';
+            }
+            
+            // 제목 업데이트
+            if (category === 'all') {
+                currentCategoryTitle.textContent = '전체 포스트';
+            } else {
+                const categoryName = this.querySelector('.category-name').textContent;
+                currentCategoryTitle.textContent = categoryName;
+            }
+        });
+    });
+    
+    // 하위 카테고리 클릭 이벤트
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.subcategory-card')) {
+            console.log('🔍 서브카테고리 카드 클릭됨!');
+            const subcatCard = e.target.closest('.subcategory-card');
+            const subcategory = subcatCard.dataset.subcategory;
+            const parentCategory = subcatCard.dataset.parent;
+            
+            console.log('📋 추출된 데이터:', {subcategory, parentCategory});
+            
+            // parent가 비어있는 카드는 무시 (중복 카드 방지)
+            if (!parentCategory || parentCategory === '') {
+                console.log('❌ 부모 카테고리 없음:', subcategory);
+                return;
+            }
+            
+            console.log('✅ 처리 시작 - subcategory:', subcategory, 'parent:', parentCategory);
+            
+            // 모든 컨테이너 숨기기
+            postsContainers.forEach(container => {
+                container.style.display = 'none';
+            });
+            
+            // 전체 포스트 컨테이너 표시
+            const allPostsContainer = document.querySelector('.posts-container[data-category="all"]');
+            console.log('📦 전체 포스트 컨테이너:', allPostsContainer);
+            
+            if (allPostsContainer) {
+                allPostsContainer.style.display = 'block';
+                
+                // 모든 포스트를 동적으로 필터링
+                const allPosts = allPostsContainer.querySelectorAll('.feed-post');
+                console.log('📄 전체 포스트 개수:', allPosts.length);
+                
+                let matchCount = 0;
+                allPosts.forEach((post, index) => {
+                    const postCategory = post.dataset.category;
+                    const postSubcategory = post.dataset.subcategory;
+                    
+                    // 처음 5개 포스트만 상세 로그
+                    if (index < 5) {
+                        console.log(`📝 포스트 ${index + 1}:`, {postCategory, postSubcategory});
+                    }
+                    
+                    // 카테고리와 서브카테고리가 모두 일치하는 포스트만 표시
+                    const categoryMatch = postCategory && postCategory.trim().toLowerCase() === parentCategory.trim().toLowerCase();
+                    const subcategoryMatch = postSubcategory && postSubcategory.trim().toLowerCase() === subcategory.trim().toLowerCase();
+                    
+                    if (categoryMatch && subcategoryMatch) {
+                        post.style.display = 'block';
+                        matchCount++;
+                        console.log('✅ 매칭된 포스트:', post.querySelector('.post-title a').textContent);
+                    } else {
+                        post.style.display = 'none';
+                    }
+                });
+                
+                console.log('🎯 총 매칭된 포스트:', matchCount);
+            } else {
+                console.log('❌ 전체 포스트 컨테이너를 찾을 수 없음');
+            }
+            
+            // 제목 업데이트
+            const subcatName = subcatCard.querySelector('.subcat-title').textContent;
+            currentCategoryTitle.textContent = subcatName + ' 포스트';
+        }
+        
+        // 전체 포스트 보기 버튼
+        if (e.target.matches('.view-all-btn')) {
+            const category = e.target.dataset.category;
+            
+            // 모든 컨테이너 숨기기
+            postsContainers.forEach(container => {
+                container.style.display = 'none';
+            });
+            
+            // 해당 카테고리 전체 포스트 표시
+            const allPostsContainer = document.querySelector(`[data-category-all="${category}"]`);
+            if (allPostsContainer) {
+                allPostsContainer.style.display = 'block';
+            }
+            
+            // 제목 업데이트
+            const categoryName = document.querySelector(`[data-category="${category}"] .category-name`).textContent;
+            currentCategoryTitle.textContent = categoryName + ' 전체 포스트';
+        }
+        
+        // 브레드크럼 네비게이션
+        if (e.target.matches('[data-action="back-to-categories"]')) {
+            // 전체 카테고리로 돌아가기
+            postsContainers.forEach(container => {
+                container.style.display = 'none';
+            });
+            document.querySelector('[data-category="all"]').style.display = 'block';
+            
+            categoryItems.forEach(cat => cat.classList.remove('active'));
+            document.querySelector('[data-category="all"]').classList.add('active');
+            currentCategoryTitle.textContent = '전체 포스트';
+        }
+        
+        if (e.target.matches('[data-action="back-to-parent"]')) {
+            const parentCategory = e.target.dataset.category;
+            
+            // 부모 카테고리로 돌아가기
+            postsContainers.forEach(container => {
+                container.style.display = 'none';
+            });
+            
+            const parentContainer = document.querySelector(`[data-category-content="${parentCategory}"]`);
+            if (parentContainer) {
+                parentContainer.style.display = 'block';
+            }
+            
+            // 사이드바 활성화
+            categoryItems.forEach(cat => cat.classList.remove('active'));
+            document.querySelector(`[data-category="${parentCategory}"]`).classList.add('active');
+            
+            const categoryName = document.querySelector(`[data-category="${parentCategory}"] .category-name`).textContent;
+            currentCategoryTitle.textContent = categoryName;
+        }
+    });
+});
+</script>

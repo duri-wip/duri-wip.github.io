@@ -1,0 +1,43 @@
+<section class="recent-posts">
+    <div class="section-header">
+        <h2 class="section-title">최근 게시물</h2>
+    </div>
+    
+    <div class="posts-grid">
+        <!-- 모든 컬렉션에서 최신 포스트 통합 -->
+        {% assign all_posts = site.posts | concat: site.projects | concat: site.studies %}
+        {% assign sorted_posts = all_posts | sort: 'date' | reverse %}
+        {% for post in sorted_posts limit:6 %}
+        <article class="post-card">
+            <div class="post-header">
+                <h3>
+                    <a href="{{ post.url | relative_url }}" style="text-decoration: none; color: inherit;">
+                        {{ post.title }}
+                    </a>
+                </h3>
+                <div class="post-category-badge">
+                    {% if post.collection == 'studies' %}
+                        {% if post.path contains 'Algorithms' %}
+                            <span class="badge-algorithm">알고리즘</span>
+                        {% else %}
+                            <span class="badge-study">스터디</span>
+                        {% endif %}
+                    {% elsif post.collection == 'projects' %}
+                        <span class="badge-project">프로젝트</span>
+                    {% else %}
+                        <span class="badge-blog">블로그</span>
+                    {% endif %}
+                </div>
+            </div>
+            <p>{{ post.excerpt | strip_html | truncate: 120 }}</p>
+            <div class="post-meta">
+                <span class="post-date">{{ post.date | date: "%Y.%m.%d" }}</span>
+                {% if post.categories.size > 0 %}
+                    <span class="post-category">{{ post.categories.first }}</span>
+                {% endif %}
+                <a href="{{ post.url | relative_url }}" class="read-more">더 읽기</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+</section>

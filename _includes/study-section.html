@@ -1,0 +1,53 @@
+<section class="study-section">
+    <div class="section-header">
+        <h2 class="section-title">진행중인 스터디</h2>
+    </div>
+    
+    <!-- YAML 데이터 기반 스터디 카드들 -->
+    <div class="studies-container">
+        {% if site.data.studies %}
+            {% for study in site.data.studies %}
+            <div class="study-card">
+                <div class="study-header">
+                    <div>
+                        <h3 class="study-title">{{ study.title }}</h3>
+                        <div class="study-description">{{ study.description }}</div>
+                    </div>
+                    <span class="study-status status-{{ study.status | default: 'progress' | replace: '진행중', 'progress' | replace: '완료', 'completed' }}">{{ study.status | default: "진행중" }}</span>
+                </div>
+                
+                <!-- 동적 포스트 개수 계산 -->
+                {% assign study_posts = site.studies | where_exp: "post", "post.path contains study.permalink" %}
+                
+                <!-- 진행률 계산 -->
+                {% assign current_count = study_posts.size %}
+                {% assign total_count = study.total | default: 50 %}
+                {% assign progress_percent = current_count | times: 100 | divided_by: total_count %}
+                
+                <div class="study-progress">
+                    <div class="progress-info">
+                        <span class="progress-text">진행률</span>
+                        <span class="progress-percentage">{{ progress_percent }}%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: {{ progress_percent }}%"></div>
+                    </div>
+                    <div class="progress-details">
+                        <span class="current-progress">{{ current_count }}/{{ total_count }}</span>
+                    </div>
+                </div>
+                
+                <!-- 최근 포스트 3개 -->
+                {% if study_posts.size > 0 %}
+                <div class="study-posts">
+                    {% assign recent_posts = study_posts | sort: 'date' | reverse %}
+                    {% for post in recent_posts limit:3 %}
+                    <a href="{{ post.url | relative_url }}" class="study-post-link">{{ post.title | truncate: 30 }}</a>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>

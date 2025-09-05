@@ -1,0 +1,18 @@
+<h2 id="문제">문제</h2>
+
+<p>n 번째 피보나치 수 구하기</p>
+
+<h2 id="해결">해결</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">fibo</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">1</span>
+    
+    <span class="k">return</span> <span class="nf">fibo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="nf">fibo</span><span class="p">(</span><span class="n">n</span><span class="o">-</span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></div>
+<h2 id="알게된-점">알게된 점</h2>
+
+<ul>
+  <li>중첩함수 : 함수 안에 함수가 있고, 마치 안에 있는 함수 자체를 객체로 쓰는 것 처럼 함수값을 리턴하는 함수를 말한다.</li>
+  <li>이전 두개의 수를 저장해 재귀적으로 계산하는 방식은 다른 알고리즘에 활용되므로 염두에 두자.</li>
+</ul>

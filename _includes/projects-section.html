@@ -1,0 +1,86 @@
+<section class="projects-section">
+    <div class="section-header">
+        <h2 class="section-title">프로젝트</h2>
+        <div class="section-stats">
+            {% assign total_projects = site.projects.size | plus: site.data.projects.size %}
+            <span class="stat-item">총 {{ total_projects }}개</span>
+            <span class="stat-item">포스트 {{ site.projects.size }}개</span>
+        </div>
+    </div>
+    
+    <div class="projects-grid">
+        <!-- 실제 프로젝트 포스트들 -->
+        {% assign recent_project_posts = site.projects | sort: 'date' | reverse %}
+        {% for project in recent_project_posts limit:4 %}
+        <div class="project-card dynamic">
+            <div class="project-header">
+                <h3 class="project-title">{{ project.title }}</h3>
+                <div class="project-meta">
+                    <span class="project-date">{{ project.date | date: "%Y.%m" }}</span>
+                    {% if project.status %}
+                    <span class="project-status status-{{ project.status }}">{{ project.status }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            <p class="project-description">{{ project.excerpt | strip_html | truncate: 120 }}</p>
+            {% if project.tech_stack %}
+            <div class="project-tech-stack">
+                {% assign techs = project.tech_stack | split: "," %}
+                {% for tech in techs limit:3 %}
+                <span class="tech-badge">{{ tech | strip }}</span>
+                {% endfor %}
+            </div>
+            {% endif %}
+            <div class="project-links">
+                <a href="{{ project.url | relative_url }}" class="project-link primary">포스트 보기</a>
+                {% if project.github_url %}
+                <a href="{{ project.github_url }}" class="project-link" target="_blank">GitHub</a>
+                {% endif %}
+                {% if project.demo_url %}
+                <a href="{{ project.demo_url }}" class="project-link" target="_blank">데모</a>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+        
+        <!-- YAML 데이터 프로젝트들 (최신 프로젝트 포스트가 부족할 경우 보완) -->
+        {% assign remaining_slots = 6 | minus: recent_project_posts.size %}
+        {% if remaining_slots > 0 and site.data.projects %}
+            {% for project in site.data.projects limit: remaining_slots %}
+            <div class="project-card static">
+                <div class="project-header">
+                    <h3 class="project-title">{{ project.title }}</h3>
+                    <div class="project-meta">
+                        {% if project.date %}
+                        <span class="project-date">{{ project.date | date: "%Y.%m" }}</span>
+                        {% endif %}
+                        {% if project.status %}
+                        <span class="project-status status-{{ project.status }}">{{ project.status }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                <p class="project-description">{{ project.description | truncate: 120 }}</p>
+                {% if project.tech_stack %}
+                <div class="project-tech-stack">
+                    {% assign techs = project.tech_stack | split: "," %}
+                    {% for tech in techs limit:3 %}
+                    <span class="tech-badge">{{ tech | strip }}</span>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="project-links">
+                    {% if project.post_url %}
+                    <a href="{{ project.post_url }}" class="project-link primary">포스트 보기</a>
+                    {% endif %}
+                    {% if project.github_url %}
+                    <a href="{{ project.github_url }}" class="project-link" target="_blank">GitHub</a>
+                    {% endif %}
+                    {% if project.demo_url %}
+                    <a href="{{ project.demo_url }}" class="project-link" target="_blank">데모</a>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</section>

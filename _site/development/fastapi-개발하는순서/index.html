@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI 개발 순서</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">FastAPI 개발 순서</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 17일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">Backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#development-workflow</span>
+                
+                <span class="tag">#best-practices</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="이-책에서는-이런-순서로-만들었다">이 책에서는 이런 순서로 만들었다</h1>
+
+<ol>
+  <li>유스케이스 : 유저를 생성한다.
+    <blockquote>
+      <p>main.py : 서버 선언
+domain/user.py : 도메인 user 객체에서 사용할 도메인 모델을 먼저 작성.
+domain/user_repo.py : user 도메인을 영속화하기 위한 모듈을 작성한다.
+? 영속화란?
+application/user_service.py : 유저를 생성하고 저장하는 실제 서비스 객체 구현
+domain/user_repo.py : 도메인 영속화를 위한 모듈에 추상화 메서드 생성
+infra/user_repo.py : 인프라 계층의 레포지토리 함수를 구현. 도메인 계층의 모듈을 상속한다.</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : 중복 유저를 검사하고 중복이 없으면 유저 생성
+    <blockquote>
+      <p>application/user_service.py: 중복 유저를 검사하고 생성하는 로직 구현-find_by_email
+domain/user_repo.py : 영속화 도메인에서 관련 메서드 생성-find_by_email</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : 패스워드를 암호화해서 저장한다.
+    <blockquote>
+      <p>utils/crypto.py: 암복호화를 위한 모듈 구현
+application/user_service.py: 유저 생성 시 패스워드 암호화 저장 로직 구현</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : post 요청을 통해 유저 생성을 할 수 있도록 엔드포인트 구현
+    <blockquote>
+      <p>interface/model.py: 유저 관련 엔드포인트에서 받을 데이터에 대한 모델 생성
+interface/user_controller.py : 유저 관련 엔드포인트 라우터 생성
+main.py: router include</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : 422 에러를 400 에러로 반환하기
+    <blockquote>
+      <p>main.py: 에러 헨들러 생성
+interface/user_controller.py: 애플리케이션 계층의 유저생성 서비스 함수를 호출한다.</p>
+    </blockquote>
+  </li>
+</ol>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/fastapi-paging/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">FastAPI 페이징 및 페이지네이션</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/jekyll/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Jekyll</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

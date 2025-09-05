@@ -1,0 +1,99 @@
+---
+layout: default
+title: 스터디
+permalink: /study/
+---
+
+<div class="study-page">
+    <header class="page-header">
+        <h1 class="page-title">스터디</h1>
+    </header>
+
+    <div class="ongoing-studies">
+        <h2 class="section-title">
+            목록
+        </h2>
+        
+        <div class="studies-grid">
+            {% for study in site.data.studies %}
+                <div class="study-card active">
+                    <div class="study-header">
+                        <div class="study-info">
+                            <h3 class="study-title">{{ study.title }}</h3>
+                            <p class="study-description">{{ study.description }}</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 동적 진행률 계산 -->
+                    {% assign study_posts = site.studies | where_exp: "post", "post.path contains study.category_filter" %}
+                    {% assign current_count = study_posts.size %}
+                    {% assign total_count = study.total | default: 50 %}
+                    {% assign progress_percent = current_count | times: 100 | divided_by: total_count %}
+                    
+                    <div class="study-progress">
+                        <div class="progress-info">
+                            <span class="progress-text">진행률</span>
+                            <span class="progress-percentage">{{ progress_percent }}%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: {{ progress_percent }}%"></div>
+                        </div>
+                        <div class="progress-details">
+                            <span class="current-progress">{{ current_count }}/{{ total_count }}</span>
+                        </div>
+                    </div>
+                    
+                    {% if study.category_filter %}
+                    {% assign related_posts = site.studies | where_exp: "post", "post.path contains study.category_filter" | sort: 'date' | reverse %}
+                    {% if related_posts.size > 0 %}
+                    <div class="study-posts">
+                        <h4 class="posts-title">관련 포스트</h4>
+                        <div class="posts-list">
+                            {% for post in related_posts limit:3 %}
+                            <a href="{{ post.url }}" class="post-link">
+                                <span>{{ post.title }}</span>
+                            </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endif %}
+                    
+                    <div class="study-actions">
+                        <!-- <button class="action-btn secondary" onclick="viewDetails('{{ study.title }}')">
+                            <i class="fas fa-chart-line"></i> 상세보기
+                        </button> -->
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- 최근 학습 활동 -->
+    <div class="recent-activities">
+        <h2 class="section-title">
+            최근 학습 활동
+        </h2>
+        
+        <div class="activity-timeline">
+            {% assign study_posts = site.studies | sort: 'date' | reverse %}
+            {% for post in study_posts limit:5 %}
+            <div class="activity-item">
+                <div class="activity-date">
+                    <span class="date">{{ post.date | date: "%m.%d" }}</span>
+                    <span class="time">{{ post.date | date: "%H:%M" }}</span>
+                </div>
+                <div class="activity-content">
+                    <div class="activity-details">
+                        <h4 class="activity-title">{{ post.title }}</h4>
+                        <p class="activity-description">{{ post.excerpt | strip_html | truncate: 80 }}</p>
+                        <a href="{{ post.url | relative_url }}" class="activity-link">포스트 보기 →</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+    </div>
+</div>
+

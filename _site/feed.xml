@@ -1,0 +1,1077 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2025-09-05T23:12:56+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Duri’s Work In Progress</title><subtitle>열심히 배우고 있습니다.</subtitle><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><entry><title type="html">Jekyll</title><link href="http://localhost:4000/jekyll/" rel="alternate" type="text/html" title="Jekyll" /><published>2025-09-02T00:00:00+09:00</published><updated>2025-09-02T00:00:00+09:00</updated><id>http://localhost:4000/jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/"><![CDATA[<p>블로그 구성하면서 페이지 로드시 동적으로 어떤일이 일어나는지 디버깅하기가 어려워서 그냥 공부하는 글.
+지금 어려움을 겪는건 이런 기능에서다.
+기능:
+대분류 카테고리 사이드바에서 선택 -&gt; 해당 카테고리의 소분류가 메인 콘텐츠 영역에 카드형식으로 뜸
+이 카드를 클릭하면 -&gt; 소분류에 해당되는 포스트가 피드형식으로 뜸</p>
+
+<p>🔍 동작 단계별 분석</p>
+
+<p>1단계: 페이지 로드 시 HTML 생성 (Jekyll/Liquid)</p>
+
+<p>위치: categories.html 라인 120-230</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 1. 카테고리별 서브카테고리 카드 생성 --&gt;</span>
+
+
+
+  <span class="c">&lt;!-- 2. 서브카테고리별 포스트 컨테이너 생성 --&gt;</span>
+
+  
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<p>여기서 생성되는 것들:</p>
+
+<ul>
+  <li>서브카테고리 카드 (클릭할 수 있는 버튼)</li>
+  <li>서브카테고리별 포스트 컨테이너 (숨겨진 상태)</li>
+</ul>
+
+<p>여기서 사용하는 subcat_slug, category_slug는</p>
+
+<ul>
+  <li>category_slug: 라인 125에서 <code class="language-plaintext highlighter-rouge">{% assign category_slug = category_name %}</code></li>
+  <li>subcat_slug: 라인 143에서 <code class="language-plaintext highlighter-rouge">{% assign subcat_slug = subcat_name %}</code></li>
+</ul>
+
+<p>이 변수들은 Jekyll의 Liquid 템플릿에서 <code class="language-plaintext highlighter-rouge">{% assign %}</code> 태그로 선언합니다.</p>
+
+<p>여기서 말하는 포스트컨테이너란?</p>
+
+<hr />
+
+<p>2단계: JavaScript 이벤트 리스너 등록</p>
+
+<p>위치: categories.html 라인 302-450</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMContentLoaded</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+<span class="c1">// 필요한 DOM 요소들 선택</span>
+<span class="kd">const</span> <span class="nx">categoryItems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.category-item</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">postsContainers</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.posts-container</span><span class="dl">'</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">currentCategoryTitle</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">.current-category</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>dom 이란?
+<strong>DOM (Document Object Model)</strong>은 웹페이지의 HTML 구조를 JavaScript에서 조작할 수 있게 해주는 인터페이스예요.</p>
+
+<p><!-- 이 HTML이 있으면 --></p>
+<div class="subcategory-card" data-subcategory="genai-llm">
+      <h3 class="subcat-title">GenAI&amp;LLM</h3>
+  </div>
+
+<p>// JavaScript에서 이렇게 접근할 수 있어요
+const card = document.querySelector(‘.subcategory-card’);
+console.log(card.dataset.subcategory); // “genai-llm”
+console.log(card.querySelector(‘.subcat-title’).textContent); // “GenAI&amp;LLM”</p>
+
+<p>등록되는 이벤트들:</p>
+
+<ol>
+  <li>대분류 카테고리 클릭 이벤트</li>
+  <li>서브카테고리 카드 클릭 이벤트</li>
+  <li>브레드크럼 네비게이션 이벤트</li>
+</ol>
+
+<p>3단계: 대분류 카테고리 클릭 시 동작</p>
+
+<p>위치: categories.html 라인 307-338</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">categoryItems</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">item</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">item</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">category</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">category</span><span class="p">;</span> <span class="c1">// 예: "ML&amp;AI"</span>
+
+    <span class="c1">// 1. 사이드바에서 활성 표시</span>
+    <span class="nx">categoryItems</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">cat</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">cat</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">remove</span><span class="p">(</span><span class="dl">"</span><span class="s2">active</span><span class="dl">"</span><span class="p">));</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="dl">"</span><span class="s2">active</span><span class="dl">"</span><span class="p">);</span>
+
+    <span class="c1">// 2. 모든 포스트 컨테이너 숨기기</span>
+    <span class="nx">postsContainers</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 3. 해당 카테고리의 서브카테고리 그리드 표시</span>
+    <span class="kd">const</span> <span class="nx">targetContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span>
+      <span class="s2">`[data-category-content="</span><span class="p">${</span><span class="nx">category</span><span class="p">}</span><span class="s2">"]`</span>
+    <span class="p">);</span>
+    <span class="nx">targetContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>확인할 수 있는 것들:</p>
+
+<ul>
+  <li>data-category-content=”ML&amp;AI” 컨테이너가 표시되는가?</li>
+  <li>서브카테고리 카드들이 보이는가?</li>
+</ul>
+
+<p>4단계: 서브카테고리 카드 클릭 시 동작 (핵심!)</p>
+
+<p>위치: categories.html 라인 333-353</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">subcatCard</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">subcategory</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">;</span> <span class="c1">// 예: "genai-llm"</span>
+    <span class="kd">const</span> <span class="nx">parentCategory</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span> <span class="c1">// 예: "ML&amp;AI"</span>
+
+    <span class="c1">// 1. 모든 컨테이너 숨기기</span>
+    <span class="nx">postsContainers</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 2. 해당 서브카테고리 컨테이너 찾기 및 표시</span>
+    <span class="kd">const</span> <span class="nx">subcatContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span>
+      <span class="s2">`[data-subcategory="</span><span class="p">${</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2">"][data-parent="</span><span class="p">${</span><span class="nx">parentCategory</span><span class="p">}</span><span class="s2">"]`</span>
+    <span class="p">);</span>
+
+    <span class="k">if </span><span class="p">(</span><span class="nx">subcatContainer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">subcatContainer</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="c1">// 3. 제목 업데이트</span>
+    <span class="kd">const</span> <span class="nx">subcatName</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcat-title</span><span class="dl">"</span><span class="p">).</span><span class="nx">textContent</span><span class="p">;</span>
+    <span class="nx">currentCategoryTitle</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="nx">subcatName</span> <span class="o">+</span> <span class="dl">"</span><span class="s2"> 포스트</span><span class="dl">"</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</code></pre></div></div>
+
+<p>🐛 디버깅 체크포인트</p>
+
+<ol>
+  <li>HTML 구조 확인</li>
+</ol>
+
+<p>브라우저 개발자도구에서 확인해야 할 것들:</p>
+
+<p><!-- 서브카테고리 카드가 올바른 data 속성을 가지고 있는가? --></p>
+<div class="subcategory-card" data-subcategory="genai-llm" data-parent="ML&amp;AI">
+
+  <!-- 해당하는 포스트 컨테이너가 존재하는가? -->
+  <div class="posts-container subcategory-posts" data-subcategory="genai-llm" data-parent="ML&amp;AI" style="display: none;">
+
+2. JavaScript 디버깅 포인트
+
+콘솔에서 확인할 수 있는 것들:
+
+// 1. 서브카테고리 카드들이 올바른 데이터를 가지고 있는가?
+document.querySelectorAll('.subcategory-card').forEach(card =&gt; {
+console.log('Card:', card.dataset.subcategory, card.dataset.parent);
+});
+
+// 2. 서브카테고리 포스트 컨테이너들이 존재하는가?
+document.querySelectorAll('[data-subcategory]').forEach(container =&gt; {
+console.log('Container:', container.dataset.subcategory, container.dataset.parent);
+});
+
+// 3. 특정 선택자로 컨테이너를 찾을 수 있는가?
+const container = document.querySelector('[data-subcategory="genai-llm"][data-parent="ML&amp;AI"]');
+console.log('Found container:', container);
+
+3. 가능한 문제점들
+
+1. 데이터 속성 불일치
+
+   - 카드의 data-parent="ML&amp;AI"
+   - 컨테이너의 data-parent="ML&amp;AI" (HTML 인코딩)
+
+1. 중복 컨테이너
+
+   - 같은 data-subcategory를 가진 컨테이너가 여러 개
+
+1. CSS 선택자 문제
+
+   - 특수문자(&amp;) 때문에 선택자가 제대로 동작하지 않음
+
+1. 포스트 필터링 문제
+
+   - Jekyll에서 포스트가 올바른 서브카테고리로 분류되지 않음
+
+어떤 단계에서 문제가 생기는지 알려주시면 더 구체적으로 디버깅해드릴 수 있어요!
+</div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><summary type="html"><![CDATA[블로그 구성하면서 페이지 로드시 동적으로 어떤일이 일어나는지 디버깅하기가 어려워서 그냥 공부하는 글. 지금 어려움을 겪는건 이런 기능에서다. 기능: 대분류 카테고리 사이드바에서 선택 -&gt; 해당 카테고리의 소분류가 메인 콘텐츠 영역에 카드형식으로 뜸 이 카드를 클릭하면 -&gt; 소분류에 해당되는 포스트가 피드형식으로 뜸]]></summary></entry><entry><title type="html">FastAPI 페이징 및 페이지네이션</title><link href="http://localhost:4000/development/fastapi-paging/" rel="alternate" type="text/html" title="FastAPI 페이징 및 페이지네이션" /><published>2025-08-17T00:00:00+09:00</published><updated>2025-08-17T00:00:00+09:00</updated><id>http://localhost:4000/development/fastapi-paging</id><content type="html" xml:base="http://localhost:4000/development/fastapi-paging/"><![CDATA[<h1 id="페이징-페이지네이션">페이징, 페이지네이션</h1>
+
+<p>대량의 데이터를 여러 페이지로 나누어 표시하는 것.
+페이징을 적용하면 다음과 같은 개선점이 있다</p>
+
+<ul>
+  <li>사용자 경험 개선</li>
+  <li>로딩 시간 감소</li>
+  <li>서버 리소스 절약</li>
+</ul>
+
+<p>페이징을 적용하려면 현재의 페이지거 몇번재 페이지인지, 한 화면에 몇개의 아이템을 보여줄지를 알아야 한다.</p>
+
+<h1 id="파이단틱-유효성-검사">파이단틱 유효성 검사</h1>
+
+<p>컨트롤러가 존재하는 인터페이스 계층의 구현. 내부에서 사용하는 형식으로 외부에서 받은 데이터를 가공하기 + 내부에서 처리한 결과를 가공하여 외부에 보내기
+두개만 잘하면 된다.</p>
+
+<h2 id="1-요청-매개변수--본문-검사">1. 요청 매개변수 / 본문 검사</h2>
+
+<ul>
+  <li>새로 스키마 정의 언어를 배우지 않고 타입 힌트를 사용할 줄 안다면 새로 배워야하는 부분이 없다.</li>
+  <li>ide, lint, mypy에 모두 활용 가능하다</li>
+  <li>계층적 모델을 사용 가능하다</li>
+  <li>json 스키마로 문서화할 수 있다.</li>
+  <li>사용자 정의 데이터 타입을 정의할 수 있고, validator 데코레이터가 달린 모델의 메서드를 이용해 유효성 검사를 확장할 수 있다.</li>
+  <li>테스트 커버리지가 100%다.</li>
+</ul>
+
+<p>근데 그러면 외부에서 “21”로 들어오는 문자형 타입이 내부에서는 정수형으로 되어잇으면 변환해서 받는건가?? 파이단틱이??</p>
+
+<h2 id="2-응답-모델-정의">2. 응답 모델 정의</h2>
+
+<p>응답에도 유효성 검사를 적용해 데이터 타입을 제한하거나 길이 제한을 검사할 수 있다.
+불필요하게 응답에 포함시켜서는 안되는 데이터에 대한 정의를 할 수 있다.</p>
+
+<h1 id="비동기-프로그래밍">비동기 프로그래밍</h1>
+
+<p>fastapi는 파이썬의 asyncio패키기를 기반으로, async/await 문법을 사용해 비동기 코드를 작성할 수 있다.
+파이썬에서 동시성을 처리하는 방법</p>
+
+<ol>
+  <li>
+    <p>멀티스레딩
+부모 프로세스의 메모리 콘텍스트를 공유해 여러 스레드를 실행한다.
+가장 잘 알려져있고 오래된 동시성 모델이며, 입출력이 많이 수행되거나 사용자 인터페이스 응답성을 유지해야하는 애플리케이션에서 효과적으로 동작한다.
+threading 모듈을 사용해 스레드를 생성하고 관리할 수 있다. 각 스레드는 독립적으로 실행되며, 여러작업을 동시에 처리할 수 있다.
+그러나 gil(global interpreter lock)으로 인해 cpu를 주로 사용하는 작업에서는 실제로 동시성 향상이 일어나지 않을 수 있다.</p>
+  </li>
+  <li>
+    <p>멀티 프로세싱
+여러 작업을 여러 독립된 프로세스에서 실행해 분산된 환경에서 작동하도록 한다.
+멀티 스레딩과 달리 공유 메모리 컨텍스트에 의존하지 않는다.
+cpu를 많이 사용하는 애플리케이션에 더 적합하다.
+멀티 스레딩보다 무거우며 프로세스간 통신을 구현해 프로세스들이 조화롭게 동작하도록 해야한다.</p>
+  </li>
+  <li>
+    <p>비동기 프로그래밍
+여러 작업을 단일 애플리케이션 프로세스에서 실행한다. 협력적 작업들은 스레드처럼 동작하지만 작업 전환은 운영체제 커널이 아니라 애플리케이션이 스스로 담당한다.
+io가 많은 애플리케이션, 특히 동시다발적인 네트워크 연결을 다루는 프로그램에 적합하다.
+그러나 전용 비동기 라이브러리를 사용해야한다는 단점이 있다.</p>
+  </li>
+</ol>
+
+<blockquote>
+  <p>결론
+일반적으로 io 바운드 작업에서는 비동기 프로그래밍이 유용하고 cpu 바운드 작업에는 멀티 스레드/ 멀티 프로세싱이 유용하다고 본다.</p>
+</blockquote>
+
+<p>! 그렇지만 모든 병렬처리가 효율적이지는 않다</p>
+
+<h1 id="fastapi의-비동기-처리">fastapi의 비동기 처리</h1>
+
+<p>이렇게 만들면 이렇게 동작한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import asyncio
+from datetime import datetime
+from fastapi import APIRouter
+
+router = APIRouter("/")
+
+async def async_task(num):
+    print("task: ", num)
+    await asyncio.sleep(1)
+    return num
+
+@router.get("")
+async def async_exp():
+    now = datetime.now()
+    results = await asyncio.gather(
+        async_task(1), async_task(2), async_task(3)
+    )
+    print(datetime.now() - now)
+
+    return {"results": results}
+</code></pre></div></div>
+
+<ol>
+  <li>async.sleep(1)을 통해 비동기 작업이 1초를 기다린다.</li>
+  <li>각 작업을 동시에 수행하고 수행한 모든 작업이 끝날때까지 기다린 다음, 그 결과를 모은다</li>
+  <li>순서대로 결과를 모은 다음에 동시에 리턴</li>
+</ol>
+
+<h1 id="jwt">jwt</h1>
+
+<p>유저의 로그인 정보를 브라우저나 앱과 같은 클라이언트에 저장하고, 로그인 후의 요청에 이 정보를 전달하는 방식을 취할 수 있다.
+이 과정에서 클라이언트의 보안 취약점을 보호하기 위해 jwt를 사용한다.</p>
+
+<p>jwt는 두 당사자 사이에 이전될 수 있는 클레임을 나타내는 간결하면서도 안전한 방법이다.
+Jwt에 포함되는 클레임은 Json으로 인코딩 돼 json 웹 서명의 페이로드 또는 json 웹 암호화의 일반 텍스트로 사용된다.
+클레임을 디지털 방식으로 서명하거나 메시지 인증 코드로 암호화해서 무결성을 보호한다.</p>
+
+<p>동작방식을 확인할 수 있는 사이트 : https://jwt.io</p>
+
+<h2 id="헤더">헤더</h2>
+
+<p>헤더는 일반적으로 Jwt의 유형과 어떤 알고리즘에 의해 인코딩 됏는지를 포함한다.
+“typ” : jwt를 처리하는 애플리케이션에게 페이로드가 무엇인지를 알려주는 역할.
+“alg” : 토큰을 암호화하는 알고리즘</p>
+
+<h2 id="페이로드">페이로드</h2>
+
+<p>페이로드는 클레임이라 부르는 정보를 포함한다.</p>
+
+<h3 id="클레임">클레임</h3>
+
+<p>IANA JWT 클레임 저장소에 등록된 클레임.</p>
+
+<ul>
+  <li>
+    <p>iss(발급자)
+토큰을 누가 발급했는지를 나타낸다.</p>
+  </li>
+  <li>
+    <p>sub(주제)
+일반적으로 주제에 대한 설명을 나타낸다.</p>
+  </li>
+  <li>
+    <p>aud(수신자)
+누구에게 토큰이 전달되는가를 나타낸다.</p>
+  </li>
+  <li>
+    <p>exp(만료 시간)
+언제 토큰이 만료되는지를 나타낸다.</p>
+  </li>
+  <li>
+    <p>nbf(정의된 시간 이후)
+정의된 시간 이후 토큰이 활성화된다. 토큰이 유효해지는 시간 이전에 미리 발급되는 경우 주로 사용한다.</p>
+  </li>
+  <li>
+    <p>iat(토큰 발급 시간)
+언제 토큰이 발급됐는지를 나타낸다</p>
+  </li>
+  <li>
+    <p>jti(토큰 식별자)
+토큰의 고유 식별자.</p>
+  </li>
+</ul>
+
+<h3 id="공개와-비공개-클레임">공개와 비공개 클레임</h3>
+
+<p>표준 클레임에 덧붙여 공개되도 무방한 페이로드를 공개 클레임으로 정의한다.
+발급자와 사용자간에 사용하기로 약속한 클레임은 비공개 클레임으로 정의한다.</p>
+
+<h2 id="시그니처">시그니처</h2>
+
+<p>토큰이 유효한지를 검증하기 위해 secret을 사용한다. (hs256알고리즘 기준)</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="fastapi" /><category term="pagination" /><category term="data-handling" /><summary type="html"><![CDATA[FastAPI에서 데이터 페이징 및 페이지네이션 구현]]></summary></entry><entry><title type="html">FastAPI MVC 패턴</title><link href="http://localhost:4000/development/fastapi-mvc/" rel="alternate" type="text/html" title="FastAPI MVC 패턴" /><published>2025-08-17T00:00:00+09:00</published><updated>2025-08-17T00:00:00+09:00</updated><id>http://localhost:4000/development/fastapi-mvc</id><content type="html" xml:base="http://localhost:4000/development/fastapi-mvc/"><![CDATA[<h1 id="라우터">라우터</h1>
+
+<p>라우터는 클라이언트의 요청을 해당 요청에 맞는 핸들러 또는 컨트롤러로 연결해주는 메커니즘이다.
+일반적으로 http요청과 url 경로를 특정 함수 또는 핸들러로 매핑해준다.</p>
+
+<p>mvc 패턴에서는 라우터의 역할을 하는 구성요소를 컨트롤러라고 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@router.post(prefix="/users",status_code=201)
+def create_user():
+    return "user created"
+</code></pre></div></div>
+
+<p>여기서 status_code는 유저 리소스 생성이 성공했을때 응답의 http 상태 코드를 말한다.
+이 상태 코드에 대한 mdn문서의 설명</p>
+
+<ul>
+  <li>http 201
+요청이 성공적으로 처리되었으며, 자원이 생성되었음을 나타내는 성공상태 응답코드. 응답이 반환되기 이전에 새로운 리소스가 생성되며 응답 메시지 본문에 새로 만들어진 리소스 혹은 리소스에 대한 설명과 링크를 메시지 본문에 넣어 반환합니ㅏㄷ.</li>
+</ul>
+
+<h2 id="파이단틱을-통한-유효성-검사">파이단틱을 통한 유효성 검사</h2>
+
+<p>fastapi는 400에러를 422에러로 처리하고 있다. 이를 http 스펙에 맞춰서다른 에러코드로 변경하고 싶다면 변경하면된다.
+본문의 타입을 잘못 전달하면 에러가 발생하도록 해야하고, 어떤 에러가 나오도록하는지는 설계자의 몫이다.</p>
+
+<ul>
+  <li>
+    <p>http 400
+서버가 클라이언트오류(잘못된 요청 구문, 유효하지 않은 요청 메시지 프레이밍, 변조된 요청 라우팅)을 감지해 요청을 처리할 수 없거나 하지 않는다는 것</p>
+  </li>
+  <li>
+    <p>http 422
+서버가 요청 엔티티의 콘텐츠 형식을 이해했고 요청 엔티티의 문법도 올바르지만 요청된 지시를 처리할 수 없음</p>
+  </li>
+</ul>
+
+<p>책에서 제안하는 방법</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<p>request validation error가 발생했을때의 에러 헨들러를 등록하고, 응답 코드를 400으로 변환해서 반환하도록 한다.</p>
+
+<p>애플리케이션 계층에 있는 유저 서비스 객체를 만들고 유저 생성 유스케이스 함수를 호출해서 구현한다.</p>
+
+<p>-&gt; 인프라 계층</p>
+
+<h1 id="orm--객체-관계-매핑">ORM = 객체 관계 매핑</h1>
+
+<p>데이터베이스와 객체 지향 프로그래밍 언어 간의 데이터 변환을 도와주는 기술이다.
+orm을 쓰지 않으면 프로그램에 sql을 직접 기술하고, 수행 결과를 가공하는 작업을 해야한다.
+또한 특정 데이터베이스에 종속성을 덜어냄으로써 이식성을 높일 수 있다.</p>
+
+<p>fastapi는 객체관계매핑이 내장되어있지 않으므로 따로 설치해서 사용해야하고, 가장 많이 쓰는 sqlalchemy를 사용한다.</p>
+
+<p>루트 디렉토리에 생성하는 데이터베이스 연결 스크립트</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SQLALCHEMY_DB_URL = "...://..."
+engine = create_engine(SQLALCHEMY_DB_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>SessionLocal 데이터베이스 세션을 생성한다. 옵션으로 오토커밋을 설정할 수 잇다.</p>
+  </li>
+  <li>Base : 모듈에서 이 클래스를 상속받아 사용한다.</li>
+  <li>declarative_base는 선언형 클래스를 정의하기 위한 기본 클래스를 생성한다. 이 기본클래스는 메타 클래스를 생성하는데, 이는 적합한 table 객체를 생성하고 클래스 내에서 선언된 정보와 클래스의 하위 클래스로부터 제공된 정보를 기반으로 적절한 매퍼를 생성한다.</li>
+</ul>
+
+<h1 id="alembic으로-테이블-생성-및-리비전-관리">alembic으로 테이블 생성 및 리비전 관리</h1>
+
+<h2 id="순서">순서</h2>
+
+<ol>
+  <li>
+    <p>설치
+<code class="language-plaintext highlighter-rouge">pip install alembic</code></p>
+  </li>
+  <li>초기화
+<code class="language-plaintext highlighter-rouge">alembic init migrations</code>
+alembic.ini파일과 migration하위에 여러 파일이 생성된다.</li>
+  <li>ini파일 수정</li>
+</ol>
+
+<ul>
+  <li>리비전 파일 형식의 지정: file_template 설정 주석 풀기</li>
+  <li>사용할 데이터베이스 url 설정에 맞는거 넣기
+여기에서는 sqlalchemy.url = “database.py에 설정한 값과 동일한 라인 넣기”로 마쳤다.</li>
+</ul>
+
+<ol>
+  <li>env.py의 수정
+database모듈을 임포트해 target.metadata에 지정해준다.
+이건 어떻게 가능한거지?? sql alchemy로 세션을 만들면 자동으로 메타데이터 클래스가 생성되는건가?</li>
+</ol>
+
+<p>데이터베이스 모델을 지정해준다.</p>
+
+<ol>
+  <li>alembic revision파일의 생성
+리비전 파일은 스키마의 버전을 추적하고 스키마 변경 내역을 기록하는 역할을 한다.
+<code class="language-plaintext highlighter-rouge">alembic revision --autogenerate</code></li>
+</ol>
+
+<p>리비전 파일이 있으면 이전의 어떤 리비전 파일에 의존하는지를 통해 데이터베이스를 새로 생성할때 마이그레이션을 순서대로 할 수 있다.</p>
+
+<p>– 가장 최신의 리비전 파일까지 수행하기
+<code class="language-plaintext highlighter-rouge">alembic upgrade head</code></p>
+
+<p>– 수행한 마이그레이션 취소하기 :가장 최근의 리비젼으로 되돌리기
+<code class="language-plaintext highlighter-rouge">alembic downgrade -1</code></p>
+
+<h1 id="인프라-계층-객체구현하기">인프라 계층 객체구현하기</h1>
+
+<ul>
+  <li>try ~ finally문으로 감싸서 리소스 누수를 막자
+왜 불러올때 vo라고 불러올까?</li>
+  <li>레포지토리에서 처리 결과로 도메인 객체를 넘겨주는데, 이를 매번 매핑하지 않고 간편하게 처리하기
+sqlalchemy 에서 제공하는 inspect함수를 통해 row의 속성을 딕셔너리로 변환하자
+before</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>return UserVO(
+    id=user.id
+    email=user.email
+    ...
+)
+</code></pre></div></div>
+
+<p>after</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def row_to_dict(row) -&gt; dict:
+    return {key: getattr(key, row) for key in inspect(row).attrs.keys()}
+
+...
+
+return UserVO(**row_to_dict(user))
+</code></pre></div></div>
+
+<p>안쪽부터 각 계층을 구현하면서 해당 계층에 맞는 모자로 바꿔 써보기
+모자 바꿔쓰기 : 테스트코드, 실행코드, 리팩터링 코드를 작성할 때 각각에 해당하는 코드 작성자의 입장에서 코드를 바라보는 것. 레드-그린-리팩터라고 부르며 정신을 각각의 상태에 맞게 쉽게 바꾸도록 모자를 바꿔쓰라는 비유다.</p>
+
+<h2 id="의존성-주입">의존성 주입</h2>
+
+<p>의존성 주입은 객체간의 의존성을 외부에서 주입하는 소프트디자인패턴이다.
+의존성은 어떤 함수, 클래스, 모듈이 다른 구성요소에 의존해 해당 구성요소를 사용할때 발생한다. 의존성이 발생하는것은 막을 수 없고 막아서도 안되나, 의존성 객체의 생성을 직접 수행하는 방식으로 구성되서는 안된다.
+의존성의 구현이 변경되생성자가 바뀐다면 의존성을 사용하는 모든 곳에서 수정이 일어나기때문이다.
+의존성 주입의 유형에 대해서 알아보자.</p>
+
+<ol>
+  <li>생성자 주입(constructor)
+의존성을 객체 생성자를 통해 주입하는 방법이다.
+객체가 생성될 때 필요한 의존성을 외부에서 주입해 객체를 생성한다.</li>
+  <li>세터 주입(setter)
+의존성을 세터 메서드를 통해 주입한다. 객체 생성 후에 의존성을 주입할 수 있다.</li>
+  <li>메서드 주입
+의존성을 메서드의 인수를 통해 주입한다. 해당 메서드를 호출할 때 의존성을 전달한다.</li>
+</ol>
+
+<p>모든 의존성 객체를 한곳에서 관리함으로써 다음과 같은 이점을 얻을 수 있다.</p>
+
+<ul>
+  <li>공통 로직을 공유하고자 할때</li>
+  <li>데이터베이스 연결을 공유해서 사용하고자 할 때</li>
+  <li>인증, 권한 관리 등 보안을 강화하고자 할 때</li>
+</ul>
+
+<p>fastapi에서는 의존성 주입 방식을 제공한다. 이 방식에서 제공하는 이점이 뭔지 알아보고, 의존성 주입 프레임워크를 이용하는 것의 장점은 무엇인지 알아보자.</p>
+
+<h1 id="fastapi-depends">fastapi-depends</h1>
+
+<p>depends함수의 원형은 다음과 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def Depends(
+    dependancy: Optional[Callable[..., Any]] = None, *, use_cache: bool = True
+) -&gt; Any:
+    return params.Depends(dependancy=dependancy, use_cache=use_cache)
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>dependancy
+dependable, callable 객체를 전달받아 Depends가 선언된 함수가 실행될 때 호출된다.</p>
+  </li>
+  <li>
+    <p>use_cache
+api 요청으로 의존성이 처음 호출된 후, 해당 의존성이 요청을 처리하는 나머지 과정에서 다시 선언되면 그 값은 요청의 나머지 부분동안 재사용된다.</p>
+  </li>
+</ul>
+
+<h1 id="dependancy-injector">dependancy-injector</h1>
+
+<p>fastapi가 제공하는 depends는 사용하기 편리하지만, 의존성 역전의 관점에서 보면 여전히 의존성이 주입되는 객체를 만들어야하므로 직접 의존할 수 밖에 없다는문제가 있다.
+이때 이 프레임워크를 자주 사용한다.
+dependancy-injector는 ioc컨테이너를 제공한다.
+ioc컨테이너란 제어역전 컨테이너라고도 불리며, ioc 원칙에 따라 객체의 생성 및 의존성을 관리한다.
+애플리케이션이 구동될 때 ioc 컨테이너에 미리 의존성을 제공하는 객체를 등록해두고 필요한 모듈에서 주입하도록 할 수 있다. 이렇게 되면 주입할 때의 타입을 인터페이스로 미리 선언하더라도 실제로 주입되는 객체는 구현체가 되도록 할 수 있게 된다.</p>
+
+<p>컨테이너 파일을 만든다.</p>
+
+<blockquote>
+  <p>containers.py
+from dependency_injector import containers, providers</p>
+</blockquote>
+
+<p>class Container(containers.DeclarativeContainer):
+wiring_config = containers.WiringConfiguration(
+packages=[“user”]
+)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user_repo = providers.Factory(UserRepository)
+</code></pre></div></div>
+
+<p>providers 모듈에는 팩토리 외에도 다양한 프로바이더를 제공한다.</p>
+
+<ul>
+  <li>factory: 객체를 매번 생성하기</li>
+  <li>singleton: 처음호출될 때 생성한 객체를 제활용</li>
+</ul>
+
+<p>사용하는 방법은 이렇다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dependency_injector.wiring import inject, Provide
+from fastapi import Depends
+from containers import Container
+
+class UserService:
+    @inject
+    def __init__(
+        self,
+        user_repo: IUserRepository = Depends(
+            Provide[Container.user_repo]
+        )
+    ):
+        self.user_repo = user_repo
+        ...
+
+</code></pre></div></div>
+
+<p>Depends의 함수로 컨테이너에 등록된 UserRepository의 팩토리를 제공한다. !</p>
+
+<p>Depends를 안쓰고 ? 주입할 수도 있다. fastapi를 안쓸수도 잇으니깐..</p>
+
+<blockquote>
+  <p>containers.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dependancy_injector import containers, providers
+...
+
+class Container(containers.DeclarativeContainser):
+    wiring_config = containers.WiringConfiguration(
+        packages=["user"]
+    )
+
+    user_repo = providers.Factory(UserRepository)
+    user_serive = providers.Factory(UserService, user_repo=user_repo)
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>user_controller.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@router.post("")
+@inject
+def create_user(
+    user: CreateUserBody,
+    user_service: UserService = Depends(Provice[Containser.user_service])
+)
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="fastapi" /><category term="mvc" /><category term="router" /><category term="design-patterns" /><summary type="html"><![CDATA[FastAPI에서 MVC 패턴과 라우터 구현]]></summary></entry><entry><title type="html">FastAPI 미들웨어</title><link href="http://localhost:4000/development/fastapi-middleware/" rel="alternate" type="text/html" title="FastAPI 미들웨어" /><published>2025-08-17T00:00:00+09:00</published><updated>2025-08-17T00:00:00+09:00</updated><id>http://localhost:4000/development/fastapi-middleware</id><content type="html" xml:base="http://localhost:4000/development/fastapi-middleware/"><![CDATA[<h1 id="미들웨어">미들웨어</h1>
+
+<p>http 요청과 응답이 처리되기 전에 실행되는 함수를 말한다.
+http 요청이 엔드포인트 함수로 전달되기 전이나 응답이 외부로 반환되기 전에 실행된다.
+예를 들면 다음과 같은 일을 한다</p>
+
+<ul>
+  <li>요청 데이터 처리</li>
+  <li>요청/응답 데이터 형식화</li>
+  <li>인증/인가</li>
+  <li>로깅/모니터링</li>
+  <li>캐싱</li>
+  <li>오류 처리</li>
+  <li>api 속도 제한 : 특정 시간동안 특정 사용자나 ip 주소로부터의 요청 횟수를 제한한다.</li>
+</ul>
+
+<h2 id="fastapi-가-제공하는-기본-미들웨어s">fastapi 가 제공하는 기본 미들웨어s</h2>
+
+<ol>
+  <li>CORSMiddleware
+cors활성화</li>
+  <li>GzipMiddleware
+http응답을 gzip으로 압축</li>
+  <li>HTTPSRedirectMiddleware
+http 요청을 https로 리디렉션</li>
+  <li>TrustedHostMiddleware
+특정 호스트에서만 요청을 허용s</li>
+</ol>
+
+<p>그 외에도 다른 asgi 미들웨어나 스탈렛이 제공하는 미들웨어를 사용할 수 있다.</p>
+
+<h2 id="콘텍스트-변수">콘텍스트 변수</h2>
+
+<p>contextvars는 비동기 작업간에 데이터를 격리해 저장하거나 접근할 수 있다.
+콘텍스트란 실행중인 코드의 환경을 말한다.</p>
+
+<ul>
+  <li>코드 실행중에 사용되는 변수와 현재의 값</li>
+  <li>현재 실행중인 코드의 위치, 실행 경로, 호출 스택의 상태</li>
+  <li>환경 구성 및 설정</li>
+  <li>실행중인 코드가 액세스하는 파일, 네트워크 연결, 데이터베이스 연결 등의 리소스</li>
+</ul>
+
+<p>비동기 작업은 각각 별도의 콘텍스트를 가진다. 서버가 초기화될 때 전역변수로 생성하면 콘텍스트 변수에 설정된 값이 여러 요청이 동시에 수행되더라도 잘 유지될 수 있다.</p>
+
+<h1 id="로깅">로깅</h1>
+
+<p>미들웨어와 콘텍스트 개념을 모아서 로깅 모듈을 활용해 유저의 정보를 포함하는 모듈을 만들 수 있다.
+현재 모놀리식 아키텍처(한 서버에서 여러 서비스가 수행됨)로 구성되어있는데 마이크로 서비스 아키텍처(여러 서버에서 여러 서비스가 운영됨)으로 이동된다면
+유저의 요청이 어느 서비스에서 어느 서비스로 전달되어 처리되고 있는지 추적해야한다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="fastapi" /><category term="middleware" /><category term="http" /><summary type="html"><![CDATA[FastAPI에서 미들웨어 구현 및 활용]]></summary></entry><entry><title type="html">FastAPI Background Tasks</title><link href="http://localhost:4000/development/fastapi-backgroundtasks/" rel="alternate" type="text/html" title="FastAPI Background Tasks" /><published>2025-08-17T00:00:00+09:00</published><updated>2025-08-17T00:00:00+09:00</updated><id>http://localhost:4000/development/fastapi-backgroundtasks</id><content type="html" xml:base="http://localhost:4000/development/fastapi-backgroundtasks/"><![CDATA[<h1 id="background-tasks">background tasks</h1>
+
+<p>클라이언트로부터 요청을 받은 우 작업을 백그라운드에서 수행하도록 하는 도우미 클래스.
+http 요청을 처리할때 작업이 오래 걸리거나 비동기적으로 처리해야하는 경우
+클라이언트에게 즉시 응답을 보내고 작업을 백그라운드에서 처리하고자 하는 경우에 사용한다.</p>
+
+<ol>
+  <li>엔드포인트에서 매개변수로 주입받아 사용하고 fastapi가 나머지를 처리하도록 하는 경우</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import asyncio
+
+from fastapi import APIRouter, BackgroundTasks
+
+router = APIRouter()
+async def perform_task(task_id: int):
+    await asyncio.sleep(3)
+
+@router.post("")
+def create_task(task_id, background_tasks: BackgroundTasks):
+    background_tasks.add_task(perform_task, task_id)
+    return
+</code></pre></div></div>
+
+<ol>
+  <li>백그라운드로 수행되는 작업 정의</li>
+  <li>라우터 함수에 BackgroundTasks 객체 주입</li>
+  <li>백그라운드 작업 추가</li>
+  <li>응답 반환</li>
+</ol>
+
+<p>BackgroundTasks클래스는 starlette.background 모듈에서 제공한다. fastapi에 포함돼 있으므로 모듈에서 가져와 사용할 수 있다.
+starlette.background 의 Background(s가 없음)이 아니다.</p>
+
+<p>backgroundtask 객체는 dependable, callable하지 않아서 depends로 불러와서 사용할 수 없기 때문에 직접 주입해서 사용해야 한다.</p>
+
+<h1 id="셀러리">셀러리</h1>
+
+<h2 id="셀러리란">셀러리란?</h2>
+
+<p>유닉스 시스템 기반의 분산작업 큐로, 비동기 작업을 처리하고 관리하는데 사용된다.
+주로 백그라운드 작업을 처리하거나 스케줄링하고 분산 환경에서 작업을 실행한다.
+파이썬 기반의 메시징 시스템은 셀러리 외에도 레디스 큐, 드라마틱 휴이, aiohttp와 같은 것을 고려할 수 잇고, 카프카도 있다.</p>
+
+<p>메시징 시스템의 특징</p>
+
+<ul>
+  <li>작업 큐</li>
+  <li>분산 환경</li>
+  <li>작업 처리</li>
+  <li>메시지 브로커</li>
+</ul>
+
+<p>셀러리 메시징 시스템의 구성 요소</p>
+
+<ul>
+  <li>브로커
+작업을 관리하고 전달하는 중간 매개체</li>
+  <li>백엔드
+작업의 결과를 저장하고 추적하기 위한 저장소</li>
+  <li>워커
+브로커로부터 할당된 작업을 받아 실행하고 실행한 결과를 백엔드에 기록한다</li>
+  <li>태스크
+수행되는 개별 작업. 데코레이터로 구현할 수 있다.</li>
+</ul>
+
+<p>브로커와 백엔드 역할을 하는 시스템으로서 레디스나 rabbitmq 등을 사용할 수 있다.</p>
+
+<h2 id="1-환경-설정">1. 환경 설정</h2>
+
+<p>fastapi에서 셀러리를 이용하기 위해 브로커는 래빗엠큐를 이용하고 저장소는 mysql을 이용한다</p>
+
+<blockquote>
+  <p>pip install celery
+docker run -d –hostname myrabbit –name myrabbit -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_PASS=test -p 5672:5672 -p 15672:15672 rabbitmq:3-management</p>
+</blockquote>
+
+<ul>
+  <li>rabbitmq:3-management는 3.x 버전 중 관리 플러그인이 포함된 버전을 말한다. 웹 기반의 사용자 인터페이스를 제공한다.</li>
+</ul>
+
+<h2 id="태스크-수행">태스크 수행</h2>
+
+<p>간단한 덧셈을 수행하는 함수를 셀러리에서 백그라운드로 실행하고 셀러리는 그 태스크 수행 결과를 데이터베이스에 저장한다.</p>
+
+<h3 id="태스크-정의">태스크 정의</h3>
+
+<blockquote>
+  <p>example01.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from common.messaging import celery
+
+@celery.task
+def add(x,y):
+    return x+y
+</code></pre></div></div>
+
+<h3 id="셀러리-객체를-생성">셀러리 객체를 생성</h3>
+
+<blockquote>
+  <p>common/messaging.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from celery import Celery
+
+celery = Celery(
+    "fastapi-ca",
+    broker=settings.celery_broker_url,
+    backend=settings.celery_backend_url,
+    broker_connection_retry_on_startup=True,
+    include=["example01"]
+)
+</code></pre></div></div>
+
+<h3 id="셀러리-워커의-구동">셀러리 워커의 구동</h3>
+
+<p>워커를 여러개 생성하고 싶은 경우 새로운 창에서 각각 구동하면 된다</p>
+
+<blockquote>
+  <p>celery -A common.messaging.celery worker -n worker1 –loglevel=info
+celery -A common.messaging.celery worker -n worker2 –loglevel=info</p>
+</blockquote>
+
+<h3 id="셀러리-워커에-태스크-전달">셀러리 워커에 태스크 전달</h3>
+
+<blockquote>
+  <blockquote>
+    <p>from example import add
+task1 = add.delay(1,2)</p>
+  </blockquote>
+</blockquote>
+
+<p>흠…</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="fastapi" /><category term="background-tasks" /><category term="async" /><summary type="html"><![CDATA[FastAPI에서 백그라운드 작업 처리]]></summary></entry><entry><title type="html">FastAPI 개발 순서</title><link href="http://localhost:4000/development/fastapi-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94%EC%88%9C%EC%84%9C/" rel="alternate" type="text/html" title="FastAPI 개발 순서" /><published>2025-08-17T00:00:00+09:00</published><updated>2025-08-17T00:00:00+09:00</updated><id>http://localhost:4000/development/fastapi-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94%EC%88%9C%EC%84%9C</id><content type="html" xml:base="http://localhost:4000/development/fastapi-%EA%B0%9C%EB%B0%9C%ED%95%98%EB%8A%94%EC%88%9C%EC%84%9C/"><![CDATA[<h1 id="이-책에서는-이런-순서로-만들었다">이 책에서는 이런 순서로 만들었다</h1>
+
+<ol>
+  <li>유스케이스 : 유저를 생성한다.
+    <blockquote>
+      <p>main.py : 서버 선언
+domain/user.py : 도메인 user 객체에서 사용할 도메인 모델을 먼저 작성.
+domain/user_repo.py : user 도메인을 영속화하기 위한 모듈을 작성한다.
+? 영속화란?
+application/user_service.py : 유저를 생성하고 저장하는 실제 서비스 객체 구현
+domain/user_repo.py : 도메인 영속화를 위한 모듈에 추상화 메서드 생성
+infra/user_repo.py : 인프라 계층의 레포지토리 함수를 구현. 도메인 계층의 모듈을 상속한다.</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : 중복 유저를 검사하고 중복이 없으면 유저 생성
+    <blockquote>
+      <p>application/user_service.py: 중복 유저를 검사하고 생성하는 로직 구현-find_by_email
+domain/user_repo.py : 영속화 도메인에서 관련 메서드 생성-find_by_email</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : 패스워드를 암호화해서 저장한다.
+    <blockquote>
+      <p>utils/crypto.py: 암복호화를 위한 모듈 구현
+application/user_service.py: 유저 생성 시 패스워드 암호화 저장 로직 구현</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : post 요청을 통해 유저 생성을 할 수 있도록 엔드포인트 구현
+    <blockquote>
+      <p>interface/model.py: 유저 관련 엔드포인트에서 받을 데이터에 대한 모델 생성
+interface/user_controller.py : 유저 관련 엔드포인트 라우터 생성
+main.py: router include</p>
+    </blockquote>
+  </li>
+  <li>유스케이스 : 422 에러를 400 에러로 반환하기
+    <blockquote>
+      <p>main.py: 에러 헨들러 생성
+interface/user_controller.py: 애플리케이션 계층의 유저생성 서비스 함수를 호출한다.</p>
+    </blockquote>
+  </li>
+</ol>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="fastapi" /><category term="development-workflow" /><category term="best-practices" /><summary type="html"><![CDATA[FastAPI 애플리케이션 개발 단계와 순서]]></summary></entry><entry><title type="html">Git Blog 1</title><link href="http://localhost:4000/git-blog-1/" rel="alternate" type="text/html" title="Git Blog 1" /><published>2025-08-16T00:00:00+09:00</published><updated>2025-08-16T00:00:00+09:00</updated><id>http://localhost:4000/git-blog-1</id><content type="html" xml:base="http://localhost:4000/git-blog-1/"><![CDATA[<h1 id="jekyll로-깃-블로그-만들기">jekyll로 깃 블로그 만들기</h1>
+
+<p>작년에 처음 만든 내 깃 블로그.. 처음에 클론을 받아서 이것저것 고쳐가면서 만들었지만 아쉬운 부분이 많았고, 자바 스크립트에 대해서 잘 몰랐기 때문에(지금도 잘 모름) 포스팅만 좀 열심히 하다가 내버려둔 측면이 있었다..</p>
+
+<p>지금은 스터디도 하고 있고, 공부하는 내용을 기록해야한다는 생각이 들어서 블로그부터 고쳐서 써보기로 했다!
+그래서 차근차근 공부해서 바꿔가는 깃 블로그 일기.</p>
+
+<h2 id="jekyll이란">jekyll이란?</h2>
+
+<p><img src="https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll" alt="about jekyll -- git docs" /></p>
+
+<p>깃헙 페이지스를 기본적으로 지원하는 정적 사이트 생성기. 마크다운과 html 파일을 사용하여 사용자가 선택한 레이아웃을 기반으로 정적 웹사이트를 생성한다.</p>
+
+<h2 id="프로젝트-구조">프로젝트 구조</h2>
+
+<blockquote>
+  <p>_config.yml
+사이트 테마 및 플러그인 등 대부분의 지킬 설정은 config 파일을 편집하여 구성한다.
+기타 다양한 설정에 대해서는 이 <a href="https://jekyllrb.com/docs/configuration/">문서</a>를 참고하면 좋을것 같다.</p>
+</blockquote>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><summary type="html"><![CDATA[jekyll로 깃 블로그 만들기]]></summary></entry><entry><title type="html">FastAPI 도메인 계층 구현</title><link href="http://localhost:4000/development/fastapi-domain/" rel="alternate" type="text/html" title="FastAPI 도메인 계층 구현" /><published>2025-08-16T00:00:00+09:00</published><updated>2025-08-16T00:00:00+09:00</updated><id>http://localhost:4000/development/fastapi-domain</id><content type="html" xml:base="http://localhost:4000/development/fastapi-domain/"><![CDATA[<h1 id="domain-계층의-구현">domain 계층의 구현</h1>
+
+<p>데이터 모델을 만들때 이 모델에 따라서 데이터 베이스도 디자인해야되는건 아니다.</p>
+
+<ul>
+  <li>user라는 테이블에 모든 데이터를 포함하고, 데이터 베이스를 만들때 이렇게 분리해서 만들 수 있다.
+profile 모델을 보면 id 속성이 없는데, 이처럼 데이터만 가지고 있는 도메인 객체를 값객체(vo)라고 한다..
+???
+도메인 주도 설계에서는 도메인을 핵심 도메인과 서브 도메인으로 나눈다.</li>
+</ul>
+
+<h1 id="인터페이스-의-구현">인터페이스 의 구현</h1>
+
+<p>그리고 유저 도메인을 영속화하기 위한 모듈을 구현한다.
+이름에 i를 붙이는 이유는 명시적으로 인터페이스임을 나타내기 위함이다. 이 인터페이스 실제 구현체는 인프라 계층에 존재한다. 도메인 계층에존재하는 이 모듈은 어느 계층에서나 사용할 수 있으며, 인프라 계층보다 고 수준의 계층에서 사용하 ㄹ떄는 의존성이 역전돼있다.
+???
+흠……</p>
+
+<p>유저 저장을 구현할때 순서가 이렇다.
+먼저 실제 서비스가 구현되는 로직을 만들어본다
+애플리케이션 계층에 유저 저장하는 로직을 만들고 -&gt; 여기에 해당하는 저수준의 구현체를 구현한다.
+예를 들어서
+application/user_service에서 create_user기능을 구현한다.
+이때 이 계층은 고수준 계층에서 구현하는 구현체이므로 저수준의 구현체와 소통이 가능하다
+그래서 유저를 생성할 때 데이터베이스에 저장이 되어야하는 부분은</p>
+
+<p>찌르는 방향이 헷갈리는군</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="fastapi" /><category term="domain" /><category term="data-model" /><category term="design-patterns" /><summary type="html"><![CDATA[FastAPI에서 도메인 계층과 데이터 모델 설계]]></summary></entry><entry><title type="html">FastAPI Clean Architecture</title><link href="http://localhost:4000/development/fastapi-clean-architecture/" rel="alternate" type="text/html" title="FastAPI Clean Architecture" /><published>2025-08-16T00:00:00+09:00</published><updated>2025-08-16T00:00:00+09:00</updated><id>http://localhost:4000/development/fastapi-clean-architecture</id><content type="html" xml:base="http://localhost:4000/development/fastapi-clean-architecture/"><![CDATA[<h1 id="clean-architecture">clean architecture</h1>
+
+<h2 id="1-도메인-entity-계층">1. 도메인 (entity) 계층</h2>
+
+<p>도메인 : 애플리케이션이 해결하고자하는 특정한 주제나 분야
+도메인 모델은 비즈니스 영역에서 도메인의 핵심 개념, 엔티티, 도메인 간의 관계, 도메인이 지켜야하는 규칙 및 도메인의 상태를 나타낸다.
+엔티티는 비즈니스 도메인에서의 실제 개념이나 객체를 표현하는 것으로, 독립적으로 존재하며 비즈니스 도메인 그 자체에 집중한다. 모데인 계층은 데이터베이스 스키마 또는 사용자 인터페이스 등 외부 시스템에 대한 의존성을 갖지 말아야 한다.
+엔티티 계층에서의 중요한 점
+엔티티의 상태가 바뀜에 따라 도메인 규칙이 제대로 동작하는지만 검증하면 된다.</p>
+
+<p>??</p>
+
+<ul>
+  <li>여러 엔티티는 같은 계층에 있기 때문에 직접 상호작용할 수 있다.
+= 엔티티를 구현한 어떤 파이썬 클래스가 다른 클래스를 직접 인스턴스로 만들어 해당 메서드를 호출할 수 있다.</li>
+  <li>엔티티는 외부 계층에 있는 것은 아무것도 알지 못한다.
+= 데이터베이스를 직접 호출하거나, 프레젠테이션 프레임워크에서 제공하는 메서드에 접근할 수 없다.
+= 엔티티의 상태가 변경되면 엔티티를 저장하고 있는 데이터베이스가 변경되어야하는데 이런 부분은 이벤트 프로그래밍을 사용해 도메인 이벤트 발송 -&gt; 외부 모듈이 이벤트를 받아 처리 (도메인 주도 설계 방법론을 참고할것)</li>
+</ul>
+
+<h1 id="2-애플리케이션use-case-계층">2. 애플리케이션(use case) 계층</h1>
+
+<p>애플리케이션이 해결하고자하는 문제와 나름의 해결방법을 유스케이스로 정의하고 구현한다.
+애플리케이션은 서비스로 이루어진다.
+서비스는 특정 도메인을 다루는 도메인 서비스, 특정 작업을 수행하는 애플리케이션 서비스, 인프라스트럭처와 상호작용하는 인프라 서비스 등 다양한 종류로 나눌 수 있다.</p>
+
+<p>애플리케이션 계층의 모듈은 도메인 계층에 대한 접근 권한이 있다. 즉 도메인 객체를 직접 인스턴스로 만들어 사용할 수 있다.
+서비스는 서로 호출할 수 있다.</p>
+
+<h1 id="3-인터페이스-interface-adapter-계층">3. 인터페이스 (interface adapter) 계층</h1>
+
+<p>인프라 계층의 시스템(외부에서 만든 도구나 프레임워크 또는 데이터베이스와 같은 시스템)과 내부의 애플리케이션 및 도메인 계층을 연결하는 역할</p>
+
+<p>주요 특징</p>
+
+<ul>
+  <li>외부와 내부 데이터 사이의 데이터 변환
+외부 시스템이 사용하는 특정 형식의 데이터를 내부 시스템의 형식으로 맞춘다</li>
+  <li>인터페이스 구현
+외부시스템에서 제공하는 api나 다양한 데이터베이스와 웹서비스 등의 시스템과의 연결을 구현</li>
+  <li>외부 종속성의 분리
+외부 요구사항에 대한 종속성을 분리하는 역할을 한다.</li>
+</ul>
+
+<p>인터페이스 계층에는 컨트롤러, 게이트웨이, 프레젠터가 사용된다.</p>
+
+<ul>
+  <li>컨트롤러 : ui를 통해 전달된 사용자의 입력과 요청을 내부로 전달, 웹 애플리케이션에서는 Http 요청을 처리하고, 그와 관련된 데이터를 다룬다.</li>
+  <li>게이트웨이 : 외부 데이터 소스와의 통신을 담당한다. 외부 db, api, 파일 시스템 등과의 상호작용을 처리한다. 내부 유스케이스와 외부 데이터 소스 간의 중간 역할을 수행하며, 외부 데이터를 내부 시스템에서 사용할 수 있는 형식으로 변환한다.</li>
+  <li>프레젠터 : 내부 유스케이스가 처리한 데이터를 전달받아 사용자가 볼 수 있는 형태로 가공해 사용자 인터페이스로 전달. 일반적으로 웹 애플리케이션에서 템플릿을 구성하거나 json, html 등의 데이터를 사용자 인터페이스에 맞게 구성하는 역할을 수행한다.</li>
+</ul>
+
+<p>??
+기존의 계층형 아키텍처에서는 계층간의 역할을 엄격히 지키도록 했다. 따라서 이를 따른다면 인프라 계층과의 상호작용은 인터페이스 계층에서만 담당해야 한다. 하지만 이는 너무 엄격해서 유연성이 떨어진다</p>
+
+<p>???
+클린아키텍처에서는 의존성 역전을 중요하게 다룬다. 이는 안쪽 계층의 구성요소가 바깥쪽 계층의 구성요소를 사용하고자 한다면 인터페이스를 이용하고, 그 인터페이스의 구현체를 외부의 계층에 두라는 것이다.
+따라서 필요하다면 인프라 계층과의 통신을 애플리케이션 계층이 담당하는 것도 상관이 없다….</p>
+
+<h1 id="4-인프라-스트럭처-프레임워크-및-드라이버-계층">4. 인프라 스트럭처 (프레임워크 및 드라이버) 계층</h1>
+
+<p>내부 시스템이 사용하고자 하는 외부 시스템을 다룬다.</p>
+
+<ul>
+  <li>외부 프레임워크와 라이브러리, api 등을 활용해 실제로 사용자와 시스템 사이의 상호작용을 구현한다.</li>
+  <li>내부에서 제공하는 인터페이스를 구현하는 구현체들로 이루어진다. (??)</li>
+</ul>
+
+<h2 id="의존-관계-역전-원칙">의존 관계 역전 원칙</h2>
+
+<p>계층을 나누는 일은 단순히 지금 구현하고자하는 사항이 내부의 비즈니스 로직에 관련된 일인지 / 외부의 시스템을 이용하는 것인지 / 그와의 인터페이스를 다루는 것인지 만 구분해서 판단한다.
+그리고 각 계층의 구성요소가 다른 계층의 구성 요소를 가져다 쓰면서 의존성이 발생하는데, 의존역전원칙은 의존성의 방향과 관련이 있다. 고수준의 구성요소(즉 엔티티와 더 가까운 쪽)이 저수준의 형식에 의존하면 안된다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="fastapi" /><category term="clean-architecture" /><category term="design-patterns" /><summary type="html"><![CDATA[클린 아키텍처를 FastAPI에 적용하기]]></summary></entry><entry><title type="html">문서 스타일 테스트 포스트</title><link href="http://localhost:4000/tools/doc-style-test/" rel="alternate" type="text/html" title="문서 스타일 테스트 포스트" /><published>2025-08-16T00:00:00+09:00</published><updated>2025-08-16T00:00:00+09:00</updated><id>http://localhost:4000/tools/doc-style-test</id><content type="html" xml:base="http://localhost:4000/tools/doc-style-test/"><![CDATA[<h1 id="제목-1-h1---빨간색-테두리와-색상이-적용되어야-함">제목 1 (H1) - 빨간색 테두리와 색상이 적용되어야 함</h1>
+
+<p>이것은 첫 번째 문단입니다. 배경색이 카드 형태로 나타나고, 적절한 패딩과 마진이 적용되어야 합니다.</p>
+
+<h2 id="제목-2-h2---왼쪽에-빨간색-바가-나타나야-함">제목 2 (H2) - 왼쪽에 빨간색 바가 나타나야 함</h2>
+
+<p>이 섹션에서는 H2 제목이 어떻게 보이는지 확인할 수 있습니다.</p>
+
+<h3 id="제목-3-h3---일반-스타일">제목 3 (H3) - 일반 스타일</h3>
+
+<p>여기는 H3 제목입니다.</p>
+
+<h4 id="제목-4-h4---작은-크기">제목 4 (H4) - 작은 크기</h4>
+
+<p>H4 제목은 더 작은 크기로 표시됩니다.</p>
+
+<h2 id="리스트-테스트">리스트 테스트</h2>
+
+<h3 id="순서-없는-리스트">순서 없는 리스트</h3>
+<ul>
+  <li>첫 번째 항목</li>
+  <li>두 번째 항목
+    <ul>
+      <li>중첩된 항목</li>
+      <li>또 다른 중첩 항목</li>
+    </ul>
+  </li>
+  <li>세 번째 항목</li>
+</ul>
+
+<h3 id="순서-있는-리스트">순서 있는 리스트</h3>
+<ol>
+  <li>첫 번째 단계</li>
+  <li>두 번째 단계</li>
+  <li>세 번째 단계</li>
+</ol>
+
+<h2 id="인용구-테스트">인용구 테스트</h2>
+
+<blockquote>
+  <p>이것은 인용구입니다. 왼쪽에 빨간색 테두리가 있고, 
+배경색이 다르게 표시되어야 합니다.
+그리고 왼쪽 상단에 인용 부호가 나타나야 합니다.</p>
+</blockquote>
+
+<h2 id="코드-테스트">코드 테스트</h2>
+
+<p>인라인 코드: <code class="language-plaintext highlighter-rouge">console.log('Hello World!')</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">hello_world</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello, World!</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="sh">"</span><span class="s">성공</span><span class="sh">"</span>
+
+<span class="c1"># 이것은 코드 블록입니다
+</span><span class="n">result</span> <span class="o">=</span> <span class="nf">hello_world</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nf">greet</span><span class="p">(</span><span class="nx">name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">`안녕하세요, </span><span class="p">${</span><span class="nx">name</span><span class="p">}</span><span class="s2">님!`</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="nf">greet</span><span class="p">(</span><span class="dl">"</span><span class="s2">개발자</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">message</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h2 id="표-테스트">표 테스트</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>컬럼 1</th>
+      <th>컬럼 2</th>
+      <th>컬럼 3</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>데이터 1</td>
+      <td>데이터 2</td>
+      <td>데이터 3</td>
+    </tr>
+    <tr>
+      <td>테스트 A</td>
+      <td>테스트 B</td>
+      <td>테스트 C</td>
+    </tr>
+    <tr>
+      <td>값 X</td>
+      <td>값 Y</td>
+      <td>값 Z</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="링크와-강조-테스트">링크와 강조 테스트</h2>
+
+<p>이것은 <a href="https://example.com">링크 예시</a>입니다.</p>
+
+<p><strong>이것은 굵은 텍스트입니다.</strong></p>
+
+<p><em>이것은 기울임 텍스트입니다.</em></p>
+
+<hr />
+
+<h2 id="이미지-테스트">이미지 테스트</h2>
+
+<p><img src="/assets/images/banner.jpg" alt="테스트 이미지" /></p>
+
+<h2 id="마무리">마무리</h2>
+
+<p>이 포스트는 새로운 <code class="language-plaintext highlighter-rouge">doc-</code> 클래스 스타일들이 제대로 적용되는지 확인하기 위한 테스트 문서입니다. 모든 요소들이 정상적으로 스타일링되어 보이면 성공입니다!</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="style" /><category term="test" /><category term="documentation" /><category term="jekyll" /><summary type="html"><![CDATA[새로운 doc 스타일이 제대로 적용되는지 확인하는 테스트 포스트입니다.]]></summary></entry></feed>
