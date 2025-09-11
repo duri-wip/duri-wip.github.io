@@ -1,0 +1,43 @@
+<h2 id="문제">문제</h2>
+
+<p>이미 정렬되어 있고 다음 노드와 연결된 형태의 리스트 두개가 주어졌을때, 같은 방식으로 정렬하고 다음 노드와 연결되어 있는 리스트를 반환하기</p>
+
+<p>예시)
+Input: list1 = [1,2,4], list2 = [1,3,4]
+Output: [1,1,2,3,4,4]
+Example 2:</p>
+
+<p>Input: list1 = [], list2 = []
+Output: []
+Example 3:</p>
+
+<p>Input: list1 = [], list2 = [0]
+Output: [0]</p>
+
+<h2 id="풀이">풀이</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+</span><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">mergeTwoLists</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">list1</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">],</span> <span class="n">list2</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ListNode</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">list1</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">list2</span>
+        <span class="k">if</span> <span class="n">list2</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">list1</span>
+        
+        <span class="k">if</span> <span class="n">list1</span><span class="p">.</span><span class="n">val</span> <span class="o">&lt;=</span> <span class="n">list2</span><span class="p">.</span><span class="n">val</span> <span class="p">:</span>
+            <span class="n">list1</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">mergeTwoLists</span><span class="p">(</span><span class="n">list1</span><span class="p">.</span><span class="nb">next</span><span class="p">,</span> <span class="n">list2</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">list1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">list2</span><span class="p">.</span><span class="nb">next</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">mergeTwoLists</span><span class="p">(</span><span class="n">list2</span><span class="p">.</span><span class="nb">next</span><span class="p">,</span> <span class="n">list1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">list2</span>
+
+</code></pre></div></div>
+<h2 id="알게된-점">알게된 점</h2>
+
+<ul>
+  <li>재귀를 이렇게도 쓰는구나~ 저번의 이진 정렬 문제와 비슷하면서 다르다.</li>
+  <li>함수를 정의할 때 인풋 자료형을 지정하면 지정된 자료형을 넣도록 주의하자.</li>
+</ul>

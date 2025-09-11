@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI 도메인 계층 구현</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">FastAPI 도메인 계층 구현</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 16일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">Backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#domain</span>
+                
+                <span class="tag">#data-model</span>
+                
+                <span class="tag">#design-patterns</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="domain-계층의-구현">domain 계층의 구현</h1>
+
+<p>데이터 모델을 만들때 이 모델에 따라서 데이터 베이스도 디자인해야되는건 아니다.</p>
+
+<ul>
+  <li>user라는 테이블에 모든 데이터를 포함하고, 데이터 베이스를 만들때 이렇게 분리해서 만들 수 있다.
+profile 모델을 보면 id 속성이 없는데, 이처럼 데이터만 가지고 있는 도메인 객체를 값객체(vo)라고 한다..
+???
+도메인 주도 설계에서는 도메인을 핵심 도메인과 서브 도메인으로 나눈다.</li>
+</ul>
+
+<h1 id="인터페이스-의-구현">인터페이스 의 구현</h1>
+
+<p>그리고 유저 도메인을 영속화하기 위한 모듈을 구현한다.
+이름에 i를 붙이는 이유는 명시적으로 인터페이스임을 나타내기 위함이다. 이 인터페이스 실제 구현체는 인프라 계층에 존재한다. 도메인 계층에존재하는 이 모듈은 어느 계층에서나 사용할 수 있으며, 인프라 계층보다 고 수준의 계층에서 사용하 ㄹ떄는 의존성이 역전돼있다.
+???
+흠……</p>
+
+<p>유저 저장을 구현할때 순서가 이렇다.
+먼저 실제 서비스가 구현되는 로직을 만들어본다
+애플리케이션 계층에 유저 저장하는 로직을 만들고 -&gt; 여기에 해당하는 저수준의 구현체를 구현한다.
+예를 들어서
+application/user_service에서 create_user기능을 구현한다.
+이때 이 계층은 고수준 계층에서 구현하는 구현체이므로 저수준의 구현체와 소통이 가능하다
+그래서 유저를 생성할 때 데이터베이스에 저장이 되어야하는 부분은</p>
+
+<p>찌르는 방향이 헷갈리는군</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/fastapi-clean-architecture/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">FastAPI Clean Architecture</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/tools/doc-style-test/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">문서 스타일 테스트 포스트</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

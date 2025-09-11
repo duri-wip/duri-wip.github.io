@@ -1,0 +1,56 @@
+<p><a href="https://school.programmers.co.kr/learn/courses/30/lessons/76502">프로그래머스 링크</a></p>
+
+<h2 id="문제">문제</h2>
+
+<p>왼쪽으로 한칸씩 이동했을 때 true가 나오는 괄호 조합이 몇개인지를 리턴한다.</p>
+
+<h2 id="해결">해결</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">s</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="sh">"</span><span class="s">(</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">[</span><span class="sh">"</span><span class="p">,</span><span class="sh">"</span><span class="s">{</span><span class="sh">"</span><span class="p">]:</span>
+            <span class="n">tmp</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="sh">"</span><span class="s">)</span><span class="sh">"</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">tmp</span><span class="p">:</span><span class="c1">#아무것도 없는데 끝괄호만 들어가면 f
+</span>                    <span class="k">return</span> <span class="bp">False</span>
+                <span class="k">elif</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="sh">"</span><span class="s">(</span><span class="sh">"</span><span class="p">:</span><span class="c1">#마지막 요소가 첨괄호면 팝
+</span>                    <span class="n">tmp</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span><span class="c1">#마지막 괄호가 첨괄혼데 다른 종류면 f
+</span>                    <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="sh">"</span><span class="s">]</span><span class="sh">"</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">tmp</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+                <span class="k">elif</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="sh">"</span><span class="s">[</span><span class="sh">"</span><span class="p">:</span>
+                    <span class="n">tmp</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">tmp</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+                <span class="k">elif</span> <span class="n">tmp</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="sh">"</span><span class="s">{</span><span class="sh">"</span><span class="p">:</span>
+                    <span class="n">tmp</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="bp">False</span>
+    <span class="k">return</span> <span class="ow">not</span> <span class="n">tmp</span>
+
+<span class="k">def</span> <span class="nf">toleft</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="nf">return</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">+</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="n">res</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="c1">#print(isValid(s))
+</span>        <span class="n">res</span> <span class="o">+=</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="nf">toleft</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="c1">#print(s)
+</span>    <span class="k">return</span> <span class="n">res</span>
+
+</code></pre></div></div>
+
+<h2 id="알게된-점">알게된 점</h2>
+
+<ul>
+  <li>bit shift는 스트링 타입에는 안된다.</li>
+</ul>

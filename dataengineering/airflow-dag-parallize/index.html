@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airflow 대그 병렬로 수행하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Airflow 대그 병렬로 수행하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 03일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">airflow</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#airflow</span>
+                
+                <span class="tag">#dag</span>
+                
+                <span class="tag">#parallel-processing</span>
+                
+                <span class="tag">#optimization</span>
+                
+                <span class="tag">#xcom</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="airflow에서-데이터-파이프라인-최적화">Airflow에서 데이터 파이프라인 최적화</h1>
+
+<p>데이터 파이프라인을 구축할때 Airflow는 워크플로우를 자동화하여 관리하는데 핵심적이다. 그러나 dag가 복잡해지고 태스크가 많아질수록 성능 최적화와 데이터 흐름 관리에 주의해야한다.</p>
+
+<p>지난 프로젝트 수행 중 youtube api를 통해 데이터를 수집하고 적재하는 파이프라인을 airflow를 통해 관리했는데, 태스크가 순차적으로 수행되는 경우에 전체 태스크를 수행하는데 시간이 너무 오래 걸리는 문제가 있었다. 이런 이슈를 해결하기 위해 dag 병렬 처리와 태스크간 의존성 관리에 대해서 공부해봤다.</p>
+
+<h2 id="dag-병렬-처리와-task-간-의존성-관리">DAG 병렬 처리와 Task 간 의존성 관리</h2>
+
+<h3 id="병렬-처리">병렬 처리</h3>
+
+<p>Airflow에서는 DAG 내의 태스크들을 병렬로 처리하여 워크플로우의 성능을 향상시킬 수 있다.
+기본적으로 DAG는 태스크 간의 의존 관계를 정의하여 실행 순서를 제어하는데, 서로 의존성이 없는 태스크들은 병렬로 실행될 수 있다.
+여기서 의존관계는 <code class="language-plaintext highlighter-rouge">&gt;&gt;</code>, <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> 연산자를 사용하여 설정된다.</p>
+
+<h3 id="예시">예시</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span> <span class="n">airflow.operators.bash</span> <span class="kn">import</span> <span class="n">BashOperator</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">'</span><span class="s">start_date</span><span class="sh">'</span><span class="p">:</span> <span class="nf">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+    <span class="sh">'</span><span class="s">retries</span><span class="sh">'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">with</span> <span class="nc">DAG</span><span class="p">(</span><span class="sh">'</span><span class="s">parallel_dag</span><span class="sh">'</span><span class="p">,</span> <span class="n">default_args</span><span class="o">=</span><span class="n">default_args</span><span class="p">,</span> <span class="n">schedule_interval</span><span class="o">=</span><span class="sh">'</span><span class="s">@daily</span><span class="sh">'</span><span class="p">,</span> <span class="n">catchup</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">dag</span><span class="p">:</span>
+
+    <span class="n">task_1</span> <span class="o">=</span> <span class="nc">BashOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="sh">'</span><span class="s">task_1</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">bash_command</span><span class="o">=</span><span class="sh">'</span><span class="s">echo </span><span class="sh">"</span><span class="s">Task 1 실행 중...</span><span class="sh">"'</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">task_2</span> <span class="o">=</span> <span class="nc">BashOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="sh">'</span><span class="s">task_2</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">bash_command</span><span class="o">=</span><span class="sh">'</span><span class="s">echo </span><span class="sh">"</span><span class="s">Task 2 실행 중...</span><span class="sh">"'</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">task_3</span> <span class="o">=</span> <span class="nc">BashOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="sh">'</span><span class="s">task_3</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">bash_command</span><span class="o">=</span><span class="sh">'</span><span class="s">echo </span><span class="sh">"</span><span class="s">Task 3 실행 중...</span><span class="sh">"'</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 병렬로 실행 가능한 태스크들
+</span>    <span class="n">task_1</span> <span class="o">&gt;&gt;</span> <span class="p">[</span><span class="n">task_2</span><span class="p">,</span> <span class="n">task_3</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>위 DAG에서 <code class="language-plaintext highlighter-rouge">task_2</code>와 <code class="language-plaintext highlighter-rouge">task_3</code>은 <code class="language-plaintext highlighter-rouge">task_1</code>이 완료된 후에 동시에 병렬로 실행된다. 이를 통해 각 태스크를 순차적으로 실행하는 것보다 더 빠르게 DAG를 완료할 수 있다.</p>
+
+<h3 id="프로젝트-수행-내용">프로젝트 수행 내용</h3>
+
+<h4 id="dag-graph">dag graph</h4>
+
+<p><img src="/assets/images/post_img/airflow-dag.png" alt="" /></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dvc_pull_task &gt;&gt; existing_data
+collect_channel_id_task &gt;&gt; video_data_list
+[video_data_list, existing_data] &gt;&gt; combined_data &gt;&gt; [save_data_task, split_and_save_postgres_tasks] &gt;&gt; upload_data_s3_task
+</code></pre></div></div>
+
+<h4 id="dag-code">dag code</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">collect_playlist</span><span class="p">():</span>
+    <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="sh">"</span><span class="s">collect_playlist_channels</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">collect_channel_ids</span><span class="p">():</span>
+
+    <span class="c1"># 각 채널에 대한 비디오 수집 작업
+</span>    <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="sh">"</span><span class="s">collect_each_video_items</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">collect_videos</span><span class="p">(</span><span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+
+    <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span> <span class="o">=</span> <span class="sh">"</span><span class="s">dvc_pull_data</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">dvc_pull_data</span><span class="p">(</span> <span class="p">...</span> <span class="p">):</span>
+
+    <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span> <span class="o">=</span> <span class="sh">"</span><span class="s">load_and_process_data</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">load_and_process_data</span><span class="p">(</span> <span class="p">...</span> <span class="p">):</span>
+
+    <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="sh">"</span><span class="s">combine_video_data</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">combine_video_data</span><span class="p">(</span><span class="n">video_data_list</span><span class="p">,</span> <span class="n">existing_data</span><span class="p">):</span>
+
+    <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span> <span class="o">=</span> <span class="sh">"</span><span class="s">save_combined_data_local</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">save_combined_data_local</span><span class="p">(</span> <span class="p">...</span> <span class="p">):</span>
+
+    <span class="nd">@task.bash</span><span class="p">(</span><span class="n">task_id</span> <span class="o">=</span> <span class="sh">"</span><span class="s">upload_data_s3</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">upload_data_s3</span><span class="p">():</span>
+
+    <span class="nd">@task_group</span><span class="p">(</span><span class="n">group_id</span> <span class="o">=</span> <span class="sh">"</span><span class="s">split_and_save_postgres</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">split_and_save_postgres</span><span class="p">(</span><span class="n">json_file</span><span class="p">):</span>
+        <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span><span class="o">=</span><span class="sh">"</span><span class="s">save_postgres_playlist</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">save_postgres</span><span class="p">(</span><span class="n">json_file</span><span class="p">):</span>
+
+        <span class="nd">@task</span><span class="p">(</span><span class="n">task_id</span> <span class="o">=</span> <span class="sh">"</span><span class="s">save_postgres_saved_playlist_music</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">save_playlist_music</span><span class="p">(</span><span class="n">saved_playlist</span><span class="p">,</span> <span class="n">json_file</span><span class="p">):</span>
+
+        <span class="n">saved_playlists</span> <span class="o">=</span> <span class="nf">save_postgres</span><span class="p">(</span><span class="n">json_file</span><span class="p">)</span>
+        <span class="nf">save_playlist_music</span><span class="p">(</span><span class="n">saved_playlist</span> <span class="o">=</span> <span class="n">saved_playlists</span><span class="p">,</span> <span class="n">json_file</span> <span class="o">=</span> <span class="n">json_file</span><span class="p">)</span>
+
+    <span class="c1"># 태스크 순서 설정
+</span>    <span class="n">collect_channel_id_task</span> <span class="o">=</span> <span class="nf">collect_channel_ids</span><span class="p">()</span>
+
+    <span class="c1"># 병렬로 각 채널의 비디오를 수집 (expand 사용)
+</span>    <span class="n">video_data_list</span> <span class="o">=</span> <span class="n">collect_videos</span><span class="p">.</span><span class="nf">expand</span><span class="p">(</span><span class="n">channel_id</span><span class="o">=</span><span class="n">collect_channel_id_task</span><span class="p">)</span>
+
+    <span class="n">dvc_pull_task</span> <span class="o">=</span> <span class="nf">dvc_pull_data</span><span class="p">()</span>
+    <span class="n">existing_data</span> <span class="o">=</span> <span class="nf">load_and_process_data</span><span class="p">()</span>
+    <span class="n">combined_data</span> <span class="o">=</span> <span class="nf">combine_video_data</span><span class="p">(</span><span class="n">video_data_list</span><span class="p">,</span> <span class="n">existing_data</span><span class="p">)</span>
+    <span class="n">save_data_task</span> <span class="o">=</span> <span class="nf">save_combined_data_local</span><span class="p">(</span><span class="n">combined_data</span><span class="p">)</span>
+    <span class="n">upload_data_s3_task</span> <span class="o">=</span> <span class="nf">upload_data_s3</span><span class="p">()</span>
+    <span class="n">split_and_save_postgres_tasks</span> <span class="o">=</span> <span class="nf">split_and_save_postgres</span><span class="p">(</span><span class="n">combined_data</span><span class="p">)</span>
+
+<span class="n">dag</span> <span class="o">=</span> <span class="nf">collect_playlist</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="병렬-처리의-핵심-expand-사용">병렬 처리의 핵심: expand() 사용</h3>
+
+<p>이 dag에서 expand() 메서드를 사용해 여러개의 작업을 동시에 실행하도록 설정한 것이 병렬 처리의 핵심이다.
+각 유튜브 채널에서 데이터를 수집하는 부분에서 채널 아이디를 수집하고 -&gt; 수집된 아이디에서 영상 정보를 수집하는 부분을 병렬로 처리하도록 하여 처리 성능을 높였다.</p>
+
+<h4 id="expand의-작동-방식">expand()의 작동 방식</h4>
+
+<p>expand()는 태스크가 리스트나 다른 컬렉션 형태의 데이터를 인자로 받아 각 항목마다 독립적인 인스턴스를 생성해 병렬로 실행할 수 있게 한다. 즉, 하나의 태스크가 여러 번 실행되며, 각각의 실행이 병렬로 처리된다.</p>
+
+<h2 id="task-간-의존성-관리">Task 간 의존성 관리</h2>
+
+<p>Airflow는 태스크 간 의존성을 통해 DAG의 실행 흐름을 제어한다. 의존성을 명확하게 정의하지 않으면 불필요하게 모든 태스크가 순차적으로 실행되거나, 동시에 실행되어야 할 태스크가 지연될 수 있다.</p>
+
+<p>태스크 간 의존성은 <code class="language-plaintext highlighter-rouge">&gt;&gt;</code> 또는 <code class="language-plaintext highlighter-rouge">&lt;&lt;</code> 연산자를 통해 설정하며, 복잡한 의존성 구조에서는 <code class="language-plaintext highlighter-rouge">set_downstream()</code> 또는 <code class="language-plaintext highlighter-rouge">set_upstream()</code> 메서드를 사용할 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">task_1</span><span class="p">.</span><span class="nf">set_downstream</span><span class="p">([</span><span class="n">task_2</span><span class="p">,</span> <span class="n">task_3</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p>이 코드는 <code class="language-plaintext highlighter-rouge">task_1</code>이 완료된 후 <code class="language-plaintext highlighter-rouge">task_2</code>와 <code class="language-plaintext highlighter-rouge">task_3</code>이 병렬로 실행됨을 의미한다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/airflow-cluster/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Airflow 클러스터 구성하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/airflow-xcom/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Airflow에서의 Xcom</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

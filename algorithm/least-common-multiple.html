@@ -1,0 +1,34 @@
+<h2 id="문제">문제</h2>
+
+<p>n개 수의 초소공배수. 즉 n개의 배수들 중 공통이 되는 가장 작은 숫자 구하기</p>
+
+<h2 id="풀이">풀이</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">itertools</span> <span class="kn">import</span> <span class="n">combinations</span>
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">arr</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">gcp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+        <span class="k">while</span> <span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">a</span> <span class="o">%</span> <span class="n">b</span>
+        <span class="k">return</span> <span class="n">a</span>
+
+    <span class="k">def</span> <span class="nf">lcm</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span> <span class="o">//</span> <span class="p">(</span><span class="nf">gcp</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="p">))</span>
+
+    <span class="c1"># 첫번째와 두번째를 하고 나머지와 다시계산하는 식으로 접근한다!
+</span>
+    <span class="k">def</span> <span class="nf">lcm_recursive</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">numbers</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">first_res</span> <span class="o">=</span> <span class="nf">lcm</span><span class="p">(</span><span class="n">numbers</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="nf">lcm_recursive</span><span class="p">([</span><span class="n">first_res</span><span class="p">]</span> <span class="o">+</span> <span class="n">numbers</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="k">return</span> <span class="nf">lcm_recursive</span><span class="p">(</span><span class="n">arr</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="알게된-점">알게된 점</h2>
+
+<ul>
+  <li>최소공배수를 구하는 법 = (두수의 곱) / (두수의 최대공약수)</li>
+  <li>최대공약수를 구하는 법 = 두 수 a, b에서 a를 b로 나눈 나머지를 r이라고 할때 나머지가 0이 될때의 b값.</li>
+  <li>재귀를 자꾸 생각해보자~ 잡아먹으면서 진행하기</li>
+</ul>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동적 카테고리 시스템 구현하기 2</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">동적 카테고리 시스템 구현하기 2</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 03일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Tools</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">github-blog</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#jekyll</span>
+                
+                <span class="tag">#github_pages</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>1부에서 Jekyll과 Liquid로 카테고리 시스템의 HTML 구조를 만들었습니다. 이번에는 JavaScript를 사용해서 사용자가 실제로 클릭하고 상호작용할 수 있는 동적 기능을 구현해보겠습니다.</p>
+
+<h2 id="dom과-이벤트-리스너-기초">DOM과 이벤트 리스너 기초</h2>
+
+<p>먼저 <strong>DOM(Document Object Model)</strong>에 대해 간단히 알아보겠습니다. DOM은 웹페이지의 HTML 구조를 JavaScript에서 조작할 수 있게 해주는 인터페이스입니다.</p>
+
+<h3 id="dom-선택자-활용하기">DOM 선택자 활용하기</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// HTML이 이렇게 있다면</span>
+<span class="c1">// &lt;div class="subcategory-card" data-subcategory="genai-llm"&gt;</span>
+<span class="c1">//     &lt;h3 class="subcat-title"&gt;GenAI&amp;LLM&lt;/h3&gt;</span>
+<span class="c1">// &lt;/div&gt;</span>
+
+<span class="c1">// JavaScript에서 이렇게 접근할 수 있어요</span>
+<span class="kd">const</span> <span class="nx">card</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">card</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">);</span> <span class="c1">// "genai-llm"</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">card</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcat-title</span><span class="dl">"</span><span class="p">).</span><span class="nx">textContent</span><span class="p">);</span> <span class="c1">// "GenAI&amp;LLM"</span>
+</code></pre></div></div>
+
+<h3 id="이벤트-리스너-등록하기">이벤트 리스너 등록하기</h3>
+
+<p>카테고리 시스템에 필요한 이벤트 리스너들을 등록해보겠습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// categories.html 하단에 추가</span>
+<span class="o">&lt;</span><span class="nx">script</span><span class="o">&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">'</span><span class="s1">DOMContentLoaded</span><span class="dl">'</span><span class="p">,</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 필요한 DOM 요소들 선택</span>
+    <span class="kd">const</span> <span class="nx">categoryItems</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.category-item</span><span class="dl">'</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">postsContainers</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">.posts-container</span><span class="dl">'</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">categoryContent</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">'</span><span class="s1">.category-content</span><span class="dl">'</span><span class="p">);</span>
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/tools/jekyll-active/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">동적 카테고리 시스템 구현하기 1</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/DB-mongodb-pgvector-es/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Db Mongodb Pgvector Es</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
