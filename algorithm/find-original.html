@@ -1,0 +1,32 @@
+<h2 id="문제">문제</h2>
+
+<p>중복되는 원소가 없는 튜플이 있고 이걸 토대로 부분집합을 만들어서 줬을때, 원래의 튜플 추론하기.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+    <span class="c1"># 파싱
+</span>    <span class="c1">## 문자열에서 집합형태 제거하고 분리하기
+</span>    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">].</span><span class="nf">replace</span><span class="p">(</span><span class="sh">'</span><span class="s">},{</span><span class="sh">'</span><span class="p">,</span><span class="sh">'</span><span class="s">-</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">-</span><span class="sh">'</span><span class="p">)</span>
+
+    <span class="c1">## 숫자형으로 변환하고 셋으로 만들기
+</span>    <span class="n">new_s</span> <span class="o">=</span> <span class="p">[</span><span class="nf">set</span><span class="p">(</span><span class="nf">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">,</span><span class="sh">'</span><span class="p">)))</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">s</span><span class="p">]</span>
+
+    <span class="c1">## 길이에 따라 오름차순 정렬하기
+</span>    <span class="n">new_s</span><span class="p">.</span><span class="nf">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="nb">len</span><span class="p">)</span>
+
+    <span class="c1"># 새로이 추가된 원소 찾아서 반환하기
+</span>    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">subset</span> <span class="ow">in</span> <span class="n">new_s</span><span class="p">:</span>
+        <span class="n">number</span> <span class="o">=</span> <span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">subset</span><span class="o">-</span><span class="nf">set</span><span class="p">(</span><span class="n">result</span><span class="p">))[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">result</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">number</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<h2 id="알게된-점">알게된 점</h2>
+
+<ul>
+  <li>set에는 -를 쓸 수 있다!!</li>
+</ul>

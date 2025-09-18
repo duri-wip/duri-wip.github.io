@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangChain Output Parser</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">LangChain Output Parser</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 07월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#output-parser</span>
+                
+                <span class="tag">#pydantic</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="아웃풋-형식-지정하기--output-parser">아웃풋 형식 지정하기 : Output Parser</h1>
+
+<p>llm 이 내뱉는 답변 자체를 서비스에서 마지막 단으로 제공하는 워크플로우는 이제 흔하지 않다.
+ai 프로덕트가 다양해지면서 워크플로우가 복잡해지고 있으므로, 1번 노드에서 받은 응답을 가공해서 2번에 인풋으로 넣고.. 하는 과정이 많아지기 때문이다.
+이런 과정에서 언제나 모델에 맞춰서 다시 파싱하고.. 타입 유효성 검증하고.. 하는 과정을 손수 하나하나 만드는건 정말 쉽지 않다.
+그래서 아웃풋 파서는 랭체인 프레임워크에서 유용하게 잘 쓰고 있는 기능이다.</p>
+
+<h2 id="pydantic-output-parser-사용법">Pydantic Output Parser 사용법</h2>
+
+<p>PydanticOutputParser는 langchain의 output parser 중 하나로 LLM 출력을 파이썬 객체로 변환한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 출력하게 할 형식을 pydantic 모델로 지정
+</span><span class="kn">from</span> <span class="n">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="k">class</span> <span class="nc">City</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">country</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">The country the city is in</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">city</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">The city name</span><span class="sh">"</span><span class="p">)</span>
+
+
+<span class="c1"># pydantic 모델을 사용하는 프롬프트 작성
+</span><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">PydanticOutputParser</span>
+
+<span class="n">output_parser</span> <span class="o">=</span> <span class="nc">PydanticOutputParser</span><span class="p">(</span><span class="n">pydantic_object</span> <span class="o">=</span> <span class="n">City</span><span class="p">)</span>
+
+<span class="n">format_instructions</span> <span class="o">=</span> <span class="n">output_parser</span><span class="p">.</span><span class="nf">get_format_instructions</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">format_instructions</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span>
+     <span class="sh">"</span><span class="s">사용자가 입력한 국가의 수도를 출력해주세요.</span><span class="sh">"</span><span class="p">,</span>
+     <span class="sh">"</span><span class="s">{format_instructions}</span><span class="sh">"</span><span class="p">),</span>
+     <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">prompt_value</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">partial</span><span class="p">(</span>
+    <span class="n">format_instructions</span> <span class="o">=</span> <span class="n">format_instructions</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>output 형식을 pydantic object로 변환하는 과정에서 자연스럽게 구조화, 형식 검증을 수행하게 된다.</li>
+</ul>
+
+<p>-&gt; 결과 확인해보기</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>prompt.invoke({"input": "France"})
+print(prompt_value.messages[0].content)
+print(prompt_value.messages[1].content)
+</code></pre></div></div>
+
+<h2 id="string-output-parser-사용법">String Output Parser 사용법</h2>
+
+<p>LLM의 출력을 텍스트로 변환하는데 사용된다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="n">langchain_core.messages</span> <span class="kn">import</span> <span class="n">AIMessage</span><span class="p">,</span> <span class="n">HumanMessage</span>
+
+<span class="n">output_parser</span> <span class="o">=</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="n">ai_message</span> <span class="o">=</span> <span class="nc">AIMessage</span><span class="p">(</span><span class="n">content</span> <span class="o">=</span> <span class="sh">"</span><span class="s">The capital of France is Paris.</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">ai_message</span> <span class="o">=</span> <span class="n">output_parser</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">ai_message</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ai_message</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="jsonoutputparser">JsonOutputParser</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">JsonOutputParser</span>
+<span class="kn">from</span> <span class="n">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">요리 이름</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">ingredients</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">재료 목록</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">steps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">조리 과정</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="nc">JsonOutputParser</span><span class="p">(</span><span class="n">pydantic_object</span><span class="o">=</span><span class="n">Recipe</span><span class="p">)</span>
+
+<span class="c1"># 프롬프트에 포맷 지시사항 자동 추가
+</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span>
+    <span class="sh">"</span><span class="s">사용자 질문: {query}</span><span class="se">\n</span><span class="s">{format_instructions}</span><span class="sh">"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="pydantic-output-parser-랑-json-output-parser의-차이점">pydantic output parser 랑 json output parser의 차이점</h3>
+
+<p><strong>PydanticOutputParser:</strong></p>
+
+<ul>
+  <li>Pydantic 모델 기반 검증</li>
+  <li>타입 안전성 보장</li>
+  <li>복잡한 중첩 구조 지원</li>
+  <li>자동 필드 검증</li>
+</ul>
+
+<p><strong>JsonOutputParser:</strong></p>
+
+<ul>
+  <li>단순 JSON 파싱</li>
+  <li>Pydantic 모델 선택적 사용</li>
+  <li>더 빠른 처리 속도</li>
+  <li>유연한 구조</li>
+</ul>
+
+<h2 id="commaseparatedlistoutputparser">CommaSeparatedListOutputParser</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">CommaSeparatedListOutputParser</span>
+
+<span class="n">output_parser</span> <span class="o">=</span> <span class="nc">CommaSeparatedListOutputParser</span><span class="p">()</span>
+<span class="n">format_instructions</span> <span class="o">=</span> <span class="n">output_parser</span><span class="p">.</span><span class="nf">get_format_instructions</span><span class="p">()</span>
+<span class="c1"># 결과: "Your response should be a list of comma separated values, eg: `foo, bar, baz`"
+</span></code></pre></div></div>
+
+<h2 id="datetimeoutputparser">DatetimeOutputParser</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">DatetimeOutputParser</span>
+
+<span class="n">output_parser</span> <span class="o">=</span> <span class="nc">DatetimeOutputParser</span><span class="p">()</span>
+<span class="c1"># ISO 8601 형식의 datetime 객체로 변환
+</span></code></pre></div></div>
+
+<h1 id="2-custom-output-parser-만들기">2. Custom Output Parser 만들기</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">BaseOutputParser</span>
+<span class="kn">from</span> <span class="n">langchain_core.exceptions</span> <span class="kn">import</span> <span class="n">OutputParserException</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="n">re</span>
+
+<span class="k">class</span> <span class="nc">EmailListParser</span><span class="p">(</span><span class="n">BaseOutputParser</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]]):</span>
+    <span class="sh">"""</span><span class="s">이메일 주소 목록을 파싱하는 커스텀 파서</span><span class="sh">"""</span>
+
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="c1"># 이메일 패턴 정규식
+</span>        <span class="n">email_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="sh">'</span><span class="s">\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b</span><span class="sh">'</span>
+        <span class="n">emails</span> <span class="o">=</span> <span class="n">re</span><span class="p">.</span><span class="nf">findall</span><span class="p">(</span><span class="n">email_pattern</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">emails</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nc">OutputParserException</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">No valid emails found in: </span><span class="si">{</span><span class="n">text</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">emails</span>
+
+    <span class="k">def</span> <span class="nf">get_format_instructions</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">응답에는 유효한 이메일 주소들을 포함해주세요.</span><span class="sh">"</span>
+
+<span class="c1"># 사용 예시
+</span><span class="n">email_parser</span> <span class="o">=</span> <span class="nc">EmailListParser</span><span class="p">()</span>
+</code></pre></div></div>
+
+<ul>
+  <li>응답을 파싱하는걸 랭체인의 runnable 객체로 사용할 수 있다. 랭체인 프레임워크 밖에서 이런 작업을 하려고 하면 응답의 유효성부터 예외처리까지 다 하나하나 만들어줘야겟지 . . .</li>
+</ul>
+
+<h1 id="3-output-parser와-pydantic-고급-활용">3. Output Parser와 Pydantic 고급 활용</h1>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">validator</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">from</span> <span class="n">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="k">class</span> <span class="nc">Priority</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">HIGH</span> <span class="o">=</span> <span class="sh">"</span><span class="s">high</span><span class="sh">"</span>
+    <span class="n">MEDIUM</span> <span class="o">=</span> <span class="sh">"</span><span class="s">medium</span><span class="sh">"</span>
+    <span class="n">LOW</span> <span class="o">=</span> <span class="sh">"</span><span class="s">low</span><span class="sh">"</span>
+
+<span class="k">class</span> <span class="nc">Task</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">작업 제목</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">작업 설명</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">priority</span><span class="p">:</span> <span class="n">Priority</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">작업 우선순위</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">due_date</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">마감일 (YYYY-MM-DD)</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">작업 태그 목록</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="nd">@validator</span><span class="p">(</span><span class="sh">'</span><span class="s">due_date</span><span class="sh">'</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">validate_date_format</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="kn">import</span> <span class="n">datetime</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="nf">strptime</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="sh">'</span><span class="s">%Y-%m-%d</span><span class="sh">'</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">ValueError</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sh">'</span><span class="s">날짜는 YYYY-MM-DD 형식이어야 합니다</span><span class="sh">'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">v</span>
+</code></pre></div></div>
+
+<h3 id="2-format-instructions의-중요성">2. Format Instructions의 중요성</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 잘못된 예시
+</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"</span><span class="s">날씨 정보를 JSON으로 주세요</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 올바른 예시
+</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span>
+    <span class="sh">"</span><span class="s">날씨 정보를 다음 형식으로 주세요:</span><span class="se">\n</span><span class="s">{format_instructions}</span><span class="se">\n</span><span class="s">질문: {query}</span><span class="sh">"</span>
+<span class="p">)</span>
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">partial</span><span class="p">(</span><span class="n">format_instructions</span><span class="o">=</span><span class="n">parser</span><span class="p">.</span><span class="nf">get_format_instructions</span><span class="p">())</span>
+</code></pre></div></div>
+
+<p>두 가지 방식 모두 형식에 대한 인스트럭션을 제공합니다. 그렇지만 강제성이 있는 방식이 언제나 더 낫습니다.. llm은 예측할 수 없는 결과를 보여주기도 하니까요…</p>
+
+<h3 id="3-파싱-에러-처리-전략">3. 파싱 에러 처리 전략</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">OutputFixingParser</span>
+<span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="c1"># 자동 수정 파서
+</span><span class="n">fixing_parser</span> <span class="o">=</span> <span class="n">OutputFixingParser</span><span class="p">.</span><span class="nf">from_llm</span><span class="p">(</span>
+    <span class="n">parser</span><span class="o">=</span><span class="nc">PydanticOutputParser</span><span class="p">(</span><span class="n">pydantic_object</span><span class="o">=</span><span class="n">Recipe</span><span class="p">),</span>
+    <span class="n">llm</span><span class="o">=</span><span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># 재시도 파서
+</span><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">RetryOutputParser</span>
+
+<span class="n">retry_parser</span> <span class="o">=</span> <span class="n">RetryOutputParser</span><span class="p">.</span><span class="nf">from_llm</span><span class="p">(</span>
+    <span class="n">parser</span><span class="o">=</span><span class="nc">PydanticOutputParser</span><span class="p">(</span><span class="n">pydantic_object</span><span class="o">=</span><span class="n">Recipe</span><span class="p">),</span>
+    <span class="n">llm</span><span class="o">=</span><span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">retry_parser</span><span class="p">.</span><span class="nf">parse_with_prompt</span><span class="p">(</span><span class="n">malformed_output</span><span class="p">,</span> <span class="n">original_prompt</span><span class="p">)</span>
+<span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="c1"># 최종 실패 처리
+</span>    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">파싱 실패: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="4-성능-최적화-팁">4. 성능 최적화 팁</h3>
+
+<p><strong>1. 간단한 구조 선호:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 복잡한 중첩보다는 평면적 구조
+</span><span class="k">class</span> <span class="nc">SimpleTask</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">priority</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">completed</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="bp">False</span>
+</code></pre></div></div>
+
+<p><strong>2. 선택적 필드 활용:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">FlexibleResponse</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">required_field</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">optional_field</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>  <span class="c1"># LLM이 생략 가능
+</span></code></pre></div></div>
+
+<p><strong>3. Enum 활용으로 값 제한:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Status</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">PENDING</span> <span class="o">=</span> <span class="sh">"</span><span class="s">pending</span><span class="sh">"</span>
+    <span class="n">IN_PROGRESS</span> <span class="o">=</span> <span class="sh">"</span><span class="s">in_progress</span><span class="sh">"</span>
+    <span class="n">COMPLETED</span> <span class="o">=</span> <span class="sh">"</span><span class="s">completed</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<h3 id="5-실제-프로덕션-환경에서의-주의사항">5. 실제 프로덕션 환경에서의 주의사항</h3>
+
+<p><strong>토큰 비용 고려:</strong></p>
+
+<ul>
+  <li>복잡한 format_instructions는 토큰을 많이 소모</li>
+  <li>자주 사용되는 파서는 캐싱 고려</li>
+</ul>
+
+<p><strong>에러 복구:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">robust_parse</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">max_attempts</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">attempt</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">max_attempts</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">parser</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">except</span> <span class="n">OutputParserException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">attempt</span> <span class="o">==</span> <span class="n">max_attempts</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="c1"># 마지막 시도 실패시 기본값 또는 부분 파싱 결과 반환
+</span>                <span class="k">return</span> <span class="nf">extract_partial_data</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+            <span class="c1"># 다음 시도를 위한 텍스트 전처리
+</span>            <span class="n">text</span> <span class="o">=</span> <span class="nf">preprocess_for_retry</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>로깅과 모니터링:</strong></p>
+
+<ul>
+  <li>파싱 실패율 추적</li>
+  <li>자주 실패하는 패턴 분석</li>
+  <li>LLM 응답 품질 개선을 위한 프롬프트 조정</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/langchain-framework/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">langchain 프레임워크</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/LCEL/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">LCEL (LangChain Expression ...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

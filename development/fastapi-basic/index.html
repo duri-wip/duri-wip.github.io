@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI 기초: ASGI와 URL 이해하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">FastAPI 기초: ASGI와 URL 이해하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 01일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#asgi</span>
+                
+                <span class="tag">#url</span>
+                
+                <span class="tag">#web</span>
+                
+                <span class="tag">#python</span>
+                
+                <span class="tag">#api</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="fastapi-소개">FastAPI 소개</h1>
+
+<p>FastAPI는 현대적인 Python 웹 프레임워크이다. 다음과 같은 특징을 가지고 있다:</p>
+
+<ul>
+  <li>RESTful API 구축에 최적화되어 있다</li>
+  <li>Pydantic을 통한 타입 힌트 기반 자동 문서화를 지원한다</li>
+  <li>비동기 프로그래밍을 완벽하게 지원한다</li>
+  <li>Gunicorn과 ASGI를 통한 프로덕션 수준의 구동이 가능하다</li>
+</ul>
+
+<h2 id="프로덕션-환경에서의-구동">프로덕션 환경에서의 구동</h2>
+
+<p>FastAPI는 개발 환경에서는 <code class="language-plaintext highlighter-rouge">uvicorn</code> 명령어로 간단히 실행할 수 있지만, 실제 서비스 환경에서는 Gunicorn과 함께 사용하여 안정적인 운영이 가능하다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 개발 환경 실행</span>
+uvicorn main:app <span class="nt">--reload</span>
+
+<span class="c"># 프로덕션 환경 실행</span>
+gunicorn main:app <span class="nt">-w</span> 4 <span class="nt">-k</span> uvicorn.workers.UvicornWorker
+</code></pre></div></div>
+
+<p>위 예시에서:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">-w 4</code>: 4개의 워커 프로세스를 생성한다</li>
+  <li><code class="language-plaintext highlighter-rouge">-k uvicorn.workers.UvicornWorker</code>: Uvicorn 워커를 사용하여 ASGI 지원을 활성화한다</li>
+</ul>
+
+<p>이렇게 구성하면 다음과 같은 이점이 있다:</p>
+
+<ol>
+  <li><strong>로드 밸런싱</strong>: 여러 워커 프로세스가 요청을 분산 처리한다</li>
+  <li><strong>고가용성</strong>: 한 워커가 실패해도 다른 워커가 서비스를 계속한다</li>
+  <li><strong>성능 최적화</strong>: CPU 코어를 최대한 활용하여 처리량을 높인다</li>
+</ol>
+
+<h2 id="주요-장점">주요 장점</h2>
+
+<ol>
+  <li>
+    <p><strong>표준 기반 설계</strong></p>
+
+    <ul>
+      <li>OpenAPI와 JSON Schema 기반으로 통합이 용이하다</li>
+      <li>자동 문서화 (Swagger UI)를 지원한다</li>
+      <li>VS Code, PyCharm 등 주요 IDE를 지원한다</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>개발 편의성</strong></p>
+
+    <ul>
+      <li>기본값 검증이 자동화되어 있다</li>
+      <li>내장된 인증 및 보안 기능을 제공한다</li>
+      <li>의존성 주입 시스템을 갖추고 있다</li>
+      <li>플러그인 확장이 가능하다</li>
+      <li>100% 테스트 가능한 구현을 지원한다</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>성능과 확장성</strong></p>
+    <ul>
+      <li>Starlette 기반의 ASGI 프레임워크이다</li>
+      <li>비동기 처리를 지원한다</li>
+      <li>높은 성능과 확장성을 제공한다</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="fastapi-vs-django">FastAPI vs Django</h2>
+
+<p>Django는 풍부한 내장 기능을 제공하지만, 때로는 불필요한 기능까지 포함되어 애플리케이션이 무거워질 수 있다. 반면 FastAPI는 필요한 기능만 선택적으로 사용할 수 있어 더 가볍고 유연하다.</p>
+
+<h1 id="asgi-asynchronous-server-gateway-interface">ASGI (Asynchronous Server Gateway Interface)</h1>
+
+<h2 id="asgi란">ASGI란?</h2>
+
+<p>ASGI는 WSGI의 비동기 버전으로, Python 웹 애플리케이션과 웹 서버 간의 통신을 위한 인터페이스이다. 비동기 통신을 지원하여 더 효율적인 웹 애플리케이션 개발이 가능하다.</p>
+
+<h2 id="asgi-서버">ASGI 서버</h2>
+
+<ul>
+  <li>Uvicorn은 ASGI 서버의 대표적인 구현체이다</li>
+  <li>비동기 처리에 최적화된 인터페이스를 제공한다</li>
+  <li>높은 성능과 확장성을 보장한다</li>
+</ul>
+
+<h1 id="url-구조-이해하기">URL 구조 이해하기</h1>
+
+<h2 id="url-vs-uri">URL vs URI</h2>
+
+<p>URL(Uniform Resource Locator)은 URI(Uniform Resource Identifier)의 하위 개념으로, 리소스의 위치를 나타낸다.</p>
+
+<h2 id="url-구성-요소">URL 구성 요소</h2>
+
+<ol>
+  <li>
+    <p><strong>스킴(Scheme)</strong></p>
+
+    <ul>
+      <li>프로토콜을 지정한다 (http://, https://)</li>
+      <li>하이퍼텍스트 전송 규약을 사용한다</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>도메인(Domain)</strong></p>
+
+    <ul>
+      <li>웹사이트의 주소를 나타낸다</li>
+      <li>예: example.com</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>포트(Port)</strong></p>
+
+    <ul>
+      <li>서비스 접근 포인트를 지정한다</li>
+      <li>기본값: HTTP(80), HTTPS(443)</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>경로(Path)</strong></p>
+
+    <ul>
+      <li>리소스의 위치를 나타낸다</li>
+      <li>예: /users/profile</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>파라미터(Parameters)</strong></p>
+
+    <ul>
+      <li>쿼리 파라미터: ?key=value</li>
+      <li>패스 파라미터: /users/{id}</li>
+      <li>쿠키 파라미터: 브라우저 저장 데이터</li>
+      <li>헤더 파라미터: HTTP 헤더 정보</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>앵커(Anchor)</strong></p>
+    <ul>
+      <li>페이지 내 특정 위치를 지정한다</li>
+      <li>예: #section1</li>
+    </ul>
+  </li>
+</ol>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/airflow-decorator/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Airflow 대그에서 파이썬 함수와 데코레이터</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/docker-cloud-native-and-docker-container/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">클라우드 네이티브와 도커</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

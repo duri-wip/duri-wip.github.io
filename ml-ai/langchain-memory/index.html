@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangChain 메모리 시스템</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">LangChain 메모리 시스템</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#memory</span>
+                
+                <span class="tag">#conversation</span>
+                
+                <span class="tag">#buffer</span>
+                
+                <span class="tag">#token-management</span>
+                
+                <span class="tag">#chat-history</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="메모리">메모리</h1>
+<p>챗 히스토리를 저장하기 위해 사용하는 기능. 앞서 다뤘던 챗 히스토리와 비슷한 기능이다. 둘의 차이점은 이후에 설명한다.</p>
+
+<p>종류가 다양하다.</p>
+<ul>
+  <li>대화 버퍼 메모리 : 가장 기본적인 메모리 유형으로, 메시지를 사람의 입력과 ai의 답변으로 짝지어서 저장한다. 모든 대화 내용을 저장한다.</li>
+  <li>대화 버퍼 윈도우 메모리 : 너무 많은 대화 내용을 저장하면 토큰문제가 발생할 수 있으므로, 얼마만큼의 윈도우 분량까지만 대화를 기록할 지 정할 수 있다. 여기서의 윈도우는 최근 대화의 최대 메시지 수를 말한다.</li>
+  <li>대화 토큰 버퍼 메모리 : 윈도우가 아닌 토큰 단위로 대화 기록을 조절하는 방법이다.</li>
+  <li>대화 엔티티 메모리 : 토큰이나 윈도우는 절대적인 양을 토대로 제한하지만, 엔티티의 경우에는 대화에서 엔티티를 추출해 이를 기준으로 대화의 양을 지정하는 방법이다. 엔티티란 대화, 데이터에서 특정한 의미를 가지는 핵심 정보를 의미한다.</li>
+  <li>대화 지식 그래프 메모리 : 지식 그래프를 활용해서 정보를 저장하고 불러오기. 모델이 서로 다른 개체 간의 관계를 이해하는데 도움을 주고, 복잡한 연결망과 역사적 맥락을 기반으로 대응하는 능력을 향상시킨다.</li>
+  <li>대화 요약 메모리 : 이전 대화의 내용을 원문 텍스트 그대로 보관하지 않고 대화가 진행되는 동안 대화를 요약하고 요약본을 메모리에 저장한다.</li>
+</ul>
+
+<h2 id="대화-버퍼-메모리-사용">대화 버퍼 메모리 사용</h2>
+
+<ol>
+  <li>버퍼 메모리 초기화
+```
+from langchain.memory import ConversationBufferMemory</li>
+</ol>
+
+<p>memory = ConversationBufferMemory()</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 메모리에 대화 내용 저장. save_context는 메모리에 대화 내용을 누적으로 저장한다.
+</code></pre></div></div>
+<p>memory.save_context(
+    inputs={
+        “human”: “hello”
+    },
+    outputs={
+        “ai” : “Hello, how can i help you today?”
+    }
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3. 메모리에 저장된 대화 내용 불러오기
+</code></pre></div></div>
+<p>memory.load_memory_variables({})[“history”]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## 대화 버퍼 윈도우 메모리 사용
+
+1. 버퍼 메모리 초기화
+</code></pre></div></div>
+<p>from langchain.memory import ConversationBufferWindowMemory</p>
+
+<p>memory = ConversationBufferWindowMemory(k=2, return_messages=True)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- return_messages 옵션은 출력 결과를 보여준다.
+- 사용은 대화 버퍼 메모리와 동일하게 한다. 
+
+## 대화 토큰 버퍼 메모리
+
+1. 메모리 초기화
+llm 자체에서 토큰을 계산하는 기능을 사용하기 때문에 llm을 먼저 설정해야한다. 
+
+</code></pre></div></div>
+<p>from langchain.memory import ConversationTokenBufferMemory
+from langchain_openai import ChatOpenAI</p>
+
+<p>llm = ChatOpenAI(model_name=”gpt-4o”)
+memory = ConversationTokenBufferMemory(
+    llm=llm, max_token_limit=150, return_messages=true
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 대화 내용 저장. 
+- save_context 메서드를 사용해서 저장한다.
+- 특이한 점은, 전체 대화의 토큰을 제한하는게 아니라, save_context 메서드를 한번 사용할때의 토큰을 제한하므로 각 대화 입력, 출력에 대해서 길이가 제한된다.
+
+## 대화 엔티티 메모리
+1. 엔티티 추출을 위한 템플릿 설정 임포트 - 기본 설정 프롬프트 활용
+</code></pre></div></div>
+<p>from langchain_openai import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationEntitiMemory
+from langchain.memory.propmt import ENTITY_MEMORY_CONVERSATION_TEMPLATE</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+2. conversation chain 생성
+* 랭체인에서 대화 흐름을 관리하는 객체로, llm 과 대화 메모리를 결합하여 컨텍스트를 유지한다.
+</code></pre></div></div>
+<p>llm = ChatOpenAI(model_name=”gpt-4o”)</p>
+
+<p>conversation = ConversationChain(
+    llm = llm,
+    prompt = ENTITY_MEMORY_CONVERSATION_TEMPLATE,
+    memory = ConversationEntityMemory(llm=llm)
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+3. 저장된 엔티티 확인 방법
+</code></pre></div></div>
+<p>conversation.memory.entity_store.entity</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## 대화 지식 그래프 메모리
+
+대화 지식 그래프 메모리는 핵심 정볼르 효율적으로 저장할 수 잇지만 세부 내용이 엔티티나 지식 그래프에 포함되지 않는 경우에 세세한 사항에 대해 물어보면 제대로 답변하지 못한다.
+
+
+## 대화 요약 메모리
+
+여러가지 방식이 있다.
+- conversation summary memory :  바로바로 요약함
+- conversation summery buffer memory :  최근 대화 기록과 요약을 결합한 방식. 일정 수준 까지는 대화의 원본을 유지하면서 사용자가 최신 대화를 이용할 수 있도록 하다가, 대화가 길어져 메모리가 초과되면 이전 대화를 요약해서 저장함
+
+</code></pre></div></div>
+<p>from langchain.memory import ConversationSummaryMemory
+from langchain_openai import ChatOpenAI</p>
+
+<p>memory = ConversationSummaryBufferMemory(
+    llm=ChatOpenAI(model_name=””),
+    max_token_limit=200,
+    return_messages=True
+)</p>
+
+<p>memory.save_context( … )</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+## 벡터 스토어 검색 메모리
+대화 내용을 벡터 스토어 데이터 베이스에 저장하고 조회해볼 수 있는 기능이다. 다른 메모리 클래스에서는 대화 기록을 시간 순서에 따라서 저장하는데 반해 벡터 데이터 스토어에서는 시간 순서를 고려하지 않고 대화 내용에서 필요한 내용을 검색해서 사용한다.
+
+1. 임베딩 모델 정의, 데이터 베이스 초기화
+</code></pre></div></div>
+<p>import faiss
+from langchain_openai import OpenAIEmbeddings
+from langchain.docstore import InMemoryDocstore
+from langchain.vectorstores import FAISS</p>
+
+<p>embedding_model = OpenAIEmbeddings()
+embedding_size = 1536
+index = faiss.IndexFlatL2(embedding_size)
+vector_store = FAISS(embedding_model, index, InMemoryDocstore({}), {})</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* faiss : 페이스북에서 만든 벡터 데이터베이스
+
+2. 리트리버 추가
+</code></pre></div></div>
+<p>from langchain.memory import VectorStoreRetrieverMemory</p>
+
+<p>retriever = vectorstore.as_retriever(search_kwargs={“k”:1})
+memory = VecotStoreRetrieverMemory(retriever=retriever)
+```</p>
+
+<ol>
+  <li>저장 및 불러오기
+    <ul>
+      <li>save_context, load_memory_variables라는 동일한 메서드를 사용한다.</li>
+      <li>모든 메모리 사용 방식이 동일하다는 점이 정말 편리!</li>
+    </ul>
+  </li>
+</ol>
+
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/langchain-memory-2/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LCEL에 메모리 추가하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/langchain-modelload/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">직렬화와 역직렬화로 LangChain 모델 로드하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

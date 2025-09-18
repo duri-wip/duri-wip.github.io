@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카프카</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">카프카</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 21일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">kafka</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#airflow</span>
+                
+                <span class="tag">#xcom</span>
+                
+                <span class="tag">#dag</span>
+                
+                <span class="tag">#task-communication</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="카프카의-브로커와-파티션-ack-설정">카프카의 브로커와 파티션, ack 설정</h1>
+
+<p>카프카의 구조
+카프카 토픽에서 모든 메시지는 바이트의 집합. 집합은 배열로 표현.
+프로듀서는 큐에 저보를저장하는 애플리케이션
+프로듀서는 모든 유형의 메시지를 저장할 수 있는 카프카 토픽으로 메시지를 전송
+모든 토픽은 파티션으로 더 나눌 수 있으며 각 파티션은 메시지를 도착한 순서에 맞게 저장함.</p>
+
+<p>전형적으로 카프카 클러스터는 다중 브로커로 구성된다.
+각 브로커는 상태를 저장하지 않지만 주키퍼를 사용해 상태 정보를 유지한다.
+각각의 파티션에는 리더로 활동하는 브로커가 있고, 0개 이상의 팔로워를 갖는다.
+리더는 파티션의 읽기 쓰기 요청을 관리한다.
+팔로워는 백그라운드에서 리더를 복제한다. 리더에 대한 백업으로 동작.리더 장애시에 팔로워 중 하나가 리더를 대체할 수 있다.</p>
+
+<p>파티션은 카프카에서 병렬 처리를 위한 단위이다.</p>
+
+<p>복제는 카프카 시스템에서 신뢰성을 구현하기 위해 가장 중요한 부분이다.
+일반적으로 팔로워는 리더의 로그 복사본을 보관하는데, 이는 리더가 모든 팔로워로부터 ack를 받기 전까지 메시지를 커밋하지 않는다는 것을 의미한다.
+복제본의 일관성을 유지하기 위한 두가지 방법이 있다.</p>
+
+<ul>
+  <li>쿼럼 방식
+다수, 과반수의 복제본이 메시지를 수신했다는 ack를 갖는 경우에만 리더가 메시지를 커밋된 것으로 표시하는 방식.
+리더에 장애가 발생하면 새 리더의 선정은 팔로워 사이에서의 조정을 통해서 진행된다. 주키퍼는 쿼럼 기반 방식을 따른다.</li>
+  <li>프라이머리 백업 방식
+카프카 리더가 메시지를 커밋된 상태로 표시하기 전에 모든 팔로워로부터 ack를 기다리는 방식. 리더에 장애가 발생하면 어떤 팔로워라도 리더를 대체할 수 있다.
+각 리더는 isr(인싱크 레플리카!)로 표기되는 인 싱크 복제 세트를 기록한다.</li>
+</ul>
+
+<h1 id="카프카의-리플리케이션-등-장애-대응-설정">카프카의 리플리케이션 등 장애 대응 설정</h1>
+
+<h1 id="카프카-커넥트-소개">카프카 커넥트 소개</h1>
+
+<p>카프카 커넥트는 카프카 내부, 외부로 데이터를 복제하는데 사용된다. 다양한 데이터 소스와 목적지간에 카프카로 쉽게 데이터를 연동할 수 있도록 해준다.
+구성요소</p>
+
+<ul>
+  <li>커넥터 : 소스나 목적지에 대한 작업을 수행하는 컴포넌트.
+    <ul>
+      <li>소스 커넥터 : 외부 데이터소스에서 카프카로 데이터를 전송(가져오기)</li>
+      <li>싱크 커넥터 : 카프카에서 데이터를 가져와 외부 시스템에 저장한다.</li>
+    </ul>
+  </li>
+  <li>태스크 : 각 커넥터에 의해 생성되며 실제 데이터의 이동을 담당한다. 커넥터가 어떤 데이터를 어떻게 처리할지 정의하면, 태스크는 이를 구체적으로 실행하여 병렬처리할 수 있도록 한다.</li>
+  <li>워커 : 클러스터 환경에서 작업을 분산처리하기 위해 워커를 사용함. 여러개의 워커가 함께 클러스터를 구성하여 작업 부하를 분산하고 확장성을 제공</li>
+</ul>
+
+<p>작동방식</p>
+
+<ol>
+  <li>소스 커넥터가 외부 시스템에서 데이터를 읽고 카프카 토픽에 메시지 전송</li>
+  <li>카프카 클러스터가 수집한 데이터를 싱크 커넥터가 구독</li>
+  <li>싱크 커넥터는 카프카 토픽에서 읽은 데이터를 다시 외부 시스템에 전송해 적재</li>
+</ol>
+
+<h1 id="데이터-정합성-유지에-대한-설정">데이터 정합성 유지에 대한 설정</h1>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/spark-resource-manager/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">spark cluster의 리소스 매니저</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/spark-application/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Spark 애플리케이션</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

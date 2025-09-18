@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI 미들웨어</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">FastAPI 미들웨어</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 17일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#middleware</span>
+                
+                <span class="tag">#http</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="미들웨어">미들웨어</h1>
+
+<p>http 요청과 응답이 처리되기 전에 실행되는 함수를 말한다.
+http 요청이 엔드포인트 함수로 전달되기 전이나 응답이 외부로 반환되기 전에 실행된다.
+예를 들면 다음과 같은 일을 한다</p>
+
+<ul>
+  <li>요청 데이터 처리</li>
+  <li>요청/응답 데이터 형식화</li>
+  <li>인증/인가</li>
+  <li>로깅/모니터링</li>
+  <li>캐싱</li>
+  <li>오류 처리</li>
+  <li>api 속도 제한 : 특정 시간동안 특정 사용자나 ip 주소로부터의 요청 횟수를 제한한다.</li>
+</ul>
+
+<h2 id="fastapi-가-제공하는-기본-미들웨어s">fastapi 가 제공하는 기본 미들웨어s</h2>
+
+<ol>
+  <li>CORSMiddleware
+cors활성화</li>
+  <li>GzipMiddleware
+http응답을 gzip으로 압축</li>
+  <li>HTTPSRedirectMiddleware
+http 요청을 https로 리디렉션</li>
+  <li>TrustedHostMiddleware
+특정 호스트에서만 요청을 허용s</li>
+</ol>
+
+<p>그 외에도 다른 asgi 미들웨어나 스탈렛이 제공하는 미들웨어를 사용할 수 있다.</p>
+
+<h2 id="콘텍스트-변수">콘텍스트 변수</h2>
+
+<p>contextvars는 비동기 작업간에 데이터를 격리해 저장하거나 접근할 수 있다.
+콘텍스트란 실행중인 코드의 환경을 말한다.</p>
+
+<ul>
+  <li>코드 실행중에 사용되는 변수와 현재의 값</li>
+  <li>현재 실행중인 코드의 위치, 실행 경로, 호출 스택의 상태</li>
+  <li>환경 구성 및 설정</li>
+  <li>실행중인 코드가 액세스하는 파일, 네트워크 연결, 데이터베이스 연결 등의 리소스</li>
+</ul>
+
+<p>비동기 작업은 각각 별도의 콘텍스트를 가진다. 서버가 초기화될 때 전역변수로 생성하면 콘텍스트 변수에 설정된 값이 여러 요청이 동시에 수행되더라도 잘 유지될 수 있다.</p>
+
+<h1 id="로깅">로깅</h1>
+
+<p>미들웨어와 콘텍스트 개념을 모아서 로깅 모듈을 활용해 유저의 정보를 포함하는 모듈을 만들 수 있다.
+현재 모놀리식 아키텍처(한 서버에서 여러 서비스가 수행됨)로 구성되어있는데 마이크로 서비스 아키텍처(여러 서버에서 여러 서비스가 운영됨)으로 이동된다면
+유저의 요청이 어느 서비스에서 어느 서비스로 전달되어 처리되고 있는지 추적해야한다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/fastapi-backgroundtasks/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">FastAPI Background Tasks</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/fastapi-paging/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">FastAPI 페이징 및 페이지네이션</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

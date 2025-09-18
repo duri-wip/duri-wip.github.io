@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll Private</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Jekyll Private</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 09일</time>
+            
+            <div class="post-categories">
+                
+                    
+                
+                
+            </div>
+            
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="프라이빗퍼블릭-레포지토리-분리로-안전한-블로그-운영하기">프라이빗/퍼블릭 레포지토리 분리로 안전한 블로그 운영하기</h1>
+
+<p>블로그를 만들어놓고 보니 한 가지 고민이 생겼습니다. Jekyll 소스 파일들을 모두 공개 레포지토리에 올려둬야 하는데, 개인적인 설정이나 초안, 민감한 정보들까지 모두 공개되는 게 마음에 걸렸어요. GitHub Pages는 계속 사용하고 싶고, 다른 호스팅 서비스로 옮기고 싶지도 않고…</p>
+
+<p>그래서 <strong>프라이빗 레포지토리에서 개발하고 퍼블릭 레포지토리로 자동 배포하는 시스템</strong>을 구축했습니다!</p>
+
+<h2 id="문제-상황과-해결-전략">문제 상황과 해결 전략</h2>
+
+<h3 id="기존-방식의-문제점">기존 방식의 문제점</h3>
+
+<p>일반적인 Jekyll + GitHub Pages 사용 방식:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username/username.github.io (Public Repository)
+├── _posts/              # 포스트들이 모두 공개
+├── _drafts/             # 초안까지 공개
+├── _config.yml          # 개인 설정 공개
+├── Gemfile              # 의존성 정보 공개
+└── ...                  # 모든 소스 코드 공개
+</code></pre></div></div>
+
+<p><strong>문제점들</strong>:</p>
+
+<ul>
+  <li>초안이나 개인적인 메모도 모두 공개</li>
+  <li>API 키나 개인 설정이 노출될 수 있음</li>
+  <li>실험적인 코드나 임시 파일들도 공개</li>
+  <li>개발 과정이 모두 노출되어 부담스러움</li>
+</ul>
+
+<h3 id="해결-전략">해결 전략</h3>
+
+<p><strong>이중 레포지토리 시스템</strong>을 구축해서 개발과 배포를 분리합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Private] blog-source        →  [Public] username.github.io
+├── 소스 파일들                 ├── 빌드된 HTML 파일들
+├── 초안과 메모                 ├── CSS, JS 파일들
+├── 개인 설정                   ├── 이미지 파일들
+└── GitHub Actions             └── 배포용 파일들만
+</code></pre></div></div>
+
+<h2 id="1단계-프라이빗-소스-레포지토리-생성">1단계: 프라이빗 소스 레포지토리 생성</h2>
+
+<h3 id="레포지토리-구조-설계">레포지토리 구조 설계</h3>
+
+<p>먼저 프라이빗 레포지토리를 만들고 Jekyll 소스를 모두 옮겨둡니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blog-source/ (Private Repository)
+├── _posts/                    # 발행된 포스트
+├── _drafts/                   # 초안 (비공개)
+├── _private/                  # 개인 메모, 아이디어
+│   ├── ideas.md
+│   ├── todo.md
+│   └── private-notes/
+├── _config.yml               # 개인 설정
+├── _config-production.yml    # 배포용 설정 (분리)
+├── .github/
+│   └── workflows/
+│       └── deploy.yml        # 자동 배포 스크립트
+├── .gitignore
+├── Gemfile
+└── README.md
+</code></pre></div></div>
+
+<h3 id="배포용-설정-파일-분리">배포용 설정 파일 분리</h3>
+
+<p>개인 설정과 배포용 설정을 분리해서 관리합니다:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml (개발용 - 프라이빗)</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">개발자</span><span class="nv"> </span><span class="s">블로그"</span>
+<span class="na">email</span><span class="pi">:</span> <span class="s">my-private-email@example.com</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jekyll과</span><span class="nv"> </span><span class="s">GitHub</span><span class="nv"> </span><span class="s">Pages로</span><span class="nv"> </span><span class="s">만든</span><span class="nv"> </span><span class="s">블로그"</span>
+
+<span class="c1"># 개발 환경 설정</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://localhost:4000"</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="c1"># 개인 설정들</span>
+<span class="na">author</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">내</span><span class="nv"> </span><span class="s">이름"</span>
+  <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">private@email.com"</span>
+  <span class="na">social</span><span class="pi">:</span>
+    <span class="na">github</span><span class="pi">:</span> <span class="s2">"</span><span class="s">my-username"</span>
+
+<span class="c1"># 비공개 플러그인이나 설정</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-admin</span> <span class="c1"># 로컬에서만 사용</span>
+  <span class="pi">-</span> <span class="s">jekyll-compose</span>
+
+<span class="c1"># 개발용 컬렉션</span>
+<span class="na">collections</span><span class="pi">:</span>
+  <span class="na">drafts</span><span class="pi">:</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">private</span><span class="pi">:</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="kc">false</span> <span class="c1"># 비공개 컬렉션</span>
+</code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config-production.yml (배포용 - 퍼블릭으로 복사됨)</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">개발자</span><span class="nv"> </span><span class="s">블로그"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jekyll과</span><span class="nv"> </span><span class="s">GitHub</span><span class="nv"> </span><span class="s">Pages로</span><span class="nv"> </span><span class="s">만한</span><span class="nv"> </span><span class="s">블로그"</span>
+
+<span class="c1"># 프로덕션 환경 설정</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://username.github.io"</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="c1"># 최소한의 공개 정보만</span>
+<span class="na">author</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">블로거"</span>
+
+<span class="c1"># 배포용 플러그인만</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-feed</span>
+  <span class="pi">-</span> <span class="s">jekyll-sitemap</span>
+  <span class="pi">-</span> <span class="s">jekyll-seo-tag</span>
+
+<span class="c1"># 비공개 컬렉션 제외</span>
+<span class="na">exclude</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">_private/</span>
+  <span class="pi">-</span> <span class="s">_drafts/</span>
+  <span class="pi">-</span> <span class="s">Gemfile</span>
+  <span class="pi">-</span> <span class="s">Gemfile.lock</span>
+  <span class="pi">-</span> <span class="s">node_modules/</span>
+  <span class="pi">-</span> <span class="s">.sass-cache/</span>
+</code></pre></div></div>
+
+<h2 id="2단계-github-actions-워크플로우-구성">2단계: GitHub Actions 워크플로우 구성</h2>
+
+<p>프라이빗 레포지토리에 push하면 자동으로 빌드하고 퍼블릭 레포지토리에 배포하는 스크립트를 만듭니다.</p>
+
+<h3 id="personal-access-token-생성">Personal Access Token 생성</h3>
+
+<ol>
+  <li>GitHub Settings → Developer settings → Personal access tokens</li>
+  <li>“Generate new token” 클릭</li>
+  <li>필요한 권한 선택:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">repo</code> (전체 레포지토리 권한)</li>
+      <li><code class="language-plaintext highlighter-rouge">workflow</code> (GitHub Actions 권한)</li>
+    </ul>
+  </li>
+  <li>생성된 토큰을 복사해서 보관</li>
+</ol>
+
+<h3 id="레포지토리-시크릿-설정">레포지토리 시크릿 설정</h3>
+
+<p>프라이빗 레포지토리의 Settings → Secrets and variables → Actions에서:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DEPLOY_TOKEN</code>: 위에서 생성한 Personal Access Token</li>
+  <li><code class="language-plaintext highlighter-rouge">TARGET_REPO</code>: 배포할 퍼블릭 레포지토리 (예: <code class="language-plaintext highlighter-rouge">username/username.github.io</code>)</li>
+</ul>
+
+<h3 id="github-actions-워크플로우-작성">GitHub Actions 워크플로우 작성</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .github/workflows/deploy.yml</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">Build and Deploy to GitHub Pages</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">main</span><span class="pi">]</span>
+  <span class="na">workflow_dispatch</span><span class="pi">:</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build-and-deploy</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📥 소스 코드 체크아웃</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v4</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">fetch-depth</span><span class="pi">:</span> <span class="m">0</span> <span class="c1"># 전체 히스토리 가져오기</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">💎 Ruby 환경 설정</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ruby/setup-ruby@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">ruby-version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.1"</span>
+          <span class="na">bundler-cache</span><span class="pi">:</span> <span class="kc">true</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📦 의존성 설치</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bundle install</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔧 Jekyll 빌드 (배포용 설정 사용)</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s"># 배포용 설정으로 빌드</span>
+          <span class="s">bundle exec jekyll build --config _config.yml,_config-production.yml</span>
+
+          <span class="s"># 빌드 결과 확인</span>
+          <span class="s">echo "빌드 완료. 파일 목록:"</span>
+          <span class="s">ls -la _site/</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🚀 퍼블릭 레포지토리에 배포</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">peaceiris/actions-gh-pages@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">personal_token</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">external_repository</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">publish_branch</span><span class="pi">:</span> <span class="s">main</span>
+          <span class="na">publish_dir</span><span class="pi">:</span> <span class="s">./_site</span>
+          <span class="na">commit_message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Deploy:</span><span class="nv"> </span><span class="s">$"</span>
+          <span class="na">user_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]"</span>
+          <span class="na">user_email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]@users.noreply.github.com"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">✅ 배포 완료 알림</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">echo "🎉 배포가 완료되었습니다!"</span>
+          <span class="s">echo "블로그 주소: https://username.github.io"</span>
+          <span class="s">echo "커밋 메시지: $"</span>
+</code></pre></div></div>
+
+<h3 id="고급-워크플로우-선택사항">고급 워크플로우 (선택사항)</h3>
+
+<p>더 세밀한 제어가 필요한 경우:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .github/workflows/deploy-advanced.yml</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">Advanced Build and Deploy</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">main</span><span class="pi">]</span>
+    <span class="na">paths-ignore</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">README.md"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">_private/**"</span>
+  <span class="na">schedule</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">cron</span><span class="pi">:</span> <span class="s2">"</span><span class="s">0</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">0"</span> <span class="c1"># 매주 일요일 자동 빌드</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build-and-deploy</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+    <span class="na">env</span><span class="pi">:</span>
+      <span class="na">JEKYLL_ENV</span><span class="pi">:</span> <span class="s">production</span>
+
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📥 체크아웃</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v4</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">💎 Ruby 설정</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ruby/setup-ruby@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">ruby-version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.1"</span>
+          <span class="na">bundler-cache</span><span class="pi">:</span> <span class="kc">true</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔍 변경된 파일 확인</span>
+        <span class="na">id</span><span class="pi">:</span> <span class="s">changes</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">if git diff --name-only $ $ | grep -E '\.(md|html|yml|css|scss|js)$'; then</span>
+            <span class="s">echo "content_changed=true" &gt;&gt; $GITHUB_OUTPUT</span>
+          <span class="s">else</span>
+            <span class="s">echo "content_changed=false" &gt;&gt; $GITHUB_OUTPUT</span>
+          <span class="s">fi</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📦 의존성 설치 및 업데이트</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bundle install</span>
+          <span class="s">bundle update</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🧹 빌드 전 정리</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s"># 이전 빌드 결과 제거</span>
+          <span class="s">rm -rf _site</span>
+
+          <span class="s"># 임시 파일 정리</span>
+          <span class="s">find . -name ".DS_Store" -delete</span>
+          <span class="s">find . -name "Thumbs.db" -delete</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔧 Jekyll 빌드</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s"># 배포용 설정으로 빌드</span>
+          <span class="s">bundle exec jekyll build \</span>
+            <span class="s">--config _config.yml,_config-production.yml \</span>
+            <span class="s">--verbose \</span>
+            <span class="s">--trace</span>
+          <span class="no">  </span>
+          <span class="s"># 빌드 검증</span>
+          <span class="s">if [ ! -f "_site/index.html" ]; then</span>
+            <span class="s">echo "❌ 빌드 실패: index.html이 생성되지 않았습니다."</span>
+            <span class="s">exit 1</span>
+          <span class="s">fi</span>
+
+          <span class="s">echo "✅ 빌드 성공!"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔍 빌드 결과 검증</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">echo "📊 빌드 결과 통계:"</span>
+          <span class="s">echo "- HTML 파일: $(find _site -name "*.html" | wc -l)개"</span>
+          <span class="s">echo "- CSS 파일: $(find _site -name "*.css" | wc -l)개"</span>
+          <span class="s">echo "- JS 파일: $(find _site -name "*.js" | wc -l)개"</span>
+          <span class="s">echo "- 이미지 파일: $(find _site -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) | wc -l)개"</span>
+          <span class="s">echo "- 전체 크기: $(du -sh _site | cut -f1)"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🚀 배포</span>
+        <span class="na">if</span><span class="pi">:</span> <span class="s">steps.changes.outputs.content_changed == 'true'</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">peaceiris/actions-gh-pages@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">personal_token</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">external_repository</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">publish_branch</span><span class="pi">:</span> <span class="s">main</span>
+          <span class="na">publish_dir</span><span class="pi">:</span> <span class="s">./_site</span>
+          <span class="na">commit_message</span><span class="pi">:</span> <span class="pi">|</span>
+            <span class="s">Deploy: $</span>
+
+            <span class="s">- Build time: $</span>
+            <span class="s">- Commit: $</span>
+          <span class="na">user_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]"</span>
+          <span class="na">user_email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]@users.noreply.github.com"</span>
+          <span class="na">force_orphan</span><span class="pi">:</span> <span class="kc">true</span> <span class="c1"># 히스토리 정리</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📧 배포 결과 알림 (선택사항)</span>
+        <span class="na">if</span><span class="pi">:</span> <span class="s">always()</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">if [ $ == 'success' ]; then</span>
+            <span class="s">echo "✅ 배포 성공!"</span>
+            <span class="s">echo "🌐 블로그: https://username.github.io"</span>
+          <span class="s">else</span>
+            <span class="s">echo "❌ 배포 실패!"</span>
+          <span class="s">fi</span>
+</code></pre></div></div>
+
+<h2 id="3단계-퍼블릭-레포지토리-설정">3단계: 퍼블릭 레포지토리 설정</h2>
+
+<p>배포 대상인 퍼블릭 레포지토리는 간단히 설정합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username.github.io/ (Public Repository)
+├── index.html            # 빌드된 파일들만
+├── assets/
+├── posts/
+├── about/
+└── ...                   # 소스 코드는 없음
+</code></pre></div></div>
+
+<h3 id="readmemd-작성">README.md 작성</h3>
+
+<p>퍼블릭 레포지토리의 README.md:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># 개발자 블로그</span>
+
+이 레포지토리는 Jekyll로 빌드된 정적 사이트입니다.
+
+<span class="gu">## 📖 블로그 주소</span>
+
+https://username.github.io
+
+<span class="gu">## 🔧 기술 스택</span>
+<span class="p">
+-</span> Jekyll (Static Site Generator)
+<span class="p">-</span> GitHub Pages (Hosting)
+<span class="p">-</span> GitHub Actions (CI/CD)
+
+<span class="gu">## 📝 포스트 작성</span>
+
+이 레포지토리는 자동 배포된 결과물입니다.
+포스트 작성이나 수정은 프라이빗 소스 레포지토리에서 진행됩니다.
+
+<span class="gu">## 🤝 기여하기</span>
+
+오타나 오류를 발견하시면 이슈로 알려주세요!
+<span class="p">
+---
+</span>
+⚡ Powered by Jekyll &amp; GitHub Actions
+</code></pre></div></div>
+
+<h2 id="4단계-워크플로우-테스트-및-최적화">4단계: 워크플로우 테스트 및 최적화</h2>
+
+<h3 id="로컬에서-배포-테스트">로컬에서 배포 테스트</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 프라이빗 레포지토리에서</span>
+git clone https://github.com/username/blog-source.git
+<span class="nb">cd </span>blog-source
+
+<span class="c"># 의존성 설치</span>
+bundle <span class="nb">install</span>
+
+<span class="c"># 로컬 빌드 테스트</span>
+bundle <span class="nb">exec </span>jekyll build <span class="nt">--config</span> _config.yml,_config-production.yml
+
+<span class="c"># 빌드 결과 확인</span>
+<span class="nb">ls</span> <span class="nt">-la</span> _site/
+
+<span class="c"># GitHub에 푸시해서 자동 배포 테스트</span>
+git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"feat: 자동 배포 시스템 테스트"</span>
+git push origin main
+</code></pre></div></div>
+
+<h3 id="배포-상태-모니터링">배포 상태 모니터링</h3>
+
+<p>GitHub Actions 탭에서 배포 진행 상황을 실시간으로 확인할 수 있습니다:</p>
+
+<ol>
+  <li><strong>빌드 로그 확인</strong>: 각 단계별 실행 결과</li>
+  <li><strong>오류 디버깅</strong>: 실패 시 상세 오류 메시지</li>
+  <li><strong>배포 시간 측정</strong>: 성능 최적화 참고</li>
+</ol>
+
+<h2 id="이점과-주의사항">이점과 주의사항</h2>
+
+<h3 id="이-시스템의-장점">이 시스템의 장점</h3>
+
+<ol>
+  <li><strong>개인정보 보호</strong>: 소스 코드와 개인 설정 비공개</li>
+  <li><strong>자유로운 실험</strong>: 실험적 코드나 초안 안전하게 관리</li>
+  <li><strong>자동화</strong>: 푸시만 하면 자동 빌드 및 배포</li>
+  <li><strong>버전 관리</strong>: 소스와 배포본 분리된 히스토리 관리</li>
+  <li><strong>유연성</strong>: 배포 전 추가 처리나 검증 가능</li>
+</ol>
+
+<h3 id="주의사항">주의사항</h3>
+
+<ol>
+  <li><strong>토큰 관리</strong>: Personal Access Token 보안 주의</li>
+  <li><strong>빌드 시간</strong>: GitHub Actions 사용 한도 고려</li>
+  <li><strong>디버깅</strong>: 빌드 실패 시 로그 확인 필요</li>
+  <li><strong>동기화</strong>: 두 레포지토리 간 일관성 유지</li>
+</ol>
+
+<h2 id="다음-단계">다음 단계</h2>
+
+<p>이제 안전하고 효율적인 블로그 배포 시스템이 완성되었습니다!</p>
+
+<p><strong>다음으로 고려할 수 있는 개선사항들</strong>:</p>
+
+<ul>
+  <li>CDN 연결로 성능 최적화</li>
+  <li>자동 SEO 검증 추가</li>
+  <li>배포 실패 시 알림 시스템</li>
+  <li>다중 환경 배포 (스테이징/프로덕션)</li>
+</ul>
+
+<p>프라이빗/퍼블릭 분리 시스템으로 마음 편히 블로그를 운영해보세요. 궁금한 점이나 개선 아이디어가 있다면 댓글로 공유해 주세요!</p>
+
+<hr />
+
+<p><strong>참고 자료</strong>:</p>
+
+<ul>
+  <li><a href="https://docs.github.com/en/actions">GitHub Actions 문서</a></li>
+  <li><a href="https://jekyllrb.com/docs/deployment/">Jekyll 배포 가이드</a></li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/os-register/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Os Register</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/langchain-caching/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">LangChain LLM 답변 캐싱하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
