@@ -1,0 +1,29 @@
+<h2 id="문제">문제</h2>
+
+<p>주어진 수보다 크지만 이진수로 변환했을때 비트가 다른 지점이 2개 이하인 수를 구하기.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">numbers</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">num</span> <span class="ow">in</span> <span class="n">numbers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">num</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># 짝수의 경우 무조건 오른쪽 마지막 숫자가 0이다.
+</span>            <span class="n">result</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 홀수의 경우 가장 마지막에 있는 0자리수를 찾아야 한다.
+</span>            <span class="n">bnum</span> <span class="o">=</span> <span class="nf">bin</span><span class="p">(</span><span class="n">num</span><span class="p">)[</span><span class="mi">2</span><span class="p">:]</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">bnum</span><span class="p">)</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="n">bnum</span><span class="p">.</span><span class="nf">rfind</span><span class="p">(</span><span class="sh">'</span><span class="s">0</span><span class="sh">'</span><span class="p">)</span>
+            <span class="n">result</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">num</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="n">idx</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<h2 id="알게된-점">알게된 점</h2>
+
+<ul>
+  <li>마지막 비트가 0이면 걔만 변환하면 되니까 그런 지점을 찾아서 먼저 처리하는게 효율적이다.</li>
+  <li>rfind를 쓰면 꼭 뒤집지 않아도 된다. 뒤집으면 o(1)!</li>
+  <li>비트 움직이는 «, »를 사용하기</li>
+</ul>

@@ -1,0 +1,44 @@
+<h2 id="문제">문제</h2>
+<p>2개의 스택만 사용해서 fifo 큐 구현하기.</p>
+
+<h3 id="두-개의-스택을-사용하는-이유">두 개의 스택을 사용하는 이유</h3>
+
+<p>스택 1 (입력 스택): 요소를 삽입할 때 사용
+스택 2 (출력 스택): 요소를 꺼낼 때 사용</p>
+
+<p><strong>요소 삽입 (push)</strong>:
+stack1에 순서대로 쌓기</p>
+
+<p><strong>요소 제거 (pop)</strong>:
+stack2가 비어 있을 경우, stack1에 있는 모든 요소를 stack2로 옮긴다.
+이 과정에서 요소의 순서가 뒤집힌다.
+이제 stack2에서 pop을 하면 1부터 제거되므로 FIFO 순서를 유지하게 된다.</p>
+
+<p><strong>peek (peek)</strong>:
+pop과 같은 원리로 stack2가 비어 있으면 stack1에서 요소를 옮긴 후, stack2의 맨 위 요소를 확인</p>
+
+<h2 id="풀이">풀이</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">MyQueue</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">stack1</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">stack2</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">push</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">stack1</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pop</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">self</span><span class="p">.</span><span class="n">stack2</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">self</span><span class="p">.</span><span class="n">stack1</span><span class="p">:</span>
+                <span class="n">self</span><span class="p">.</span><span class="n">stack2</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">stack1</span><span class="p">.</span><span class="nf">pop</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">stack2</span><span class="p">.</span><span class="nf">pop</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">peek</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">self</span><span class="p">.</span><span class="n">stack2</span><span class="p">:</span>
+            <span class="k">while</span> <span class="n">self</span><span class="p">.</span><span class="n">stack1</span><span class="p">:</span>
+                <span class="n">self</span><span class="p">.</span><span class="n">stack2</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">stack1</span><span class="p">.</span><span class="nf">pop</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">stack2</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">empty</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="k">return</span> <span class="ow">not</span> <span class="n">self</span><span class="p">.</span><span class="n">stack1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">self</span><span class="p">.</span><span class="n">stack2</span>
+</code></pre></div></div>

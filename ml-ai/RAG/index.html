@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG (Retrieval-Augmented Generation) 완전 정복</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">RAG (Retrieval-Augmented Generation) 완전 정복</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 07월 31일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">rag</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#rag</span>
+                
+                <span class="tag">#vector-store</span>
+                
+                <span class="tag">#embedding</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="langchain에서-rag-사용하기">LangChain에서 RAG 사용하기</h1>
+
+<h2 id="관련-컴포넌트">관련 컴포넌트</h2>
+
+<ul>
+  <li><strong>Document Loader</strong>: 데이터 소스에서 문서를 읽어들임</li>
+  <li><strong>Document Transformer</strong>: 문서에 어떤 변환을 가함</li>
+  <li><strong>Embedding Model</strong>: 문서를 벡터화함</li>
+  <li><strong>Vector Store</strong>: 벡터화한 문서의 저장소</li>
+  <li><strong>Retriever</strong>: 입력 텍스트와 관련된 문서를 검색함</li>
+</ul>
+
+<h3 id="1-필요한-파일-읽어오기">1. 필요한 파일 읽어오기</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!</span>pip <span class="nb">install </span>langchain-community<span class="o">==</span>0.3.0 <span class="nv">GitPython</span><span class="o">==</span>3.1.43
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.document_loaders</span> <span class="kn">import</span> <span class="n">GitLoader</span>
+
+<span class="k">def</span> <span class="nf">file_filter</span><span class="p">(</span><span class="n">file_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">file_path</span><span class="p">.</span><span class="nf">endswith</span><span class="p">(</span><span class="sh">"</span><span class="s">.mdx</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># langchain 문서는 md, mdx, ipynb 등의 형식으로 작성되어 있고, 문서의 빌드 처리를 위해서 이 형식의 문서만 읽어야 한다
+</span>
+<span class="n">loader</span> <span class="o">=</span> <span class="nc">GitLoader</span><span class="p">(</span>
+    <span class="n">clone_url</span> <span class="o">=</span> <span class="sh">"</span><span class="s">https://github.com/langchain-ai/langchain</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">repo_path</span> <span class="o">=</span> <span class="sh">"</span><span class="s">./langchain</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">branch</span> <span class="o">=</span> <span class="sh">"</span><span class="s">master</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">file_filter</span> <span class="o">=</span> <span class="n">file_filter</span>
+<span class="p">)</span>
+
+<span class="n">raw_docs</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="nf">load</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="여러가지-로더-소개">여러가지 로더 소개</h2>
+
+<ul>
+  <li><strong>파일 시스템 로더</strong>: CSV, JSON, PDF, Text, Directory, MS Office …</li>
+  <li><strong>웹 기반 로더</strong>: 웹 페이지, 여러 웹 페이지에 대한 재귀적 로드, 사이트맵 기반 웹 페이지 로드, 유튜브 비디오 트랜스크립트 …</li>
+  <li><strong>클라우드 스토리지</strong></li>
+  <li><strong>데이터베이스</strong></li>
+  <li><strong>협업 도구, 소셜 미디어, 오디오</strong> …</li>
+</ul>
+
+<p>대부분의 로더는 문서와 함께 메타데이터를 제공합니다.</p>
+
+<h3 id="2-문서를-변환하기">2. 문서를 변환하기</h3>
+
+<p><strong>Data Transformer</strong>: 문서를 청킹하기</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">!</span>pip <span class="nb">install </span>langchain-text-splitters<span class="o">==</span>0.3.0
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_text_splitters</span> <span class="kn">import</span> <span class="n">CharacterTextSplitter</span>
+
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="nc">CharacterTextSplitter</span><span class="p">(</span>
+    <span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span>
+    <span class="n">chunk_overlap</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span>
+
+<span class="n">docs</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="p">.</span><span class="nf">split_documents</span><span class="p">(</span><span class="n">raw_docs</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>단순 청킹 이외에도 다양한 변환 처리가 가능합니다:</p>
+
+<ul>
+  <li>HTML을 일반 텍스트로 변환</li>
+  <li>메타데이터 추출</li>
+  <li>문서 번역</li>
+  <li>사용자 질문과의 관련성을 높이기 위해 문서에서 Q&amp;A 생성</li>
+</ul>
+
+<h3 id="3-임베딩하기">3. 임베딩하기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+
+<span class="n">embeddings</span> <span class="o">=</span> <span class="nc">OpenAIEmbeddings</span><span class="p">(</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">text-embedding-3-small</span><span class="sh">"</span>
+<span class="p">)</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="sh">"</span><span class="s">What is LangChain?</span><span class="sh">"</span>
+
+<span class="n">vector</span> <span class="o">=</span> <span class="n">embeddings</span><span class="p">.</span><span class="nf">embed_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="4-vector-store-구축">4. Vector Store 구축</h3>
+
+<p>여기서는 Chroma를 사용합니다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># pip install langchain-chroma==0.1.4
+</span>
+<span class="kn">from</span> <span class="n">langchain_chroma</span> <span class="kn">import</span> <span class="n">Chroma</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">Chroma</span><span class="p">.</span><span class="nf">from_documents</span><span class="p">(</span>
+    <span class="n">docs</span><span class="p">,</span>
+    <span class="n">embeddings</span>
+<span class="p">)</span>
+
+<span class="n">retreiver</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="nf">as_retriever</span><span class="p">()</span>
+
+<span class="n">query</span> <span class="o">=</span> <span class="sh">"</span><span class="s">What is LangChain?</span><span class="sh">"</span>
+
+<span class="n">context</span> <span class="o">=</span> <span class="n">retreiver</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">first_doc</span> <span class="o">=</span> <span class="n">context</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">first_doc</span><span class="p">.</span><span class="n">metadata</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">first_doc</span><span class="p">.</span><span class="n">page_content</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="lcel-활용하기">LCEL 활용하기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># LCEL을 활용한 RAG chain 구현
+</span>
+<span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span>
+    <span class="sh">'''</span><span class="s">
+    Answer the question based on the context provided.
+    Context: {context}
+    Question: {question}
+    </span><span class="sh">'''</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-4o-mini</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">temperature</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnablePassthrough</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="n">retriever</span><span class="p">,</span> <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="nc">RunnablePassthrough</span><span class="p">()}</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span>
+    <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">What is LangChain?</span><span class="sh">"</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="-추가로-알아볼-내용">📚 추가로 알아볼 내용</h2>
+
+<h3 id="1-고급-document-loaders">1. 고급 Document Loaders</h3>
+
+<p><strong>AsyncWebCrawler:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.document_loaders</span> <span class="kn">import</span> <span class="n">AsyncWebCrawler</span>
+<span class="kn">import</span> <span class="n">asyncio</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">crawl_websites</span><span class="p">():</span>
+    <span class="n">loader</span> <span class="o">=</span> <span class="nc">AsyncWebCrawler</span><span class="p">(</span><span class="n">urls</span><span class="o">=</span><span class="p">[</span><span class="sh">"</span><span class="s">https://example1.com</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">https://example2.com</span><span class="sh">"</span><span class="p">])</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="k">await</span> <span class="n">loader</span><span class="p">.</span><span class="nf">aload</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">docs</span>
+
+<span class="c1"># 비동기 처리로 속도 향상
+</span></code></pre></div></div>
+
+<p><strong>UnstructuredFileLoader (다양한 파일 형식):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.document_loaders</span> <span class="kn">import</span> <span class="n">UnstructuredFileLoader</span>
+
+<span class="c1"># PDF, DOCX, PPTX, HTML, TXT 등 자동 처리
+</span><span class="n">loader</span> <span class="o">=</span> <span class="nc">UnstructuredFileLoader</span><span class="p">(</span><span class="sh">"</span><span class="s">mixed_documents/</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="nf">load</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p><strong>DatabaseLoader:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.document_loaders</span> <span class="kn">import</span> <span class="n">SQLDatabaseLoader</span>
+
+<span class="n">loader</span> <span class="o">=</span> <span class="nc">SQLDatabaseLoader</span><span class="p">(</span>
+    <span class="sh">"</span><span class="s">postgresql://user:pass@localhost/db</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">SELECT content, metadata FROM documents WHERE active = true</span><span class="sh">"</span>
+<span class="p">)</span>
+<span class="n">docs</span> <span class="o">=</span> <span class="n">loader</span><span class="p">.</span><span class="nf">load</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="2-정교한-텍스트-분할-전략">2. 정교한 텍스트 분할 전략</h3>
+
+<p><strong>RecursiveCharacterTextSplitter (권장):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_text_splitters</span> <span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="nc">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>  <span class="c1"># 겹침으로 컨텍스트 보존
+</span>    <span class="n">separators</span><span class="o">=</span><span class="p">[</span><span class="sh">"</span><span class="se">\n\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">,</span> <span class="sh">""</span><span class="p">]</span>  <span class="c1"># 우선순위별 구분자
+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>TokenTextSplitter (토큰 기반):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_text_splitters</span> <span class="kn">import</span> <span class="n">TokenTextSplitter</span>
+
+<span class="c1"># 정확한 토큰 수 기반 분할
+</span><span class="n">splitter</span> <span class="o">=</span> <span class="nc">TokenTextSplitter</span><span class="p">(</span>
+    <span class="n">encoding_name</span><span class="o">=</span><span class="sh">"</span><span class="s">gpt2</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># 또는 "cl100k_base" for GPT-4
+</span>    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">512</span><span class="p">,</span>
+    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>SemanticChunker (의미 기반 분할):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_experimental.text_splitter</span> <span class="kn">import</span> <span class="n">SemanticChunker</span>
+<span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+
+<span class="n">semantic_chunker</span> <span class="o">=</span> <span class="nc">SemanticChunker</span><span class="p">(</span>
+    <span class="nc">OpenAIEmbeddings</span><span class="p">(),</span>
+    <span class="n">breakpoint_threshold_type</span><span class="o">=</span><span class="sh">"</span><span class="s">percentile</span><span class="sh">"</span>  <span class="c1"># 의미 변화 지점에서 분할
+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-벡터-스토어-최적화">3. 벡터 스토어 최적화</h3>
+
+<p><strong>메타데이터 필터링:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 문서 저장 시 메타데이터 추가
+</span><span class="n">docs_with_metadata</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nc">Document</span><span class="p">(</span>
+        <span class="n">page_content</span><span class="o">=</span><span class="sh">"</span><span class="s">내용</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="sh">"</span><span class="s">source</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">document1.pdf</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">page</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="sh">"</span><span class="s">category</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">technical</span><span class="sh">"</span><span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">]</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">Chroma</span><span class="p">.</span><span class="nf">from_documents</span><span class="p">(</span><span class="n">docs_with_metadata</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="c1"># 필터 검색
+</span><span class="n">retriever</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="nf">as_retriever</span><span class="p">(</span>
+    <span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span><span class="sh">"</span><span class="s">filter</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">category</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">technical</span><span class="sh">"</span><span class="p">}}</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>하이브리드 검색 설정:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 유사도 + 키워드 검색 조합
+</span><span class="n">retriever</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="nf">as_retriever</span><span class="p">(</span>
+    <span class="n">search_type</span><span class="o">=</span><span class="sh">"</span><span class="s">mmr</span><span class="sh">"</span><span class="p">,</span>  <span class="c1"># Maximal Marginal Relevance
+</span>    <span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span>
+        <span class="sh">"</span><span class="s">k</span><span class="sh">"</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">lambda_mult</span><span class="sh">"</span><span class="p">:</span> <span class="mf">0.7</span>  <span class="c1"># 다양성과 관련성 균형 조절
+</span>    <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="4-성능-최적화-전략">4. 성능 최적화 전략</h3>
+
+<p><strong>배치 임베딩:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 한 번에 여러 문서 임베딩 (효율적)
+</span><span class="n">embeddings</span> <span class="o">=</span> <span class="nc">OpenAIEmbeddings</span><span class="p">()</span>
+<span class="n">texts</span> <span class="o">=</span> <span class="p">[</span><span class="n">doc</span><span class="p">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">]</span>
+<span class="n">vectors</span> <span class="o">=</span> <span class="n">embeddings</span><span class="p">.</span><span class="nf">embed_documents</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>  <span class="c1"># 배치 처리
+</span></code></pre></div></div>
+
+<p><strong>인덱스 최적화:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># FAISS 사용 (대용량 데이터에 적합)
+</span><span class="kn">from</span> <span class="n">langchain_community.vectorstores</span> <span class="kn">import</span> <span class="n">FAISS</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">FAISS</span><span class="p">.</span><span class="nf">from_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+<span class="n">db</span><span class="p">.</span><span class="nf">save_local</span><span class="p">(</span><span class="sh">"</span><span class="s">faiss_index</span><span class="sh">"</span><span class="p">)</span>  <span class="c1"># 인덱스 저장
+</span>
+<span class="c1"># 로드 시 빠른 시작
+</span><span class="n">db</span> <span class="o">=</span> <span class="n">FAISS</span><span class="p">.</span><span class="nf">load_local</span><span class="p">(</span><span class="sh">"</span><span class="s">faiss_index</span><span class="sh">"</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="-학습하면서-알게-된-점">🔍 학습하면서 알게 된 점</h2>
+
+<h3 id="1-청킹-전략의-실제-영향">1. 청킹 전략의 실제 영향</h3>
+
+<p><strong>잘못된 청킹의 문제:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 너무 작은 청크 - 컨텍스트 부족
+</span><span class="n">small_splitter</span> <span class="o">=</span> <span class="nc">CharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 너무 큰 청크 - 노이즈 증가
+</span><span class="n">large_splitter</span> <span class="o">=</span> <span class="nc">CharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">5000</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># 최적화된 청킹
+</span><span class="n">optimal_splitter</span> <span class="o">=</span> <span class="nc">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">800</span><span class="p">,</span>      <span class="c1"># 충분한 컨텍스트
+</span>    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>   <span class="c1"># 20% 겹침으로 경계 정보 보존
+</span>    <span class="n">separators</span><span class="o">=</span><span class="p">[</span><span class="sh">"</span><span class="se">\n\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">. </span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s"> </span><span class="sh">"</span><span class="p">]</span>  <span class="c1"># 자연스러운 구분점
+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>청킹 품질 평가:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">evaluate_chunks</span><span class="p">(</span><span class="n">chunks</span><span class="p">):</span>
+    <span class="n">avg_length</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">.</span><span class="n">page_content</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">)</span> <span class="o">/</span> <span class="nf">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">평균 청크 길이: </span><span class="si">{</span><span class="n">avg_length</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">총 청크 수: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="c1"># 너무 짧거나 긴 청크 확인
+</span>    <span class="n">short_chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">page_content</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">200</span><span class="p">]</span>
+    <span class="n">long_chunks</span> <span class="o">=</span> <span class="p">[</span><span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">chunks</span> <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">c</span><span class="p">.</span><span class="n">page_content</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2000</span><span class="p">]</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">짧은 청크 수: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">short_chunks</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">긴 청크 수: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">long_chunks</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-임베딩-모델-선택의-중요성">2. 임베딩 모델 선택의 중요성</h3>
+
+<p><strong>모델별 특성:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># OpenAI - 범용성 좋음, 비용 있음
+</span><span class="n">openai_embeddings</span> <span class="o">=</span> <span class="nc">OpenAIEmbeddings</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="sh">"</span><span class="s">text-embedding-3-small</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Sentence Transformers - 무료, 한국어 지원 좋음
+</span><span class="kn">from</span> <span class="n">langchain_community.embeddings</span> <span class="kn">import</span> <span class="n">HuggingFaceEmbeddings</span>
+<span class="n">huggingface_embeddings</span> <span class="o">=</span> <span class="nc">HuggingFaceEmbeddings</span><span class="p">(</span>
+    <span class="n">model_name</span><span class="o">=</span><span class="sh">"</span><span class="s">jhgan/ko-sroberta-multitask</span><span class="sh">"</span>
+<span class="p">)</span>
+
+<span class="c1"># 모델 성능 비교 필요
+</span><span class="k">def</span> <span class="nf">compare_embeddings</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">embedding_models</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">embedding_models</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+        <span class="n">vector</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">embed_query</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s">: 벡터 차원 </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">vector</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-검색-품질-향상-기법">3. 검색 품질 향상 기법</h3>
+
+<p><strong>컨텍스트 압축:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain.retrievers</span> <span class="kn">import</span> <span class="n">ContextualCompressionRetriever</span>
+<span class="kn">from</span> <span class="n">langchain.retrievers.document_compressors</span> <span class="kn">import</span> <span class="n">LLMChainExtractor</span>
+
+<span class="c1"># 관련없는 내용 제거
+</span><span class="n">compressor</span> <span class="o">=</span> <span class="n">LLMChainExtractor</span><span class="p">.</span><span class="nf">from_llm</span><span class="p">(</span><span class="n">llm</span><span class="p">)</span>
+<span class="n">compression_retriever</span> <span class="o">=</span> <span class="nc">ContextualCompressionRetriever</span><span class="p">(</span>
+    <span class="n">base_compressor</span><span class="o">=</span><span class="n">compressor</span><span class="p">,</span>
+    <span class="n">base_retriever</span><span class="o">=</span><span class="n">retriever</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Self-Query 검색:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain.retrievers.self_query.base</span> <span class="kn">import</span> <span class="n">SelfQueryRetriever</span>
+
+<span class="c1"># 자연어 질문을 메타데이터 필터로 변환
+</span><span class="n">retriever</span> <span class="o">=</span> <span class="n">SelfQueryRetriever</span><span class="p">.</span><span class="nf">from_llm</span><span class="p">(</span>
+    <span class="n">llm</span><span class="p">,</span>
+    <span class="n">vectorstore</span><span class="p">,</span>
+    <span class="n">document_content_description</span><span class="o">=</span><span class="sh">"</span><span class="s">기술 문서</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">metadata_field_info</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">source</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">description</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">문서 출처</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">string</span><span class="sh">"</span><span class="p">},</span>
+        <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">date</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">description</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">작성 날짜</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">string</span><span class="sh">"</span><span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="4-rag-파이프라인-평가-및-디버깅">4. RAG 파이프라인 평가 및 디버깅</h3>
+
+<p><strong>검색 결과 평가:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">debug_retrieval</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">retriever</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">질문: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">검색된 문서 수: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">docs</span><span class="p">[:</span><span class="n">k</span><span class="p">]):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">문서 </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">:</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">내용: </span><span class="si">{</span><span class="n">doc</span><span class="p">.</span><span class="n">page_content</span><span class="p">[</span><span class="si">:</span><span class="mi">200</span><span class="p">]</span><span class="si">}</span><span class="s">...</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">메타데이터: </span><span class="si">{</span><span class="n">doc</span><span class="p">.</span><span class="n">metadata</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>답변 품질 모니터링:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">evaluate_rag_response</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">context_docs</span><span class="p">,</span> <span class="n">answer</span><span class="p">):</span>
+    <span class="c1"># 컨텍스트 관련성 체크
+</span>    <span class="n">context_text</span> <span class="o">=</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="n">doc</span><span class="p">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">context_docs</span><span class="p">])</span>
+
+    <span class="n">relevance_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"""</span><span class="s">
+    질문: </span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="s">
+    컨텍스트: </span><span class="si">{</span><span class="n">context_text</span><span class="si">}</span><span class="s">
+    답변: </span><span class="si">{</span><span class="n">answer</span><span class="si">}</span><span class="s">
+
+    답변이 컨텍스트를 기반으로 하고 있는지 1-10점으로 평가하세요.
+    </span><span class="sh">"""</span>
+
+    <span class="c1"># LLM으로 답변 품질 평가
+</span>    <span class="n">score</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">relevance_prompt</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">score</span>
+</code></pre></div></div>
+
+<h3 id="5-프로덕션-환경에서의-고려사항">5. 프로덕션 환경에서의 고려사항</h3>
+
+<p><strong>벡터DB 선택 기준:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 소규모 프로토타입 - Chroma
+</span><span class="n">chroma_db</span> <span class="o">=</span> <span class="n">Chroma</span><span class="p">.</span><span class="nf">from_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+
+<span class="c1"># 중규모 서비스 - Pinecone
+</span><span class="kn">from</span> <span class="n">langchain_pinecone</span> <span class="kn">import</span> <span class="n">Pinecone</span>
+<span class="n">pinecone_db</span> <span class="o">=</span> <span class="n">Pinecone</span><span class="p">.</span><span class="nf">from_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">,</span> <span class="n">index_name</span><span class="o">=</span><span class="sh">"</span><span class="s">my-index</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 대규모 엔터프라이즈 - Weaviate
+</span><span class="kn">from</span> <span class="n">langchain_community.vectorstores</span> <span class="kn">import</span> <span class="n">Weaviate</span>
+<span class="n">weaviate_db</span> <span class="o">=</span> <span class="n">Weaviate</span><span class="p">.</span><span class="nf">from_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">embeddings</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>캐싱 전략:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">functools</span> <span class="kn">import</span> <span class="n">lru_cache</span>
+
+<span class="nd">@lru_cache</span><span class="p">(</span><span class="n">maxsize</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">cached_retrieval</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+
+<span class="c1"># Redis 캐싱
+</span><span class="kn">import</span> <span class="n">redis</span>
+<span class="kn">import</span> <span class="n">pickle</span>
+
+<span class="n">redis_client</span> <span class="o">=</span> <span class="n">redis</span><span class="p">.</span><span class="nc">Redis</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">redis_cached_retrieval</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="n">cached</span> <span class="o">=</span> <span class="n">redis_client</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">rag:</span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">cached</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">pickle</span><span class="p">.</span><span class="nf">loads</span><span class="p">(</span><span class="n">cached</span><span class="p">)</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+    <span class="n">redis_client</span><span class="p">.</span><span class="nf">setex</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">rag:</span><span class="si">{</span><span class="n">question</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span> <span class="mi">3600</span><span class="p">,</span> <span class="n">pickle</span><span class="p">.</span><span class="nf">dumps</span><span class="p">(</span><span class="n">result</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">result</span>
+</code></pre></div></div>
+
+<p><strong>모니터링 메트릭:</strong></p>
+
+<ul>
+  <li>검색 지연시간</li>
+  <li>답변 생성 시간</li>
+  <li>토큰 사용량</li>
+  <li>검색 정확도 (사용자 피드백 기반)</li>
+  <li>컨텍스트 활용률</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/LCEL3/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LCEL (LangChain Expression ...</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/evaluation/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">RAG 시스템 평가하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

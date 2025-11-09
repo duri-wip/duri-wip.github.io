@@ -1,0 +1,37 @@
+<h2 id="문제">문제</h2>
+<p>t와 s가 주어졌을때, s의 알파벳을 재조합하면 t를 구성할 수 있는지 판단한다. 
+예시)
+Example 1:</p>
+
+<p>Input: s = “anagram”, t = “nagaram”</p>
+
+<p>Output: true</p>
+
+<p>Example 2:</p>
+
+<p>Input: s = “rat”, t = “car”</p>
+
+<p>Output: false</p>
+
+<h2 id="풀이">풀이</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Solution:
+    def isAnagram(self, s: str, t: str) -&gt; bool:
+        if len(s) == len(t):
+            s = [c for c in s]
+            t = [c for c in t]
+
+            while s:
+                if s[-1] in t:
+                    t.pop(t.index(s[-1]))
+                    s.pop()
+                else:
+                    return False
+            return True
+        else:
+            return False        
+</code></pre></div></div>
+
+<h2 id="알게된-점">알게된 점</h2>
+<ul>
+  <li>문자열은 list지 stack이 아니다. 그러니까 pop을 쓸수는 없다.</li>
+</ul>

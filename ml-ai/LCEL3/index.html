@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCEL (LangChain Expression Language) 3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">LCEL (LangChain Expression Language) 3</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 07월 28일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#lcel</span>
+                
+                <span class="tag">#runnable</span>
+                
+                <span class="tag">#chain</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="chat-history-관리">Chat History 관리</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.chat_message_histories</span> <span class="kn">import</span> <span class="n">SQLChatMessageHistory</span>
+
+<span class="k">def</span> <span class="nf">respond</span><span class="p">(</span><span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">human_message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="n">chat_message_history</span> <span class="o">=</span> <span class="nc">SQLChatMessageHistory</span><span class="p">(</span>
+        <span class="n">session_id</span> <span class="o">=</span> <span class="n">session_id</span><span class="p">,</span>
+        <span class="n">connection</span> <span class="o">=</span> <span class="sh">"</span><span class="s">sqlite:///sqlite.db</span><span class="sh">"</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="n">chat_message_history</span><span class="p">.</span><span class="nf">get_messages</span><span class="p">()</span>
+
+    <span class="n">ai_message</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span>
+        <span class="sh">"</span><span class="s">chat_history</span><span class="sh">"</span><span class="p">:</span> <span class="n">messages</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">human_message</span><span class="sh">"</span><span class="p">:</span> <span class="n">human_message</span><span class="p">,</span>
+    <span class="p">})</span>
+
+    <span class="n">chat_message_history</span><span class="p">.</span><span class="nf">add_user_message</span><span class="p">(</span><span class="n">human_message</span><span class="p">)</span>
+    <span class="n">chat_message_history</span><span class="p">.</span><span class="nf">add_ai_message</span><span class="p">(</span><span class="n">ai_message</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">ai_message</span>
+
+<span class="c1"># 호출
+</span><span class="kn">from</span> <span class="n">uuid</span> <span class="kn">import</span> <span class="n">uuid4</span>
+
+<span class="n">session_id</span> <span class="o">=</span> <span class="nf">uuid4</span><span class="p">().</span><span class="nb">hex</span>
+<span class="n">output1</span> <span class="o">=</span> <span class="nf">respond</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="n">session_id</span><span class="p">,</span> <span class="n">human_message</span><span class="o">=</span><span class="sh">"</span><span class="s">안녕하세요. 제 이름은 나뭇잎입니다.</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">output1</span><span class="p">)</span>
+
+<span class="n">output2</span> <span class="o">=</span> <span class="nf">respond</span><span class="p">(</span><span class="n">session_id</span><span class="o">=</span><span class="n">session_id</span><span class="p">,</span> <span class="n">human_message</span><span class="o">=</span><span class="sh">"</span><span class="s">내 이름이 뭘까?</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">output2</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="지원하는-데이터베이스">지원하는 데이터베이스</h2>
+
+<p>SQLite 말고 다른 데이터베이스의 통합도 제공합니다:</p>
+
+<ul>
+  <li>인메모리</li>
+  <li>SQLAlchemy가 지원하는 각종 관계형 데이터베이스</li>
+  <li>Redis</li>
+  <li>DynamoDB</li>
+  <li>CosmosDB</li>
+  <li>Momento
+등</li>
+</ul>
+
+<h2 id="메모리">메모리</h2>
+
+<p>대화 이력에 대한 고급 처리를 구현하고 싶은 경우 메모리를 사용합니다. 예를 들어 최근 k개의 대화 이력만 포함하고 싶은 경우.
+ConversationBufferWindowMemory나 ConversationSummaryMemory를 해당 컴포넌트로 사용할 수 있습니다.</p>
+
+<h2 id="langserve">LangServe</h2>
+
+<p>LangChain의 러너블을 간편하게 REST API로 만들기 위한 패키지입니다.</p>
+
+<h2 id="-추가로-알아볼-내용">📚 추가로 알아볼 내용</h2>
+
+<h3 id="1-고급-runnable-패턴들">1. 고급 Runnable 패턴들</h3>
+
+<p><strong>RunnableGenerator (스트리밍 생성기):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableGenerator</span>
+
+<span class="k">def</span> <span class="nf">streaming_splitter</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="nb">buffer</span> <span class="o">=</span> <span class="sh">""</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">input</span><span class="p">:</span>
+        <span class="nb">buffer</span> <span class="o">+=</span> <span class="n">chunk</span>
+        <span class="c1"># 문장 단위로 분할하여 yield
+</span>        <span class="k">while</span> <span class="sh">'</span><span class="s">. </span><span class="sh">'</span> <span class="ow">in</span> <span class="nb">buffer</span><span class="p">:</span>
+            <span class="n">sentence</span><span class="p">,</span> <span class="nb">buffer</span> <span class="o">=</span> <span class="nb">buffer</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s">. </span><span class="sh">'</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">sentence</span> <span class="o">+</span> <span class="sh">'</span><span class="s">. </span><span class="sh">'</span>
+
+    <span class="k">if</span> <span class="nb">buffer</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="nb">buffer</span>
+
+<span class="n">streaming_chain</span> <span class="o">=</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">RunnableGenerator</span><span class="p">(</span><span class="n">streaming_splitter</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>RunnableRetry (재시도 로직):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableRetry</span>
+
+<span class="n">retry_chain</span> <span class="o">=</span> <span class="nc">RunnableRetry</span><span class="p">(</span>
+    <span class="n">bound</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">max_attempt_number</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+    <span class="n">wait_exponential_jitter</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="n">stop_after_delay</span><span class="o">=</span><span class="mi">30</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>RunnableWithMessageHistory (대화 이력 관리):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables.history</span> <span class="kn">import</span> <span class="n">RunnableWithMessageHistory</span>
+<span class="kn">from</span> <span class="n">langchain_community.chat_message_histories</span> <span class="kn">import</span> <span class="n">SQLChatMessageHistory</span>
+
+<span class="k">def</span> <span class="nf">get_session_history</span><span class="p">(</span><span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nc">SQLChatMessageHistory</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="sh">"</span><span class="s">sqlite:///memory.db</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">chain_with_history</span> <span class="o">=</span> <span class="nc">RunnableWithMessageHistory</span><span class="p">(</span>
+    <span class="n">chain</span><span class="p">,</span>
+    <span class="n">get_session_history</span><span class="p">,</span>
+    <span class="n">input_messages_key</span><span class="o">=</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">history_messages_key</span><span class="o">=</span><span class="sh">"</span><span class="s">chat_history</span><span class="sh">"</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-복잡한-라우팅-전략">2. 복잡한 라우팅 전략</h3>
+
+<p><strong>Multi-Modal Routing:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Literal</span>
+
+<span class="k">class</span> <span class="nc">RouteInput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">query</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">data_type</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="sh">"</span><span class="s">text</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">image</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">code</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">text</span><span class="sh">"</span>
+
+<span class="k">def</span> <span class="nf">route_by_type</span><span class="p">(</span><span class="nb">input</span><span class="p">:</span> <span class="n">RouteInput</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">input</span><span class="p">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="sh">"</span><span class="s">image</span><span class="sh">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">vision_chain</span>
+    <span class="k">elif</span> <span class="nb">input</span><span class="p">.</span><span class="n">data_type</span> <span class="o">==</span> <span class="sh">"</span><span class="s">code</span><span class="sh">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">code_analysis_chain</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">general_chain</span>
+
+<span class="n">routing_chain</span> <span class="o">=</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="n">route_by_type</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Semantic Routing:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.utils.math</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>
+
+<span class="k">def</span> <span class="nf">semantic_router</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">route_embeddings</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+    <span class="n">query_embedding</span> <span class="o">=</span> <span class="n">embeddings</span><span class="p">.</span><span class="nf">embed_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+    <span class="n">similarities</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">route</span><span class="p">,</span> <span class="n">embedding</span> <span class="ow">in</span> <span class="n">route_embeddings</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+        <span class="n">sim</span> <span class="o">=</span> <span class="nf">cosine_similarity</span><span class="p">([</span><span class="n">query_embedding</span><span class="p">],</span> <span class="p">[</span><span class="n">embedding</span><span class="p">])[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">similarities</span><span class="p">[</span><span class="n">route</span><span class="p">]</span> <span class="o">=</span> <span class="n">sim</span>
+
+    <span class="n">best_route</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">similarities</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">similarities</span><span class="p">.</span><span class="n">get</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">route_chains</span><span class="p">[</span><span class="n">best_route</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/LCEL2/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LCEL (LangChain Expression ...</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/RAG/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">RAG (Retrieval-Augmented Ge...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

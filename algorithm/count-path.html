@@ -1,0 +1,51 @@
+<h2 id="문제">문제</h2>
+<p>웅덩이를 피해 학교에 가는 최단 거리의 경로 개수를 구하기</p>
+
+<h2 id="풀이">풀이</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span> <span class="n">puddles</span><span class="p">):</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">m</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    
+    <span class="c1"># 시작점
+</span>    <span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># 물웅덩이
+</span>    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">puddles</span><span class="p">:</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    
+    <span class="c1"># queue 설정
+</span>    <span class="n">queue</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
+
+    <span class="c1"># 유효한지 확인하기
+</span>    <span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">x</span><span class="o">&lt;</span><span class="n">m</span> <span class="ow">and</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">y</span><span class="o">&lt;</span><span class="n">n</span> <span class="ow">and</span> <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="c1"># 돌기
+</span>    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+        <span class="c1">#물웅덩이 피해가기
+</span>        <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">:</span>
+            <span class="k">continue</span>
+        
+        <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)]:</span>
+            <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span> <span class="n">dy</span>
+
+            <span class="k">if</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">))</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">%=</span> <span class="mi">1000000007</span>
+    
+    <span class="k">return</span> <span class="n">dist</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<h2 id="알게된-점">알게된 점</h2>
+<ul>
+  <li>어떤걸 초기화해서 기록할지를 정해야한다. 거리를 기록할건지(dist), 방문 여부를 기록할건지(visited)</li>
+  <li>큐에서 뽑아서 쓰는 dfs의 경우에 큐 자체가 이터러블 하기 위해서 리스트 안에 튜플을 넣어줘야 한다!!! =&gt; non-iterable 오류남</li>
+  <li>그리드의 경우에 x,y로 표현되지 않고 y,x로 표현되는 경우도 있기 때문에 예시를 잘 봐야 한다.</li>
+  <li>시간 효율 문제가 나는 경우에는 큰수를 방지해 주는걸 붙여보자. 이거 하나로 갈린다.</li>
+</ul>

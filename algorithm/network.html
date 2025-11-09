@@ -1,0 +1,53 @@
+<p>(https://school.programmers.co.kr/learn/courses/30/lessons/43162)</p>
+
+<h2 id="문제">문제</h2>
+
+<p>컴퓨터의 개수 n, 연결에 대한 정보가 담긴 2차원 배열 computers가 매개변수로 주어질 때, 네트워크의 개수를 반환하기</p>
+
+<h2 id="해결">해결</h2>
+<h3 id="dfs-풀이법">DFS 풀이법</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">computers</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span><span class="o">*</span><span class="n">n</span>
+    
+    <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">cur_v</span><span class="p">):</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">cur_v</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">for</span> <span class="n">next_v</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+            <span class="c1"># 연결이 안된거니까, skip
+</span>            <span class="k">if</span> <span class="n">computers</span><span class="p">[</span><span class="n">cur_v</span><span class="p">][</span><span class="n">next_v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> <span class="k">continue</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">next_v</span><span class="p">]:</span>
+                <span class="nf">dfs</span><span class="p">(</span><span class="n">next_v</span><span class="p">)</span>
+    
+    <span class="k">for</span> <span class="n">cur_v</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">cur_v</span><span class="p">]:</span>
+            <span class="nf">dfs</span><span class="p">(</span><span class="n">cur_v</span><span class="p">)</span>
+            <span class="c1"># bfs(cur_v)
+</span>            <span class="n">answer</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>
+
+<h3 id="bfs-풀이법">BFS 풀이법</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">computers</span><span class="p">):</span>
+    <span class="n">answer</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">visited</span> <span class="o">=</span> <span class="p">[</span><span class="bp">False</span><span class="p">]</span> <span class="o">*</span> <span class="n">n</span>
+
+    <span class="k">def</span> <span class="nf">bfs</span><span class="p">(</span><span class="n">start_v</span><span class="p">):</span>
+        <span class="n">queue</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">([</span><span class="n">start_v</span><span class="p">])</span>
+        <span class="n">visited</span><span class="p">[</span><span class="n">start_v</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>
+        <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+            <span class="n">cur_v</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">next_v</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">computers</span><span class="p">[</span><span class="n">cur_v</span><span class="p">][</span><span class="n">next_v</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">next_v</span><span class="p">]:</span>
+                    <span class="n">visited</span><span class="p">[</span><span class="n">next_v</span><span class="p">]</span> <span class="o">=</span> <span class="bp">True</span>  
+                    <span class="n">queue</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">next_v</span><span class="p">)</span>    
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">visited</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>  
+            <span class="nf">bfs</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>          
+            <span class="n">answer</span> <span class="o">+=</span> <span class="mi">1</span>     
+    <span class="k">return</span> <span class="n">answer</span>
+</code></pre></div></div>

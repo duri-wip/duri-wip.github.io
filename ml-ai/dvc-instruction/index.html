@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DVC 사용법 가이드</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">DVC 사용법 가이드</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 02일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">mlops</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#dvc</span>
+                
+                <span class="tag">#mlops</span>
+                
+                <span class="tag">#version-control</span>
+                
+                <span class="tag">#git</span>
+                
+                <span class="tag">#data-versioning</span>
+                
+                <span class="tag">#machine-learning</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="dvc-사용법">dvc 사용법</h2>
+
+<h3 id="1-설치">1. 설치</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install dvc
+dvc init
+</code></pre></div></div>
+
+<p>서버 1 환경과 동일하게 3.10.14</p>
+
+<h3 id="2-파일이-생겼다고-가정로컬에서">2. 파일이 생겼다고 가정(로컬에서)</h3>
+
+<p>일단 데이터 수집이 될 디렉토리로 이동해서
+dvc init</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ERROR: failed to initiate DVC - /home/swcpractice/data is not tracked by any supported SCM tool (e.g. Git). Use --no-scm if you don't want to use any SCM or --subdir if initializing inside a subdirectory of a parent SCM repository
+</code></pre></div></div>
+
+<p>ChatGPT의 말:
+ChatGPT
+이 오류는 DVC를 초기화하려는 디렉토리가 Git과 같은 SCM(소스 제어 관리) 툴에 의해 추적되지 않기 때문에 발생합니다. DVC는 기본적으로 Git과 같은 SCM 툴을 사용해 데이터를 버전 관리하도록 설계되어 있지만, Git으로 관리되지 않는 디렉토리에서 DVC를 사용하려고 할 경우 발생하는 오류입니다.</p>
+
+<p>해결 방법은 두 가지입니다:</p>
+
+<ol>
+  <li>Git 저장소로 초기화
+DVC는 기본적으로 Git과 함께 사용하도록 설계되었기 때문에, DVC를 사용하기 전에 해당 디렉토리를 Git으로 초기화해야 합니다.</li>
+</ol>
+
+<p>a. 디렉토리 Git으로 초기화
+bash
+코드 복사
+cd /home/swcpractice/data
+git init
+b. DVC 초기화
+Git 저장소로 초기화된 디렉토리에서 다시 DVC를 초기화합니다.</p>
+
+<p>bash
+코드 복사
+dvc init
+이제 Git으로 데이터 버전 관리를 할 수 있게 되며, dvc add 및 dvc push와 같은 명령어를 사용할 수 있습니다.</p>
+
+<ol>
+  <li>SCM 없이 DVC 사용하기 (–no-scm 옵션)
+Git을 사용하지 않고 DVC를 사용하고자 한다면, –no-scm 옵션을 사용하여 Git 없이 DVC를 초기화할 수 있습니다.</li>
+</ol>
+
+<p>bash
+코드 복사
+dvc init –no-scm
+이 명령을 사용하면 Git 없이도 DVC로 데이터를 버전 관리할 수 있지만, Git을 통한 변경 사항 추적 기능은 사용할 수 없습니다. 이 경우, DVC는 로컬로만 작동하며, Git에서 제공하는 브랜칭이나 커밋 등의 기능은 사용할 수 없습니다.</p>
+
+<ol>
+  <li>상위 Git 저장소를 사용 중인 경우 (–subdir 옵션)
+만약 /home/swcpractice/data가 상위 Git 저장소의 하위 디렉토리인 경우, DVC를 서브 디렉토리에서 초기화할 수 있습니다. 이 경우 –subdir 옵션을 사용합니다.</li>
+</ol>
+
+<p>bash
+코드 복사
+dvc init –subdir
+이 옵션을 사용하면 상위 디렉토리의 Git 저장소를 기준으로 DVC가 해당 디렉토리에서 작동하게 됩니다.</p>
+
+<p>원하는 방식에 따라 위의 방법 중 하나를 선택해 오류를 해결하시면 됩니다!</p>
+
+<p>일단 1번을 사용해서 관리하기로 함</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init
+dvc init
+</code></pre></div></div>
+
+<h3 id="3-connection-관리">3. connection 관리</h3>
+
+<p>Airflow의 Connection 기능을 사용해 GitHub 자격 증명을 관리하면, 자격 증명을 안전하게 저장하고 DAG 내에서 이를 쉽게 사용할 수 있습니다. 이 방법은 GitHub의 OAuth 토큰이나 SSH 키를 활용하는 방식으로 자동화하는 데 유용합니다.</p>
+
+<ol>
+  <li>Airflow Connection 생성
+먼저 Airflow UI에서 GitHub에 대한 자격 증명을 저장할 Connection을 생성해야 합니다.</li>
+</ol>
+
+<p>a. Airflow UI 접속
+Airflow UI에 로그인한 후, 상단 메뉴에서 Admin &gt; Connections로 이동합니다.</p>
+
+<p>b. 새 Connection 추가
+Connections 화면에서 우측 상단의 + 버튼을 클릭해 새로운 Connection을 추가합니다.</p>
+
+<p>Conn Id: github_conn (원하는 ID를 입력)
+Conn Type: Generic (GitHub에 맞는 유형 선택)
+Host: github.com
+Login: GitHub 사용자명
+Password: GitHub Personal Access Token (PAT) 또는 OAuth 토큰을 입력
+SSH 키를 사용하는 경우, Extra 필드에 SSH 키 경로를 JSON 형식으로 입력할 수 있습니다. 예:</p>
+
+<p>json
+코드 복사
+{
+“ssh_key_file”: “/home/ubuntu/.ssh/id_rsa”
+}
+Save 버튼을 눌러 Connection을 저장합니다.</p>
+
+<h3 id="4-dag에서-connection-사용">4. DAG에서 Connection 사용</h3>
+
+<p>Connection을 생성한 후, DAG 내에서 이를 사용하여 GitHub에 자격 증명을 쉽게 적용할 수 있습니다. 예를 들어, PythonOperator에서 GitHub에 push할 때 Airflow의 Connection을 참조하여 GitHub 토큰이나 SSH 키를 불러옵니다.</p>
+
+<p>a. Connection에서 Token이나 SSH 불러오기
+python</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from airflow.hooks.base import BaseHook
+import os
+
+def dvc_push():
+    # Airflow Connection에서 자격 증명 가져오기
+    conn = BaseHook.get_connection('github_conn')
+
+    # GitHub Personal Access Token 사용
+    github_token = conn.password  # GitHub PAT
+
+    # Git 설정 및 push
+    os.system('git config --global user.email "your_email@example.com"')
+    os.system('git config --global user.name "your_name"')
+    os.system('git add collected_data.dvc')
+    os.system('git commit -m "Add new data"')
+    os.system(f'git push https://{github_token}@github.com/your-username/your-repo.git')
+    os.system('dvc push')
+</code></pre></div></div>
+
+<ol>
+  <li>s3에 연결하는 과정(가정)
+dvc init
+dvc remote add -d s3remote s3://your-bucket/path
+git add .dvc/config
+git commit -m “Initialize DVC”</li>
+</ol>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/airflow-context/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Airflow에서 context와 args, kw...</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/airflow-cluster/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Airflow 클러스터 구성하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

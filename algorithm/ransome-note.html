@@ -1,0 +1,16 @@
+<h2 id="문제">문제</h2>
+<p>magazine에 있는 문자로 ransomnote를 쓸 수 있으면 t, 아니면 f</p>
+
+<h2 id="풀이">풀이</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">canConstruct</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">ransomNote</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">magazine</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">ransomNote</span><span class="p">]</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">magazine</span><span class="p">]</span>
+
+        <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">m</span><span class="p">:</span>
+                <span class="n">m</span><span class="p">.</span><span class="nf">pop</span><span class="p">(</span><span class="n">m</span><span class="p">.</span><span class="nf">index</span><span class="p">(</span><span class="n">w</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">False</span>
+        <span class="k">return</span> <span class="bp">True</span>
+</code></pre></div></div>

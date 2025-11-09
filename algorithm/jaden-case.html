@@ -1,0 +1,25 @@
+<h2 id="문제">문제</h2>
+
+<p>모든 단어의 첫 문자가 대문자이고 이외의 알파벳은 소문자인 문자열이다. 문자열 s가 주어졌을때 s를 jaden case로 바꾼다음 문자열을 리턴하시오</p>
+
+<h2 id="풀이">풀이</h2>
+
+<ul>
+  <li>capitalize가 있는 걸 몰랐을 때 -&gt; 런타임 에러남
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="n">splt</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">splt</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">isalpha</span><span class="p">():</span>
+          <span class="n">word</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span>
+      <span class="k">else</span><span class="p">:</span>
+          <span class="n">word</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">:].</span><span class="nf">lower</span><span class="p">()</span>
+      <span class="n">strs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+  <span class="k">return</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">strs</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>알고난 후 -&gt; 에러 안남
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+  <span class="k">return</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="n">word</span><span class="p">.</span><span class="nf">capitalize</span><span class="p">()</span> <span class="k">if</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">isalpha</span><span class="p">()</span> <span class="k">else</span> <span class="n">word</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">)])</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
