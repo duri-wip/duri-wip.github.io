@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>등굣길</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">등굣길</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 11월 07일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-algorithm-solving</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="문제">문제</h2>
+<p>웅덩이를 피해 학교에 가는 최단 거리의 경로 개수를 구하기</p>
+
+<h2 id="풀이">풀이</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">collections</span> <span class="kn">import</span> <span class="n">deque</span>
+<span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">m</span><span class="p">,</span><span class="n">n</span><span class="p">,</span> <span class="n">puddles</span><span class="p">):</span>
+    <span class="n">dist</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">m</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">n</span><span class="p">)]</span>
+    
+    <span class="c1"># 시작점
+</span>    <span class="n">dist</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+    <span class="c1"># 물웅덩이
+</span>    <span class="k">for</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">puddles</span><span class="p">:</span>
+        <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    
+    <span class="c1"># queue 설정
+</span>    <span class="n">queue</span> <span class="o">=</span> <span class="nf">deque</span><span class="p">([(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)])</span>
+
+    <span class="c1"># 유효한지 확인하기
+</span>    <span class="k">def</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">):</span>
+        <span class="k">if</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">x</span><span class="o">&lt;</span><span class="n">m</span> <span class="ow">and</span> <span class="mi">0</span><span class="o">&lt;=</span><span class="n">y</span><span class="o">&lt;</span><span class="n">n</span> <span class="ow">and</span> <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">True</span>
+        <span class="k">return</span> <span class="bp">False</span>
+
+    <span class="c1"># 돌기
+</span>    <span class="k">while</span> <span class="n">queue</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">queue</span><span class="p">.</span><span class="nf">popleft</span><span class="p">()</span>
+        <span class="c1">#물웅덩이 피해가기
+</span>        <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span> <span class="p">:</span>
+            <span class="k">continue</span>
+        
+        <span class="k">for</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span> <span class="ow">in</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">)]:</span>
+            <span class="n">nx</span><span class="p">,</span> <span class="n">ny</span> <span class="o">=</span> <span class="n">x</span><span class="o">+</span> <span class="n">dx</span><span class="p">,</span> <span class="n">y</span><span class="o">+</span> <span class="n">dy</span>
+
+            <span class="k">if</span> <span class="nf">isValid</span><span class="p">(</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">dist</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">queue</span><span class="p">.</span><span class="nf">append</span><span class="p">((</span><span class="n">nx</span><span class="p">,</span><span class="n">ny</span><span class="p">))</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">+=</span> <span class="n">dist</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span>
+                <span class="n">dist</span><span class="p">[</span><span class="n">ny</span><span class="p">][</span><span class="n">nx</span><span class="p">]</span> <span class="o">%=</span> <span class="mi">1000000007</span>
+    
+    <span class="k">return</span> <span class="n">dist</span><span class="p">[</span><span class="n">n</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">m</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+</code></pre></div></div>
+
+<h2 id="알게된-점">알게된 점</h2>
+<ul>
+  <li>어떤걸 초기화해서 기록할지를 정해야한다. 거리를 기록할건지(dist), 방문 여부를 기록할건지(visited)</li>
+  <li>큐에서 뽑아서 쓰는 dfs의 경우에 큐 자체가 이터러블 하기 위해서 리스트 안에 튜플을 넣어줘야 한다!!! =&gt; non-iterable 오류남</li>
+  <li>그리드의 경우에 x,y로 표현되지 않고 y,x로 표현되는 경우도 있기 때문에 예시를 잘 봐야 한다.</li>
+  <li>시간 효율 문제가 나는 경우에는 큰수를 방지해 주는걸 붙여보자. 이거 하나로 갈린다.</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/algorithm/max-sum">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">거쳐간 숫자의 합이 가장 큰 경우</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/algorithm/triangle">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">삼각달팽이</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker 통합 학습 노트</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Docker 통합 학습 노트</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 10일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">devops-infra</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#devops-infra</span>
+                
+                <span class="tag">#docker</span>
+                
+                <span class="tag">#container</span>
+                
+                <span class="tag">#infrastructure</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>다음은 기존 Docker 요약에 추가적으로 보완할 내용을 포함한 통합 요약본입니다. <strong>추가된 내용은 “보완된 내용”</strong>으로 표시했습니다.</p>
+
+<hr />
+
+<h3 id="docker-통합-요약"><strong>Docker 통합 요약</strong></h3>
+
+<h4 id="1-하드웨어-구조-이해"><strong>1. 하드웨어 구조 이해</strong></h4>
+
+<ul>
+  <li><strong>IAC</strong>(Infrastructure as Code): 하드웨어에 대한 이해를 기반으로 시스템을 최적화</li>
+  <li>목표: 소프트웨어가 하드웨어와 시스템에 맞춰 안정적으로 작동하도록 구현</li>
+  <li>소프트웨어는 기본 시스템에 맞게 안정적이고 효과적으로 작동해야 함</li>
+</ul>
+
+<h4 id="2-docker-정의"><strong>2. Docker 정의</strong></h4>
+
+<ul>
+  <li><strong>Docker</strong>: 컨테이너를 사용하여 애플리케이션을 배포하고 관리하는 소프트웨어 플랫폼</li>
+  <li><strong>컨테이너</strong>: 독립적이고 가벼운 가상화 기술로, 애플리케이션을 프로세스 단위로 실행</li>
+  <li>Docker는 애플리케이션을 패키징하여 표준화된 환경에서 실행할 수 있도록 지원</li>
+</ul>
+
+<h4 id="3-docker를-사용하는-이유"><strong>3. Docker를 사용하는 이유</strong></h4>
+
+<ul>
+  <li><strong>표준화와 규격화</strong>를 통한 애플리케이션 배포와 실행의 용이성</li>
+  <li><strong>컨테이너 기술</strong>을 통해 동일한 환경에서 애플리케이션을 개발, 테스트, 배포 가능</li>
+  <li><strong>Google</strong>: 20억 개 이상의 컨테이너를 운영 중</li>
+</ul>
+
+<h4 id="4-docker-설치"><strong>4. Docker 설치</strong></h4>
+
+<ul>
+  <li><strong>설치 명령어</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sudo apt update</code>: 패키지 업데이트</li>
+      <li><code class="language-plaintext highlighter-rouge">sudo apt-get install docker-ce docker-ce-cli containerd.io</code>: Docker 설치</li>
+      <li><code class="language-plaintext highlighter-rouge">sudo docker version</code>: Docker 설치 완료 및 버전 확인</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="5-docker-앱-개발-과정"><strong>5. Docker 앱 개발 과정</strong></h4>
+
+<ul>
+  <li>애플리케이션 구현 → 컨테이너에 배포 → Nginx 웹 서버 설정</li>
+  <li>Dockerfile 작성 후 이미지 생성 (<code class="language-plaintext highlighter-rouge">docker build</code>)</li>
+  <li>이미지 실행: <code class="language-plaintext highlighter-rouge">docker run</code>으로 컨테이너 생성</li>
+  <li>테스트 후 Docker Hub와 같은 레지스트리에 이미지를 등록 (<code class="language-plaintext highlighter-rouge">docker push</code>)</li>
+</ul>
+
+<h4 id="6-docker-cli-명령어"><strong>6. Docker CLI 명령어</strong></h4>
+
+<ul>
+  <li><strong>이미지 관리</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">docker pull</code>: 이미지 다운로드</li>
+      <li><code class="language-plaintext highlighter-rouge">docker run</code>: 이미지를 기반으로 컨테이너 실행</li>
+      <li><code class="language-plaintext highlighter-rouge">docker ps</code>: 실행 중인 컨테이너 목록 확인</li>
+      <li><code class="language-plaintext highlighter-rouge">docker image rm</code>: 이미지 삭제</li>
+    </ul>
+  </li>
+  <li><strong>컨테이너 관리</strong>:
+    <ul>
+      <li>컨테이너는 이미지를 복제하여 실행</li>
+      <li>컨테이너가 종료되면 스냅샷만 남고, 프로세스는 사라짐</li>
+      <li><code class="language-plaintext highlighter-rouge">docker ps</code>로 실행 상태 확인 가능</li>
+    </ul>
+  </li>
+  <li><strong>이미지 관리 및 삭제</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">docker image history</code>: 이미지의 히스토리 확인</li>
+      <li><code class="language-plaintext highlighter-rouge">docker rmi</code>: 이미지 삭제 명령어</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="7-멀티컨테이너-서비스"><strong>7. 멀티컨테이너 서비스</strong></h4>
+
+<ul>
+  <li>예: WordPress + MySQL 2계층 애플리케이션</li>
+  <li>여러 컨테이너를 관리하기 위해 Docker Compose 사용</li>
+  <li>YAML 파일을 사용하여 여러 서비스를 정의 (<code class="language-plaintext highlighter-rouge">docker-compose.yml</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">docker compose up</code> 명령어로 서비스를 실행하고, 문제가 발생하면 <code class="language-plaintext highlighter-rouge">docker compose down</code>으로 종료</li>
+  <li>Docker Compose의 주요 장점: 코드의 재사용성 및 서비스 관리의 용이성</li>
+  <li><strong>Docker Compose YAML 예시</strong>:</li>
+</ul>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.9"</span>
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mydb</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">mysql:5.7</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">mysql_app</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mydb_data:/var/lib/mysql</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8031:3306"</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">backend-net</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">MYSQL_ROOT_PASSWORD</span><span class="pi">:</span> <span class="s">wordpress</span>
+      <span class="na">MYSQL_DATABASE</span><span class="pi">:</span> <span class="s">wordpress</span>
+      <span class="na">MYSQL_USER</span><span class="pi">:</span> <span class="s">wordpress</span>
+      <span class="na">MYSQL_PASSWORD</span><span class="pi">:</span> <span class="s">wordpress</span>
+
+  <span class="na">myweb</span><span class="pi">:</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mydb</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">wordpress:latest</span>
+    <span class="na">container_name</span><span class="pi">:</span> <span class="s">wordpress_app</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8032:80"</span>
+    <span class="na">networks</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">frontend-net</span>
+      <span class="pi">-</span> <span class="s">backend-net</span>
+    <span class="na">volumes</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">myweb_data:/var/www/html</span>
+      <span class="pi">-</span> <span class="s">${PWD}/myweb-log:/var/log</span>
+    <span class="na">restart</span><span class="pi">:</span> <span class="s">always</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="na">WORDPRESS_DB_HOST</span><span class="pi">:</span> <span class="s">mydb:3306</span>
+      <span class="na">WORDPRESS_DB_USER</span><span class="pi">:</span> <span class="s">wordpress</span>
+      <span class="na">WORDPRESS_DB_PASSWORD</span><span class="pi">:</span> <span class="s">wordpress</span>
+      <span class="na">WORDPRESS_DB_NAME</span><span class="pi">:</span> <span class="s">wordpress</span>
+
+<span class="na">networks</span><span class="pi">:</span>
+  <span class="na">frontend-net</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="na">backend-net</span><span class="pi">:</span> <span class="pi">{}</span>
+
+<span class="na">volumes</span><span class="pi">:</span>
+  <span class="na">mydb_data</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="na">myweb_data</span><span class="pi">:</span> <span class="pi">{}</span>
+</code></pre></div></div>
+
+<h4 id="8-docker-이미지-및-dockerfile"><strong>8. Docker 이미지 및 Dockerfile</strong></h4>
+
+<ul>
+  <li><strong>Dockerfile</strong>: 컨테이너 환경을 정의하는 스크립트 파일</li>
+  <li>주요 명령어:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">FROM</code>: 베이스 이미지 설정</li>
+      <li><code class="language-plaintext highlighter-rouge">RUN</code>: 실행할 명령어</li>
+      <li><code class="language-plaintext highlighter-rouge">COPY</code>, <code class="language-plaintext highlighter-rouge">ADD</code>: 파일 복사</li>
+      <li><code class="language-plaintext highlighter-rouge">EXPOSE</code>: 포트 노출 설정</li>
+      <li><code class="language-plaintext highlighter-rouge">CMD</code>: 컨테이너 실행 시 기본으로 실행할 명령어</li>
+    </ul>
+  </li>
+  <li>Docker 이미지를 빌드하여 Dockerfile을 기반으로 환경을 구성하고 이미지를 생성 (<code class="language-plaintext highlighter-rouge">docker build</code>)</li>
+</ul>
+
+<h4 id="9-docker-compose-및-yaml"><strong>9. Docker Compose 및 YAML</strong></h4>
+
+<ul>
+  <li><strong>Docker Compose</strong>: 여러 컨테이너를 YAML 파일로 정의하여 서비스 관리</li>
+  <li><code class="language-plaintext highlighter-rouge">docker-compose.yml</code> 파일을 통해 여러 컨테이너 서비스를 하나의 애플리케이션으로 실행 가능</li>
+  <li><code class="language-plaintext highlighter-rouge">docker-compose</code> 명령어를 사용하여 빠르게 멀티컨테이너 애플리케이션을 실행</li>
+</ul>
+
+<h4 id="10-docker와-kubernetes"><strong>10. Docker와 Kubernetes</strong></h4>
+
+<ul>
+  <li><strong>Kubernetes</strong>: 컨테이너 오케스트레이션 도구로, Docker와 함께 사용</li>
+  <li>Kubernetes는 자체적인 컨테이너 런타임을 제공하지 않으며, <strong>containerd</strong>, <strong>CRI-O</strong> 등 외부 런타임을 사용하여 컨테이너를 관리</li>
+  <li><strong>Docker Swarm</strong>: Docker 자체에서 제공하는 기본 오케스트레이션 도구</li>
+  <li><strong>(보완된 내용)</strong>: Kubernetes는 자동화된 배포, 확장, 그리고 컨테이너의 관리를 돕는 강력한 도구로, 수많은 컨테이너를 동시에 관리하고 클러스터로 확장할 수 있는 기능을 제공. 그러나 <strong>Kubernetes와 Docker의 차이점</strong>은, Kubernetes는 여러 노드에 걸친 클러스터 환경에서 복잡한 애플리케이션의 관리에 적합하고, Docker Swarm은 더 작은 스케일의 프로젝트에 적합한 경량 솔루션임.</li>
+</ul>
+
+<h4 id="11-컨테이너-네트워크-및-볼륨-관리"><strong>11. 컨테이너 네트워크 및 볼륨 관리</strong></h4>
+
+<ul>
+  <li><strong>컨테이너 네트워크 설정</strong>:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">docker run</code>에서 <code class="language-plaintext highlighter-rouge">-p</code> 옵션을 통해 호스트와 컨테이너 포트를 연결</li>
+      <li><code class="language-plaintext highlighter-rouge">docker inspect</code> 명령어를 사용하여 컨테이너 내부 포트 확인</li>
+    </ul>
+  </li>
+  <li><strong>볼륨 관리</strong>:
+    <ul>
+      <li>호스트와 컨테이너 간 데이터 공유를 위해 Docker Volume 사용 (<code class="language-plaintext highlighter-rouge">docker volume</code>)</li>
+      <li>볼륨을 사용하면 컨테이너 간 데이터 공유 및 데이터 지속성 보장 가능</li>
+    </ul>
+  </li>
+  <li><strong>(보완된 내용)</strong>: <strong>Docker 네트워크 유형</strong>은 크게 세 가지로 나뉨:
+    <ul>
+      <li><strong>브리지 네트워크</strong>: 기본 네트워크로, 컨테이너 간 통신이 가능한 독립적 네트워크 제공</li>
+      <li><strong>호스트 네트워크</strong>: 컨테이너가 호스트 시스템의 네트워크와 동일한 네트워크 스택을 사용함</li>
+      <li><strong>오버레이 네트워크</strong>: 여러 호스트에 걸쳐 있는 컨테이너 간 통신을 위해 사용</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="12-컨테이너-모니터링"><strong>12. 컨테이너 모니터링</strong></h4>
+
+<ul>
+  <li><strong>cAdvisor</strong>: Google에서 제공하는 실시간 컨테이너 모니터링 도구</li>
+  <li>컨테이너 CPU, 메모리, 네트워크 트래픽을 실시간으로 모니터링 가능</li>
+  <li><strong>(보완된 내용)</strong>: <strong>Prometheus</strong>와 <strong>Grafana</strong>는 컨테이너 모니터링을 위한 추가적인 도구로, Prometheus는 메트릭 수집 및 저장에 특화되어 있으며, Grafana는 수집된 데이터를 시각화하여 효율적인 모니터링 환경을 제공</li>
+</ul>
+
+<h4 id="13-docker와-git-연동"><strong>13. Docker와 Git 연동</strong></h4>
+
+<ul>
+  <li>GitHub에서 Docker 프로젝트를 클론하여 Dockerfile을 빌드</li>
+  <li>컨테이너를 실행하고 테스트 후 변경 사항을 GitHub에 푸시</li>
+</ul>
+
+<h4 id="14-실습-python-및-nodejs-환경에서-코드-테스트"><strong>14. 실습: Python 및 Node.js 환경에서 코드 테스트</strong></h4>
+
+<ul>
+  <li>Python 컨테이너를 실행하여 로또 프로그램 테스트</li>
+  <li>Node.js 컨테이너에서 코드 테스트</li>
+  <li>Docker 컨테이너 네트워크를 사용하여 여러 애플리케이션 간 상호작용 테스트</li>
+</ul>
+
+<hr />
+
+<p><strong>보완된 내용</strong>으로 Kubernetes와 Docker Swarm의 차이점, 네트워크 유형, 추가적인 컨테이너 모니터링 도구를 추가하였습니다. 이 통합된 요약본은 Docker에 대한 전반적인 내용을 다루고 있으며, 추가 질문이나 수정이 필요하면 언제든지 알려주세요!</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/airflow-xcom/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Airflow에서의 Xcom</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/airflow-SLA/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">태스크에 SLA 사용하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

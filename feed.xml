@@ -1,0 +1,1131 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://duri-wip.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://duri-wip.github.io/" rel="alternate" type="text/html" /><updated>2026-01-11T13:43:33+00:00</updated><id>https://duri-wip.github.io/feed.xml</id><title type="html">Duri’s Work In Progress</title><subtitle>열심히 배우고 있습니다.</subtitle><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><entry><title type="html">Refrag</title><link href="https://duri-wip.github.io/REFRAG/" rel="alternate" type="text/html" title="Refrag" /><published>2025-10-15T00:00:00+00:00</published><updated>2025-10-15T00:00:00+00:00</updated><id>https://duri-wip.github.io/REFRAG</id><content type="html" xml:base="https://duri-wip.github.io/REFRAG/"><![CDATA[<h1 id="ref-rag">REF RAG</h1>
+
+<h1 id="ragas">ragas</h1>
+
+<p>rag 시스템의 성능을 정량적으로 평가하기 위한 프레임워크.</p>
+
+<ol>
+  <li>retrieval 평가
+검색된 문서가 질문에 얼마나 관련 있는지 측정함.</li>
+  <li>generation 평가
+생성된 답변이 검색된 문서에 근거하고 있는지(faithfulness)
+생성된 답변이 질문에 얼마나 적절한지 등</li>
+</ol>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><summary type="html"><![CDATA[REF RAG]]></summary></entry><entry><title type="html">Document Parsing</title><link href="https://duri-wip.github.io/ml-ai/document/" rel="alternate" type="text/html" title="Document Parsing" /><published>2025-09-17T00:00:00+00:00</published><updated>2025-09-17T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/document</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/document/"><![CDATA[<p>#[https://python.langchain.com/v0.1/docs/integrations/document_loaders]</p>
+
+<h1 id="document">document</h1>
+<h2 id="랭체인의-기본-문서-객체-문서-로더로-다양한-형식의-문서-파일을-불러오면-document-객체-형태로-로드한다">랭체인의 기본 문서 객체. 문서 로더로 다양한 형식의 문서 파일을 불러오면 document 객체 형태로 로드한다.</h2>
+<h2 id="커스텀-로더를-구현하면-반드시-문서를-document-객체로-감싸줘야한다">커스텀 로더를 구현하면 반드시 문서를 document 객체로 감싸줘야한다.</h2>
+
+<h2 id="documentpage_content--문서의-텍스트--documentmetadata--문서와-관련된-속성값">document.page_content : 문서의 텍스트 // document.metadata : 문서와 관련된 속성값</h2>
+
+<h1 id="문서-로더">문서 로더</h1>
+<h2 id="종류">종류</h2>
+<p>’’’</p>
+<ul>
+  <li>pyPDFLoader</li>
+  <li>CSVLoader</li>
+  <li>UnstructuredHTMLLoader</li>
+  <li>JSONLoader</li>
+  <li>TextLoader</li>
+  <li>DirectoryLoader</li>
+</ul>
+
+<h2 id="자주-쓰는-메서드-소개">자주 쓰는 메서드 소개</h2>
+
+<ol>
+  <li>load_and_split(): 문서 로드와 텍스트 분할 작업을 하나의 단계로 결합한것으로, 문서를 로드한 뒤 텍스트 분할기를 사용해 텍스트를 원하는 기준으로 나눈다.</li>
+  <li>lazy_load() : 모든 페이지를 메모리에 즉시 로드하지 않고 필요할때 순차적으로 하나씩 로드한다.(제너레이터 방식)</li>
+  <li>aload() : 비동기 방식으로 문서를 로드한다. 문서를 로드할 때 즉시 실행되지 않고 비동기 객체를 반환하며, await 키워드를 사용해 실행한다.
+‘’’</li>
+</ol>
+
+<h1 id="예시">예시</h1>
+<p>FILE_PATH = “./data/1205document.pdf”</p>
+
+<p>from langchain_community.document_loaders import pyPDFLoader</p>
+
+<p>loader = pyPDFLoader(FILE_PATH)</p>
+
+<p>docs = loader.load()</p>
+
+<p>from langchain_text_splitters import RecursiveCharactorTextSplitter</p>
+
+<p>text_splitter = RecursiveCharactorTextSplitter(chunk_size=200, chunk_overlap=0)
+split_docs=loader.load_and_split(text_splitter=text_splitter)</p>
+
+<p>for docs in loader.lazy_load():
+    print(docs.metadata)</p>
+
+<p>adocs = loader.aload()
+await adocs</p>
+
+<h2 id="pdf-로더">pdf 로더</h2>
+<p>’’’</p>
+<ul>
+  <li>pymupdf : chatgpt에 통합되어있는 로더. 파일경로, 페이지 뿐 아니라 페이지 수, 형식, 제목, 작성자 등 다양한 메타데이터를 지원함.</li>
+  <li>unstructuredpdf : 마크다운이나 pdf와 같은 비구조화된  또는 반구조화된 파일 형식을 다루기 위한 공통 인터페이스를 지원함. 
+                  이미지만 따로 추출해서 저장하는 기능도 있다. 내부적으로 각 텍스트들을 별도의 요소로 생성한다. load()에서 mode=”elements” 옵션을 설정하면 텍스트 청크들이 서로 분리된 상태에서 별도의 도큐먼트 객체로 변환된다.</li>
+  <li>pypdfium2 : 로더 역시 처리 속도가 빠르고 정확성도 높아 복잡한 구조의 pdf 파일에서도 안정적으로 텍스트를 추출할 수 있다.</li>
+  <li>pdfminer : pdf파일을 로드해서 html 텍스트를 생성할 수 있다. html 코드 자체를 임베딩해서 llm 에전달하는 방식으로 사용하면 더 정확한 콘텐츠를 사용할 수 있다.</li>
+  <li>pypdfdirectory :  특정한 파일 경로 안에 있는 여러개의 pdf 내용을 한번에 로드할 수 있다.</li>
+  <li>pdfplumber : 출력 문서에 pdf와 그 메타데이터를 함께 저장한다. 특히 pdf 안에 바운딩 박스를 지정해서 원하는 부분만 가져올 수 잇도록 한다.
+‘’’</li>
+</ul>
+
+<h2 id="hwp-로더">hwp 로더</h2>
+<p>’’’
+langchain에서는 구성되어있지 않기때문에 커스텀으로 만들었다. 이 책에서..</p>
+
+<p>from langchain_teddynote.document_loaders immport HWPLoader
+‘’’</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="genai-llm" /><category term="langchain" /><category term="rag" /><category term="vector-store" /><category term="embedding" /><category term="study-llm-framework" /><summary type="html"><![CDATA[다양한 문서 형식을 텍스트로 파싱하기]]></summary></entry><entry><title type="html">LangChain LLM 답변 캐싱하기</title><link href="https://duri-wip.github.io/ml-ai/langchain-caching/" rel="alternate" type="text/html" title="LangChain LLM 답변 캐싱하기" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-caching</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-caching/"><![CDATA[<h1 id="llm-답변-캐싱하기">llm 답변 캐싱하기</h1>
+
+<p>동일한 질문에 대해서는 캐싱된 답변을 내보내는 것으로 토큰 비용을 줄이는 방법을 말한다. 동일한 질문이 언제 들어올지, 또 동일한 질문이라는건 토씨하나 안틀리고 동일한 질문만을 말하는건지 궁금하기는 하다.</p>
+
+<h1 id="캐싱-방법">캐싱 방법</h1>
+<p>애플리케이션에서 캐싱을 위해 사용할 수 있는 방식으로는 인메모리 캐시와 sqlite 캐시가 있다.</p>
+<ul>
+  <li>인메모리 캐시 : 메모리 공간을 활용해 동일한 질문에 대한 답변을 일시적으로 저장함. 동일한 요청이 반복될 경우 캐시된 응답을 즉시 반환. 프로그램 종료시 메모리가 휘발됨
+사용자별 맞춤형 질문이나 로그아웃시 초기화가 필요한 경우에 유용.
+고객센터, AS 센터 등 자주 반복되는 정형화된 질문과 답변에 적합한 방식</li>
+  <li>SQLITE 캐시 : 데이터베이스 파일을 활용해 캐시 데이터를 저장하여 메모리가 휘발되지 않음
+```
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate</li>
+</ul>
+
+<p>llm = ChatOpenAI(model_name=”…”)</p>
+
+<p>prompt = PrompotTemplate.from_template(“{country}에 대해서 200자 내외로 요약해줘”)</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>chain = prompt</td>
+      <td>llm</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>from langchain.globals import set_llm_cache
+from langchain.cache import InMemoryCache</p>
+
+<p>set_llm_cache(InMemoryCache())</p>
+
+<p>response = chain.invoke({“country”:”korea”})</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+그리고 나서 캐싱된 답변을 사용하기 위해서도 동일하게 invoke해주면 된다. 
+</code></pre></div></div>
+<p>response = chain.invoke({“country”:”korea”})
+```</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="caching" /><category term="llm" /><category term="token-optimization" /><category term="memory-cache" /><category term="sqlite" /><category term="study-llm-framework" /><summary type="html"><![CDATA[동일한 질문에 대해 캐싱된 답변을 제공하여 토큰 비용을 절약하는 방법]]></summary></entry><entry><title type="html">LCEL에 메모리 추가하기</title><link href="https://duri-wip.github.io/ml-ai/langchain-memory-2/" rel="alternate" type="text/html" title="LCEL에 메모리 추가하기" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-memory-2</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-memory-2/"><![CDATA[<h1 id="lcel에-메모리-추가하기">LCEL에 메모리 추가하기</h1>
+
+<p>체인에 메모리를 추가해서 컨텍스트를 토대로 답변할 수 있도록 하는 기능이다. 
+매 포스트 마다 말하지만 랭체인 프레임워크가 아니라면 이런 것도 다 손수 만들어야한다..
+그리고 어떤 컨텍스트 까지 가져올건지(최근 몇개인지, 그걸 요약할건지 등..)도 다 정책으로 만들어서 구성해야한다.
+랭체인이 이걸 대신 해줘서 넘 감사하다.</p>
+
+<h2 id="사용-방법">사용 방법</h2>
+
+<ol>
+  <li>모델 초기화 및 프롬프트 입력</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from operator import itemgetter
+from langchain.memory import ConversationBufferMemory
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain_openai import ChatOpenAI
+
+model = ChatOpenAI()
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "당신은 유용한 챗봇입니다."),
+    MessagePlaceholder(variable_name="chat_history"),
+    ("human", "{input}")
+])
+</code></pre></div></div>
+<ul>
+  <li>message place holder 에서 이전 대화 기록을 chat_history라는 키값을 기준으로 삽입한다.</li>
+</ul>
+
+<ol>
+  <li>메모리 생성
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>memory = ConversationBufferMemory(return_messages=True, memory_key="chat_history")
+</code></pre></div>    </div>
+    <ul>
+      <li>memory_key 는 나중에 체인의 prompt 안에 대입될 키이다.</li>
+    </ul>
+  </li>
+  <li>이후 러너블 생성
+메모리에 저장된 대화 기록을 추출하고, 다른 프로세스에 이를 전달해 답변을 생성할 수 있도록 만든다.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>runnable = RunnablePassthrough.assign(
+    chat_history=RunnableLambda(memory.load_memory_variables) | itemgetter("chat_history")
+)
+
+runnable.invoke({"input": "hello"})
+</code></pre></div></div>
+
+<p>그리고 이 러너블을 체인에 연결한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chain = runnable | prompt | model
+
+chain.invoke({"input": "안녕하세요"})
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="lcel" /><category term="memory" /><category term="conversation" /><category term="context" /><category term="chat-history" /><category term="study-llm-framework" /><summary type="html"><![CDATA[LangChain LCEL 체인에 메모리를 추가하여 컨텍스트 기반 대화 구현]]></summary></entry><entry><title type="html">LangChain 메모리 시스템</title><link href="https://duri-wip.github.io/ml-ai/langchain-memory/" rel="alternate" type="text/html" title="LangChain 메모리 시스템" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-memory</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-memory/"><![CDATA[<h1 id="메모리">메모리</h1>
+<p>챗 히스토리를 저장하기 위해 사용하는 기능. 앞서 다뤘던 챗 히스토리와 비슷한 기능이다. 둘의 차이점은 이후에 설명한다.</p>
+
+<p>종류가 다양하다.</p>
+<ul>
+  <li>대화 버퍼 메모리 : 가장 기본적인 메모리 유형으로, 메시지를 사람의 입력과 ai의 답변으로 짝지어서 저장한다. 모든 대화 내용을 저장한다.</li>
+  <li>대화 버퍼 윈도우 메모리 : 너무 많은 대화 내용을 저장하면 토큰문제가 발생할 수 있으므로, 얼마만큼의 윈도우 분량까지만 대화를 기록할 지 정할 수 있다. 여기서의 윈도우는 최근 대화의 최대 메시지 수를 말한다.</li>
+  <li>대화 토큰 버퍼 메모리 : 윈도우가 아닌 토큰 단위로 대화 기록을 조절하는 방법이다.</li>
+  <li>대화 엔티티 메모리 : 토큰이나 윈도우는 절대적인 양을 토대로 제한하지만, 엔티티의 경우에는 대화에서 엔티티를 추출해 이를 기준으로 대화의 양을 지정하는 방법이다. 엔티티란 대화, 데이터에서 특정한 의미를 가지는 핵심 정보를 의미한다.</li>
+  <li>대화 지식 그래프 메모리 : 지식 그래프를 활용해서 정보를 저장하고 불러오기. 모델이 서로 다른 개체 간의 관계를 이해하는데 도움을 주고, 복잡한 연결망과 역사적 맥락을 기반으로 대응하는 능력을 향상시킨다.</li>
+  <li>대화 요약 메모리 : 이전 대화의 내용을 원문 텍스트 그대로 보관하지 않고 대화가 진행되는 동안 대화를 요약하고 요약본을 메모리에 저장한다.</li>
+</ul>
+
+<h2 id="대화-버퍼-메모리-사용">대화 버퍼 메모리 사용</h2>
+
+<ol>
+  <li>버퍼 메모리 초기화
+```
+from langchain.memory import ConversationBufferMemory</li>
+</ol>
+
+<p>memory = ConversationBufferMemory()</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 메모리에 대화 내용 저장. save_context는 메모리에 대화 내용을 누적으로 저장한다.
+</code></pre></div></div>
+<p>memory.save_context(
+    inputs={
+        “human”: “hello”
+    },
+    outputs={
+        “ai” : “Hello, how can i help you today?”
+    }
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3. 메모리에 저장된 대화 내용 불러오기
+</code></pre></div></div>
+<p>memory.load_memory_variables({})[“history”]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## 대화 버퍼 윈도우 메모리 사용
+
+1. 버퍼 메모리 초기화
+</code></pre></div></div>
+<p>from langchain.memory import ConversationBufferWindowMemory</p>
+
+<p>memory = ConversationBufferWindowMemory(k=2, return_messages=True)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- return_messages 옵션은 출력 결과를 보여준다.
+- 사용은 대화 버퍼 메모리와 동일하게 한다. 
+
+## 대화 토큰 버퍼 메모리
+
+1. 메모리 초기화
+llm 자체에서 토큰을 계산하는 기능을 사용하기 때문에 llm을 먼저 설정해야한다. 
+
+</code></pre></div></div>
+<p>from langchain.memory import ConversationTokenBufferMemory
+from langchain_openai import ChatOpenAI</p>
+
+<p>llm = ChatOpenAI(model_name=”gpt-4o”)
+memory = ConversationTokenBufferMemory(
+    llm=llm, max_token_limit=150, return_messages=true
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 대화 내용 저장. 
+- save_context 메서드를 사용해서 저장한다.
+- 특이한 점은, 전체 대화의 토큰을 제한하는게 아니라, save_context 메서드를 한번 사용할때의 토큰을 제한하므로 각 대화 입력, 출력에 대해서 길이가 제한된다.
+
+## 대화 엔티티 메모리
+1. 엔티티 추출을 위한 템플릿 설정 임포트 - 기본 설정 프롬프트 활용
+</code></pre></div></div>
+<p>from langchain_openai import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationEntitiMemory
+from langchain.memory.propmt import ENTITY_MEMORY_CONVERSATION_TEMPLATE</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+2. conversation chain 생성
+* 랭체인에서 대화 흐름을 관리하는 객체로, llm 과 대화 메모리를 결합하여 컨텍스트를 유지한다.
+</code></pre></div></div>
+<p>llm = ChatOpenAI(model_name=”gpt-4o”)</p>
+
+<p>conversation = ConversationChain(
+    llm = llm,
+    prompt = ENTITY_MEMORY_CONVERSATION_TEMPLATE,
+    memory = ConversationEntityMemory(llm=llm)
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+3. 저장된 엔티티 확인 방법
+</code></pre></div></div>
+<p>conversation.memory.entity_store.entity</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## 대화 지식 그래프 메모리
+
+대화 지식 그래프 메모리는 핵심 정볼르 효율적으로 저장할 수 잇지만 세부 내용이 엔티티나 지식 그래프에 포함되지 않는 경우에 세세한 사항에 대해 물어보면 제대로 답변하지 못한다.
+
+
+## 대화 요약 메모리
+
+여러가지 방식이 있다.
+- conversation summary memory :  바로바로 요약함
+- conversation summery buffer memory :  최근 대화 기록과 요약을 결합한 방식. 일정 수준 까지는 대화의 원본을 유지하면서 사용자가 최신 대화를 이용할 수 있도록 하다가, 대화가 길어져 메모리가 초과되면 이전 대화를 요약해서 저장함
+
+</code></pre></div></div>
+<p>from langchain.memory import ConversationSummaryMemory
+from langchain_openai import ChatOpenAI</p>
+
+<p>memory = ConversationSummaryBufferMemory(
+    llm=ChatOpenAI(model_name=””),
+    max_token_limit=200,
+    return_messages=True
+)</p>
+
+<p>memory.save_context( … )</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+## 벡터 스토어 검색 메모리
+대화 내용을 벡터 스토어 데이터 베이스에 저장하고 조회해볼 수 있는 기능이다. 다른 메모리 클래스에서는 대화 기록을 시간 순서에 따라서 저장하는데 반해 벡터 데이터 스토어에서는 시간 순서를 고려하지 않고 대화 내용에서 필요한 내용을 검색해서 사용한다.
+
+1. 임베딩 모델 정의, 데이터 베이스 초기화
+</code></pre></div></div>
+<p>import faiss
+from langchain_openai import OpenAIEmbeddings
+from langchain.docstore import InMemoryDocstore
+from langchain.vectorstores import FAISS</p>
+
+<p>embedding_model = OpenAIEmbeddings()
+embedding_size = 1536
+index = faiss.IndexFlatL2(embedding_size)
+vector_store = FAISS(embedding_model, index, InMemoryDocstore({}), {})</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* faiss : 페이스북에서 만든 벡터 데이터베이스
+
+2. 리트리버 추가
+</code></pre></div></div>
+<p>from langchain.memory import VectorStoreRetrieverMemory</p>
+
+<p>retriever = vectorstore.as_retriever(search_kwargs={“k”:1})
+memory = VecotStoreRetrieverMemory(retriever=retriever)
+```</p>
+
+<ol>
+  <li>저장 및 불러오기
+    <ul>
+      <li>save_context, load_memory_variables라는 동일한 메서드를 사용한다.</li>
+      <li>모든 메모리 사용 방식이 동일하다는 점이 정말 편리!</li>
+    </ul>
+  </li>
+</ol>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="memory" /><category term="conversation" /><category term="buffer" /><category term="token-management" /><category term="chat-history" /><category term="study-llm-framework" /><summary type="html"><![CDATA[LangChain의 다양한 메모리 유형과 대화 히스토리 관리 방법]]></summary></entry><entry><title type="html">직렬화와 역직렬화로 LangChain 모델 로드하기</title><link href="https://duri-wip.github.io/ml-ai/langchain-modelload/" rel="alternate" type="text/html" title="직렬화와 역직렬화로 LangChain 모델 로드하기" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-modelload</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-modelload/"><![CDATA[<h1 id="직렬화와-역직렬화로-모델-로드하기">직렬화와 역직렬화로 모델 로드하기</h1>
+
+<p>직렬화는 데이터 구조나 객체의 상태를 저장하거나 전송하기 위해 일련의 바이트나 문자열 형식으로 변환하는 과정. 
+RAG 에서 직렬화의 주된 목적은 모델을 저장하는데 잇음. 
+예를 들어 사용자가 만든 체인을 저장해야할 때 체인을 직렬화 해서 json 형식으로 변환해서 저장한다 .</p>
+
+<p>역직렬화는 데이터를 원래 객체나 데이터 구조의 형태로 복원하는 과정.</p>
+
+<h2 id="직렬화-가능-여부-확인하기">직렬화 가능 여부 확인하기</h2>
+<p>모든 데이터 타입이 직렬화가 가능한 것은 아니므로 가능 여부를 먼저 확인해야한다. 
+예를 들어, 랭체인 프레임워크에서 만든 체인의 직렬화 여부를 확인하기 위해서는 이런 메서드를 사용한다.
+체인 뿐만 아니라, llm 객체나 프롬프트에 대해서도 동일한 방법으로 확인이 가능하다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chain = prompt | model
+
+chain.is_lc_serializable()
+</code></pre></div></div>
+
+<h2 id="직렬화하기">직렬화하기</h2>
+<p>직렬화 가능한 객체를 딕셔너리나 json 문자열로 변환한다. 
+이때 객체의 속성과 데이터를 키-값 쌍으로 변환한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from langchain_core.load import dumpd, dumps
+
+dumpd_chain = dumpd(chain)
+</code></pre></div></div>
+
+<h2 id="역직렬화하기">역직렬화하기</h2>
+<p>json이나 딕셔너리 형식으로 직렬화되었던 체인은 역직렬화를 하면 스트링 타입으로 변환된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dumps_chain = dumbps(chain)
+</code></pre></div></div>
+
+<h1 id="pickle-파일로-직렬화하고-로드하기">pickle 파일로 직렬화하고 로드하기</h1>
+<p>직렬화된 파일을 저장할때는 피클이라는 파일 형태로 저장한다. 
+피클이란 파이썬 객체를 바이너리 형태로 변환하는 포맷으로, 파일이나 메모리에 빠르게 저장할 수 있고, 저장된 데이터를 로드해서 복원할 수 잇다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pickle
+
+with open("chain.pkl", "wb") as f:
+    pickle.dump(dumpd_chain, f)
+</code></pre></div></div>
+
+<p>이렇게 저장해두면 이 파일을 제3자에게 전달해서 재사용할 수 있다. 이 파일을 전달받은 사람이 체인을 사용하려면 먼저 파일을 로드하고, 역직렬화해서 사용하면 된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pickle
+
+with open("chain.pkl", "rb") as f:
+    loaded_chain = pickle.load(f)
+
+from langchain_core.load import load
+
+chain_from_file = load(loaded_chain)
+
+response = chain_from_file.invoke(...)
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="serialization" /><category term="model-persistence" /><category term="chain-storage" /><category term="json" /><category term="data-management" /><category term="study-llm-framework" /><summary type="html"><![CDATA[LangChain 모델과 체인의 직렬화/역직렬화를 통한 저장 및 로드 방법]]></summary></entry><entry><title type="html">Chunk 알고리즘</title><link href="https://duri-wip.github.io/ml-ai/text-split/" rel="alternate" type="text/html" title="Chunk 알고리즘" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/text-split</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/text-split/"><![CDATA[<h1 id="텍스트-분할">텍스트 분할</h1>
+
+<p>청크는 질문과의 유사도를 계산해 관련성 높은 정보를 추출하는데 사용된다. 잘 나뉜 청크는 질문에 적합한 정보를 효과적으로 가져온다.
+그치만 너무 크게 나누면 유사도가 떨어지고 너무 작게 나누면 컨텍스트를 잃을 수 있다.
+문서를 분할하는 전략은 다양하며, 실험을 통해 문서와 질문에 적합한 방식을 찾아야 한다.
+또 오버랩은 청크 사이에 일부 겹치는 부분을 만들어 문장이 잘리지 않도록 하는 방법을 말한다.</p>
+
+<h2 id="문자-단위로-분할하기">문자 단위로 분할하기</h2>
+
+<p>기본적으로 “\n\n”을 기준으로 글자 단위로 텍스트를 분할한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>with open("data.txt") as f:
+    file = f.read()
+
+from langchai_text_splitters import CharacterTextSplitter
+
+text_splitter = CharacterTextSplitter(
+    seperator="\n\n",
+    chunk_size=210,
+    chunk_overlap=0,
+    length_function=len,
+)
+
+text = text_splitter.create_documents([file])
+
+# 이렇게도 쓸 수 있다.
+text2 = text_splitter.create_documents([
+    file, file
+])
+</code></pre></div></div>
+
+<h2 id="문자-단위로-재귀적으로-분할하기">문자 단위로 재귀적으로 분할하기</h2>
+
+<p>특정 문자 목록을 기준으로 텍스트를 나누며, 기본적으로 단락(\n\n)을 먼저 분할하고, 이후 문장, 단어, 개별 문자까지 재귀적으로 세분화한다.
+즉 설정된 청크 크기가 기준에 맞게 충분히 작아질 때까지 단락 -&gt; 문장 -&gt; 단어 -&gt; 글자 순서로 점점 더 작은 단위로 나누는 것을 계속해서 청크 크기를 조절한다.
+이 방식을 사용하면 단락, 문장, 단어가 서로 밀접하게 관련된 의미를 가진 하나의 덩어리로 보고 가능한 한 이런 단위가 끊어지지 않도록 유지하는 장점이 있다.</p>
+
+<p>사용 방법</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>with open("data.txt") as f:
+    file = f.read()
+
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+text_splitter = RecursiveCharactorTextSplitter(
+    chunk_size=250,
+    chunk_overlap=50,
+    length_function=len,
+    is_seperator_regex=False
+)
+
+texts = text_splitter.create_documents([file])
+</code></pre></div></div>
+
+<p>이렇게 하면 텍스트 스플리터가 파일 텍스트를 문서 단위로 분할하고, texts 리스트에 분할된 문서가 저장된다.
+여기서 create_documents 메서드로 텍스트와 메터데이터가 반환된다.</p>
+
+<p>여기에 split_text 메서드를 적용하면 텍스트를 분할해서 문자열 리스트로 반환한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>text_splitter.split_text(file)
+</code></pre></div></div>
+
+<h2 id="토큰-단위로-분할하기">토큰 단위로 분할하기</h2>
+
+<p>텍스트를 효율적으로 분할하기 위해 토크나이저를 활용한다. 이는 텍스트를 토큰으로 변환하는데 사용되는 알고리즘이다.
+토크나이저에 따라서 토큰 개수를 계산하는 방식이나 청크 분할 결과가 달라지므로 모델에 입력하기 전에 적절한 토크나이저를 선택하는 것이 중요하다.</p>
+
+<h3 id="텍스트-분할-방식에-따른-크기-제한의-크기">텍스트 분할 방식에 따른 크기 제한의 크기</h3>
+
+<p>재귀적 방식을 사용하면 항상 토큰 크기 제한 내에 텍스트가 들어오게 된다.
+흠..
+토크나이저 종류를 소개하는데 각각의 차이가 뭔지 잘 모르겠고 찾아봐야겟음</p>
+
+<ul>
+  <li>tiktoken</li>
+  <li>TokenTextSplitter</li>
+  <li>spaCy</li>
+  <li>SentenceTransformers</li>
+  <li>NLTK</li>
+  <li>KoNLPy</li>
+  <li>HuggingFace 토크나이저 중 GPT2TokenizerFast</li>
+</ul>
+
+<h2 id="의미-단위로-분할하기">의미 단위로 분할하기</h2>
+
+<p>일반적으로 텍스트를 분할할 때 글자 수나 토큰 수를 기준으로 나누지 않고 의미적으로 유사한 문장끼리 묶을 수도 있다.
+이런 방식은 청크의 크기가 일정하지 않게 된다는 특징이 있다. 그렇지만 실제로는 문서에서 문단의 길이는 상황에 따라 달라질 수 있으므로 의미적으로는 사람이 이해하는 방식과 더 유사하다고 할 수 있다.</p>
+
+<p>종류</p>
+
+<ul>
+  <li>SemanticChunker</li>
+</ul>
+
+<p>이 토크나이저를 사용할때 문장 분할 기준점은이렇게 계산된다.</p>
+
+<ul>
+  <li>먼저 문장간 유사도를 계산한다.</li>
+  <li>각 문장 쌍 사이의 거리로 나타난다.</li>
+  <li>계산된 거리 값들을 그래프 형태로 표현하여 문장들 간 거리가 가까운 경우와 먼 경우를 파악한다</li>
+  <li>문장 간 거리를 기준으로 텍스트를 나누는 지점인 분할 기준점을 지정한다. 분할 기준점은 백분위수, 표준편차, 사분위수 범위 등으로 지정할 수 있다.</li>
+  <li>임계값을 넘는 지점에서 문장이 분리되어 하나의 청크를 이루게 된다.</li>
+</ul>
+
+<h2 id="마크다운-헤더로-분할하기">마크다운 헤더로 분할하기</h2>
+
+<p>문서를 지정된 헤더를 기준으로 분할한다.</p>
+
+<p>사용 방식</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from langchain_text_splitters import MarkdownHeaderTextSplitter
+
+markdown_document = " ..."
+
+headers_to_split_on = [
+    ("#","Header 1"),
+    ("##","Header 2"),
+    ("###","Header 3")
+]
+
+markdown_splitter = MarkdownHeaderTextSplitter(
+    headers_to_split_on=headers_to_split_on
+)
+
+splits = markdown_splitter.split_text(markdown_document)
+</code></pre></div></div>
+
+<ul>
+  <li>여기서 strip_headers 옵션으로 헤더 포함 여부를 결정할 수 있다.</li>
+</ul>
+
+<p>이렇게 분할된 결과를 다시 recursive 하게 스플릿할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chunk_size=200
+chunk_overlap=20
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=chunk_size, chunk_overlap=chunk_overlap
+)
+split = text_splitter.split_documents(splits)
+</code></pre></div></div>
+
+<h2 id="html-헤더로-분할하기">html 헤더로 분할하기</h2>
+
+<p>html 문서에서는 &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt; 과 같은 h태그를 사용해 헤더를 구분한다.
+매개변수로 분할 기준이 되는 헤더 태그와 이름을 지정해서 스플리터에 넘겨주는 걸 만들어야한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>header_to_split_on = [
+    ("h1","Header1"),
+    ("h2","Header2"),
+    ("h3","Header3"),
+]
+
+html_splitter = HTMLHeaderTextSplitter(
+    header_to_split_on = headers_to_split_on
+)
+
+html_header_split = html_splitter.split_text(html_string)
+</code></pre></div></div>
+
+<p>그리고 이렇게 분할된 텍스트가 여전히 길 경우에 마찬가지로 재귀적으로 분할하는 분할기를 추가해서 추가로 수행할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from langchain_text_splitters import RecursiveCharactreTextSplitter
+
+url = "https://...."
+
+chunk_size = 500
+chunk_overlap = 20
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=chunk_size, chunk_overlap=chunk_overlap
+)
+
+splits = text_splitter.split_documents(html_header_splits)
+
+</code></pre></div></div>
+
+<ul>
+  <li>그렇지만 html 문서의 구조가 불규칙적이거나 예상과 다를 경우 원하는 결과를 얻지 못할 수도 있다. 계층구조가 일관되지 않게 배치될 수 있기 때문이다. 그래서 가져올 html 의 구조를 먼저 확인하는 것이 중요하다. 불규칙 한 경우에는 다른 분할기를 사용하는 것이 더 나을 수 있다.</li>
+</ul>
+
+<h2 id="json-단위로-분할하기">json 단위로 분할하기</h2>
+
+<p>recursive json splitter는 json 데이터를 깊이 우선 방식으로 탐색하여 더 작은 json 청크를 생성하는 방식으로 분할한다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="genai-llm" /><category term="langchain" /><category term="rag" /><category term="vector-store" /><category term="embedding" /><category term="study-llm-framework" /><summary type="html"><![CDATA[효과적인 RAG 시스템을 위한 청킹 방법]]></summary></entry><entry><title type="html">Jekyll Private</title><link href="https://duri-wip.github.io/jekyll-private/" rel="alternate" type="text/html" title="Jekyll Private" /><published>2025-09-09T00:00:00+00:00</published><updated>2025-09-09T00:00:00+00:00</updated><id>https://duri-wip.github.io/jekyll-private</id><content type="html" xml:base="https://duri-wip.github.io/jekyll-private/"><![CDATA[<h1 id="프라이빗퍼블릭-레포지토리-분리로-안전한-블로그-운영하기">프라이빗/퍼블릭 레포지토리 분리로 안전한 블로그 운영하기</h1>
+
+<p>블로그를 만들어놓고 보니 한 가지 고민이 생겼습니다. Jekyll 소스 파일들을 모두 공개 레포지토리에 올려둬야 하는데, 개인적인 설정이나 초안, 민감한 정보들까지 모두 공개되는 게 마음에 걸렸어요. GitHub Pages는 계속 사용하고 싶고, 다른 호스팅 서비스로 옮기고 싶지도 않고…</p>
+
+<p>그래서 <strong>프라이빗 레포지토리에서 개발하고 퍼블릭 레포지토리로 자동 배포하는 시스템</strong>을 구축했습니다!</p>
+
+<h2 id="문제-상황과-해결-전략">문제 상황과 해결 전략</h2>
+
+<h3 id="기존-방식의-문제점">기존 방식의 문제점</h3>
+
+<p>일반적인 Jekyll + GitHub Pages 사용 방식:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username/username.github.io (Public Repository)
+├── _posts/              # 포스트들이 모두 공개
+├── _drafts/             # 초안까지 공개
+├── _config.yml          # 개인 설정 공개
+├── Gemfile              # 의존성 정보 공개
+└── ...                  # 모든 소스 코드 공개
+</code></pre></div></div>
+
+<p><strong>문제점들</strong>:</p>
+
+<ul>
+  <li>초안이나 개인적인 메모도 모두 공개</li>
+  <li>API 키나 개인 설정이 노출될 수 있음</li>
+  <li>실험적인 코드나 임시 파일들도 공개</li>
+  <li>개발 과정이 모두 노출되어 부담스러움</li>
+</ul>
+
+<h3 id="해결-전략">해결 전략</h3>
+
+<p><strong>이중 레포지토리 시스템</strong>을 구축해서 개발과 배포를 분리합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Private] blog-source        →  [Public] username.github.io
+├── 소스 파일들                 ├── 빌드된 HTML 파일들
+├── 초안과 메모                 ├── CSS, JS 파일들
+├── 개인 설정                   ├── 이미지 파일들
+└── GitHub Actions             └── 배포용 파일들만
+</code></pre></div></div>
+
+<h2 id="1단계-프라이빗-소스-레포지토리-생성">1단계: 프라이빗 소스 레포지토리 생성</h2>
+
+<h3 id="레포지토리-구조-설계">레포지토리 구조 설계</h3>
+
+<p>먼저 프라이빗 레포지토리를 만들고 Jekyll 소스를 모두 옮겨둡니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>blog-source/ (Private Repository)
+├── _posts/                    # 발행된 포스트
+├── _drafts/                   # 초안 (비공개)
+├── _private/                  # 개인 메모, 아이디어
+│   ├── ideas.md
+│   ├── todo.md
+│   └── private-notes/
+├── _config.yml               # 개인 설정
+├── _config-production.yml    # 배포용 설정 (분리)
+├── .github/
+│   └── workflows/
+│       └── deploy.yml        # 자동 배포 스크립트
+├── .gitignore
+├── Gemfile
+└── README.md
+</code></pre></div></div>
+
+<h3 id="배포용-설정-파일-분리">배포용 설정 파일 분리</h3>
+
+<p>개인 설정과 배포용 설정을 분리해서 관리합니다:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config.yml (개발용 - 프라이빗)</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">개발자</span><span class="nv"> </span><span class="s">블로그"</span>
+<span class="na">email</span><span class="pi">:</span> <span class="s">my-private-email@example.com</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jekyll과</span><span class="nv"> </span><span class="s">GitHub</span><span class="nv"> </span><span class="s">Pages로</span><span class="nv"> </span><span class="s">만든</span><span class="nv"> </span><span class="s">블로그"</span>
+
+<span class="c1"># 개발 환경 설정</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://localhost:4000"</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="c1"># 개인 설정들</span>
+<span class="na">author</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">내</span><span class="nv"> </span><span class="s">이름"</span>
+  <span class="na">email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">private@email.com"</span>
+  <span class="na">social</span><span class="pi">:</span>
+    <span class="na">github</span><span class="pi">:</span> <span class="s2">"</span><span class="s">my-username"</span>
+
+<span class="c1"># 비공개 플러그인이나 설정</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-admin</span> <span class="c1"># 로컬에서만 사용</span>
+  <span class="pi">-</span> <span class="s">jekyll-compose</span>
+
+<span class="c1"># 개발용 컬렉션</span>
+<span class="na">collections</span><span class="pi">:</span>
+  <span class="na">drafts</span><span class="pi">:</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="kc">true</span>
+  <span class="na">private</span><span class="pi">:</span>
+    <span class="na">output</span><span class="pi">:</span> <span class="kc">false</span> <span class="c1"># 비공개 컬렉션</span>
+</code></pre></div></div>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># _config-production.yml (배포용 - 퍼블릭으로 복사됨)</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">개발자</span><span class="nv"> </span><span class="s">블로그"</span>
+<span class="na">description</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Jekyll과</span><span class="nv"> </span><span class="s">GitHub</span><span class="nv"> </span><span class="s">Pages로</span><span class="nv"> </span><span class="s">만한</span><span class="nv"> </span><span class="s">블로그"</span>
+
+<span class="c1"># 프로덕션 환경 설정</span>
+<span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://username.github.io"</span>
+<span class="na">baseurl</span><span class="pi">:</span> <span class="s2">"</span><span class="s">"</span>
+
+<span class="c1"># 최소한의 공개 정보만</span>
+<span class="na">author</span><span class="pi">:</span>
+  <span class="na">name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">블로거"</span>
+
+<span class="c1"># 배포용 플러그인만</span>
+<span class="na">plugins</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">jekyll-feed</span>
+  <span class="pi">-</span> <span class="s">jekyll-sitemap</span>
+  <span class="pi">-</span> <span class="s">jekyll-seo-tag</span>
+
+<span class="c1"># 비공개 컬렉션 제외</span>
+<span class="na">exclude</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">_private/</span>
+  <span class="pi">-</span> <span class="s">_drafts/</span>
+  <span class="pi">-</span> <span class="s">Gemfile</span>
+  <span class="pi">-</span> <span class="s">Gemfile.lock</span>
+  <span class="pi">-</span> <span class="s">node_modules/</span>
+  <span class="pi">-</span> <span class="s">.sass-cache/</span>
+</code></pre></div></div>
+
+<h2 id="2단계-github-actions-워크플로우-구성">2단계: GitHub Actions 워크플로우 구성</h2>
+
+<p>프라이빗 레포지토리에 push하면 자동으로 빌드하고 퍼블릭 레포지토리에 배포하는 스크립트를 만듭니다.</p>
+
+<h3 id="personal-access-token-생성">Personal Access Token 생성</h3>
+
+<ol>
+  <li>GitHub Settings → Developer settings → Personal access tokens</li>
+  <li>“Generate new token” 클릭</li>
+  <li>필요한 권한 선택:
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">repo</code> (전체 레포지토리 권한)</li>
+      <li><code class="language-plaintext highlighter-rouge">workflow</code> (GitHub Actions 권한)</li>
+    </ul>
+  </li>
+  <li>생성된 토큰을 복사해서 보관</li>
+</ol>
+
+<h3 id="레포지토리-시크릿-설정">레포지토리 시크릿 설정</h3>
+
+<p>프라이빗 레포지토리의 Settings → Secrets and variables → Actions에서:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">DEPLOY_TOKEN</code>: 위에서 생성한 Personal Access Token</li>
+  <li><code class="language-plaintext highlighter-rouge">TARGET_REPO</code>: 배포할 퍼블릭 레포지토리 (예: <code class="language-plaintext highlighter-rouge">username/username.github.io</code>)</li>
+</ul>
+
+<h3 id="github-actions-워크플로우-작성">GitHub Actions 워크플로우 작성</h3>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .github/workflows/deploy.yml</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">Build and Deploy to GitHub Pages</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">main</span><span class="pi">]</span>
+  <span class="na">workflow_dispatch</span><span class="pi">:</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build-and-deploy</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📥 소스 코드 체크아웃</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v4</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">fetch-depth</span><span class="pi">:</span> <span class="m">0</span> <span class="c1"># 전체 히스토리 가져오기</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">💎 Ruby 환경 설정</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ruby/setup-ruby@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">ruby-version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.1"</span>
+          <span class="na">bundler-cache</span><span class="pi">:</span> <span class="kc">true</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📦 의존성 설치</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bundle install</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔧 Jekyll 빌드 (배포용 설정 사용)</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s"># 배포용 설정으로 빌드</span>
+          <span class="s">bundle exec jekyll build --config _config.yml,_config-production.yml</span>
+
+          <span class="s"># 빌드 결과 확인</span>
+          <span class="s">echo "빌드 완료. 파일 목록:"</span>
+          <span class="s">ls -la _site/</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🚀 퍼블릭 레포지토리에 배포</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">peaceiris/actions-gh-pages@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">personal_token</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">external_repository</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">publish_branch</span><span class="pi">:</span> <span class="s">main</span>
+          <span class="na">publish_dir</span><span class="pi">:</span> <span class="s">./_site</span>
+          <span class="na">commit_message</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Deploy:</span><span class="nv"> </span><span class="s">$"</span>
+          <span class="na">user_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]"</span>
+          <span class="na">user_email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]@users.noreply.github.com"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">✅ 배포 완료 알림</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">echo "🎉 배포가 완료되었습니다!"</span>
+          <span class="s">echo "블로그 주소: https://username.github.io"</span>
+          <span class="s">echo "커밋 메시지: $"</span>
+</code></pre></div></div>
+
+<h3 id="고급-워크플로우-선택사항">고급 워크플로우 (선택사항)</h3>
+
+<p>더 세밀한 제어가 필요한 경우:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># .github/workflows/deploy-advanced.yml</span>
+<span class="na">name</span><span class="pi">:</span> <span class="s">Advanced Build and Deploy</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">main</span><span class="pi">]</span>
+    <span class="na">paths-ignore</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">README.md"</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">_private/**"</span>
+  <span class="na">schedule</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="na">cron</span><span class="pi">:</span> <span class="s2">"</span><span class="s">0</span><span class="nv"> </span><span class="s">0</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">*</span><span class="nv"> </span><span class="s">0"</span> <span class="c1"># 매주 일요일 자동 빌드</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build-and-deploy</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+
+    <span class="na">env</span><span class="pi">:</span>
+      <span class="na">JEKYLL_ENV</span><span class="pi">:</span> <span class="s">production</span>
+
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📥 체크아웃</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v4</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">💎 Ruby 설정</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ruby/setup-ruby@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">ruby-version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.1"</span>
+          <span class="na">bundler-cache</span><span class="pi">:</span> <span class="kc">true</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔍 변경된 파일 확인</span>
+        <span class="na">id</span><span class="pi">:</span> <span class="s">changes</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">if git diff --name-only $ $ | grep -E '\.(md|html|yml|css|scss|js)$'; then</span>
+            <span class="s">echo "content_changed=true" &gt;&gt; $GITHUB_OUTPUT</span>
+          <span class="s">else</span>
+            <span class="s">echo "content_changed=false" &gt;&gt; $GITHUB_OUTPUT</span>
+          <span class="s">fi</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📦 의존성 설치 및 업데이트</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">bundle install</span>
+          <span class="s">bundle update</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🧹 빌드 전 정리</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s"># 이전 빌드 결과 제거</span>
+          <span class="s">rm -rf _site</span>
+
+          <span class="s"># 임시 파일 정리</span>
+          <span class="s">find . -name ".DS_Store" -delete</span>
+          <span class="s">find . -name "Thumbs.db" -delete</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔧 Jekyll 빌드</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s"># 배포용 설정으로 빌드</span>
+          <span class="s">bundle exec jekyll build \</span>
+            <span class="s">--config _config.yml,_config-production.yml \</span>
+            <span class="s">--verbose \</span>
+            <span class="s">--trace</span>
+          <span class="no">  </span>
+          <span class="s"># 빌드 검증</span>
+          <span class="s">if [ ! -f "_site/index.html" ]; then</span>
+            <span class="s">echo "❌ 빌드 실패: index.html이 생성되지 않았습니다."</span>
+            <span class="s">exit 1</span>
+          <span class="s">fi</span>
+
+          <span class="s">echo "✅ 빌드 성공!"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔍 빌드 결과 검증</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">echo "📊 빌드 결과 통계:"</span>
+          <span class="s">echo "- HTML 파일: $(find _site -name "*.html" | wc -l)개"</span>
+          <span class="s">echo "- CSS 파일: $(find _site -name "*.css" | wc -l)개"</span>
+          <span class="s">echo "- JS 파일: $(find _site -name "*.js" | wc -l)개"</span>
+          <span class="s">echo "- 이미지 파일: $(find _site -type f \( -name "*.jpg" -o -name "*.png" -o -name "*.gif" \) | wc -l)개"</span>
+          <span class="s">echo "- 전체 크기: $(du -sh _site | cut -f1)"</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🚀 배포</span>
+        <span class="na">if</span><span class="pi">:</span> <span class="s">steps.changes.outputs.content_changed == 'true'</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">peaceiris/actions-gh-pages@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">personal_token</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">external_repository</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">publish_branch</span><span class="pi">:</span> <span class="s">main</span>
+          <span class="na">publish_dir</span><span class="pi">:</span> <span class="s">./_site</span>
+          <span class="na">commit_message</span><span class="pi">:</span> <span class="pi">|</span>
+            <span class="s">Deploy: $</span>
+
+            <span class="s">- Build time: $</span>
+            <span class="s">- Commit: $</span>
+          <span class="na">user_name</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]"</span>
+          <span class="na">user_email</span><span class="pi">:</span> <span class="s2">"</span><span class="s">github-actions[bot]@users.noreply.github.com"</span>
+          <span class="na">force_orphan</span><span class="pi">:</span> <span class="kc">true</span> <span class="c1"># 히스토리 정리</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📧 배포 결과 알림 (선택사항)</span>
+        <span class="na">if</span><span class="pi">:</span> <span class="s">always()</span>
+        <span class="na">run</span><span class="pi">:</span> <span class="pi">|</span>
+          <span class="s">if [ $ == 'success' ]; then</span>
+            <span class="s">echo "✅ 배포 성공!"</span>
+            <span class="s">echo "🌐 블로그: https://username.github.io"</span>
+          <span class="s">else</span>
+            <span class="s">echo "❌ 배포 실패!"</span>
+          <span class="s">fi</span>
+</code></pre></div></div>
+
+<h2 id="3단계-퍼블릭-레포지토리-설정">3단계: 퍼블릭 레포지토리 설정</h2>
+
+<p>배포 대상인 퍼블릭 레포지토리는 간단히 설정합니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>username.github.io/ (Public Repository)
+├── index.html            # 빌드된 파일들만
+├── assets/
+├── posts/
+├── about/
+└── ...                   # 소스 코드는 없음
+</code></pre></div></div>
+
+<h3 id="readmemd-작성">README.md 작성</h3>
+
+<p>퍼블릭 레포지토리의 README.md:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh"># 개발자 블로그</span>
+
+이 레포지토리는 Jekyll로 빌드된 정적 사이트입니다.
+
+<span class="gu">## 📖 블로그 주소</span>
+
+https://username.github.io
+
+<span class="gu">## 🔧 기술 스택</span>
+<span class="p">
+-</span> Jekyll (Static Site Generator)
+<span class="p">-</span> GitHub Pages (Hosting)
+<span class="p">-</span> GitHub Actions (CI/CD)
+
+<span class="gu">## 📝 포스트 작성</span>
+
+이 레포지토리는 자동 배포된 결과물입니다.
+포스트 작성이나 수정은 프라이빗 소스 레포지토리에서 진행됩니다.
+
+<span class="gu">## 🤝 기여하기</span>
+
+오타나 오류를 발견하시면 이슈로 알려주세요!
+<span class="p">
+---
+</span>
+⚡ Powered by Jekyll &amp; GitHub Actions
+</code></pre></div></div>
+
+<h2 id="4단계-워크플로우-테스트-및-최적화">4단계: 워크플로우 테스트 및 최적화</h2>
+
+<h3 id="로컬에서-배포-테스트">로컬에서 배포 테스트</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># 프라이빗 레포지토리에서</span>
+git clone https://github.com/username/blog-source.git
+<span class="nb">cd </span>blog-source
+
+<span class="c"># 의존성 설치</span>
+bundle <span class="nb">install</span>
+
+<span class="c"># 로컬 빌드 테스트</span>
+bundle <span class="nb">exec </span>jekyll build <span class="nt">--config</span> _config.yml,_config-production.yml
+
+<span class="c"># 빌드 결과 확인</span>
+<span class="nb">ls</span> <span class="nt">-la</span> _site/
+
+<span class="c"># GitHub에 푸시해서 자동 배포 테스트</span>
+git add <span class="nb">.</span>
+git commit <span class="nt">-m</span> <span class="s2">"feat: 자동 배포 시스템 테스트"</span>
+git push origin main
+</code></pre></div></div>
+
+<h3 id="배포-상태-모니터링">배포 상태 모니터링</h3>
+
+<p>GitHub Actions 탭에서 배포 진행 상황을 실시간으로 확인할 수 있습니다:</p>
+
+<ol>
+  <li><strong>빌드 로그 확인</strong>: 각 단계별 실행 결과</li>
+  <li><strong>오류 디버깅</strong>: 실패 시 상세 오류 메시지</li>
+  <li><strong>배포 시간 측정</strong>: 성능 최적화 참고</li>
+</ol>
+
+<h2 id="이점과-주의사항">이점과 주의사항</h2>
+
+<h3 id="이-시스템의-장점">이 시스템의 장점</h3>
+
+<ol>
+  <li><strong>개인정보 보호</strong>: 소스 코드와 개인 설정 비공개</li>
+  <li><strong>자유로운 실험</strong>: 실험적 코드나 초안 안전하게 관리</li>
+  <li><strong>자동화</strong>: 푸시만 하면 자동 빌드 및 배포</li>
+  <li><strong>버전 관리</strong>: 소스와 배포본 분리된 히스토리 관리</li>
+  <li><strong>유연성</strong>: 배포 전 추가 처리나 검증 가능</li>
+</ol>
+
+<h3 id="주의사항">주의사항</h3>
+
+<ol>
+  <li><strong>토큰 관리</strong>: Personal Access Token 보안 주의</li>
+  <li><strong>빌드 시간</strong>: GitHub Actions 사용 한도 고려</li>
+  <li><strong>디버깅</strong>: 빌드 실패 시 로그 확인 필요</li>
+  <li><strong>동기화</strong>: 두 레포지토리 간 일관성 유지</li>
+</ol>
+
+<h2 id="다음-단계">다음 단계</h2>
+
+<p>이제 안전하고 효율적인 블로그 배포 시스템이 완성되었습니다!</p>
+
+<p><strong>다음으로 고려할 수 있는 개선사항들</strong>:</p>
+
+<ul>
+  <li>CDN 연결로 성능 최적화</li>
+  <li>자동 SEO 검증 추가</li>
+  <li>배포 실패 시 알림 시스템</li>
+  <li>다중 환경 배포 (스테이징/프로덕션)</li>
+</ul>
+
+<p>프라이빗/퍼블릭 분리 시스템으로 마음 편히 블로그를 운영해보세요. 궁금한 점이나 개선 아이디어가 있다면 댓글로 공유해 주세요!</p>
+
+<hr />
+
+<p><strong>참고 자료</strong>:</p>
+
+<ul>
+  <li><a href="https://docs.github.com/en/actions">GitHub Actions 문서</a></li>
+  <li><a href="https://jekyllrb.com/docs/deployment/">Jekyll 배포 가이드</a></li>
+</ul>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><summary type="html"><![CDATA[프라이빗/퍼블릭 레포지토리 분리로 안전한 블로그 운영하기]]></summary></entry><entry><title type="html">Os Register</title><link href="https://duri-wip.github.io/os-register/" rel="alternate" type="text/html" title="Os Register" /><published>2025-09-08T00:00:00+00:00</published><updated>2025-09-08T00:00:00+00:00</updated><id>https://duri-wip.github.io/os-register</id><content type="html" xml:base="https://duri-wip.github.io/os-register/"><![CDATA[]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><summary type="html"><![CDATA[]]></summary></entry><entry><title type="html">동적 카테고리 시스템 구현하기 1</title><link href="https://duri-wip.github.io/tools/jekyll-active/" rel="alternate" type="text/html" title="동적 카테고리 시스템 구현하기 1" /><published>2025-09-03T00:00:00+00:00</published><updated>2025-09-03T00:00:00+00:00</updated><id>https://duri-wip.github.io/tools/jekyll-active</id><content type="html" xml:base="https://duri-wip.github.io/tools/jekyll-active/"><![CDATA[<p>지금까지 Jekyll의 기본 구조와 스타일링까지는 얼추 했는데요. 제가 하고 싶은 기능은 대부분 동적 시스템에 있더라고요.. 그래서 어쩔 수 없이 동적 시스템을 만드는 방법을 배우기로 했습니다.</p>
+
+<h2 id="목표-기능-정의">목표 기능 정의</h2>
+
+<p>제가 만들려고 하는건 다음과 같습니다:</p>
+
+<ol>
+  <li><strong>사이드바에서 대분류 선택</strong> → 예: “ML&amp;AI” 클릭</li>
+  <li><strong>소분류 카드들이 메인 영역에 표시</strong> → “GenAI&amp;LLM” 등의 카드</li>
+  <li><strong>소분류 카드 클릭</strong> → 해당 소분류의 포스트들이 피드 형식으로 표시</li>
+</ol>
+
+<p>이 과정에서 Jekyll의 Liquid 템플릿으로 HTML을 생성하고, JavaScript로 동적인 상호작용을 구현할 예정입니다.</p>
+
+<h2 id="jekyllliquid로-html-구조-생성하기">Jekyll/Liquid로 HTML 구조 생성하기</h2>
+
+<p>먼저 카테고리 페이지의 기본 구조를 만들어보겠습니다. <code class="language-plaintext highlighter-rouge">categories.html</code> 레이아웃을 생성합니다.</p>
+
+<h3 id="기본-레이아웃-구조">기본 레이아웃 구조</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- _layouts/categories.html --&gt;</span>
+--- layout: default ---
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"categories-container"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- 사이드바: 대분류 카테고리 목록 --&gt;</span>
+  <span class="nt">&lt;aside</span> <span class="na">class=</span><span class="s">"categories-sidebar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>카테고리<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"category-list"</span><span class="nt">&gt;</span>
+       
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">""</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(65)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"DataEngineering"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>DataEngineering<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(15)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"Development"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>Development<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(18)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"ML-AI"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>ML-AI<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(20)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"Tools"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>Tools<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(9)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/aside&gt;</span>
+
+  <span class="c">&lt;!-- 메인 콘텐츠 영역 --&gt;</span>
+  <span class="nt">&lt;main</span> <span class="na">class=</span><span class="s">"categories-main"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"current-category"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1&gt;</span>카테고리를 선택해주세요<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- 카테고리별 콘텐츠가 여기에 동적으로 표시됩니다 --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"category-content"</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- 대분류별 서브카테고리 카드들이 들어갈 영역 --&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/main&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="서브카테고리-카드-생성-로직">서브카테고리 카드 생성 로직</h3>
+
+<p>각 대분류 안에서 서브카테고리들을 추출하고 카드 형식으로 표시하는 핵심 부분:</p>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- 서브카테고리별로 포스트 그룹화 --&gt;
+
+
+&lt;!-- 유효한 서브카테고리만 필터링 --&gt;
+
+
+
+&lt;!-- 서브카테고리 카드 --&gt;
+&lt;div class="subcategory-card"
+     data-subcategory=""
+     data-parent=""&gt;
+
+  &lt;h3 class="subcat-title"&gt;&lt;/h3&gt;
+  &lt;span class="post-count"&gt;0개 포스트&lt;/span&gt;
+  &lt;button class="view-posts-btn"&gt;포스트 보기&lt;/button&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+
+<h2 id="포스트-front-matter-설정">포스트 Front Matter 설정</h2>
+
+<p>카테고리 시스템이 작동하려면 각 포스트에 적절한 메타데이터가 필요합니다:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GPT-4</span><span class="nv"> </span><span class="s">활용법</span><span class="nv"> </span><span class="s">완전</span><span class="nv"> </span><span class="s">정복"</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s">2025-09-08 14:30:00 +0900</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">ML-AI</span><span class="pi">]</span> <span class="c1"># 대분류</span>
+<span class="na">subcategory</span><span class="pi">:</span> <span class="s">GenAI&amp;LLM</span> <span class="c1"># 소분류</span>
+<span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">GPT</span><span class="pi">,</span> <span class="nv">OpenAI</span><span class="pi">,</span> <span class="nv">생성형AI</span><span class="pi">]</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h3 id="카테고리-구조-예시">카테고리 구조 예시</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ML&amp;AI/
+├── GenAI&amp;LLM/
+│   ├── GPT-4 활용법
+│   └── 프롬프트 엔지니어링
+└── Computer Vision/
+    └── OpenCV 기초
+
+Frontend/
+├── React/
+│   └── Hooks 완전 정복
+└── Vue.js/
+    └── Vue 3 시작하기
+</code></pre></div></div>
+
+<h2 id="데이터-속성-활용하기">데이터 속성 활용하기</h2>
+
+<p>HTML 요소들에 <code class="language-plaintext highlighter-rouge">data-*</code> 속성을 사용해서 JavaScript에서 쉽게 접근할 수 있도록 설계했습니다:</p>
+
+<h3 id="주요-데이터-속성들">주요 데이터 속성들</h3>
+
+<ul>
+  <li><strong>카테고리 아이템</strong>: <code class="language-plaintext highlighter-rouge">data-category="ML&amp;AI"</code> - 사이드바의 대분류 식별</li>
+  <li><strong>서브카테고리 카드</strong>: <code class="language-plaintext highlighter-rouge">data-subcategory="GenAI&amp;LLM"</code>, <code class="language-plaintext highlighter-rouge">data-parent="ML&amp;AI"</code> - 소분류와 상위 카테고리 식별</li>
+  <li><strong>포스트 컨테이너</strong>: 같은 속성으로 해당하는 포스트 목록 식별</li>
+</ul>
+
+<h3 id="핵심-변수-할당">핵심 변수 할당</h3>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     # 대분류 식별자
+         # 소분류 식별자
+ # 소분류별 그룹화
+</code></pre></div></div>
+
+<p>이렇게 설정하면 JavaScript에서 DOM 조작을 통해 동적인 카테고리 시스템을 구현할 수 있습니다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="jekyll" /><category term="github_pages" /><category term="study-bloging" /><summary type="html"><![CDATA[HTML 구조 설계]]></summary></entry></feed>

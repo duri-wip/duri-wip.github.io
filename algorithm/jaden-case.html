@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jaden Case</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Jaden Case</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 11월 08일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-algorithm-solving</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="문제">문제</h2>
+
+<p>모든 단어의 첫 문자가 대문자이고 이외의 알파벳은 소문자인 문자열이다. 문자열 s가 주어졌을때 s를 jaden case로 바꾼다음 문자열을 리턴하시오</p>
+
+<h2 id="풀이">풀이</h2>
+
+<ul>
+  <li>capitalize가 있는 걸 몰랐을 때 -&gt; 런타임 에러남
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+  <span class="n">splt</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">)</span>
+  <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">splt</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">isalpha</span><span class="p">():</span>
+          <span class="n">word</span> <span class="o">=</span> <span class="n">c</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span>
+      <span class="k">else</span><span class="p">:</span>
+          <span class="n">word</span> <span class="o">=</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">upper</span><span class="p">()</span> <span class="o">+</span> <span class="n">c</span><span class="p">[</span><span class="mi">1</span><span class="p">:].</span><span class="nf">lower</span><span class="p">()</span>
+      <span class="n">strs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+  <span class="k">return</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">(</span><span class="n">strs</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>알고난 후 -&gt; 에러 안남
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">solution</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+  <span class="k">return</span> <span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">.</span><span class="nf">join</span><span class="p">([</span><span class="n">word</span><span class="p">.</span><span class="nf">capitalize</span><span class="p">()</span> <span class="k">if</span> <span class="n">word</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nf">isalpha</span><span class="p">()</span> <span class="k">else</span> <span class="n">word</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">s</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">'</span><span class="s"> </span><span class="sh">'</span><span class="p">)])</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/algorithm/working-late">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">야근지수</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/algorithm/rotate-matrix">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">행렬 테두리 회전하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

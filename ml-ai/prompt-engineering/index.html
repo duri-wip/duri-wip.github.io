@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프롬프트 엔지니어링 완전 정복</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">프롬프트 엔지니어링 완전 정복</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 06일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#prompt-engineering</span>
+                
+                <span class="tag">#co-star</span>
+                
+                <span class="tag">#automat</span>
+                
+                <span class="tag">#chain-of-thought</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="프롬프트-엔지니어링-고급-기법">프롬프트 엔지니어링 고급 기법</h1>
+
+<h2 id="목차">목차</h2>
+
+<ol>
+  <li><a href="#프롬프트-프레임워크">프롬프트 프레임워크</a>
+    <ul>
+      <li><a href="#co-star-프레임워크">CO-STAR 프레임워크</a></li>
+      <li><a href="#automat-프레임워크">AUTOMAT 프레임워크</a></li>
+    </ul>
+  </li>
+  <li><a href="#시스템-프롬프트와-템플릿">시스템 프롬프트와 템플릿</a>
+    <ul>
+      <li><a href="#langchain-통합">LangChain 통합</a></li>
+    </ul>
+  </li>
+  <li><a href="#고급-프롬프트-패턴">고급 프롬프트 패턴</a>
+    <ul>
+      <li><a href="#chain-of-thought-추론">Chain-of-Thought 추론</a></li>
+      <li><a href="#few-shot-learning">Few-shot Learning</a></li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="safety-filters-안전-필터">Safety Filters (안전 필터)</h2>
+
+<p><a href="https://cloud.google.com/vertex-ai/generative-ai/docs/multimodal/configure-safety-filters?hl=ko">Google Cloud Vertex AI Safety Filters</a></p>
+
+<h3 id="차단-사유">차단 사유</h3>
+
+<p>안전하지 않은 프롬프트에 대해서는 다음과 같은 응답이 제공됩니다:</p>
+
+<ul>
+  <li><strong>PROHIBITED_CONTENT</strong>: 금지된 콘텐츠(일반적으로 아동 성적 학대 콘텐츠)가 포함되어 신고되었으므로 프롬프트가 차단되었습니다.</li>
+  <li><strong>BLOCKED_REASON_UNSPECIFIED</strong>: 프롬프트 차단 이유가 지정되지 않았습니다.</li>
+  <li><strong>OTHER</strong>: 다른 모든 이유</li>
+</ul>
+
+<h3 id="유해-카테고리">유해 카테고리</h3>
+
+<p>콘텐츠 필터는 다음과 같은 유해 카테고리를 기준으로 콘텐츠를 평가합니다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>유해 카테고리</th>
+      <th>정의</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>증오심 표현</td>
+      <td>ID 또는 보호 속성을 대상으로 하는 부정적이거나 유해한 댓글</td>
+    </tr>
+    <tr>
+      <td>괴롭힘</td>
+      <td>다른 사람을 대상으로 위협하거나 협박하거나 괴롭히거나 모욕하는 댓글</td>
+    </tr>
+    <tr>
+      <td>음란물</td>
+      <td>성행위 또는 기타 외설적인 콘텐츠에 대한 참조가 포함</td>
+    </tr>
+    <tr>
+      <td>위험한 콘텐츠</td>
+      <td>유해한 상품, 서비스, 활동 홍보 및 이에 대한 액세스 지원</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="가드레일-종류">가드레일 종류</h3>
+
+<ul>
+  <li><strong>BLOCK_LOW_AND_ABOVE</strong>: 확률 점수 또는 심각도 점수가 LOW, MEDIUM 또는 HIGH인 경우 차단</li>
+  <li><strong>BLOCK_MEDIUM_AND_ABOVE</strong>: 확률 점수 또는 심각도 점수가 MEDIUM 또는 HIGH인 경우 차단 (gemini-2.0-flash-001 및 이후 모델의 기본값)</li>
+  <li><strong>BLOCK_ONLY_HIGH</strong>: 확률 점수 또는 심각도 점수가 HIGH인 경우 차단</li>
+  <li><strong>HARM_BLOCK_THRESHOLD_UNSPECIFIED</strong>: 기본 기준점을 사용하여 차단</li>
+  <li><strong>OFF</strong>: 자동 대답 차단이 없으며 메타데이터가 반환되지 않음 (gemini-2.0-flash-001 및 이후 모델의 기본값)</li>
+  <li><strong>BLOCK_NONE</strong>: 자동 대답 차단을 삭제하고 반환된 점수로 자체 콘텐츠 가이드라인 구성 가능</li>
+</ul>
+
+<p>이외에도 <strong>인용필터</strong>(기존 콘텐츠가 길게 복제될 가능성을 낮춤), <strong>시민의식 필터</strong>(정치 선거 및 후보자를 언급하거나 이와 관련된 프롬프트를 감지하고 차단)가 있습니다.</p>
+
+<h2 id="목적">목적</h2>
+
+<ul>
+  <li>프롬프트를 대충 써도 그 프롬프트를 바탕으로 프레임워크를 적용한 프롬프트를 생성하여 답변의 질을 높이도록 하는 것</li>
+  <li>다양한 형식으로 인풋을 받을 수 있도록 하는 것</li>
+</ul>
+
+<p>참고: <a href="https://www.philschmid.de/gemini-langchain-cheatsheet">Gemini LangChain Cheatsheet</a></p>
+
+<h2 id="설정">설정</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">os</span>
+<span class="kn">from</span> <span class="n">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="nf">load_dotenv</span><span class="p">()</span>
+
+<span class="n">GOOGLE_API_KEY</span> <span class="o">=</span> <span class="n">os</span><span class="p">.</span><span class="nf">getenv</span><span class="p">(</span><span class="sh">"</span><span class="s">GOOGLE_API_KEY</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">DEFAULT_MODEL</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gemini-2.0-flash</span><span class="sh">"</span>
+<span class="n">CREATIVE_MODEL</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gemini-2.0-flash</span><span class="sh">"</span>
+<span class="n">REASONING_MODEL</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gemini-2.0-flash</span><span class="sh">"</span>
+
+<span class="c1"># 가드레일 (안전 필터)
+</span><span class="n">SAFETY_FILTERS</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">HARM_CATEGORY_HARASSMENT</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">OFF</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">HARM_CATEGORY_HATE_SPEECH</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">OFF</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">HARM_CATEGORY_SEXUALLY_EXPLICIT</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">OFF</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">HARM_CATEGORY_DANGEROUS_CONTENT</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">OFF</span><span class="sh">"</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="1-프롬프트-프레임워크">1. 프롬프트 프레임워크</h2>
+
+<h3 id="co-star-프레임워크">CO-STAR 프레임워크</h3>
+
+<p><strong>CO-STAR</strong>는 Context, Objective, Style, Tone, Audience, Response Format의 약자로, 포괄적인 프롬프트 설계를 위한 프레임워크입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">COSTAR_TEMPLATE</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+## Context (맥락)
+{context}
+
+## Objective (목표)
+{objective}
+
+## Style (스타일)
+{style}
+
+## Tone (톤)
+{tone}
+
+## Audience (대상)
+{audience}
+
+## Response Format (응답 형식)
+{response_format}
+</span><span class="sh">"""</span>
+
+<span class="n">costar_prompt</span> <span class="o">=</span> <span class="n">COSTAR_TEMPLATE</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+    <span class="n">context</span><span class="o">=</span><span class="sh">"</span><span class="s">사용자가 복잡한 논리적 추론 문제를 해결하려고 합니다.</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">objective</span><span class="o">=</span><span class="sh">"</span><span class="s">단계별 사고 과정을 통해 정확한 답변을 도출하는 것</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">style</span><span class="o">=</span><span class="sh">"</span><span class="s">논리적이고 체계적인</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">tone</span><span class="o">=</span><span class="sh">"</span><span class="s">객관적이고 분석적인</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">audience</span><span class="o">=</span><span class="sh">"</span><span class="s">문제 해결을 원하는 사용자</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">response_format</span><span class="o">=</span><span class="sh">"""</span><span class="s">
+    ## 문제 해결 과정
+
+    ### 1단계: 문제 이해
+    [문제의 핵심 요소 파악]
+
+    ### 2단계: 정보 정리
+    [주어진 정보와 필요한 정보 정리]
+
+    ### 3단계: 해결 방안 수립
+    [적용할 수 있는 공식이나 방법론]
+
+    ### 4단계: 계산 과정
+    [단계별 계산 과정]
+
+    ### 5단계: 답변 검증
+    [답변의 타당성 확인]
+
+    ### 최종 답변
+    [최종 결과]
+    </span><span class="sh">"""</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="automat-프레임워크">AUTOMAT 프레임워크</h3>
+
+<p><strong>AUTOMAT</strong>는 Act As, User Persona, Targeted Action, Output, Mode, Atypical Case, Topic Whitelist의 약자로, 더 구체적인 역할 정의에 초점을 맞춘 프레임워크입니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">AUTOMAT_TEMPLATE</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+## Act As (행동)
+{act_as}
+
+## User Persona (사용자 페르소나)
+{user_persona}
+
+## Targeted Action (목표 행동)
+{targeted_action}
+
+## Output (출력)
+{output}
+
+## Mode (모드)
+{mode}
+
+## Atypical Case (비정상적인 경우)
+{atypical_case}
+
+## Topic Whitelist (토픽 화이트리스트)
+{topic_whitelist}
+</span><span class="sh">"""</span>
+
+<span class="n">automat_prompt</span> <span class="o">=</span> <span class="n">AUTOMAT_TEMPLATE</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+    <span class="n">act_as</span><span class="o">=</span><span class="sh">"</span><span class="s">전문적인 코드 분석가</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">user_persona</span><span class="o">=</span><span class="sh">"</span><span class="s">개발자가 복잡한 코드의 동작을 이해하고 싶어합니다</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">targeted_action</span><span class="o">=</span><span class="sh">"</span><span class="s">코드의 실행 과정을 단계별로 추적하여 분석</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">output</span><span class="o">=</span><span class="sh">"</span><span class="s">코드 실행 흐름과 각 단계별 상태 변화</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="sh">"</span><span class="s">코드 라인별 분석 → 변수 상태 추적 → 실행 흐름 시뮬레이션</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">atypical_case</span><span class="o">=</span><span class="sh">"</span><span class="s">빈 입력이나 잘못된 형식의 코드가 주어진 경우</span><span class="sh">"</span><span class="p">,</span>
+    <span class="n">topic_whitelist</span><span class="o">=</span><span class="sh">"</span><span class="s">프로그래밍, 코드 분석, 알고리즘</span><span class="sh">"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="langchain-통합">LangChain 통합</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">config</span> <span class="kn">import</span> <span class="n">GOOGLE_API_KEY</span><span class="p">,</span> <span class="n">DEFAULT_MODEL</span>
+<span class="kn">from</span> <span class="n">langchain_google_genai</span> <span class="kn">import</span> <span class="n">ChatGoogleGenerativeAI</span>
+<span class="kn">from</span> <span class="n">langchain.prompts</span> <span class="kn">import</span> <span class="n">PromptTemplate</span>
+
+<span class="c1"># LLM 클라이언트 초기화
+</span><span class="n">llm_client</span> <span class="o">=</span> <span class="nc">ChatGoogleGenerativeAI</span><span class="p">(</span>
+    <span class="n">google_api_key</span><span class="o">=</span><span class="n">GOOGLE_API_KEY</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">DEFAULT_MODEL</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span>
+    <span class="n">max_retries</span><span class="o">=</span><span class="mi">3</span>
+<span class="p">)</span>
+
+<span class="c1"># 프롬프트 템플릿 생성
+</span><span class="n">template</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+    당신은 모바일 UI/UX 에 대한 QA 전문가입니다.
+
+    다음 모바일 화면을 분석하여 {} 관점에서 평가해주세요:
+
+    화면:
+    {image}
+
+    예외:
+
+    출력 예시:
+    </span><span class="sh">"""</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="nc">PromptTemplate</span><span class="p">(</span>
+    <span class="n">input_variables</span><span class="o">=</span><span class="p">[</span><span class="sh">"</span><span class="s">code</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">analysis_type</span><span class="sh">"</span><span class="p">],</span>
+    <span class="n">template</span><span class="o">=</span><span class="n">template</span>
+<span class="p">)</span>
+
+<span class="c1">### 체인(Chain) 활용
+</span><span class="kn">from</span> <span class="n">langchain.chains</span> <span class="kn">import</span> <span class="n">LLMChain</span>
+
+<span class="c1"># 기본 체인 생성
+</span><span class="n">chain</span> <span class="o">=</span> <span class="nc">LLMChain</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm_client</span><span class="p">,</span> <span class="n">prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">)</span>
+
+<span class="c1"># 체인 실행
+</span><span class="n">result</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">run</span><span class="p">({</span>
+    <span class="sh">"</span><span class="s">analysis_type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">사용성</span><span class="sh">"</span><span class="p">,</span>
+    <span class="sh">"</span><span class="s">image</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">모바일 화면 이미지</span><span class="sh">"</span>
+<span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="고급-프롬프트-패턴">고급 프롬프트 패턴</h2>
+
+<h3 id="chain-of-thought-추론">Chain-of-Thought 추론</h3>
+
+<h4 id="기본-cot-예제">기본 CoT 예제</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">chain_of_thought_example</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">Chain-of-Thought 추론 예제</span><span class="sh">"""</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">=== Chain-of-Thought 추론 예제 ===</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="c1"># 기본 Chain-of-Thought 예제
+</span>    <span class="n">cot_prompt</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+    다음 문제를 단계별로 생각하면서 해결해주세요:
+
+    문제: 한 상자에 사과 5개, 오렌지 3개가 있습니다.
+    사과 2개와 오렌지 1개를 먹었다면, 남은 과일은 몇 개인가요?
+
+    단계별 해결 과정:
+    1) 처음 과일 개수: 사과 5개 + 오렌지 3개 = 총 8개
+    2) 먹은 과일 개수: 사과 2개 + 오렌지 1개 = 총 3개
+    3) 남은 과일 개수: 8개 - 3개 = 5개
+
+    따라서 남은 과일은 5개입니다.
+
+    이제 다음 문제를 같은 방식으로 해결해주세요:
+
+    문제: 한 교실에 학생 30명이 있습니다.
+    오늘 결석한 학생이 3명이고, 전학온 학생이 2명이라면,
+    현재 교실에 있는 학생은 몇 명인가요?
+
+    단계별 해결 과정:
+    </span><span class="sh">"""</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">genai</span><span class="p">.</span><span class="nc">GenerativeModel</span><span class="p">(</span>
+        <span class="n">model_name</span><span class="o">=</span><span class="n">DEFAULT_MODEL</span><span class="p">,</span>
+        <span class="n">safety_settings</span><span class="o">=</span><span class="n">SAFETY_FILTERS</span>
+    <span class="p">)</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">generate_content</span><span class="p">(</span><span class="n">cot_prompt</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">text</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="고급-cot--프레임워크-조합">고급 CoT + 프레임워크 조합</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">advanced_chain_of_thought_example</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">고급 Chain-of-Thought 예제 (프레임워크 활용)</span><span class="sh">"""</span>
+
+    <span class="c1"># CO-STAR 프레임워크와 Chain-of-Thought 조합
+</span>    <span class="n">costar_cot_prompt</span> <span class="o">=</span> <span class="n">COSTAR_TEMPLATE</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+        <span class="n">context</span><span class="o">=</span><span class="sh">"</span><span class="s">사용자가 복잡한 논리적 추론 문제를 해결하려고 합니다.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">objective</span><span class="o">=</span><span class="sh">"</span><span class="s">단계별 사고 과정을 통해 정확한 답변을 도출하는 것</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">style</span><span class="o">=</span><span class="sh">"</span><span class="s">논리적이고 체계적인</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">tone</span><span class="o">=</span><span class="sh">"</span><span class="s">객관적이고 분석적인</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">audience</span><span class="o">=</span><span class="sh">"</span><span class="s">문제 해결을 원하는 사용자</span><span class="sh">"</span><span class="p">,</span>
+        <span class="n">response_format</span><span class="o">=</span><span class="sh">"""</span><span class="s">
+        ## 문제 해결 과정
+
+        ### 1단계: 문제 이해
+        [문제의 핵심 요소 파악]
+
+        ### 2단계: 정보 정리
+        [주어진 정보와 필요한 정보 정리]
+
+        ### 3단계: 해결 방안 수립
+        [적용할 수 있는 공식이나 방법론]
+
+        ### 4단계: 계산 과정
+        [단계별 계산 과정]
+
+        ### 5단계: 답변 검증
+        [답변의 타당성 확인]
+
+        ### 최종 답변
+        [최종 결과]
+        </span><span class="sh">"""</span>
+    <span class="p">)</span>
+
+    <span class="n">complex_problem</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+    문제:
+    A 회사는 월 매출이 100만원이고, 매월 10%씩 증가합니다.
+    B 회사는 월 매출이 80만원이고, 매월 15%씩 증가합니다.
+    몇 개월 후에 B 회사의 매출이 A 회사를 추월할까요?
+    </span><span class="sh">"""</span>
+
+    <span class="n">cot_instruction</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+    다음 단계별로 해결해주세요:
+    1. 각 회사의 매출 증가 패턴 분석
+    2. 수학적 모델링 (지수 함수)
+    3. 방정식 설정 및 해결
+    4. 결과 검증
+    </span><span class="sh">"""</span>
+
+    <span class="n">full_prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">costar_cot_prompt</span><span class="si">}</span><span class="se">\n</span><span class="si">{</span><span class="n">cot_instruction</span><span class="si">}</span><span class="se">\n\n</span><span class="si">{</span><span class="n">complex_problem</span><span class="si">}</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<h3 id="few-shot-learning-예제">Few-shot Learning 예제</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">few_shot_learning_example</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">Few-shot Learning 예제</span><span class="sh">"""</span>
+
+    <span class="n">few_shot_prompt</span> <span class="o">=</span> <span class="sh">"""</span><span class="s">
+    다음은 감정 분석 예제입니다:
+
+    예시 1:
+    입력: </span><span class="sh">"</span><span class="s">오늘 날씨가 정말 좋네요!</span><span class="sh">"</span><span class="s">
+    출력: 긍정적 (95% 신뢰도)
+    키워드: 좋네요
+
+    예시 2:
+    입력: </span><span class="sh">"</span><span class="s">교통이 너무 복잡해서 짜증나요.</span><span class="sh">"</span><span class="s">
+    출력: 부정적 (90% 신뢰도)
+    키워드: 복잡해서, 짜증나요
+
+    예시 3:
+    입력: </span><span class="sh">"</span><span class="s">오늘 점심은 샐러드를 먹었습니다.</span><span class="sh">"</span><span class="s">
+    출력: 중립적 (85% 신뢰도)
+    키워드: 점심, 샐러드
+
+    이제 다음 텍스트를 같은 형식으로 분석해주세요:
+
+    입력: </span><span class="sh">"</span><span class="s">새로 산 책이 정말 흥미로워서 밤새 읽었어요!</span><span class="sh">"</span><span class="s">
+    출력:
+    </span><span class="sh">"""</span>
+
+<span class="c1">## 📚 추가로 알아볼 내용
+</span>
+<span class="c1">### 1. 고급 프롬프트 패턴들
+</span>
+<span class="o">**</span><span class="n">Tree</span> <span class="n">of</span> <span class="nc">Thoughts </span><span class="p">(</span><span class="n">ToT</span><span class="p">):</span><span class="o">**</span>
+<span class="sb">``</span><span class="err">`</span><span class="n">python</span>
+<span class="n">tot_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+문제: {problem}
+
+다음 단계로 이 문제를 해결하겠습니다:
+
+1단계: 3가지 다른 접근 방법 생각하기
+접근법 A: [첫 번째 방법]
+접근법 B: [두 번째 방법]
+접근법 C: [세 번째 방법]
+
+2단계: 각 접근법의 장단점 평가
+접근법 A 평가: [장점/단점]
+접근법 B 평가: [장점/단점]
+접근법 C 평가: [장점/단점]
+
+3단계: 최적 접근법 선택 및 실행
+선택한 방법: [이유와 함께]
+실행 과정: [단계별 진행]
+
+최종 답변:
+</span><span class="sh">"""</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Role-Based Prompting:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_expert_prompt</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">task</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="sh">""</span><span class="p">):</span>
+    <span class="n">expert_roles</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">medical</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">당신은 20년 경력의 의사입니다.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">legal</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">당신은 법무법인의 시니어 변호사입니다.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">technical</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">당신은 소프트웨어 아키텍트입니다.</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">creative</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">당신은 수상 경력이 있는 크리에이티브 디렉터입니다.</span><span class="sh">"</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
+    </span><span class="si">{</span><span class="n">expert_roles</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="sh">"</span><span class="s">당신은 해당 분야의 전문가입니다.</span><span class="sh">"</span><span class="p">)</span><span class="si">}</span><span class="s">
+
+    배경: </span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="s">
+
+    과제: </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s">
+
+    전문가적 관점에서 다음을 고려하여 답변해주세요:
+    1. 업계 모범 사례
+    2. 잠재적 위험 요소
+    3. 실용적 구현 방안
+    4. 대안적 접근법
+
+    답변:
+    </span><span class="sh">"""</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Persona-Driven Prompting:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">personas</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">beginner</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">characteristics</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">프로그래밍을 처음 배우는 학생</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">communication_style</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">간단하고 이해하기 쉬운 언어 사용</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">needs</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">기본 개념과 실습 예제</span><span class="sh">"</span>
+    <span class="p">},</span>
+    <span class="sh">"</span><span class="s">expert</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">characteristics</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">10년 이상의 개발 경험</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">communication_style</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">기술적 용어와 고급 패턴 활용</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">needs</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">최적화와 아키텍처 관점</span><span class="sh">"</span>
+    <span class="p">},</span>
+    <span class="sh">"</span><span class="s">manager</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">characteristics</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">기술 팀을 이끄는 관리자</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">communication_style</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">비즈니스 가치와 연결된 설명</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">needs</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">ROI와 팀 효율성 중심</span><span class="sh">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">adapt_prompt_for_persona</span><span class="p">(</span><span class="n">base_prompt</span><span class="p">,</span> <span class="n">persona_type</span><span class="p">):</span>
+    <span class="n">persona</span> <span class="o">=</span> <span class="n">personas</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">persona_type</span><span class="p">,</span> <span class="n">personas</span><span class="p">[</span><span class="sh">"</span><span class="s">beginner</span><span class="sh">"</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
+    대상: </span><span class="si">{</span><span class="n">persona</span><span class="p">[</span><span class="sh">"</span><span class="s">characteristics</span><span class="sh">"</span><span class="p">]</span><span class="si">}</span><span class="s">
+    소통 방식: </span><span class="si">{</span><span class="n">persona</span><span class="p">[</span><span class="sh">"</span><span class="s">communication_style</span><span class="sh">"</span><span class="p">]</span><span class="si">}</span><span class="s">
+    중점 사항: </span><span class="si">{</span><span class="n">persona</span><span class="p">[</span><span class="sh">"</span><span class="s">needs</span><span class="sh">"</span><span class="p">]</span><span class="si">}</span><span class="s">
+
+    </span><span class="si">{</span><span class="n">base_prompt</span><span class="si">}</span><span class="s">
+
+    위의 대상에게 맞춰 적절한 수준과 방식으로 답변해주세요.
+    </span><span class="sh">"""</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-동적-프롬프트-생성">2. 동적 프롬프트 생성</h3>
+
+<p><strong>Context-Aware Prompting:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">DynamicPromptGenerator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">context_analyzers</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">complexity</span><span class="sh">"</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="n">_analyze_complexity</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">domain</span><span class="sh">"</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="n">_detect_domain</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">intent</span><span class="sh">"</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="n">_classify_intent</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">generate_adaptive_prompt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">user_input</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="c1"># 사용자 입력 분석
+</span>        <span class="n">analysis</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">analyzer_name</span><span class="p">,</span> <span class="n">analyzer_func</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">context_analyzers</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="n">analysis</span><span class="p">[</span><span class="n">analyzer_name</span><span class="p">]</span> <span class="o">=</span> <span class="nf">analyzer_func</span><span class="p">(</span><span class="n">user_input</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+
+        <span class="c1"># 분석 결과에 따른 프롬프트 구성
+</span>        <span class="n">prompt_components</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_select_prompt_components</span><span class="p">(</span><span class="n">analysis</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">_build_prompt</span><span class="p">(</span><span class="n">prompt_components</span><span class="p">,</span> <span class="n">user_input</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_analyze_complexity</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">text</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">complexity_indicators</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">simple</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">뭐야</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">설명</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">간단히</span><span class="sh">"</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">medium</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">어떻게</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">방법</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">과정</span><span class="sh">"</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">complex</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">분석</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">비교</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">평가</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">최적화</span><span class="sh">"</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">level</span><span class="p">,</span> <span class="n">indicators</span> <span class="ow">in</span> <span class="n">complexity_indicators</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nf">any</span><span class="p">(</span><span class="n">indicator</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">for</span> <span class="n">indicator</span> <span class="ow">in</span> <span class="n">indicators</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">level</span>
+        <span class="k">return</span> <span class="sh">"</span><span class="s">medium</span><span class="sh">"</span>
+
+    <span class="k">def</span> <span class="nf">_build_prompt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">components</span><span class="p">,</span> <span class="n">user_input</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sa">f</span><span class="sh">"""</span><span class="s">
+        </span><span class="si">{</span><span class="n">components</span><span class="p">[</span><span class="sh">'</span><span class="s">system_instruction</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s">
+
+        </span><span class="si">{</span><span class="n">components</span><span class="p">[</span><span class="sh">'</span><span class="s">context_setting</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s">
+
+        사용자 질문: </span><span class="si">{</span><span class="n">user_input</span><span class="si">}</span><span class="s">
+
+        </span><span class="si">{</span><span class="n">components</span><span class="p">[</span><span class="sh">'</span><span class="s">output_format</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s">
+        </span><span class="sh">"""</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="3-프롬프트-최적화-기법">3. 프롬프트 최적화 기법</h3>
+
+<p><strong>Prompt Optimization through Iteration:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PromptOptimizer</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">base_prompt</span><span class="p">,</span> <span class="n">evaluation_criteria</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">base_prompt</span> <span class="o">=</span> <span class="n">base_prompt</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">criteria</span> <span class="o">=</span> <span class="n">evaluation_criteria</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">optimization_history</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">optimize_prompt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">,</span> <span class="n">iterations</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+        <span class="n">current_prompt</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">base_prompt</span>
+        <span class="n">best_score</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">iterations</span><span class="p">):</span>
+            <span class="c1"># 현재 프롬프트로 테스트
+</span>            <span class="n">scores</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_evaluate_prompt</span><span class="p">(</span><span class="n">current_prompt</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">)</span>
+            <span class="n">avg_score</span> <span class="o">=</span> <span class="nf">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">/</span> <span class="nf">len</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span>
+
+            <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Iteration </span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">: Average Score = </span><span class="si">{</span><span class="n">avg_score</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">avg_score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+                <span class="n">best_score</span> <span class="o">=</span> <span class="n">avg_score</span>
+                <span class="n">best_prompt</span> <span class="o">=</span> <span class="n">current_prompt</span>
+
+            <span class="c1"># 프롬프트 개선
+</span>            <span class="n">current_prompt</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_improve_prompt</span><span class="p">(</span><span class="n">current_prompt</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">)</span>
+
+            <span class="n">self</span><span class="p">.</span><span class="n">optimization_history</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span>
+                <span class="sh">'</span><span class="s">iteration</span><span class="sh">'</span><span class="p">:</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+                <span class="sh">'</span><span class="s">prompt</span><span class="sh">'</span><span class="p">:</span> <span class="n">current_prompt</span><span class="p">,</span>
+                <span class="sh">'</span><span class="s">score</span><span class="sh">'</span><span class="p">:</span> <span class="n">avg_score</span>
+            <span class="p">})</span>
+
+        <span class="k">return</span> <span class="n">best_prompt</span><span class="p">,</span> <span class="n">best_score</span>
+
+    <span class="k">def</span> <span class="nf">_improve_prompt</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prompt</span><span class="p">,</span> <span class="n">scores</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">):</span>
+        <span class="c1"># 낮은 점수를 받은 테스트 케이스 분석
+</span>        <span class="n">low_performers</span> <span class="o">=</span> <span class="p">[(</span><span class="n">case</span><span class="p">,</span> <span class="n">score</span><span class="p">)</span> <span class="k">for</span> <span class="n">case</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">test_cases</span><span class="p">,</span> <span class="n">scores</span><span class="p">)</span> <span class="k">if</span> <span class="n">score</span> <span class="o">&lt;</span> <span class="mf">0.7</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">low_performers</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">prompt</span>
+
+        <span class="c1"># 개선 제안 생성
+</span>        <span class="n">improvement_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+        현재 프롬프트: {current_prompt}
+
+        문제가 있는 테스트 케이스들:
+        {problem_cases}
+
+        이 프롬프트를 개선하여 더 나은 결과를 얻을 수 있도록 수정해주세요.
+        개선 포인트를 명확히 하고 수정된 프롬프트를 제공해주세요.
+        </span><span class="sh">"""</span><span class="p">)</span>
+
+        <span class="c1"># LLM을 사용한 자동 개선
+</span>        <span class="n">improved</span> <span class="o">=</span> <span class="n">improvement_prompt</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+            <span class="n">current_prompt</span><span class="o">=</span><span class="n">prompt</span><span class="p">.</span><span class="n">template</span><span class="p">,</span>
+            <span class="n">problem_cases</span><span class="o">=</span><span class="nf">str</span><span class="p">(</span><span class="n">low_performers</span><span class="p">[:</span><span class="mi">3</span><span class="p">])</span>  <span class="c1"># 상위 3개만
+</span>        <span class="p">)</span>
+
+        <span class="c1"># 실제로는 LLM 호출하여 개선된 프롬프트 받음
+</span>        <span class="k">return</span> <span class="n">prompt</span>  <span class="c1"># 단순화된 반환
+</span></code></pre></div></div>
+
+<h3 id="4-멀티모달-프롬프트-엔지니어링">4. 멀티모달 프롬프트 엔지니어링</h3>
+
+<p><strong>Vision-Language Prompting:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">create_vision_prompt</span><span class="p">(</span><span class="n">task_type</span><span class="p">,</span> <span class="n">image_context</span><span class="o">=</span><span class="sh">""</span><span class="p">):</span>
+    <span class="n">vision_prompts</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">analysis</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"""</span><span class="s">
+        이미지를 자세히 분석하고 다음 항목들을 설명해주세요:
+        1. 주요 객체와 그 위치
+        2. 색상과 조명 상태
+        3. 전체적인 분위기나 맥락
+        4. 특이사항이나 주목할 점
+
+        {image_context}
+        </span><span class="sh">"""</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">comparison</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"""</span><span class="s">
+        제공된 이미지들을 비교 분석하여 다음을 설명해주세요:
+        1. 유사점과 차이점
+        2. 각각의 특징
+        3. 품질이나 조건 비교
+        4. 추천 사항 (해당되는 경우)
+
+        {image_context}
+        </span><span class="sh">"""</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">troubleshooting</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"""</span><span class="s">
+        이미지에서 문제나 이상 징후를 찾아 다음과 같이 분석해주세요:
+        1. 발견된 문제점
+        2. 가능한 원인
+        3. 해결 방안
+        4. 예방 조치
+
+        {image_context}
+        </span><span class="sh">"""</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">vision_prompts</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">task_type</span><span class="p">,</span> <span class="n">vision_prompts</span><span class="p">[</span><span class="sh">"</span><span class="s">analysis</span><span class="sh">"</span><span class="p">]).</span><span class="nf">format</span><span class="p">(</span>
+        <span class="n">image_context</span><span class="o">=</span><span class="n">image_context</span>
+    <span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="-학습하면서-알게-된-점">🔍 학습하면서 알게 된 점</h2>
+
+<h3 id="1-프롬프트-길이와-성능의-관계">1. 프롬프트 길이와 성능의 관계</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">analyze_prompt_length_impact</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">프롬프트 길이가 성능에 미치는 영향 분석</span><span class="sh">"""</span>
+    <span class="n">length_categories</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">short</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">range</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">50-150 tokens</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">pros</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">빠름, 비용 효율</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">cons</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">컨텍스트 부족</span><span class="sh">"</span><span class="p">},</span>
+        <span class="sh">"</span><span class="s">medium</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">range</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">150-500 tokens</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">pros</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">균형잡힌 성능</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">cons</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">중간 정도 비용</span><span class="sh">"</span><span class="p">},</span>
+        <span class="sh">"</span><span class="s">long</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">range</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">500-1000+ tokens</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">pros</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">풍부한 컨텍스트</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">cons</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">느림, 고비용</span><span class="sh">"</span><span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1"># 실제 경험상 최적점
+</span>    <span class="n">optimal_ranges</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">qa</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">200-400 tokens</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">analysis</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">300-600 tokens</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">creative</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">150-800 tokens</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">coding</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">100-300 tokens</span><span class="sh">"</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">length_categories</span><span class="p">,</span> <span class="n">optimal_ranges</span>
+</code></pre></div></div>
+
+<h3 id="2-문화적-컨텍스트와-언어-모델">2. 문화적 컨텍스트와 언어 모델</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">cultural_adaptations</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">korean</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">honorifics</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">존댓말 사용이 성능에 영향</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">context_style</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">고맥락 문화 - 암시적 정보 선호</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">examples</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">한국 문화에 맞는 예시 사용 필요</span><span class="sh">"</span>
+    <span class="p">},</span>
+    <span class="sh">"</span><span class="s">western</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">directness</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">직접적이고 명확한 지시 선호</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">context_style</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">저맥락 문화 - 명시적 정보 선호</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">examples</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">서구 문화권 예시 효과적</span><span class="sh">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">def</span> <span class="nf">localize_prompt</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">culture</span><span class="o">=</span><span class="sh">"</span><span class="s">korean</span><span class="sh">"</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">문화적 맥락에 맞는 프롬프트 조정</span><span class="sh">"""</span>
+    <span class="n">adaptations</span> <span class="o">=</span> <span class="n">cultural_adaptations</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">culture</span><span class="p">,</span> <span class="n">cultural_adaptations</span><span class="p">[</span><span class="sh">"</span><span class="s">korean</span><span class="sh">"</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="n">culture</span> <span class="o">==</span> <span class="sh">"</span><span class="s">korean</span><span class="sh">"</span><span class="p">:</span>
+        <span class="c1"># 존댓말 추가, 예의 표현 포함
+</span>        <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">안녕하세요. </span><span class="si">{</span><span class="n">prompt</span><span class="si">}</span><span class="s"> 정중히 답변 부탁드립니다.</span><span class="sh">"</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Please </span><span class="si">{</span><span class="n">prompt</span><span class="p">.</span><span class="nf">lower</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<h3 id="3-safety-filter와-프롬프트-설계">3. Safety Filter와 프롬프트 설계</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">design_safety_aware_prompts</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">안전 필터를 고려한 프롬프트 설계</span><span class="sh">"""</span>
+
+    <span class="n">safe_patterns</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">constructive</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">도움이 되는</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">건설적인</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">유익한</span><span class="sh">"</span><span class="p">],</span>
+        <span class="sh">"</span><span class="s">educational</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">학습을 위한</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">교육적인</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">이해를 돕는</span><span class="sh">"</span><span class="p">],</span>
+        <span class="sh">"</span><span class="s">professional</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">전문적인</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">업무에 도움이 되는</span><span class="sh">"</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="n">avoid_patterns</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">harmful</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">해로운</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">위험한</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">부정적인</span><span class="sh">"</span><span class="p">],</span>
+        <span class="sh">"</span><span class="s">biased</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">편견이 있는</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">차별적인</span><span class="sh">"</span><span class="p">],</span>
+        <span class="sh">"</span><span class="s">inappropriate</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">부적절한</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">선정적인</span><span class="sh">"</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">recommendation</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">긍정적이고 교육적인 표현 사용</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">safe_patterns</span><span class="sh">"</span><span class="p">:</span> <span class="n">safe_patterns</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">avoid_patterns</span><span class="sh">"</span><span class="p">:</span> <span class="n">avoid_patterns</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="4-토큰-효율성-최적화">4. 토큰 효율성 최적화</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">optimize_token_usage</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">토큰 사용량 최적화 전략</span><span class="sh">"""</span>
+
+    <span class="n">strategies</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">abbreviations</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">before</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Please provide a comprehensive analysis</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">after</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Analyze:</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">savings</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">60% token reduction</span><span class="sh">"</span>
+        <span class="p">},</span>
+        <span class="sh">"</span><span class="s">structured_format</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">before</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">나열하여 설명해주세요</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">after</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Format: 1. ... 2. ... 3. ...</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">savings</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">30% token reduction</span><span class="sh">"</span>
+        <span class="p">},</span>
+        <span class="sh">"</span><span class="s">context_pruning</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">technique</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">불필요한 예시와 설명 제거</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">savings</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">40% token reduction</span><span class="sh">"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">strategies</span>
+
+<span class="c1"># 실제 적용 예시
+</span><span class="k">def</span> <span class="nf">create_token_efficient_prompt</span><span class="p">(</span><span class="n">verbose_prompt</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">장황한 프롬프트를 효율적으로 압축</span><span class="sh">"""</span>
+
+    <span class="c1"># 핵심 지시사항 추출
+</span>    <span class="n">core_instructions</span> <span class="o">=</span> <span class="nf">extract_core_instructions</span><span class="p">(</span><span class="n">verbose_prompt</span><span class="p">)</span>
+
+    <span class="c1"># 간결한 형태로 재구성
+</span>    <span class="n">efficient_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+    Task: {task}
+    Context: {context}
+    Output: {output_format}
+    </span><span class="sh">"""</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">efficient_prompt</span>
+</code></pre></div></div>
+
+<h3 id="5-실시간-프롬프트-적응">5. 실시간 프롬프트 적응</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AdaptivePromptSystem</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">performance_history</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">adaptation_rules</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_load_adaptation_rules</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">adapt_prompt_realtime</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">base_prompt</span><span class="p">,</span> <span class="n">user_feedback</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">실시간 사용자 피드백 기반 프롬프트 적응</span><span class="sh">"""</span>
+
+        <span class="c1"># 사용자 피드백 분석
+</span>        <span class="n">feedback_analysis</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_analyze_feedback</span><span class="p">(</span><span class="n">user_feedback</span><span class="p">)</span>
+
+        <span class="c1"># 컨텍스트 기반 조정
+</span>        <span class="n">context_adjustments</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_get_context_adjustments</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+
+        <span class="c1"># 프롬프트 수정
+</span>        <span class="n">adapted_prompt</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_apply_adaptations</span><span class="p">(</span>
+            <span class="n">base_prompt</span><span class="p">,</span>
+            <span class="n">feedback_analysis</span><span class="p">,</span>
+            <span class="n">context_adjustments</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 성능 기록 업데이트
+</span>        <span class="n">self</span><span class="p">.</span><span class="nf">_update_performance_history</span><span class="p">(</span><span class="n">adapted_prompt</span><span class="p">,</span> <span class="n">user_feedback</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">adapted_prompt</span>
+
+    <span class="k">def</span> <span class="nf">_analyze_feedback</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">feedback</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">피드백 패턴 분석</span><span class="sh">"""</span>
+        <span class="n">patterns</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">too_verbose</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">너무 길어</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">간단히</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">요약</span><span class="sh">"</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">too_simple</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">더 자세히</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">구체적으로</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">예시</span><span class="sh">"</span><span class="p">],</span>
+            <span class="sh">"</span><span class="s">off_topic</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">관련 없는</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">다른 얘기</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">주제 벗어남</span><span class="sh">"</span><span class="p">]</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="n">pattern_type</span><span class="p">,</span> <span class="n">indicators</span> <span class="ow">in</span> <span class="n">patterns</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nf">any</span><span class="p">(</span><span class="n">indicator</span> <span class="ow">in</span> <span class="n">feedback</span> <span class="k">for</span> <span class="n">indicator</span> <span class="ow">in</span> <span class="n">indicators</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">pattern_type</span>
+
+        <span class="k">return</span> <span class="sh">"</span><span class="s">satisfactory</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<h3 id="6-프롬프트-버전-관리">6. 프롬프트 버전 관리</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">PromptVersionManager</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">versions</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">performance_metrics</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">def</span> <span class="nf">create_version</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prompt_id</span><span class="p">,</span> <span class="n">prompt_content</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">프롬프트 버전 생성</span><span class="sh">"""</span>
+        <span class="n">version_id</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">prompt_id</span><span class="si">}</span><span class="s">_v</span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">versions</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">prompt_id</span><span class="p">,</span> <span class="p">[]))</span> <span class="o">+</span> <span class="mi">1</span><span class="si">}</span><span class="sh">"</span>
+
+        <span class="k">if</span> <span class="n">prompt_id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">versions</span><span class="p">:</span>
+            <span class="n">self</span><span class="p">.</span><span class="n">versions</span><span class="p">[</span><span class="n">prompt_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">version_data</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">id</span><span class="sh">"</span><span class="p">:</span> <span class="n">version_id</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">content</span><span class="sh">"</span><span class="p">:</span> <span class="n">prompt_content</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">created_at</span><span class="sh">"</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">(),</span>
+            <span class="sh">"</span><span class="s">metadata</span><span class="sh">"</span><span class="p">:</span> <span class="n">metadata</span> <span class="ow">or</span> <span class="p">{},</span>
+            <span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">active</span><span class="sh">"</span>
+        <span class="p">}</span>
+
+        <span class="n">self</span><span class="p">.</span><span class="n">versions</span><span class="p">[</span><span class="n">prompt_id</span><span class="p">].</span><span class="nf">append</span><span class="p">(</span><span class="n">version_data</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">version_id</span>
+
+    <span class="k">def</span> <span class="nf">rollback_to_version</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prompt_id</span><span class="p">,</span> <span class="n">version_number</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">특정 버전으로 롤백</span><span class="sh">"""</span>
+        <span class="n">versions</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">versions</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">prompt_id</span><span class="p">,</span> <span class="p">[])</span>
+
+        <span class="k">if</span> <span class="n">version_number</span> <span class="o">&lt;=</span> <span class="nf">len</span><span class="p">(</span><span class="n">versions</span><span class="p">):</span>
+            <span class="n">target_version</span> <span class="o">=</span> <span class="n">versions</span><span class="p">[</span><span class="n">version_number</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+            <span class="n">target_version</span><span class="p">[</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">active</span><span class="sh">"</span>
+
+            <span class="c1"># 다른 버전들 비활성화
+</span>            <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">versions</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">v</span> <span class="o">!=</span> <span class="n">target_version</span><span class="p">:</span>
+                    <span class="n">v</span><span class="p">[</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="sh">"</span><span class="s">inactive</span><span class="sh">"</span>
+
+            <span class="k">return</span> <span class="n">target_version</span>
+
+        <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Version </span><span class="si">{</span><span class="n">version_number</span><span class="si">}</span><span class="s"> not found</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">compare_versions</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prompt_id</span><span class="p">,</span> <span class="n">version_a</span><span class="p">,</span> <span class="n">version_b</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">버전 간 성능 비교</span><span class="sh">"""</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">version_num</span> <span class="ow">in</span> <span class="p">[</span><span class="n">version_a</span><span class="p">,</span> <span class="n">version_b</span><span class="p">]:</span>
+            <span class="n">version</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">get_version</span><span class="p">(</span><span class="n">prompt_id</span><span class="p">,</span> <span class="n">version_num</span><span class="p">)</span>
+            <span class="n">scores</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_evaluate_version</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">test_cases</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="sa">f</span><span class="sh">"</span><span class="s">v</span><span class="si">{</span><span class="n">version_num</span><span class="si">}</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="sh">"</span><span class="s">average_score</span><span class="sh">"</span><span class="p">:</span> <span class="nf">sum</span><span class="p">(</span><span class="n">scores</span><span class="p">)</span> <span class="o">/</span> <span class="nf">len</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span>
+                <span class="sh">"</span><span class="s">scores</span><span class="sh">"</span><span class="p">:</span> <span class="n">scores</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">results</span>
+</code></pre></div></div>
+
+<p>이러한 고급 프롬프트 엔지니어링 기법들을 통해 더욱 효과적이고 적응적인 AI 시스템을 구축할 수 있습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/RAG-advance/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">RAG 고급 기법 완전 정복</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/DB-nosql-and-vectordb/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">NoSQL과 Vector Database</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
