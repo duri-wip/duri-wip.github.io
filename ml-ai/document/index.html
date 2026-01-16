@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Parsing</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Document Parsing</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 17일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">rag</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#rag</span>
+                
+                <span class="tag">#vector-store</span>
+                
+                <span class="tag">#embedding</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>#[https://python.langchain.com/v0.1/docs/integrations/document_loaders]</p>
+
+<h1 id="document">document</h1>
+<h2 id="랭체인의-기본-문서-객체-문서-로더로-다양한-형식의-문서-파일을-불러오면-document-객체-형태로-로드한다">랭체인의 기본 문서 객체. 문서 로더로 다양한 형식의 문서 파일을 불러오면 document 객체 형태로 로드한다.</h2>
+<h2 id="커스텀-로더를-구현하면-반드시-문서를-document-객체로-감싸줘야한다">커스텀 로더를 구현하면 반드시 문서를 document 객체로 감싸줘야한다.</h2>
+
+<h2 id="documentpage_content--문서의-텍스트--documentmetadata--문서와-관련된-속성값">document.page_content : 문서의 텍스트 // document.metadata : 문서와 관련된 속성값</h2>
+
+<h1 id="문서-로더">문서 로더</h1>
+<h2 id="종류">종류</h2>
+<p>’’’</p>
+<ul>
+  <li>pyPDFLoader</li>
+  <li>CSVLoader</li>
+  <li>UnstructuredHTMLLoader</li>
+  <li>JSONLoader</li>
+  <li>TextLoader</li>
+  <li>DirectoryLoader</li>
+</ul>
+
+<h2 id="자주-쓰는-메서드-소개">자주 쓰는 메서드 소개</h2>
+
+<ol>
+  <li>load_and_split(): 문서 로드와 텍스트 분할 작업을 하나의 단계로 결합한것으로, 문서를 로드한 뒤 텍스트 분할기를 사용해 텍스트를 원하는 기준으로 나눈다.</li>
+  <li>lazy_load() : 모든 페이지를 메모리에 즉시 로드하지 않고 필요할때 순차적으로 하나씩 로드한다.(제너레이터 방식)</li>
+  <li>aload() : 비동기 방식으로 문서를 로드한다. 문서를 로드할 때 즉시 실행되지 않고 비동기 객체를 반환하며, await 키워드를 사용해 실행한다.
+‘’’</li>
+</ol>
+
+<h1 id="예시">예시</h1>
+<p>FILE_PATH = “./data/1205document.pdf”</p>
+
+<p>from langchain_community.document_loaders import pyPDFLoader</p>
+
+<p>loader = pyPDFLoader(FILE_PATH)</p>
+
+<p>docs = loader.load()</p>
+
+<p>from langchain_text_splitters import RecursiveCharactorTextSplitter</p>
+
+<p>text_splitter = RecursiveCharactorTextSplitter(chunk_size=200, chunk_overlap=0)
+split_docs=loader.load_and_split(text_splitter=text_splitter)</p>
+
+<p>for docs in loader.lazy_load():
+    print(docs.metadata)</p>
+
+<p>adocs = loader.aload()
+await adocs</p>
+
+<h2 id="pdf-로더">pdf 로더</h2>
+<p>’’’</p>
+<ul>
+  <li>pymupdf : chatgpt에 통합되어있는 로더. 파일경로, 페이지 뿐 아니라 페이지 수, 형식, 제목, 작성자 등 다양한 메타데이터를 지원함.</li>
+  <li>unstructuredpdf : 마크다운이나 pdf와 같은 비구조화된  또는 반구조화된 파일 형식을 다루기 위한 공통 인터페이스를 지원함. 
+                  이미지만 따로 추출해서 저장하는 기능도 있다. 내부적으로 각 텍스트들을 별도의 요소로 생성한다. load()에서 mode=”elements” 옵션을 설정하면 텍스트 청크들이 서로 분리된 상태에서 별도의 도큐먼트 객체로 변환된다.</li>
+  <li>pypdfium2 : 로더 역시 처리 속도가 빠르고 정확성도 높아 복잡한 구조의 pdf 파일에서도 안정적으로 텍스트를 추출할 수 있다.</li>
+  <li>pdfminer : pdf파일을 로드해서 html 텍스트를 생성할 수 있다. html 코드 자체를 임베딩해서 llm 에전달하는 방식으로 사용하면 더 정확한 콘텐츠를 사용할 수 있다.</li>
+  <li>pypdfdirectory :  특정한 파일 경로 안에 있는 여러개의 pdf 내용을 한번에 로드할 수 있다.</li>
+  <li>pdfplumber : 출력 문서에 pdf와 그 메타데이터를 함께 저장한다. 특히 pdf 안에 바운딩 박스를 지정해서 원하는 부분만 가져올 수 잇도록 한다.
+‘’’</li>
+</ul>
+
+<h2 id="hwp-로더">hwp 로더</h2>
+<p>’’’
+langchain에서는 구성되어있지 않기때문에 커스텀으로 만들었다. 이 책에서..</p>
+
+<p>from langchain_teddynote.document_loaders immport HWPLoader
+‘’’</p>
+
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/text-split/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Chunk 알고리즘</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/REFRAG/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Refrag</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

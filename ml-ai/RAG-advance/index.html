@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG 고급 기법 완전 정복</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">RAG 고급 기법 완전 정복</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 04일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">rag</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#rag</span>
+                
+                <span class="tag">#hyde</span>
+                
+                <span class="tag">#rerank</span>
+                
+                <span class="tag">#hybrid-search</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="rag에-관한-다양한-고급-기법">RAG에 관한 다양한 고급 기법</h1>
+
+<h2 id="1-검색-쿼리-관련-기법">1. 검색 쿼리 관련 기법</h2>
+
+<h3 id="hyde-hypothetical-document-embeddings">HyDE (Hypothetical Document Embeddings)</h3>
+
+<ul>
+  <li><strong>개념</strong>: 질의에 대한 가상의 답변(컨텍스트 없이) 생성 → 이 답변과 유사한 문서 검색 쿼리 생성</li>
+  <li><strong>목적</strong>: 검색 쿼리의 품질 향상</li>
+</ul>
+
+<h4 id="1-직접-구현">1. 직접 구현</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">hypothetical_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+    다음 질문에 한 문장으로 답하세요.
+    질문 : {question}
+    </span><span class="sh">"""</span><span class="p">)</span>
+
+<span class="n">hypothetical_chain</span> <span class="o">=</span> <span class="n">hypothetical_prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="n">hyde_rag_chain</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="nc">RunnablePassthrough</span><span class="p">(),</span>
+    <span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="n">hypothetical_chain</span> <span class="o">|</span> <span class="n">retriever</span><span class="p">,</span>
+<span class="p">}</span> <span class="o">|</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="n">hyde_rag_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="sh">"</span><span class="s">langchain의 개요를 알려줘</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="2-langchain-모듈-활용">2. LangChain 모듈 활용</h4>
+
+<ul>
+  <li><strong>HypotheticalDocumentEmbedder</strong> 사용</li>
+</ul>
+
+<h3 id="multi-query-generation">Multi-Query Generation</h3>
+
+<ul>
+  <li><strong>개념</strong>: 복수 검색 쿼리 생성으로 다양한 관점에서 검색</li>
+</ul>
+
+<h4 id="1-직접-구현-1">1. 직접 구현</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span>
+
+<span class="k">class</span> <span class="nc">QueryGenerate</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">queries</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(...,</span> <span class="n">description</span><span class="o">=</span><span class="sh">"</span><span class="s">검색 쿼리 목록</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="n">query_generate_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="se">\
+</span><span class="s">    질문에 대해 벡터 데이터베이스에서 관련 문서를 검색하기 위한 3개의 서로 다른 검색 쿼리를 생성하세요.
+    거리 기반 유사성 검색의 한계를 극복하기 위해 사용자의 질문에 대해 여러 관점을 제공하는 것이 목표입니다.
+
+    질문 : {question}
+    </span><span class="sh">"""</span><span class="p">)</span>
+
+<span class="n">query_generate_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">query_generate_prompt</span>
+    <span class="o">|</span> <span class="n">model</span><span class="p">.</span><span class="nf">with_structured_output</span><span class="p">(</span><span class="n">QueryGenerate</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="n">queries</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">multi_query_chain</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="nc">RunnablePassthrough</span><span class="p">(),</span>
+    <span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="n">query_generate_chain</span> <span class="o">|</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">map</span><span class="p">(),</span>
+<span class="p">}</span> <span class="o">|</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="n">multi_query_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="sh">"</span><span class="s">langchain의 개요를 알려줘</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Note</strong>: <code class="language-plaintext highlighter-rouge">map</code>은 LangChain 러너블이 제공하는 메서드 중 하나로, 원래 러너블의 인자와 반환값을 리스트화하는 메서드입니다.</p>
+
+<h4 id="2-langchain-모듈-활용-1">2. LangChain 모듈 활용</h4>
+
+<ul>
+  <li><strong>MultiQueryRetriever</strong> 사용</li>
+</ul>
+
+<h2 id="2-검색-후-기법-reciprocal-rank-fusion-rrf">2. 검색 후 기법: Reciprocal Rank Fusion (RRF)</h2>
+
+<p>여러 검색 결과의 순위를 융합해 정렬하는 기법입니다.</p>
+
+<h3 id="rag-fusion">RAG-Fusion</h3>
+
+<ul>
+  <li><strong>개념</strong>: 여러 검색 쿼리를 생성하고 이를 결과를 정렬하기</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.documents</span> <span class="kn">import</span> <span class="n">Document</span>
+
+<span class="k">def</span> <span class="nf">reciprocal_rank_fusion</span><span class="p">(</span>
+        <span class="n">retriever_outputs</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">list</span><span class="p">[</span><span class="n">Document</span><span class="p">]],</span>
+        <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="c1"># 각 문서의 콘텐츠(문자열)와 그 점수의 매핑을 저장하는 딕셔너리 준비
+</span>    <span class="n">content_score_mapping</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># 검색 쿼리마다 반복
+</span>    <span class="k">for</span> <span class="n">docs</span> <span class="ow">in</span> <span class="n">retriever_outputs</span><span class="p">:</span>
+        <span class="c1"># 검색 결과의 문서마다 반복
+</span>        <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">docs</span><span class="p">):</span>
+            <span class="c1"># 문서의 콘텐츠와 점수를 딕셔너리에 추가
+</span>            <span class="n">content</span> <span class="o">=</span> <span class="n">doc</span><span class="p">.</span><span class="n">page_content</span>
+
+            <span class="k">if</span> <span class="n">content</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">content_score_mapping</span><span class="p">:</span>
+                <span class="n">content_score_mapping</span><span class="p">[</span><span class="n">content</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># 점수 업데이트
+</span>            <span class="n">content_score_mapping</span><span class="p">[</span><span class="n">content</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">rank</span> <span class="o">+</span> <span class="n">k</span><span class="p">)</span>
+
+    <span class="c1"># 점수에 따라 정렬된 문서 목록 반환
+</span>    <span class="n">sorted_contents</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span>
+        <span class="n">content_score_mapping</span><span class="p">.</span><span class="nf">items</span><span class="p">(),</span>
+        <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">content</span> <span class="k">for</span> <span class="n">content</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">sorted_contents</span><span class="p">]</span>
+
+<span class="c1"># 체인 구현
+</span><span class="n">rag_fusion_chain</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="nc">RunnablePassthrough</span><span class="p">(),</span>
+    <span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="n">query_generate_chain</span> <span class="o">|</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">map</span><span class="p">()</span> <span class="o">|</span> <span class="n">reciprocal_rank_fusion</span><span class="p">,</span>
+<span class="p">}</span> <span class="o">|</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="n">rag_fusion_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="sh">"</span><span class="s">langchain의 개요를 알려줘</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="rerank">ReRank</h3>
+
+<ul>
+  <li><strong>개념</strong>: 어떤 검색 쿼리에 대한 여러 검색 결과를 정렬하기</li>
+  <li><strong>장점</strong>: 리랭크용 머신러닝 모델을 사용해서 검색 결과를 정렬. 임베딩 벡터의 유사도 검색보다 계산비용이 높은 대신 랭킹 정확도가 높음</li>
+</ul>
+
+<h4 id="1-cohere-모델-사용">1. Cohere 모델 사용</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span class="kn">from</span> <span class="n">langchain_cohere</span> <span class="kn">import</span> <span class="n">CohereRerank</span>
+<span class="kn">from</span> <span class="n">langchain_core.documents</span> <span class="kn">import</span> <span class="n">Document</span>
+
+<span class="k">def</span> <span class="nf">rerank</span><span class="p">(</span><span class="n">inp</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">top_n</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">documents</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="sh">"</span><span class="s">documents</span><span class="sh">"</span><span class="p">]</span>
+
+    <span class="n">cohere_reranker</span> <span class="o">=</span> <span class="nc">CohereRerank</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="sh">"</span><span class="s">rerank-multilingual-v3.0</span><span class="sh">"</span><span class="p">,</span> <span class="n">top_n</span><span class="o">=</span><span class="n">top_n</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">cohere_reranker</span><span class="p">.</span><span class="nf">compress_documents</span><span class="p">(</span><span class="n">documents</span><span class="o">=</span><span class="n">documents</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="n">question</span><span class="p">)</span>
+
+<span class="n">rerank_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span>
+        <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="nc">RunnablePassthrough</span><span class="p">(),</span>
+        <span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="n">retriever</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="o">|</span> <span class="n">RunnablePassthrough</span><span class="p">.</span><span class="nf">assign</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">rerank</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span>
+    <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">rerank_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="sh">"</span><span class="s">langchain의 개요를 알려줘</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Note</strong>: RunnablePassthrough assign을 통해 {question, context}의 출력이 rerank함수의 인자 inp에 전달됩니다.</p>
+
+<h4 id="2-langchain-모듈-활용-2">2. LangChain 모듈 활용</h4>
+
+<ul>
+  <li><strong>ContextualCompressionRetriever</strong> 사용</li>
+</ul>
+
+<h2 id="3-복수의-리트리버를-사용하는-기법">3. 복수의 리트리버를 사용하는 기법</h2>
+
+<h3 id="라우트에-따라-다른-리트리버-사용하기">라우트에 따라 다른 리트리버 사용하기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.retrievers</span> <span class="kn">import</span> <span class="n">TavilySearchAPIRetriever</span>
+
+<span class="c1"># LangSmith에서 더 잘 확인하기 위한 설정
+</span><span class="n">langchain_document_retriever</span> <span class="o">=</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">with_config</span><span class="p">({</span><span class="sh">"</span><span class="s">run_name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">langchain_document_retriever</span><span class="sh">"</span><span class="p">})</span>
+<span class="n">web_retriever</span> <span class="o">=</span> <span class="nc">TavilySearchAPIRetriever</span><span class="p">(</span><span class="n">k</span><span class="o">=</span><span class="mi">3</span><span class="p">).</span><span class="nf">with_config</span><span class="p">({</span><span class="sh">"</span><span class="s">run_name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">web_retriever</span><span class="sh">"</span><span class="p">})</span>
+
+<span class="c1"># 사용자 입력을 기반으로 LLM이 리트리버를 선택하는 체인
+</span><span class="kn">from</span> <span class="n">enum</span> <span class="kn">import</span> <span class="n">Enum</span>
+
+<span class="k">class</span> <span class="nc">Route</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+    <span class="n">langchain_document</span> <span class="o">=</span> <span class="sh">"</span><span class="s">langchain_document</span><span class="sh">"</span>
+    <span class="n">web</span> <span class="o">=</span> <span class="sh">"</span><span class="s">web</span><span class="sh">"</span>
+
+<span class="k">class</span> <span class="nc">RouteOutput</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">route</span><span class="p">:</span> <span class="n">Route</span>
+
+<span class="n">route_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+    다음 질문에 대해 적절한 리트리버를 선택하세요.
+    질문 : {question}
+    </span><span class="sh">"""</span><span class="p">)</span>
+
+<span class="n">route_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">route_prompt</span>
+    <span class="o">|</span> <span class="n">model</span><span class="p">.</span><span class="nf">with_structured_output</span><span class="p">(</span><span class="n">RouteOutput</span><span class="p">)</span>
+    <span class="o">|</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="n">route</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="c1"># 라우팅 결과를 고려해 검색하는 함수 구현
+</span><span class="k">def</span> <span class="nf">routed_retriever</span><span class="p">(</span><span class="n">inp</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="n">Document</span><span class="p">]:</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">]</span>
+    <span class="n">route</span> <span class="o">=</span> <span class="n">inp</span><span class="p">[</span><span class="sh">"</span><span class="s">route</span><span class="sh">"</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">route</span> <span class="o">==</span> <span class="n">Route</span><span class="p">.</span><span class="n">langchain_document</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">langchain_document_retriever</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">route</span> <span class="o">==</span> <span class="n">Route</span><span class="p">.</span><span class="n">web</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">web_retriever</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+
+    <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Invalid route: </span><span class="si">{</span><span class="n">route</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 라우트 체인과 라우트 결과를 고려해 검색하는 체인
+</span><span class="n">routed_retriever_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span>
+        <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="nc">RunnablePassthrough</span><span class="p">(),</span>
+        <span class="sh">"</span><span class="s">route</span><span class="sh">"</span><span class="p">:</span> <span class="n">route_chain</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="o">|</span> <span class="n">RunnablePassthrough</span><span class="p">.</span><span class="nf">assign</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">routed_retriever</span><span class="p">)</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">model</span>
+    <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">routed_retriever_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="sh">"</span><span class="s">langchain의 개요를 알려줘</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="하이브리드-검색">하이브리드 검색</h3>
+
+<p>RAG의 구현에서는 임베딩 벡터의 유사도 검색을 수행하는데, 범용적으로 만들어진 임베딩 모델에서는 학습데이터에 포함되지 않은 고유명사나 전문용어의 유사도 계산이 어렵습니다.</p>
+
+<p>자연어 처리의 고전적인 기법으로 단어의 등장 빈도를 기반으로 텍스트의 유사도를 계산하는 <strong>TF-IDF</strong>, <strong>BM25</strong>(TF-IDF의 개선판) 등이 있습니다.</p>
+
+<p>이런 알고리즘을 사용하면 공통 단어의 빈도가 높으면 벡터 유사도가 높아지기 때문에, 범용 임베딩 모델의 단점을 보완하기 쉽습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        「 임베딩 모델에 의한 벡터화                  -- 밀집벡터(대부분 요소가 0이 아님)
+TEXT ---
+         ㄴ TF-IDF 또는 BM25를 사용한 벡터화         -- 희소벡터(0이 많음)
+</code></pre></div></div>
+
+<p>벡터 클라우드 서비스인 <strong>PINECONE</strong>에서도 밀집 벡터와 희소 벡터 검색을 조합한 하이브리드 검색을 제공하고 있습니다.</p>
+
+<h4 id="1-하이브리드-검색-구현-bm25-사용">1. 하이브리드 검색 구현: BM25 사용</h4>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip <span class="nb">install </span>rank-bm25<span class="o">==</span>0.2.2
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_community.retrievers</span> <span class="kn">import</span> <span class="n">BM25Retriever</span>
+
+<span class="n">chroma_retriever</span> <span class="o">=</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">with_config</span><span class="p">({</span><span class="sh">"</span><span class="s">run_name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">chroma_retriever</span><span class="sh">"</span><span class="p">})</span>
+
+<span class="n">bm25_retriever</span> <span class="o">=</span> <span class="n">BM25Retriever</span><span class="p">.</span><span class="nf">from_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">).</span><span class="nf">with_config</span><span class="p">({</span><span class="sh">"</span><span class="s">run_name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">bm25_retriever</span><span class="sh">"</span><span class="p">})</span>
+
+<span class="c1"># 두 리트리버를 조합해 하이브리드 검색 체인 구현
+</span><span class="n">hybrid_retriever_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="nc">RunnableParallel</span><span class="p">({</span>
+        <span class="sh">"</span><span class="s">chroma_documents</span><span class="sh">"</span><span class="p">:</span> <span class="n">chroma_retriever</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">bm25_documents</span><span class="sh">"</span><span class="p">:</span> <span class="n">bm25_retriever</span><span class="p">,</span>
+    <span class="p">})</span>
+    <span class="o">|</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="sh">"</span><span class="s">chroma_documents</span><span class="sh">"</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="sh">"</span><span class="s">bm25_documents</span><span class="sh">"</span><span class="p">]])</span>
+    <span class="o">|</span> <span class="n">reciprocal_rank_fusion</span>
+<span class="p">)</span>
+
+<span class="c1"># 전체 RAG 체인 구현
+</span><span class="n">rag_chain</span> <span class="o">=</span> <span class="p">({</span>
+    <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="nc">RunnablePassthrough</span><span class="p">(),</span>
+    <span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="n">hybrid_retriever_chain</span><span class="p">,</span>
+<span class="p">}</span> <span class="o">|</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">())</span>
+
+<span class="n">rag_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="sh">"</span><span class="s">langchain의 개요를 알려줘</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="2-langchain-모듈-활용-3">2. LangChain 모듈 활용</h4>
+
+<ul>
+  <li><strong>EnsembleRetriever</strong> 사용</li>
+</ul>
+
+<h2 id="-추가로-알아볼-내용">📚 추가로 알아볼 내용</h2>
+
+<h3 id="1-최신-rag-기법들">1. 최신 RAG 기법들</h3>
+
+<p><strong>Contextual Retrieval (컨텍스트 보강 검색):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+
+<span class="c1"># 각 청크에 컨텍스트 정보 추가
+</span><span class="n">context_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+다음 문서 청크에 대해 전체 문서의 맥락을 고려하여
+간단한 배경 설명을 추가해주세요.
+
+전체 문서 주제: {document_topic}
+청크 내용: {chunk_content}
+
+배경 설명이 포함된 청크:
+</span><span class="sh">"""</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">add_context_to_chunks</span><span class="p">(</span><span class="n">chunks</span><span class="p">,</span> <span class="n">document_topic</span><span class="p">):</span>
+    <span class="n">contextual_chunks</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunks</span><span class="p">:</span>
+        <span class="n">context_added</span> <span class="o">=</span> <span class="n">context_prompt</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+            <span class="n">document_topic</span><span class="o">=</span><span class="n">document_topic</span><span class="p">,</span>
+            <span class="n">chunk_content</span><span class="o">=</span><span class="n">chunk</span><span class="p">.</span><span class="n">page_content</span>
+        <span class="p">)</span>
+        <span class="c1"># LLM으로 컨텍스트 추가된 청크 생성
+</span>        <span class="n">enhanced_chunk</span> <span class="o">=</span> <span class="n">model</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">context_added</span><span class="p">)</span>
+        <span class="n">contextual_chunks</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">enhanced_chunk</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">contextual_chunks</span>
+</code></pre></div></div>
+
+<p><strong>Parent Document Retriever (상위 문서 검색):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain.retrievers</span> <span class="kn">import</span> <span class="n">ParentDocumentRetriever</span>
+<span class="kn">from</span> <span class="n">langchain.storage</span> <span class="kn">import</span> <span class="n">InMemoryStore</span>
+
+<span class="c1"># 작은 청크로 검색하지만 큰 컨텍스트 반환
+</span><span class="n">parent_splitter</span> <span class="o">=</span> <span class="nc">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">2000</span><span class="p">)</span>
+<span class="n">child_splitter</span> <span class="o">=</span> <span class="nc">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+
+<span class="n">store</span> <span class="o">=</span> <span class="nc">InMemoryStore</span><span class="p">()</span>
+
+<span class="n">retriever</span> <span class="o">=</span> <span class="nc">ParentDocumentRetriever</span><span class="p">(</span>
+    <span class="n">vectorstore</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">,</span>
+    <span class="n">docstore</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
+    <span class="n">child_splitter</span><span class="o">=</span><span class="n">child_splitter</span><span class="p">,</span>
+    <span class="n">parent_splitter</span><span class="o">=</span><span class="n">parent_splitter</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Multi-Vector Retriever (다중 벡터 검색):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain.retrievers.multi_vector</span> <span class="kn">import</span> <span class="n">MultiVectorRetriever</span>
+
+<span class="c1"># 하나의 문서에 대해 여러 표현 방식 생성
+</span><span class="k">def</span> <span class="nf">create_multi_representations</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">summary</span><span class="sh">"</span><span class="p">:</span> <span class="n">summarize_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span>
+        <span class="sh">"</span><span class="s">keywords</span><span class="sh">"</span><span class="p">:</span> <span class="n">keyword_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span>
+        <span class="sh">"</span><span class="s">questions</span><span class="sh">"</span><span class="p">:</span> <span class="n">question_gen_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">doc</span><span class="p">),</span>
+        <span class="sh">"</span><span class="s">original</span><span class="sh">"</span><span class="p">:</span> <span class="n">doc</span><span class="p">.</span><span class="n">page_content</span>
+    <span class="p">}</span>
+
+<span class="n">multi_retriever</span> <span class="o">=</span> <span class="nc">MultiVectorRetriever</span><span class="p">(</span>
+    <span class="n">vectorstore</span><span class="o">=</span><span class="n">vectorstore</span><span class="p">,</span>
+    <span class="n">docstore</span><span class="o">=</span><span class="n">store</span><span class="p">,</span>
+    <span class="n">id_key</span><span class="o">=</span><span class="sh">"</span><span class="s">doc_id</span><span class="sh">"</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-고급-평가-및-최적화">2. 고급 평가 및 최적화</h3>
+
+<p><strong>A/B Testing for RAG:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">random</span>
+<span class="kn">from</span> <span class="n">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">RAGVariant</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">retriever</span><span class="p">:</span> <span class="nb">any</span>
+    <span class="n">prompt</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">RAGExperiment</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">variants</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">RAGVariant</span><span class="p">]):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">variants</span> <span class="o">=</span> <span class="n">variants</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="nf">run_experiment</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">test_questions</span><span class="p">,</span> <span class="n">sample_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">question</span> <span class="ow">in</span> <span class="n">test_questions</span><span class="p">:</span>
+            <span class="c1"># 랜덤하게 variant 선택
+</span>            <span class="n">variant</span> <span class="o">=</span> <span class="n">random</span><span class="p">.</span><span class="nf">choice</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">variants</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">random</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">sample_ratio</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">evaluate_variant</span><span class="p">(</span><span class="n">variant</span><span class="p">,</span> <span class="n">question</span><span class="p">)</span>
+                <span class="n">self</span><span class="p">.</span><span class="n">results</span><span class="p">.</span><span class="nf">append</span><span class="p">({</span>
+                    <span class="sh">"</span><span class="s">variant</span><span class="sh">"</span><span class="p">:</span> <span class="n">variant</span><span class="p">.</span><span class="n">name</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span>
+                    <span class="sh">"</span><span class="s">result</span><span class="sh">"</span><span class="p">:</span> <span class="n">result</span>
+                <span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">evaluate_variant</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">variant</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+        <span class="c1"># 실제 평가 로직
+</span>        <span class="n">context</span> <span class="o">=</span> <span class="n">variant</span><span class="p">.</span><span class="n">retriever</span><span class="p">.</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+        <span class="n">answer</span> <span class="o">=</span> <span class="n">variant</span><span class="p">.</span><span class="n">prompt</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span><span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span> <span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">answer</span><span class="sh">"</span><span class="p">:</span> <span class="n">answer</span><span class="p">,</span> <span class="sh">"</span><span class="s">context_count</span><span class="sh">"</span><span class="p">:</span> <span class="nf">len</span><span class="p">(</span><span class="n">context</span><span class="p">)}</span>
+</code></pre></div></div>
+
+<p><strong>Dynamic Retrieval Optimization:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">AdaptiveRetriever</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">retrievers</span><span class="p">,</span> <span class="n">performance_tracker</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">retrievers</span> <span class="o">=</span> <span class="n">retrievers</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">tracker</span> <span class="o">=</span> <span class="n">performance_tracker</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">weights</span> <span class="o">=</span> <span class="p">{</span><span class="n">name</span><span class="p">:</span> <span class="mf">1.0</span> <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">retrievers</span><span class="p">.</span><span class="nf">keys</span><span class="p">()}</span>
+
+    <span class="k">def</span> <span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="c1"># 성능 기반으로 retriever 선택
+</span>        <span class="n">best_retriever</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">select_best_retriever</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="n">docs</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">retrievers</span><span class="p">[</span><span class="n">best_retriever</span><span class="p">].</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+
+        <span class="c1"># 결과 품질 피드백 수집
+</span>        <span class="n">self</span><span class="p">.</span><span class="n">tracker</span><span class="p">.</span><span class="nf">record_retrieval</span><span class="p">(</span><span class="n">best_retriever</span><span class="p">,</span> <span class="n">query</span><span class="p">,</span> <span class="n">docs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">docs</span>
+
+    <span class="k">def</span> <span class="nf">select_best_retriever</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">query</span><span class="p">):</span>
+        <span class="c1"># 쿼리 유형 분석해서 최적 retriever 선택
+</span>        <span class="n">query_type</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">classify_query</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">retrievers</span><span class="p">.</span><span class="nf">keys</span><span class="p">(),</span>
+                  <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">r</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="n">weights</span><span class="p">[</span><span class="n">r</span><span class="p">]</span> <span class="o">*</span> <span class="n">self</span><span class="p">.</span><span class="nf">get_type_affinity</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">query_type</span><span class="p">))</span>
+</code></pre></div></div>
+
+<h3 id="3-고급-프롬프트-엔지니어링">3. 고급 프롬프트 엔지니어링</h3>
+
+<p><strong>Self-RAG (자기 반성 RAG):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">self_rag_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+질문: {question}
+검색된 정보: {context}
+
+1단계: 검색된 정보가 질문에 관련이 있는지 평가하세요.
+관련성 점수: [1-10]
+
+2단계: 관련성이 7점 이상이면 답변을 생성하고,
+그렇지 않으면 </span><span class="sh">"</span><span class="s">추가 정보가 필요합니다</span><span class="sh">"</span><span class="s">라고 응답하세요.
+
+3단계: 생성한 답변이 검색된 정보에 기반하고 있는지 확인하세요.
+근거: [검색 정보에서 인용]
+
+최종 답변:
+</span><span class="sh">"""</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">self_rag_chain</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="c1"># 1차 검색
+</span>    <span class="n">initial_docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+
+    <span class="c1"># 자기 평가
+</span>    <span class="n">evaluation</span> <span class="o">=</span> <span class="n">self_rag_prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span>
+        <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="nf">format_docs</span><span class="p">(</span><span class="n">initial_docs</span><span class="p">)</span>
+    <span class="p">})</span>
+
+    <span class="c1"># 추가 검색 필요시
+</span>    <span class="k">if</span> <span class="sh">"</span><span class="s">추가 정보가 필요합니다</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">evaluation</span><span class="p">:</span>
+        <span class="c1"># 쿼리 확장 또는 다른 검색 전략 시도
+</span>        <span class="n">expanded_query</span> <span class="o">=</span> <span class="nf">expand_query</span><span class="p">(</span><span class="n">question</span><span class="p">)</span>
+        <span class="n">additional_docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">expanded_query</span><span class="p">)</span>
+        <span class="c1"># 재시도
+</span>        <span class="k">return</span> <span class="n">self_rag_prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span>
+            <span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">context</span><span class="sh">"</span><span class="p">:</span> <span class="nf">format_docs</span><span class="p">(</span><span class="n">initial_docs</span> <span class="o">+</span> <span class="n">additional_docs</span><span class="p">)</span>
+        <span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">evaluation</span>
+</code></pre></div></div>
+
+<h3 id="4-고급-검색-기법">4. 고급 검색 기법</h3>
+
+<p><strong>Iterative Retrieval (반복 검색):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">iterative_retrieval</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">max_iterations</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">all_docs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">current_question</span> <span class="o">=</span> <span class="n">question</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">max_iterations</span><span class="p">):</span>
+        <span class="c1"># 현재 질문으로 검색
+</span>        <span class="n">docs</span> <span class="o">=</span> <span class="n">retriever</span><span class="p">.</span><span class="nf">get_relevant_documents</span><span class="p">(</span><span class="n">current_question</span><span class="p">)</span>
+        <span class="n">all_docs</span><span class="p">.</span><span class="nf">extend</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+
+        <span class="c1"># 검색 결과로 후속 질문 생성
+</span>        <span class="n">follow_up_prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+        원본 질문: {original_question}
+        검색 결과: {search_results}
+
+        이 검색 결과를 바탕으로, 원본 질문에 더 완전히 답하기 위해
+        추가로 필요한 정보를 찾기 위한 검색 쿼리를 생성하세요.
+
+        추가 검색 쿼리:
+        </span><span class="sh">"""</span><span class="p">)</span>
+
+        <span class="n">follow_up</span> <span class="o">=</span> <span class="n">follow_up_prompt</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span>
+            <span class="sh">"</span><span class="s">original_question</span><span class="sh">"</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">search_results</span><span class="sh">"</span><span class="p">:</span> <span class="nf">format_docs</span><span class="p">(</span><span class="n">docs</span><span class="p">)</span>
+        <span class="p">})</span>
+
+        <span class="n">current_question</span> <span class="o">=</span> <span class="n">follow_up</span>
+
+        <span class="c1"># 충분한 정보 수집 확인
+</span>        <span class="k">if</span> <span class="n">self</span><span class="p">.</span><span class="nf">is_sufficient_information</span><span class="p">(</span><span class="n">all_docs</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
+            <span class="k">break</span>
+
+    <span class="k">return</span> <span class="n">all_docs</span>
+</code></pre></div></div>
+
+<h2 id="-학습하면서-알게-된-점">🔍 학습하면서 알게 된 점</h2>
+
+<h3 id="1-hyde의-실제-효과와-한계">1. HyDE의 실제 효과와 한계</h3>
+
+<p><strong>효과가 좋은 경우:</strong></p>
+
+<ul>
+  <li>전문 도메인 질문 (의료, 법률, 기술)</li>
+  <li>추상적 개념에 대한 질문</li>
+  <li>사용자 질문이 모호한 경우</li>
+</ul>
+
+<p><strong>효과가 제한적인 경우:</strong></p>
+
+<ul>
+  <li>사실 확인 질문</li>
+  <li>매우 구체적인 데이터 검색</li>
+  <li>실시간 정보가 필요한 경우</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">should_use_hyde</span><span class="p">(</span><span class="n">question</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">HyDE 사용 여부 결정</span><span class="sh">"""</span>
+    <span class="n">indicators</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">추상적</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">원리</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">개념</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">이유</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">방법</span><span class="sh">"</span><span class="p">],</span>
+        <span class="sh">"</span><span class="s">전문적</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">기술</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">의료</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">법률</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">학술</span><span class="sh">"</span><span class="p">],</span>
+        <span class="sh">"</span><span class="s">불명확</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="s">?</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">어떻게</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">왜</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">설명</span><span class="sh">"</span><span class="p">]</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">category</span><span class="p">,</span> <span class="n">keywords</span> <span class="ow">in</span> <span class="n">indicators</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nf">any</span><span class="p">(</span><span class="n">keyword</span> <span class="ow">in</span> <span class="n">question</span> <span class="k">for</span> <span class="n">keyword</span> <span class="ow">in</span> <span class="n">keywords</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">True</span><span class="p">,</span> <span class="n">category</span>
+
+    <span class="k">return</span> <span class="bp">False</span><span class="p">,</span> <span class="sh">"</span><span class="s">구체적_사실_질문</span><span class="sh">"</span>
+</code></pre></div></div>
+
+<h3 id="2-멀티-쿼리의-최적-개수">2. 멀티 쿼리의 최적 개수</h3>
+
+<p>실험 결과, <strong>3-5개의 쿼리</strong>가 최적:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">optimal_multi_query_count</span><span class="p">(</span><span class="n">question_complexity</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">question_complexity</span> <span class="o">==</span> <span class="sh">"</span><span class="s">simple</span><span class="sh">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">2</span>  <span class="c1"># 원본 + 1개 변형
+</span>    <span class="k">elif</span> <span class="n">question_complexity</span> <span class="o">==</span> <span class="sh">"</span><span class="s">medium</span><span class="sh">"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mi">3</span>  <span class="c1"># 원본 + 2개 변형
+</span>    <span class="k">else</span><span class="p">:</span>  <span class="c1"># complex
+</span>        <span class="k">return</span> <span class="mi">5</span>  <span class="c1"># 원본 + 4개 변형
+</span></code></pre></div></div>
+
+<h3 id="3-rrf-파라미터-k의-실제-영향">3. RRF 파라미터 k의 실제 영향</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">analyze_rrf_k_impact</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">RRF k 값이 결과에 미치는 영향 분석</span><span class="sh">"""</span>
+    <span class="n">k_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">60</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">k_values</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">k=</span><span class="si">{</span><span class="n">k</span><span class="si">}</span><span class="s">:</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">상위권 문서 가중치: </span><span class="si">{</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">k</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">하위권 문서 가중치 (rank=10): </span><span class="si">{</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">10</span><span class="o">+</span><span class="n">k</span><span class="p">)</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>결과:</strong></p>
+
+<ul>
+  <li>k=1: 순위 차이 극대화 (상위 문서 압도적 우위)</li>
+  <li>k=60: 균형잡힌 가중치 (기본값)</li>
+  <li>k=100: 순위 차이 최소화 (모든 문서 비슷한 가중치)</li>
+</ul>
+
+<h3 id="4-하이브리드-검색의-최적-비율">4. 하이브리드 검색의 최적 비율</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">find_optimal_hybrid_ratio</span><span class="p">(</span><span class="n">dense_retriever</span><span class="p">,</span> <span class="n">sparse_retriever</span><span class="p">,</span> <span class="n">test_queries</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">밀집/희소 검색의 최적 결합 비율 탐색</span><span class="sh">"""</span>
+    <span class="n">ratios</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]</span>  <span class="c1"># 밀집 벡터 비율
+</span>
+    <span class="n">best_ratio</span> <span class="o">=</span> <span class="mf">0.5</span>
+    <span class="n">best_score</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">ratio</span> <span class="ow">in</span> <span class="n">ratios</span><span class="p">:</span>
+        <span class="c1"># 각 비율로 하이브리드 검색 수행
+</span>        <span class="n">hybrid_retriever</span> <span class="o">=</span> <span class="nc">EnsembleRetriever</span><span class="p">(</span>
+            <span class="n">retrievers</span><span class="o">=</span><span class="p">[</span><span class="n">dense_retriever</span><span class="p">,</span> <span class="n">sparse_retriever</span><span class="p">],</span>
+            <span class="n">weights</span><span class="o">=</span><span class="p">[</span><span class="n">ratio</span><span class="p">,</span> <span class="mi">1</span><span class="o">-</span><span class="n">ratio</span><span class="p">]</span>
+        <span class="p">)</span>
+
+        <span class="c1"># 평가 점수 계산
+</span>        <span class="n">score</span> <span class="o">=</span> <span class="nf">evaluate_retriever</span><span class="p">(</span><span class="n">hybrid_retriever</span><span class="p">,</span> <span class="n">test_queries</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;</span> <span class="n">best_score</span><span class="p">:</span>
+            <span class="n">best_score</span> <span class="o">=</span> <span class="n">score</span>
+            <span class="n">best_ratio</span> <span class="o">=</span> <span class="n">ratio</span>
+
+    <span class="k">return</span> <span class="n">best_ratio</span>
+</code></pre></div></div>
+
+<p><strong>일반적인 경험값:</strong></p>
+
+<ul>
+  <li>기술 문서: 밀집 70% + 희소 30%</li>
+  <li>뉴스/일반: 밀집 50% + 희소 50%</li>
+  <li>FAQ: 밀집 40% + 희소 60%</li>
+</ul>
+
+<h3 id="5-rerank-모델의-선택-기준">5. ReRank 모델의 선택 기준</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rerank_models</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">cohere-rerank-multilingual-v3.0</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">언어</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">다국어 (한국어 포함)</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">성능</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">높음</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">비용</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">높음</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">용도</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">프로덕션</span><span class="sh">"</span>
+    <span class="p">},</span>
+    <span class="sh">"</span><span class="s">bge-reranker-large</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">언어</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">영어 중심</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">성능</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">중간</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">비용</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">무료</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">용도</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">실험/프로토타입</span><span class="sh">"</span>
+    <span class="p">},</span>
+    <span class="sh">"</span><span class="s">sentence-transformers/ms-marco-MiniLM-L-12-v2</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">언어</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">영어</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">성능</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">중간</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">비용</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">무료</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">용도</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">빠른 프로토타입</span><span class="sh">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="6-실제-프로덕션에서의-성능-최적화-경험">6. 실제 프로덕션에서의 성능 최적화 경험</h3>
+
+<p><strong>청킹 전략 최적화:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">adaptive_chunking</span><span class="p">(</span><span class="n">document</span><span class="p">,</span> <span class="n">content_type</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">문서 유형에 따른 적응적 청킹</span><span class="sh">"""</span>
+    <span class="n">strategies</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">code</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">chunk_size</span><span class="sh">"</span><span class="p">:</span> <span class="mi">500</span><span class="p">,</span> <span class="sh">"</span><span class="s">separators</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="se">\n\n</span><span class="s">class </span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\n\n</span><span class="s">def </span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\n\n</span><span class="sh">"</span><span class="p">]},</span>
+        <span class="sh">"</span><span class="s">legal</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">chunk_size</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1200</span><span class="p">,</span> <span class="sh">"</span><span class="s">separators</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="se">\n\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\\</span><span class="s">n</span><span class="se">\\</span><span class="s">d+</span><span class="se">\\</span><span class="s">.</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">. </span><span class="sh">"</span><span class="p">]},</span>
+        <span class="sh">"</span><span class="s">technical</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span><span class="sh">"</span><span class="s">chunk_size</span><span class="sh">"</span><span class="p">:</span> <span class="mi">800</span><span class="p">,</span> <span class="sh">"</span><span class="s">separators</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="se">\n\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\n</span><span class="s">### </span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\n</span><span class="s">- </span><span class="sh">"</span><span class="p">]}</span>
+    <span class="p">}</span>
+
+    <span class="n">strategy</span> <span class="o">=</span> <span class="n">strategies</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">content_type</span><span class="p">,</span> <span class="p">{</span><span class="sh">"</span><span class="s">chunk_size</span><span class="sh">"</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span> <span class="sh">"</span><span class="s">separators</span><span class="sh">"</span><span class="p">:</span> <span class="p">[</span><span class="sh">"</span><span class="se">\n\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="se">\n</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">. </span><span class="sh">"</span><span class="p">]})</span>
+
+    <span class="n">splitter</span> <span class="o">=</span> <span class="nc">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+        <span class="n">chunk_size</span><span class="o">=</span><span class="n">strategy</span><span class="p">[</span><span class="sh">"</span><span class="s">chunk_size</span><span class="sh">"</span><span class="p">],</span>
+        <span class="n">chunk_overlap</span><span class="o">=</span><span class="nf">int</span><span class="p">(</span><span class="n">strategy</span><span class="p">[</span><span class="sh">"</span><span class="s">chunk_size</span><span class="sh">"</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.1</span><span class="p">),</span>  <span class="c1"># 10% 겹침
+</span>        <span class="n">separators</span><span class="o">=</span><span class="n">strategy</span><span class="p">[</span><span class="sh">"</span><span class="s">separators</span><span class="sh">"</span><span class="p">]</span>
+    <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">splitter</span><span class="p">.</span><span class="nf">split_documents</span><span class="p">([</span><span class="n">document</span><span class="p">])</span>
+</code></pre></div></div>
+
+<p><strong>벡터 DB 성능 최적화:</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">optimize_vector_db</span><span class="p">():</span>
+    <span class="sh">"""</span><span class="s">벡터 DB 성능 최적화 팁</span><span class="sh">"""</span>
+    <span class="n">tips</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">인덱스_구성</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">HNSW &gt; IVF &gt; Flat (성능 vs 정확도)</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">배치_크기</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">임베딩시 100-1000개 단위로 배치 처리</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">메모리_관리</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">주기적 인덱스 압축 및 정리</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">쿼리_최적화</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">top_k는 20 이하로 제한</span><span class="sh">"</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">tips</span>
+</code></pre></div></div>
+
+<p>이러한 고급 기법들과 실전 경험을 통해 더욱 효과적인 RAG 시스템을 구축할 수 있습니다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/evaluation/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">RAG 시스템 평가하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/prompt-engineering/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">프롬프트 엔지니어링 완전 정복</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

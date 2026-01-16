@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바 변수와 타입 - 기본형부터 형변환까지</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">자바 변수와 타입 - 기본형부터 형변환까지</h1>
+        <div class="post-meta">
+            <time class="post-date">2026년 01월 07일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-java</span>
+                
+                <span class="tag">#java</span>
+                
+                <span class="tag">#variables</span>
+                
+                <span class="tag">#types</span>
+                
+                <span class="tag">#scanner</span>
+                
+                <span class="tag">#type-casting</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="chapter-3-변수">Chapter 3: 변수</h1>
+
+<h2 id="31-선언과-초기화">3.1 선언과 초기화</h2>
+
+<p>변수를 선언하고 초기화하는 건 이렇게 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 선언만 하기</span>
+<span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+
+<span class="c1">// 초기화하기</span>
+<span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+
+<span class="c1">// 선언하고 초기화하기</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>3.2 primitive types</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 논리형</span>
+<span class="kt">boolean</span> <span class="n">isStudnet</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+<span class="c1">// 문자형</span>
+<span class="kt">char</span> <span class="n">grade</span> <span class="o">=</span> <span class="sc">'A'</span><span class="o">;</span>
+
+<span class="c1">// 정수형</span>
+<span class="kt">byte</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">127</span><span class="o">;</span>                <span class="c1">// -128 ~ 127 (1byte)</span>
+<span class="kt">short</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">32767</span><span class="o">;</span>             <span class="c1">// -32,768 ~ 32,767 (2byte)</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2147483647</span><span class="o">;</span>          <span class="c1">// 약 ±21억 (4byte) ★가장 많이 사용</span>
+<span class="kt">long</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">9223372036854775807L</span><span class="o">;</span> <span class="c1">// 매우 큰 정수 (8byte, L 접미사)</span>
+
+<span class="c1">// 실수형</span>
+<span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">3.14f</span><span class="o">;</span>             <span class="c1">// 소수점 약 7자리 (4byte, f 접미사)</span>
+<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">3.141592653589</span><span class="o">;</span>   <span class="c1">// 소수점 약 15자리 (8byte) ★기본형</span>
+</code></pre></div></div>
+
+<p>3.3 상수와 리터럴</p>
+
+<p>상수는 값이 변하지 않는 상수로 final 키워드와 함께 쓴다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kt">double</span> <span class="no">PI</span> <span class="o">=</span> <span class="mf">3.14159</span><span class="o">;</span>
+<span class="kd">final</span> <span class="kt">int</span> <span class="no">MAX_SIZE</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>그리고 왠지 상수 변수들은 모두 대문자로 사용하는듯?
+상수로 선언된 변수에 다시 값을 할당하려고 하면 컴파일 에러가 난다.</p>
+
+<p>리터럴은 소스코드에 직접 작성된 값을 의미한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">3.14</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"hello"</span><span class="o">;</span>
+</code></pre></div></div>
+<h3 id="질문-왜-리터럴-문자열만-string으로-선언하는지-위에는-char이라고-했잖아">질문: 왜 리터럴 문자열만 String으로 선언하는지? 위에는 char이라고 했잖아</h3>
+
+<추가된 답변="">
+char와 String은 서로 다른 타입입니다:
+
+- char: 단일 문자 하나만 저장 (작은따옴표 사용)
+  ```java
+  char c = 'A';      // OK
+  char c = 'AB';     // 에러! 한 글자만 가능
+  ```
+
+- String: 문자열 (여러 문자 또는 문자 없음도 가능, 큰따옴표 사용)
+  ```java
+  String s = "Hello";  // OK
+  String s = "A";      // OK (한 글자도 가능)
+  String s = "";       // OK (빈 문자열도 가능)
+  ```
+
+char는 기본형(primitive type)이고, String은 참조형(reference type)입니다.
+리터럴에서 "hello"처럼 여러 문자를 담으려면 반드시 String을 써야 합니다.
+&lt;/추가된 답변&gt;
+
+printf 쓸때 
+%s -&gt; string
+%d -&gt; double
+%f -&gt; float
+
+### 질문: 맨 뒤에 %n을 붙이는데 이건 뭐야?
+
+<추가된 답변="">
+%n은 줄바꿈(newline)을 의미합니다.
+
+- \n도 줄바꿈이지만 운영체제마다 다를 수 있습니다
+  - Windows: \r\n
+  - Unix/Linux/Mac: \n
+
+- %n은 플랫폼 독립적인 줄바꿈입니다
+  - printf에서 사용하면 현재 운영체제에 맞는 줄바꿈 문자를 자동으로 선택
+
+따라서 printf를 사용할 때는 \n보다 %n을 쓰는 것이 더 안전합니다!
+
+```java
+System.out.printf("첫 줄%n두 번째 줄%n");  // 권장
+System.out.printf("첫 줄\n두 번째 줄\n");    // 동작하지만 비권장
+```
+&lt;/추가된 답변&gt; 
+
+
+```java
+public class PrintfExample {
+    public static void main(String[] args) {
+        String name = "김철수";
+        int age = 20;
+        double score = 95.5;
+        
+        // printf: 형식 지정 출력 (줄바꿈 없음)
+        System.out.printf("이름: %s%n", name);        // %s: 문자열
+        System.out.printf("나이: %d세%n", age);       // %d: 정수
+        System.out.printf("점수: %.1f점%n", score);   // %.1f: 소수점 1자리
+        System.out.printf("합격률: %d%%%n", 85);      // %%: % 출력
+        
+        // 여러 값 동시 출력
+        System.out.printf("%s님은 %d세이고, 점수는 %.2f입니다.%n", 
+                          name, age, score);
+    }
+}
+```
+
+여러 변수를 쓸 수도 있고 불러온 변수 뒤에 문자를 그대로 쓸 수도 있다. % 같은 특수문자를 쓸 때도 그냥 붙이면 됨.
+
+### 질문: 큰따옴표랑 작은따옴표 사이에 차이가 있나?
+
+<추가된 답변="">
+네, 명확한 차이가 있습니다:
+
+- 작은따옴표 (''): char 타입, 단일 문자만
+  ```java
+  char c = 'A';      // OK
+  char c = '한';     // OK
+  char c = 'AB';     // 에러!
+  ```
+
+- 큰따옴표 (""): String 타입, 문자열
+  ```java
+  String s = "Hello";   // OK
+  String s = "A";       // OK (한 글자도 문자열)
+  String s = "";        // OK (빈 문자열)
+  ```
+
+헷갈리지 않으려면:
+- 한 글자 → 작은따옴표
+- 여러 글자 또는 문자열 → 큰따옴표
+&lt;/추가된 답변&gt; 
+
+| 지정자 | 설명 | 예시 |
+|--------|------|------|
+| `%d` | 10진수 정수 | `123` |
+| `%f` | 실수 (기본 소수점 6자리) | `3.140000` |
+| `%.2f` | 실수 (소수점 2자리) | `3.14` |
+| `%s` | 문자열 | `"Hello"` |
+| `%c` | 문자 | `'A'` |
+| `%n` | 줄바꿈 | |
+| `%5d` | 5자리 확보 (우측 정렬) | `  123` |
+| `%-5d` | 5자리 확보 (좌측 정렬) | `123  ` |
+
+
+
+3.4 scanner로 입력받기
+
+동일한 프로젝트에서 여러 소스 코드를 당연히 넣을 수 있다. 다른 역할을 하더라도.
+처음에 프로젝트와 동일한 이름의 클래스를 만들라고 했던 건 내가 잘못 이해한 거고
+파일명과 public 클래스명이 대소문자까지 일치해야 한다는 규칙이다.
+
+### 질문: 왜 이런 규칙이 있을까?
+
+<추가된 답변="">
+이유 1. 클래스 찾기를 쉽게 하려고
+
+자바 컴파일러나 자바 가상머신이 클래스를 로드할 때, 클래스 이름으로 파일을 찾는다. 파일명과 클래스명이 다르면 모든 파일을 각각 열어봐야 해 비효율적이다.
+
+그러면 이름이 다르면 파일을 못 찾나? → 못 찾는 게 아니라 컴파일러가 컴파일하지 않는다. 규칙 위반이라서!
+
+이유 2. 개발자도 찾기 쉽게 하려고
+
+코드를 읽을 때 클래스명만 보고 어느 파일에 있는지 바로 알 수 있다.
+
+이유 3. 하나의 파일 = 하나의 책임
+
+파일 하나에 public 클래스 하나만 허용해서 코드를 명확하게 분리하도록 유도한 철학이다.
+따라서 public이 아닌 클래스는 파일명과 클래스명이 달라도 된다.
+&lt;/추가된 답변&gt;
+
+
+
+**Scanner 주요 메서드:**
+
+| 메서드 | 반환 타입 | 설명 |
+|--------|----------|------|
+| `nextLine()` | String | 한 줄 전체 |
+| `next()` | String | 공백 전까지 |
+| `nextInt()` | int | 정수 |
+| `nextDouble()` | double | 실수 |
+| `nextBoolean()` | boolean | true/false |
+
+암튼 이렇게 해서 계산하는 클래스를 만들었다.
+
+### 질문: 미리 계산 결과를 지정해서 print 찍어야 하는지?
+
+<추가된 답변="">
+궁금했고 예제에서는 미리 지정하라고 했는데 해보니까 지정 안 해도 잘 나왔다. 파이썬이랑 똑같다.
+
+두 방법 모두 가능합니다:
+
+```java
+// 방법 1: 미리 변수에 저장
+int sum = num1 + num2;
+System.out.println(sum);
+
+// 방법 2: 직접 계산
+System.out.println(num1 + num2);
+```
+
+차이점:
+- 방법 1: 값을 재사용할 때 편리, 디버깅 시 변수 확인 가능
+- 방법 2: 간결함, 일회성 계산에 적합
+
+예제에서 미리 지정하라고 한 이유는 학습 목적(변수 연습)과 코드 가독성 때문입니다.
+&lt;/추가된 답변&gt;
+
+3.5 형변환
+
+type casting
+
+자동 형변환은 작은 타입에서 큰 타입으로 따로 변경하지 않고 변수 선언만 해도 된다
+큰 타입에서 작은 타입으로의 변환은 강제로 해줘야 한다. 
+
+### 질문: double -&gt; int로의 변환은 바로 되는데 왜 double을 String으로 변환하는 건 에러가 날까?
+
+에러 메시지:
+```
+incompatible types: double cannot be converted to java.lang.String
+```
+
+<추가된 답변="">
+type casting은 같은 계열의 기본형끼리만 가능하다.
+
+- 숫자 기본형: byte, short, int, long, float, double
+  - 이들끼리는 형변환 가능
+  ```java
+  double d = 3.14;
+  int i = (int) d;  // OK
+  ```
+
+- String은 문자 참조형
+  - 기본형과는 전혀 다른 타입
+  - type casting으로 변환 불가능
+  - 형변환 메서드를 사용해야 함
+  ```java
+  double d = 3.14;
+  String s = String.valueOf(d);     // OK
+  String s = Double.toString(d);    // OK
+  String s = "" + d;                // OK (문자열 연결)
+  ```
+
+반대로 String → double도 마찬가지:
+```java
+String s = "3.14";
+double d = Double.parseDouble(s);  // OK
+```
+&lt;/추가된 답변&gt; 
+
+
+## Chapter 3 실습
+
+### 추가 연습 문제
+
+1. 온도 변환기: 섭씨를 입력받아 화씨로 변환 (공식: F = C × 9/5 + 32)
+2. 윤년 판별기: 연도를 입력받아 윤년인지 판별 (4의 배수이면서 100의 배수가 아니거나, 400의 배수)
+
+힌트: 윤년 조건
+```java
+boolean isLeapYear = (year % 4 == 0 &amp;&amp; year % 100 != 0) || (year % 400 == 0);
+```
+
+### 질문: 왜 이렇게 출력하면 안 돼? 
+
+```java
+import java.util.Scanner;
+
+public class Test2 {
+    // 윤년 판별기
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("연도를 입력해주세요.");
+        int yr = sc.nextInt();
+
+        boolean isLeapYear = (yr % 4 == 0 &amp;&amp; yr % 100 != 0) || (yr % 400 == 0);
+        if (isLeapYear == true) ? System.out.printf("%d 년은 윤년입니다.", yr) : System.out.printf("%d 년은 윤년이 아닙니다.", yr);
+    }
+}
+```
+
+<추가된 답변="">
+문제 1: 삼항 연산자와 if를 섞어서 문제가 생겼다.
+
+문제 2: 그냥 삼항 연산자만 써도 안 되던데?
+
+```java
+(isLeapYear == true) ? System.out.printf("%d 년은 윤년입니다.", yr) : System.out.printf("%d 년은 윤년이 아닙니다.", yr);
+```
+
+이렇게 쓰면 안 되는 이유: Java에서 한 줄의 코드로 인정되는 문장(statement)의 종류가 정해져 있다.
+
+삼항 연산자는 표현식(expression)이지 문장(statement)이 아닙니다. 따라서 결과값을 어딘가에 할당해야 합니다.
+&lt;/추가된 답변&gt; 
+
+Java에서 한 줄의 코드로 인정되는 문장(statement)의 종류:
+
+1. 변수의 선언
+   ```java
+   int x = 5;
+   String name = "서우";
+   final double PI = 3.14;
+   ```
+
+2. 표현식 문장
+   - 대입 연산
+   - 증감 연산
+   - 메서드 호출
+   - 객체 생성
+
+3. 제어문
+   - 조건문 (if, switch)
+   - 반복문 (for, while)
+   - 분기문 (break, continue)
+
+4. 기타
+   - 빈 문장: `;`
+   - 블록: `{ int a = 1; int b = 2; }`
+   - 라벨: `myLabel: for (...) { }`
+   - try-catch: `try { } catch (Exception e) { }`
+   - throw: `throw new RuntimeException();`
+   - synchronized: `synchronized (lock) { }`
+   - assert: `assert x &gt; 0;`
+
+그래서 삼항 연산자를 사용하려면 이 연산으로 얻은 결과를 어떤 변수에 써야 한다.
+
+올바른 사용 예시:
+```java
+// 방법 1: 문자열 변수에 할당
+String message = (isLeapYear == true) ?
+    String.format("%d 년은 윤년입니다.", yr) :
+    String.format("%d 년은 윤년이 아닙니다.", yr);
+System.out.println(message);
+
+// 방법 2: PrintStream에 할당 (고급 기법, 비추천)
+PrintStream out = (isLeapYear == true) ?
+    System.out.printf("%d 년은 윤년입니다.%n", yr) :
+    System.out.printf("%d 년은 윤년이 아닙니다.%n", yr);
+```
+
+그럼 삼항 연산자를 안 쓰고 if를 쓰고 싶은 경우에는? 조건문 챕터에서 배우겠다.
+
+올바른 if문 사용:
+```java
+if (isLeapYear) {
+    System.out.printf("%d 년은 윤년입니다.%n", yr);
+} else {
+    System.out.printf("%d 년은 윤년이 아닙니다.%n", yr);
+}
+``` 
+</추가된></추가된></추가된></추가된></추가된></추가된></추가된>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/studies/readme/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">자바 기초 학습 프로젝트</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/studies/2026-01-07-chap3/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">자바 조건문과 반복문 - if, switch, f...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

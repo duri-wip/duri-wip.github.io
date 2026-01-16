@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디버깅하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">디버깅하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 03일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Tools</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">github-blog</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#jekyll</span>
+                
+                <span class="tag">#github_pages</span>
+                
+                <span class="tag">#study-bloging</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="jekyll-디버깅과-트러블슈팅-완전-가이드">Jekyll 디버깅과 트러블슈팅 완전 가이드</h1>
+
+<p>아무리 클로드랑 GPT랑 디버깅을 한다고 해도, 빌드 과정이나 서빙 과정에서 보여지는 로그(주로 콘솔)만으로 문제가 뭔지 특정하기에는 어려운 점이 있습니다. 지킬과 자바스크립트의 조합에서는 다양한 문제가 발생하기 때문입니다… 이번 포스트에서는 자바스크립트를 모르는 제가 브라우저에서 문제를 찾아 디버깅하는 과정을 알아보겠습니다.</p>
+
+<p>가장 중요한 디버깅 도구는 브라우저에 내장된 개발자 도구입니다. F12를 눌러서 열 수 있어요.</p>
+
+<h2 id="브라우저의-개발자-도구에서-얻을-수-있는-정보">브라우저의 개발자 도구에서 얻을 수 있는 정보</h2>
+
+<h3 id="elements-탭에서-html-구조-확인">Elements 탭에서 HTML 구조 확인</h3>
+
+<p>카테고리 시스템이 제대로 작동하지 않을 때 가장 먼저 확인해야 할 것들:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 브라우저 콘솔에서 실행할 수 있는 디버깅 코드들</span>
+
+<span class="c1">// 1. 서브카테고리 카드들이 올바른 데이터를 가지고 있는지 확인</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">).</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">card</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">카드:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">card</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">,</span> <span class="dl">"</span><span class="s2">상위:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">card</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// 2. 서브카테고리 포스트 컨테이너들이 존재하는지 확인</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">[data-subcategory]</span><span class="dl">"</span><span class="p">).</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">container</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">contains</span><span class="p">(</span><span class="dl">"</span><span class="s2">posts-container</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span>
+      <span class="dl">"</span><span class="s2">컨테이너:</span><span class="dl">"</span><span class="p">,</span>
+      <span class="nx">container</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">,</span>
+      <span class="dl">"</span><span class="s2">상위:</span><span class="dl">"</span><span class="p">,</span>
+      <span class="nx">container</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span>
+    <span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// 3. 특정 선택자로 컨테이너를 찾을 수 있는지 테스트</span>
+<span class="kd">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span>
+  <span class="dl">'</span><span class="s1">[data-subcategory="genai-llm"][data-parent="ML&amp;AI"]</span><span class="dl">'</span>
+<span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">찾은 컨테이너:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">container</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="console-탭에서-javascript-에러-추적">Console 탭에서 JavaScript 에러 추적</h3>
+
+<p>JavaScript 코드가 실행될 때 발생하는 에러들을 실시간으로 확인할 수 있습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 에러 처리를 포함한 개선된 이벤트 핸들러</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">try</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">subcatCard</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+      <span class="kd">const</span> <span class="nx">subcategory</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">;</span>
+      <span class="kd">const</span> <span class="nx">parentCategory</span> <span class="o">=</span> <span class="nx">subcatCard</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span>
+
+      <span class="c1">// 필수 데이터 검증</span>
+      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">subcategory</span> <span class="o">||</span> <span class="o">!</span><span class="nx">parentCategory</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span>
+          <span class="s2">`필수 데이터 누락: subcategory=</span><span class="p">${</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2">, parent=</span><span class="p">${</span><span class="nx">parentCategory</span><span class="p">}</span><span class="s2">`</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span>
+        <span class="dl">"</span><span class="s2">✅ 서브카테고리 클릭:</span><span class="dl">"</span><span class="p">,</span>
+        <span class="nx">subcategory</span><span class="p">,</span>
+        <span class="dl">"</span><span class="s2">상위:</span><span class="dl">"</span><span class="p">,</span>
+        <span class="nx">parentCategory</span>
+      <span class="p">);</span>
+
+      <span class="c1">// 컨테이너 찾기</span>
+      <span class="kd">const</span> <span class="nx">subcatContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span>
+        <span class="s2">`[data-subcategory="</span><span class="p">${</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2">"][data-parent="</span><span class="p">${</span><span class="nx">parentCategory</span><span class="p">}</span><span class="s2">"]`</span>
+      <span class="p">);</span>
+
+      <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">subcatContainer</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nc">Error</span><span class="p">(</span>
+          <span class="s2">`컨테이너를 찾을 수 없음: </span><span class="p">${</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2"> (</span><span class="p">${</span><span class="nx">parentCategory</span><span class="p">}</span><span class="s2">)`</span>
+        <span class="p">);</span>
+      <span class="p">}</span>
+
+      <span class="c1">// 성공적으로 처리</span>
+      <span class="nf">showSubcategoryPosts</span><span class="p">(</span><span class="nx">subcatContainer</span><span class="p">,</span> <span class="nx">subcatCard</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch </span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">❌ 서브카테고리 처리 중 오류:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">error</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">클릭된 요소:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span>
+
+      <span class="c1">// 사용자에게 알림</span>
+      <span class="nf">alert</span><span class="p">(</span><span class="dl">"</span><span class="s2">카테고리를 불러오는 중 오류가 발생했습니다.</span><span class="dl">"</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nf">showSubcategoryPosts</span><span class="p">(</span><span class="nx">container</span><span class="p">,</span> <span class="nx">card</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 모든 컨테이너 숨기기</span>
+  <span class="nb">document</span>
+    <span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.posts-container, .category-section</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">el</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span>
+    <span class="p">});</span>
+
+  <span class="c1">// 선택된 컨테이너 표시</span>
+  <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">block</span><span class="dl">"</span><span class="p">;</span>
+
+  <span class="c1">// 제목 업데이트</span>
+  <span class="kd">const</span> <span class="nx">subcatName</span> <span class="o">=</span>
+    <span class="nx">card</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcat-title</span><span class="dl">"</span><span class="p">)?.</span><span class="nx">textContent</span> <span class="o">||</span> <span class="dl">"</span><span class="s2">알 수 없음</span><span class="dl">"</span><span class="p">;</span>
+  <span class="kd">const</span> <span class="nx">titleElement</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.current-category h1</span><span class="dl">"</span><span class="p">);</span>
+  <span class="k">if </span><span class="p">(</span><span class="nx">titleElement</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">titleElement</span><span class="p">.</span><span class="nx">textContent</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">subcatName</span><span class="p">}</span><span class="s2"> 포스트`</span><span class="p">;</span>
+  <span class="p">}</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">✅ 포스트 컨테이너 표시 완료</span><span class="dl">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="일반적인-문제들과-해결책">일반적인 문제들과 해결책</h2>
+
+<h3 id="1-데이터-속성-불일치-문제">1. 데이터 속성 불일치 문제</h3>
+
+<p><strong>문제</strong>: 카드의 <code class="language-plaintext highlighter-rouge">data-parent="ML&amp;AI"</code>와 컨테이너의 <code class="language-plaintext highlighter-rouge">data-parent="ML&amp;amp;AI"</code>가 일치하지 않음</p>
+
+<p><strong>원인</strong>: HTML 엔티티 인코딩</p>
+
+<p><strong>해결책</strong>: Jekyll에서 일관된 슬러그 생성</p>
+
+<p>Jekyll에서 일관된 슬러그 생성을 위한 개선된 방법:</p>
+<ul>
+  <li>카테고리와 서브카테고리에 대해 slugify 필터를 사용</li>
+  <li>데이터 속성에 일관된 슬러그 값 적용</li>
+</ul>
+
+<p><strong>검증 코드</strong>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 데이터 속성 불일치 검사</span>
+<span class="kd">function</span> <span class="nf">validateDataAttributes</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">cards</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">containers</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">.posts-container[data-subcategory]</span><span class="dl">"</span>
+  <span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">cardPairs</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Set</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">containerPairs</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Set</span><span class="p">();</span>
+
+  <span class="nx">cards</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">card</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">pair</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">card</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2">|</span><span class="p">${</span><span class="nx">card</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="nx">cardPairs</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">pair</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">containers</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">pair</span> <span class="o">=</span> <span class="s2">`</span><span class="p">${</span><span class="nx">container</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2">|</span><span class="p">${</span><span class="nx">container</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">}</span><span class="s2">`</span><span class="p">;</span>
+    <span class="nx">containerPairs</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="nx">pair</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="c1">// 매칭되지 않는 카드 찾기</span>
+  <span class="nx">cardPairs</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">pair</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">containerPairs</span><span class="p">.</span><span class="nf">has</span><span class="p">(</span><span class="nx">pair</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span><span class="dl">"</span><span class="s2">⚠️ 매칭되지 않는 카드:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">pair</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// 매칭되지 않는 컨테이너 찾기</span>
+  <span class="nx">containerPairs</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">pair</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">cardPairs</span><span class="p">.</span><span class="nf">has</span><span class="p">(</span><span class="nx">pair</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span><span class="dl">"</span><span class="s2">⚠️ 매칭되지 않는 컨테이너:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">pair</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// 페이지 로드 후 검증 실행</span>
+<span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">DOMContentLoaded</span><span class="dl">"</span><span class="p">,</span> <span class="nx">validateDataAttributes</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="2-jekyll-빌드-시-liquid-오류">2. Jekyll 빌드 시 Liquid 오류</h3>
+
+<p><strong>문제</strong>: Liquid 템플릿에서 예상치 못한 에러 발생</p>
+
+<p><strong>해결책</strong>: 안전한 Liquid 코드 작성</p>
+
+<p>Jekyll에서 안전한 속성 접근 방법:</p>
+<ul>
+  <li><strong>안전하지 않은 방법</strong>: 속성 존재 여부를 확인하지 않고 직접 접근</li>
+  <li><strong>안전한 방법</strong>: if 조건문으로 속성 존재 여부 확인 후 접근</li>
+  <li><strong>더 안전한 방법</strong>: default 필터를 사용하여 기본값 설정</li>
+</ul>
+
+<h3 id="3-javascript-선택자-문제">3. JavaScript 선택자 문제</h3>
+
+<p><strong>문제</strong>: 특수문자가 포함된 속성으로 요소 선택 실패</p>
+
+<p><strong>해결책</strong>: CSS.escape() 사용 또는 속성 선택자 개선</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 문제가 될 수 있는 코드</span>
+<span class="kd">const</span> <span class="nx">category</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">ML&amp;AI</span><span class="dl">"</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">element</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="s2">`[data-category="</span><span class="p">${</span><span class="nx">category</span><span class="p">}</span><span class="s2">"]`</span><span class="p">);</span> <span class="c1">// 실패 가능</span>
+
+<span class="c1">// 안전한 방법 1: CSS.escape 사용</span>
+<span class="kd">const</span> <span class="nx">safeCategory</span> <span class="o">=</span> <span class="nx">CSS</span><span class="p">.</span><span class="nf">escape</span><span class="p">(</span><span class="nx">category</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">element1</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="s2">`[data-category="</span><span class="p">${</span><span class="nx">safeCategory</span><span class="p">}</span><span class="s2">"]`</span><span class="p">);</span>
+
+<span class="c1">// 안전한 방법 2: 속성 선택자 직접 사용</span>
+<span class="kd">const</span> <span class="nx">element2</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">[data-category]</span><span class="dl">"</span><span class="p">)).</span><span class="nf">find</span><span class="p">(</span>
+  <span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">category</span> <span class="o">===</span> <span class="nx">category</span>
+<span class="p">);</span>
+
+<span class="c1">// 안전한 방법 3: 미리 슬러그 변환</span>
+<span class="kd">function</span> <span class="nf">findElementBySlug</span><span class="p">(</span><span class="nx">selector</span><span class="p">,</span> <span class="nx">slug</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">)).</span><span class="nf">find</span><span class="p">((</span><span class="nx">el</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">elementSlug</span> <span class="o">=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">category</span> <span class="o">||</span> <span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">;</span>
+    <span class="k">return</span> <span class="nx">elementSlug</span> <span class="o">===</span> <span class="nx">slug</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="4-포스트-필터링-문제">4. 포스트 필터링 문제</h3>
+
+<p><strong>문제</strong>: 서브카테고리별로 포스트가 올바르게 그룹화되지 않음</p>
+
+<p><strong>진단 코드</strong>:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Jekyll 사이트 데이터 확인 (개발 모드에서)</span>
+<span class="kd">function</span> <span class="nf">diagnosePosts</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="dl">"</span><span class="s2">📊 포스트 진단 정보</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="c1">// 1. 전체 포스트 수 확인</span>
+  <span class="kd">const</span> <span class="nx">allPosts</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.post-item</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">전체 포스트 수:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">allPosts</span><span class="p">.</span><span class="nx">length</span><span class="p">);</span>
+
+  <span class="c1">// 2. 카테고리별 포스트 분포</span>
+  <span class="kd">const</span> <span class="nx">categoryCount</span> <span class="o">=</span> <span class="p">{};</span>
+  <span class="kd">const</span> <span class="nx">subcategoryCount</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="nx">allPosts</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">post</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">container</span> <span class="o">=</span> <span class="nx">post</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">[data-parent]</span><span class="dl">"</span><span class="p">);</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">container</span><span class="p">)</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span>
+      <span class="kd">const</span> <span class="nx">subcat</span> <span class="o">=</span> <span class="nx">container</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">;</span>
+
+      <span class="nx">categoryCount</span><span class="p">[</span><span class="nx">parent</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nx">categoryCount</span><span class="p">[</span><span class="nx">parent</span><span class="p">]</span> <span class="o">||</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="nx">subcategoryCount</span><span class="p">[</span><span class="s2">`</span><span class="p">${</span><span class="nx">parent</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">subcat</span><span class="p">}</span><span class="s2">`</span><span class="p">]</span> <span class="o">=</span>
+        <span class="p">(</span><span class="nx">subcategoryCount</span><span class="p">[</span><span class="s2">`</span><span class="p">${</span><span class="nx">parent</span><span class="p">}</span><span class="s2">/</span><span class="p">${</span><span class="nx">subcat</span><span class="p">}</span><span class="s2">`</span><span class="p">]</span> <span class="o">||</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">카테고리별 포스트 수:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">categoryCount</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">서브카테고리별 포스트 수:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">subcategoryCount</span><span class="p">);</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nf">groupEnd</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="성능-문제-디버깅">성능 문제 디버깅</h2>
+
+<h3 id="dom-조작-최적화">DOM 조작 최적화</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 비효율적인 코드</span>
+<span class="kd">function</span> <span class="nf">hideAllContainers</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.posts-container</span><span class="dl">"</span><span class="p">).</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">style</span><span class="p">.</span><span class="nx">display</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">none</span><span class="dl">"</span><span class="p">;</span> <span class="c1">// 각각 리플로우 발생</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// 효율적인 코드</span>
+<span class="kd">function</span> <span class="nf">hideAllContainersOptimized</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">containers</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.posts-container</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="c1">// 한 번에 처리하기 위해 클래스 사용</span>
+  <span class="nx">containers</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">container</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">container</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nf">add</span><span class="p">(</span><span class="dl">"</span><span class="s2">hidden</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-css highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">/* CSS에서 처리 */</span>
+<span class="nc">.posts-container.hidden</span> <span class="p">{</span>
+  <span class="nl">display</span><span class="p">:</span> <span class="nb">none</span> <span class="cp">!important</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="메모리-누수-방지">메모리 누수 방지</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 이벤트 리스너 정리</span>
+<span class="kd">function</span> <span class="nf">setupCategorySystem</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">controller</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AbortController</span><span class="p">();</span>
+
+  <span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nx">handleCategoryClick</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">signal</span><span class="p">:</span> <span class="nx">controller</span><span class="p">.</span><span class="nx">signal</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="c1">// 페이지 언로드 시 정리</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">beforeunload</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">controller</span><span class="p">.</span><span class="nf">abort</span><span class="p">();</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">handleCategoryClick</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// 이벤트 처리 로직</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="종합-디버깅-도구">종합 디버깅 도구</h2>
+
+<p>모든 문제를 한 번에 확인할 수 있는 디버깅 도구를 만들어보겠습니다:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 종합 디버깅 함수</span>
+<span class="kd">function</span> <span class="nf">debugCategorySystem</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">clear</span><span class="p">();</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">🔍 Jekyll 카테고리 시스템 디버깅 시작</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">results</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">domElements</span><span class="p">:</span> <span class="nf">checkDOMElements</span><span class="p">(),</span>
+    <span class="na">dataAttributes</span><span class="p">:</span> <span class="nf">validateDataAttributes</span><span class="p">(),</span>
+    <span class="na">eventListeners</span><span class="p">:</span> <span class="nf">checkEventListeners</span><span class="p">(),</span>
+    <span class="na">performance</span><span class="p">:</span> <span class="nf">checkPerformance</span><span class="p">(),</span>
+  <span class="p">};</span>
+
+  <span class="c1">// 결과 요약</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="dl">"</span><span class="s2">📋 디버깅 결과 요약</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nb">Object</span><span class="p">.</span><span class="nf">entries</span><span class="p">(</span><span class="nx">results</span><span class="p">).</span><span class="nf">forEach</span><span class="p">(([</span><span class="nx">category</span><span class="p">,</span> <span class="nx">result</span><span class="p">])</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">icon</span> <span class="o">=</span> <span class="nx">result</span><span class="p">.</span><span class="nx">success</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">✅</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">❌</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">icon</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">category</span><span class="p">}</span><span class="s2">:`</span><span class="p">,</span> <span class="nx">result</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+  <span class="p">});</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">groupEnd</span><span class="p">();</span>
+
+  <span class="k">return</span> <span class="nx">results</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">checkDOMElements</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">elements</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">categoryItems</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.category-item</span><span class="dl">"</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span>
+    <span class="na">subcategoryCards</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span>
+    <span class="na">postsContainers</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.posts-container</span><span class="dl">"</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span>
+    <span class="na">categorySections</span><span class="p">:</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.category-section</span><span class="dl">"</span><span class="p">).</span><span class="nx">length</span><span class="p">,</span>
+  <span class="p">};</span>
+
+  <span class="kd">const</span> <span class="nx">hasElements</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nf">values</span><span class="p">(</span><span class="nx">elements</span><span class="p">).</span><span class="nf">every</span><span class="p">((</span><span class="nx">count</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">success</span><span class="p">:</span> <span class="nx">hasElements</span><span class="p">,</span>
+    <span class="na">message</span><span class="p">:</span> <span class="nx">hasElements</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">DOM 요소들이 정상적으로 생성됨</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">DOM 요소 누락</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">details</span><span class="p">:</span> <span class="nx">elements</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">validateDataAttributes</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">cards</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">containers</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span>
+    <span class="dl">"</span><span class="s2">.posts-container[data-subcategory]</span><span class="dl">"</span>
+  <span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">mismatches</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="nx">cards</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">card</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">subcategory</span> <span class="o">=</span> <span class="nx">card</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">parent</span> <span class="o">=</span> <span class="nx">card</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">;</span>
+
+    <span class="kd">const</span> <span class="nx">matchingContainer</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span>
+      <span class="s2">`[data-subcategory="</span><span class="p">${</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2">"][data-parent="</span><span class="p">${</span><span class="nx">parent</span><span class="p">}</span><span class="s2">"].posts-container`</span>
+    <span class="p">);</span>
+
+    <span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nx">matchingContainer</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">mismatches</span><span class="p">.</span><span class="nf">push</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">subcategory</span><span class="p">}</span><span class="s2"> (</span><span class="p">${</span><span class="nx">parent</span><span class="p">}</span><span class="s2">)`</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">success</span><span class="p">:</span> <span class="nx">mismatches</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="na">message</span><span class="p">:</span>
+      <span class="nx">mismatches</span><span class="p">.</span><span class="nx">length</span> <span class="o">===</span> <span class="mi">0</span>
+        <span class="p">?</span> <span class="dl">"</span><span class="s2">모든 카드-컨테이너 매칭 성공</span><span class="dl">"</span>
+        <span class="p">:</span> <span class="s2">`</span><span class="p">${</span><span class="nx">mismatches</span><span class="p">.</span><span class="nx">length</span><span class="p">}</span><span class="s2">개 매칭 실패`</span><span class="p">,</span>
+    <span class="na">details</span><span class="p">:</span> <span class="nx">mismatches</span><span class="p">,</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">checkEventListeners</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// 이벤트 리스너가 정상적으로 등록되었는지 확인</span>
+  <span class="kd">const</span> <span class="nx">testCard</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">testCategory</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelector</span><span class="p">(</span><span class="dl">"</span><span class="s2">.category-item</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">hasClickHandlers</span> <span class="o">=</span> <span class="nx">testCard</span> <span class="o">&amp;&amp;</span> <span class="nx">testCategory</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">success</span><span class="p">:</span> <span class="nx">hasClickHandlers</span><span class="p">,</span>
+    <span class="na">message</span><span class="p">:</span> <span class="nx">hasClickHandlers</span>
+      <span class="p">?</span> <span class="dl">"</span><span class="s2">이벤트 리스너 정상 등록</span><span class="dl">"</span>
+      <span class="p">:</span> <span class="dl">"</span><span class="s2">이벤트 리스너 등록 실패</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">details</span><span class="p">:</span> <span class="p">{</span>
+      <span class="na">subcategoryCards</span><span class="p">:</span> <span class="o">!!</span><span class="nx">testCard</span><span class="p">,</span>
+      <span class="na">categoryItems</span><span class="p">:</span> <span class="o">!!</span><span class="nx">testCategory</span><span class="p">,</span>
+    <span class="p">},</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">checkPerformance</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">startTime</span> <span class="o">=</span> <span class="nx">performance</span><span class="p">.</span><span class="nf">now</span><span class="p">();</span>
+
+  <span class="c1">// DOM 쿼리 성능 테스트</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">.posts-container</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="kd">const</span> <span class="nx">endTime</span> <span class="o">=</span> <span class="nx">performance</span><span class="p">.</span><span class="nf">now</span><span class="p">();</span>
+  <span class="kd">const</span> <span class="nx">queryTime</span> <span class="o">=</span> <span class="nx">endTime</span> <span class="o">-</span> <span class="nx">startTime</span><span class="p">;</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="na">success</span><span class="p">:</span> <span class="nx">queryTime</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="c1">// 10ms 이하면 양호</span>
+    <span class="na">message</span><span class="p">:</span> <span class="s2">`DOM 쿼리 시간: </span><span class="p">${</span><span class="nx">queryTime</span><span class="p">.</span><span class="nf">toFixed</span><span class="p">(</span><span class="mi">2</span><span class="p">)}</span><span class="s2">ms`</span><span class="p">,</span>
+    <span class="na">details</span><span class="p">:</span> <span class="p">{</span> <span class="nx">queryTime</span> <span class="p">},</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="c1">// 자동 실행 (개발 환경에서만)</span>
+<span class="k">if </span><span class="p">(</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">localhost</span><span class="dl">"</span> <span class="o">||</span>
+  <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">127.0.0.1</span><span class="dl">"</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">DOMContentLoaded</span><span class="dl">"</span><span class="p">,</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nf">setTimeout</span><span class="p">(</span><span class="nx">debugCategorySystem</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span> <span class="c1">// 1초 후 실행</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="실시간-오류-모니터링">실시간 오류 모니터링</h2>
+
+<p>사용자가 실제로 사용할 때 발생하는 오류를 캐치하고 기록하는 시스템:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 전역 오류 처리기</span>
+<span class="nb">window</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">🚨 JavaScript 오류 발생:</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">message</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
+    <span class="na">filename</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">filename</span><span class="p">,</span>
+    <span class="na">line</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">lineno</span><span class="p">,</span>
+    <span class="na">column</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">colno</span><span class="p">,</span>
+    <span class="na">stack</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">error</span><span class="p">?.</span><span class="nx">stack</span><span class="p">,</span>
+  <span class="p">});</span>
+
+  <span class="c1">// 개발 환경에서는 상세 정보 표시</span>
+  <span class="k">if </span><span class="p">(</span><span class="nf">isDevelopment</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nf">showErrorNotification</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">unhandledrejection</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">"</span><span class="s2">🚨 Promise 오류:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">reason</span><span class="p">);</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="nf">isDevelopment</span><span class="p">())</span> <span class="p">{</span>
+    <span class="nf">showErrorNotification</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">function</span> <span class="nf">isDevelopment</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">return </span><span class="p">(</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">localhost</span><span class="dl">"</span> <span class="o">||</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hostname</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">127.0.0.1</span><span class="dl">"</span> <span class="o">||</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">search</span><span class="p">.</span><span class="nf">includes</span><span class="p">(</span><span class="dl">"</span><span class="s2">debug=true</span><span class="dl">"</span><span class="p">)</span>
+  <span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">showErrorNotification</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">notification</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">notification</span><span class="p">.</span><span class="nx">className</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">debug-notification error</span><span class="dl">"</span><span class="p">;</span>
+  <span class="nx">notification</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">`
+        &lt;h4&gt;🚨 개발 오류 알림&lt;/h4&gt;
+        &lt;p&gt;&lt;strong&gt;메시지:&lt;/strong&gt; </span><span class="p">${</span><span class="nx">error</span><span class="p">.</span><span class="nx">message</span> <span class="o">||</span> <span class="nx">error</span><span class="p">.</span><span class="nx">reason</span><span class="p">}</span><span class="s2">&lt;/p&gt;
+        &lt;button onclick="this.parentElement.remove()"&gt;닫기&lt;/button&gt;
+    `</span><span class="p">;</span>
+
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">notification</span><span class="p">);</span>
+
+  <span class="c1">// 5초 후 자동 제거</span>
+  <span class="nf">setTimeout</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">notification</span><span class="p">.</span><span class="nx">parentElement</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">notification</span><span class="p">.</span><span class="nf">remove</span><span class="p">();</span>
+    <span class="p">}</span>
+  <span class="p">},</span> <span class="mi">5000</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="jekyll-개발-환경-최적화">Jekyll 개발 환경 최적화</h2>
+
+<h3 id="로컬-개발-시-실시간-피드백">로컬 개발 시 실시간 피드백</h3>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 개발 모드에서만 활성화되는 도구들</span>
+<span class="k">if </span><span class="p">(</span><span class="nf">isDevelopment</span><span class="p">())</span> <span class="p">{</span>
+  <span class="c1">// 1. CSS 변경 감지 (Hot Reload)</span>
+  <span class="kd">let</span> <span class="nx">lastStylesheetModified</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">();</span>
+
+  <span class="nf">setInterval</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">stylesheets</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">link[rel="stylesheet"]</span><span class="dl">'</span><span class="p">);</span>
+    <span class="nx">stylesheets</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">link</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">href</span> <span class="o">=</span> <span class="nx">link</span><span class="p">.</span><span class="nx">href</span><span class="p">;</span>
+      <span class="kd">const</span> <span class="nx">newHref</span> <span class="o">=</span> <span class="nx">href</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">"</span><span class="s2">?</span><span class="dl">"</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="dl">"</span><span class="s2">?v=</span><span class="dl">"</span> <span class="o">+</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">();</span>
+
+      <span class="nf">fetch</span><span class="p">(</span><span class="nx">href</span><span class="p">,</span> <span class="p">{</span> <span class="na">method</span><span class="p">:</span> <span class="dl">"</span><span class="s2">HEAD</span><span class="dl">"</span> <span class="p">}).</span><span class="nf">then</span><span class="p">((</span><span class="nx">response</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+        <span class="kd">const</span> <span class="nx">lastModified</span> <span class="o">=</span> <span class="nx">response</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="dl">"</span><span class="s2">last-modified</span><span class="dl">"</span><span class="p">);</span>
+        <span class="k">if </span><span class="p">(</span>
+          <span class="nx">lastModified</span> <span class="o">&amp;&amp;</span>
+          <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="nx">lastModified</span><span class="p">)</span> <span class="o">&gt;</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">(</span><span class="nx">lastStylesheetModified</span><span class="p">)</span>
+        <span class="p">)</span> <span class="p">{</span>
+          <span class="nx">link</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">newHref</span><span class="p">;</span>
+          <span class="nx">lastStylesheetModified</span> <span class="o">=</span> <span class="nb">Date</span><span class="p">.</span><span class="nf">now</span><span class="p">();</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">🎨 스타일시트 업데이트됨</span><span class="dl">"</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">});</span>
+    <span class="p">});</span>
+  <span class="p">},</span> <span class="mi">2000</span><span class="p">);</span>
+
+  <span class="c1">// 2. 개발자 도구 단축키</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">keydown</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Ctrl/Cmd + Shift + D: 디버깅 실행</span>
+    <span class="k">if </span><span class="p">((</span><span class="nx">e</span><span class="p">.</span><span class="nx">ctrlKey</span> <span class="o">||</span> <span class="nx">e</span><span class="p">.</span><span class="nx">metaKey</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">shiftKey</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">D</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">e</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">();</span>
+      <span class="nf">debugCategorySystem</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="c1">// Ctrl/Cmd + Shift + R: 강제 새로고침</span>
+    <span class="k">if </span><span class="p">((</span><span class="nx">e</span><span class="p">.</span><span class="nx">ctrlKey</span> <span class="o">||</span> <span class="nx">e</span><span class="p">.</span><span class="nx">metaKey</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">shiftKey</span> <span class="o">&amp;&amp;</span> <span class="nx">e</span><span class="p">.</span><span class="nx">key</span> <span class="o">===</span> <span class="dl">"</span><span class="s2">R</span><span class="dl">"</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">e</span><span class="p">.</span><span class="nf">preventDefault</span><span class="p">();</span>
+      <span class="nx">location</span><span class="p">.</span><span class="nf">reload</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// 3. 개발자 패널 추가</span>
+  <span class="nf">createDeveloperPanel</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">createDeveloperPanel</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">panel</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">createElement</span><span class="p">(</span><span class="dl">"</span><span class="s2">div</span><span class="dl">"</span><span class="p">);</span>
+  <span class="nx">panel</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="dl">"</span><span class="s2">developer-panel</span><span class="dl">"</span><span class="p">;</span>
+  <span class="nx">panel</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">`
+        &lt;div class="dev-panel-header"&gt;
+            &lt;h3&gt;🛠️ 개발자 도구&lt;/h3&gt;
+            &lt;button onclick="toggleDevPanel()"&gt;최소화&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class="dev-panel-content"&gt;
+            &lt;button onclick="debugCategorySystem()"&gt;시스템 진단&lt;/button&gt;
+            &lt;button onclick="showDataAttributes()"&gt;데이터 속성 보기&lt;/button&gt;
+            &lt;button onclick="validateHTML()"&gt;HTML 검증&lt;/button&gt;
+            &lt;button onclick="clearConsole()"&gt;콘솔 정리&lt;/button&gt;
+        &lt;/div&gt;
+    `</span><span class="p">;</span>
+
+  <span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nf">appendChild</span><span class="p">(</span><span class="nx">panel</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">showDataAttributes</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="dl">"</span><span class="s2">📊 모든 데이터 속성</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="nb">document</span>
+    <span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">[data-category], [data-subcategory], [data-parent]</span><span class="dl">"</span><span class="p">)</span>
+    <span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">el</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="kd">const</span> <span class="nx">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="na">element</span><span class="p">:</span>
+          <span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">()</span> <span class="o">+</span>
+          <span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">className</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">.</span><span class="dl">"</span> <span class="o">+</span> <span class="nx">el</span><span class="p">.</span><span class="nx">className</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="dl">"</span><span class="s2"> </span><span class="dl">"</span><span class="p">).</span><span class="nf">join</span><span class="p">(</span><span class="dl">"</span><span class="s2">.</span><span class="dl">"</span><span class="p">)</span> <span class="p">:</span> <span class="dl">""</span><span class="p">),</span>
+        <span class="na">category</span><span class="p">:</span> <span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">category</span><span class="p">,</span>
+        <span class="na">subcategory</span><span class="p">:</span> <span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">subcategory</span><span class="p">,</span>
+        <span class="na">parent</span><span class="p">:</span> <span class="nx">el</span><span class="p">.</span><span class="nx">dataset</span><span class="p">.</span><span class="nx">parent</span><span class="p">,</span>
+      <span class="p">};</span>
+
+      <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+    <span class="p">});</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nf">groupEnd</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">validateHTML</span><span class="p">()</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nf">group</span><span class="p">(</span><span class="dl">"</span><span class="s2">🔍 HTML 구조 검증</span><span class="dl">"</span><span class="p">);</span>
+
+  <span class="c1">// 필수 요소 확인</span>
+  <span class="kd">const</span> <span class="nx">requiredElements</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="dl">"</span><span class="s2">.category-item</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">.subcategory-card</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">.posts-container</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">.current-category</span><span class="dl">"</span><span class="p">,</span>
+  <span class="p">];</span>
+
+  <span class="nx">requiredElements</span><span class="p">.</span><span class="nf">forEach</span><span class="p">((</span><span class="nx">selector</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kd">const</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="nx">selector</span><span class="p">);</span>
+    <span class="kd">const</span> <span class="nx">status</span> <span class="o">=</span> <span class="nx">elements</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">?</span> <span class="dl">"</span><span class="s2">✅</span><span class="dl">"</span> <span class="p">:</span> <span class="dl">"</span><span class="s2">❌</span><span class="dl">"</span><span class="p">;</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="s2">`</span><span class="p">${</span><span class="nx">status</span><span class="p">}</span><span class="s2"> </span><span class="p">${</span><span class="nx">selector</span><span class="p">}</span><span class="s2">: </span><span class="p">${</span><span class="nx">elements</span><span class="p">.</span><span class="nx">length</span><span class="p">}</span><span class="s2">개`</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="c1">// 중복 ID 확인</span>
+  <span class="kd">const</span> <span class="nx">ids</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="k">from</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">"</span><span class="s2">[id]</span><span class="dl">"</span><span class="p">)).</span><span class="nf">map</span><span class="p">((</span><span class="nx">el</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">el</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+  <span class="kd">const</span> <span class="nx">duplicateIds</span> <span class="o">=</span> <span class="nx">ids</span><span class="p">.</span><span class="nf">filter</span><span class="p">((</span><span class="nx">id</span><span class="p">,</span> <span class="nx">index</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="nx">ids</span><span class="p">.</span><span class="nf">indexOf</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> <span class="o">!==</span> <span class="nx">index</span><span class="p">);</span>
+
+  <span class="k">if </span><span class="p">(</span><span class="nx">duplicateIds</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">warn</span><span class="p">(</span><span class="dl">"</span><span class="s2">⚠️ 중복 ID 발견:</span><span class="dl">"</span><span class="p">,</span> <span class="nx">duplicateIds</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">✅ 중복 ID 없음</span><span class="dl">"</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="nx">console</span><span class="p">.</span><span class="nf">groupEnd</span><span class="p">();</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="프로덕션-환경-모니터링">프로덕션 환경 모니터링</h2>
+
+<p>배포된 블로그에서 발생하는 문제를 추적하기 위한 간단한 로깅 시스템:</p>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 프로덕션에서 사용할 간단한 오류 수집</span>
+<span class="k">if </span><span class="p">(</span><span class="o">!</span><span class="nf">isDevelopment</span><span class="p">())</span> <span class="p">{</span>
+  <span class="kd">const</span> <span class="nx">errorLog</span> <span class="o">=</span> <span class="p">[];</span>
+
+  <span class="nb">window</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">error</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">errorLog</span><span class="p">.</span><span class="nf">push</span><span class="p">({</span>
+      <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">javascript-error</span><span class="dl">"</span><span class="p">,</span>
+      <span class="na">message</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">,</span>
+      <span class="na">timestamp</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">().</span><span class="nf">toISOString</span><span class="p">(),</span>
+      <span class="na">url</span><span class="p">:</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">,</span>
+      <span class="na">userAgent</span><span class="p">:</span> <span class="nb">navigator</span><span class="p">.</span><span class="nx">userAgent</span><span class="p">,</span>
+    <span class="p">});</span>
+
+    <span class="c1">// 로컬 스토리지에 저장 (선택적)</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">errorLog</span><span class="p">.</span><span class="nx">length</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+      <span class="c1">// 최대 10개만 보관</span>
+      <span class="nx">localStorage</span><span class="p">.</span><span class="nf">setItem</span><span class="p">(</span><span class="dl">"</span><span class="s2">error-log</span><span class="dl">"</span><span class="p">,</span> <span class="nx">JSON</span><span class="p">.</span><span class="nf">stringify</span><span class="p">(</span><span class="nx">errorLog</span><span class="p">));</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="c1">// 사용자 액션 추적</span>
+  <span class="nb">document</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="nf">function </span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if </span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nf">closest</span><span class="p">(</span><span class="dl">"</span><span class="s2">.subcategory-card, .category-item</span><span class="dl">"</span><span class="p">))</span> <span class="p">{</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">"</span><span class="s2">사용자 액션:</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+        <span class="na">element</span><span class="p">:</span> <span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">.</span><span class="nx">tagName</span><span class="p">,</span>
+        <span class="na">timestamp</span><span class="p">:</span> <span class="k">new</span> <span class="nc">Date</span><span class="p">().</span><span class="nf">toISOString</span><span class="p">(),</span>
+      <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="마무리">마무리</h2>
+
+<p>디버깅은 개발 과정에서 가장 중요한 스킬 중 하나입니다. 체계적인 접근 방식으로 문제를 해결하면:</p>
+
+<ol>
+  <li><strong>문제 발생 시 당황하지 않고</strong></li>
+  <li><strong>단계별로 원인을 찾고</strong></li>
+  <li><strong>재발 방지를 위한 개선책을 마련할 수 있습니다</strong></li>
+</ol>
+
+<p>다음 포스트에서는 <strong>프라이빗/퍼블릭 레포지토리 분리 전략</strong>을 알아보겠습니다. 소스 코드는 비공개로 유지하면서 블로그는 안전하게 배포하는 방법을 다룰 예정입니다.</p>
+
+<p>디버깅 과정에서 새로운 문제를 발견하시거나 더 효과적인 해결 방법이 있다면 댓글로 공유해 주세요!</p>
+
+<hr />
+
+<p><strong>참고 자료</strong>:</p>
+
+<ul>
+  <li><a href="https://developer.chrome.com/docs/devtools/">Chrome DevTools 공식 문서</a></li>
+  <li><a href="https://jekyllrb.com/docs/troubleshooting/">Jekyll 트러블슈팅 가이드</a></li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/tools/jekyll-active2/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">동적 카테고리 시스템 구현하기 2</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/os-register/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Os Register</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
