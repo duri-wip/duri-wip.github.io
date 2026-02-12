@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>리눅스 기초</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">리눅스 기초</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 04월 30일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Tools</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">development-environment</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#Linux</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h4 id="1-리눅스-기본-개념-및-시스템-관리">1. 리눅스 기본 개념 및 시스템 관리</h4>
+
+<ul>
+  <li>
+    <p><strong>리눅스를 배워야 하는 이유</strong>:<br />
+리눅스는 유닉스 기반의 운영체제로, 개인용 및 서버용으로 많이 사용되며 오픈소스라는 장점이 있다. 클라우드 환경에서도 리눅스가 많이 사용되므로 리눅스를 학습하는 것은 중요함.</p>
+
+    <ul>
+      <li><strong>오픈소스</strong>: 무료로 제공되지만, GNU 라이선스에 따라 오픈 정도가 다름.</li>
+      <li><strong>WSL2</strong>: 우분투와 같은 리눅스 배포판을 윈도우 환경에서 개발하기 위한 도구.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>리눅스 시스템 종료 및 재부팅 명령어</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>reboot
+shutdown <span class="nt">-h</span> now
+poweroff
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>Nginx 설치 및 관리</strong>:<br />
+웹 서버로 많이 사용하는 Nginx를 설치하고 관리하는 방법.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>nginx
+<span class="nb">sudo </span>systemctl start nginx.service
+<span class="nb">sudo </span>systemctl status nginx.service
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>파일 시스템 레이아웃</strong>:<br />
+모든 파일과 경로는 inode 주소를 가지며, 디렉터리는 파일과 주소의 inode를 포함한 정보 구조체임.</p>
+    <ul>
+      <li><strong>파일 및 디렉터리 생성</strong>:
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">touch </span>test1.txt  <span class="c"># 빈 파일 생성</span>
+<span class="nb">mkdir</span> <span class="nt">-p</span> d1/d2   <span class="c"># 하위 디렉터리 생성</span>
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="2-사용자-및-계정-관리">2. 사용자 및 계정 관리</h4>
+
+<ul>
+  <li>
+    <p><strong>사용자 계정 생성 및 관리</strong>:</p>
+
+    <ul>
+      <li>
+        <p>계정 생성시 옵션을 사용해 그룹과 사용자 ID를 설정.</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>groupadd <span class="nt">-g</span> 1010 testgroup
+useradd <span class="nt">-s</span> /bin/bash <span class="nt">-d</span> /home/user1 <span class="nt">-u</span> 1010 <span class="nt">-g</span> 1010 user1
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><strong>비밀번호 설정</strong>:</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>passwd user1
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><strong>계정 삭제</strong>:</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>userdel user1
+<span class="nb">sudo </span>userdel <span class="nt">-r</span> user1  <span class="c"># 홈 디렉터리까지 삭제</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><strong>계정 잠금 및 해제</strong>:</p>
+
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>passwd <span class="nt">-l</span> user1  <span class="c"># 계정 잠금</span>
+<span class="nb">sudo </span>passwd <span class="nt">-u</span> user1  <span class="c"># 계정 해제</span>
+</code></pre></div>        </div>
+      </li>
+      <li>
+        <p><strong>사용자 그룹 관리</strong>:</p>
+        <ul>
+          <li>리눅스에서 사용자 계정은 그룹으로 묶여 관리되며, 그룹마다 권한을 설정할 수 있음.</li>
+          <li><code class="language-plaintext highlighter-rouge">/etc/group</code> 파일에서 그룹 정보를 확인할 수 있음.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>sudoers 설정</strong>:<br />
+특정 사용자에게 관리자 권한을 부여할 때 <code class="language-plaintext highlighter-rouge">/etc/sudoers</code> 파일을 수정함.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>vi /etc/sudoers
+user1 <span class="nv">ALL</span><span class="o">=(</span>ALL<span class="o">)</span> ALL
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>SSH 설정</strong>:<br />
+원격 접속을 관리하는 방법으로 <code class="language-plaintext highlighter-rouge">/etc/ssh/sshd_config</code> 파일에서 루트 접근을 제한.</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>PermitRootLogin prohibit-password
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="3-파일-및-디렉터리-관리">3. 파일 및 디렉터리 관리</h4>
+
+<ul>
+  <li>
+    <p><strong>파일 권한 관리</strong>:<br />
+리눅스에서 파일과 디렉터리의 접근 권한을 관리할 때 <code class="language-plaintext highlighter-rouge">chmod</code> 명령어 사용.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chmod </span>700 file
+<span class="nb">chmod</span> <span class="nt">-R</span> 777 <span class="nb">dir</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>소유권 변경</strong>:<br />
+특정 파일이나 디렉터리의 소유자를 변경할 때 <code class="language-plaintext highlighter-rouge">chown</code> 명령어를 사용함.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">chown </span>ubuntu:ubuntu file_or_dir
+<span class="nb">chown</span> <span class="nt">-R</span> ubuntu:ubuntu <span class="nb">dir</span>  <span class="c"># 하위 디렉터리 포함</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>링크 파일 관리</strong>:<br />
+하드링크와 소프트링크를 생성해 파일을 관리할 수 있음.</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ln</span> <span class="nt">-s</span> file soft_link  <span class="c"># 소프트링크 생성</span>
+<span class="nb">ln </span>file hard_link     <span class="c"># 하드링크 생성</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="4-프로세스-관리-및-모니터링">4. 프로세스 관리 및 모니터링</h4>
+
+<ul>
+  <li>
+    <p><strong>프로세스 상태 확인 및 종료</strong>:<br />
+현재 실행 중인 프로세스를 확인하고, 필요에 따라 프로세스를 종료하는 방법.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span>      <span class="c"># 프로세스 상태 확인</span>
+<span class="nb">kill</span> <span class="nt">-9</span> PID <span class="c"># 프로세스 강제 종료</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>모니터링 도구</strong>:<br />
+시스템 자원의 사용량(CPU, 메모리, 디스크 I/O)을 모니터링하는 다양한 도구가 있음.</p>
+
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">sar</code>, <code class="language-plaintext highlighter-rouge">iostat</code>, <code class="language-plaintext highlighter-rouge">vmstat</code> 등의 명령어를 사용해 자원 사용량을 모니터링.</li>
+      <li><strong>글랜스(Glances)</strong>: CPU, 메모리, 디스크, 네트워크 사용량을 종합적으로 확인할 수 있는 도구.
+        <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>glances
+<span class="nb">sudo </span>glances
+</code></pre></div>        </div>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>메모리 사용량 확인</strong>:</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>free <span class="nt">-mt</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="5-업무-자동화-스케줄링">5. 업무 자동화 (스케줄링)</h4>
+
+<ul>
+  <li>
+    <p><strong>업무 자동화 도구</strong>:</p>
+
+    <ul>
+      <li><strong>at</strong>: 한 번만 실행하는 작업 예약.</li>
+      <li><strong>cron</strong>: 주기적으로 실행하는 작업 예약.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>크론(Cron) 문법</strong>:<br />
+특정 시간에 작업을 주기적으로 실행하도록 예약.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> <span class="k">*</span> command_to_execute
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>크론 작업 예시</strong>:<br />
+매일 오후 11:30에 로그 파일을 저장하는 작업.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>30 23 1 <span class="k">*</span> <span class="k">*</span> /usr/bin/ls <span class="nt">-l</span> /var/log <span class="o">&gt;</span> /data/log-<span class="si">$(</span><span class="nb">date</span> <span class="s1">'+%y-%m-%d'</span><span class="si">)</span>.txt
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>쉘 스크립트를 통한 자동화 예시</strong>:<br />
+서버의 로그 백업 작업을 자동화.</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+<span class="nb">set</span> <span class="si">$(</span><span class="nb">date</span><span class="si">)</span>
+fname <span class="o">=</span> <span class="s2">"%6-%2-%3-backup"</span>
+<span class="nb">tar</span> <span class="nt">-cvzf</span> /home/ubuntu/LABS/<span class="nv">$fname</span>.tar.gz /var/log
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="6-패키지-설치-및-관리">6. 패키지 설치 및 관리</h4>
+
+<ul>
+  <li>
+    <p><strong>APT 패키지 관리</strong>:<br />
+우분투에서 패키지를 설치, 제거할 때 <code class="language-plaintext highlighter-rouge">apt</code> 명령어를 사용함.</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>package_name
+<span class="nb">sudo </span>apt <span class="nt">-y</span> autoremove package_name  <span class="c"># 패키지 제거</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>패키지 저장소 설정</strong>:<br />
+<code class="language-plaintext highlighter-rouge">/etc/apt/sources.list</code> 파일에 패키지 저장소 URL을 추가해 패키지 설치 가능.</p>
+  </li>
+  <li>
+    <p><strong>MariaDB 설치</strong>:<br />
+패키지 저장소를 추가하고, <code class="language-plaintext highlighter-rouge">apt</code>를 사용해 MariaDB 설치 및 설정.</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nt">-y</span> <span class="nb">install </span>mariadb-server
+<span class="nb">sudo </span>systemctl start mariadb
+<span class="nb">sudo </span>systemctl status mariadb
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="7-sql-기초">7. SQL 기초</h4>
+
+<ul>
+  <li>
+    <p><strong>SQL 쿼리 처리 순서</strong>:<br />
+<code class="language-plaintext highlighter-rouge">SELECT</code>, <code class="language-plaintext highlighter-rouge">FROM</code>, <code class="language-plaintext highlighter-rouge">WHERE</code>, <code class="language-plaintext highlighter-rouge">GROUP BY</code>, <code class="language-plaintext highlighter-rouge">HAVING</code>, <code class="language-plaintext highlighter-rouge">ORDER BY</code> 순으로 쿼리가 처리됨.</p>
+
+    <ul>
+      <li><strong>HAVING vs WHERE</strong>: <code class="language-plaintext highlighter-rouge">HAVING</code>은 그룹화된 데이터에 적용되고, <code class="language-plaintext highlighter-rouge">WHERE</code>는 그룹화 전에 적용됨.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>SQL 예시 쿼리</strong>:</p>
+    <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="k">SUM</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span>
+<span class="k">FROM</span> <span class="n">employees</span>
+<span class="k">WHERE</span> <span class="n">job_id</span> <span class="k">NOT</span> <span class="k">LIKE</span> <span class="nv">"%REP%"</span>
+<span class="k">GROUP</span> <span class="k">BY</span> <span class="n">job_id</span>
+<span class="k">HAVING</span> <span class="k">SUM</span><span class="p">(</span><span class="n">salary</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">13000</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="n">salary</span><span class="p">;</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h4 id="8-로그-분석-및-파이프-활용">8. 로그 분석 및 파이프 활용</h4>
+
+<ul>
+  <li>
+    <p><strong>로그 조회 및 분석</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tail</span> <span class="nt">-f</span> /var/log/nginx/access.log  <span class="c"># 실시간 로그 확인</span>
+<span class="nb">awk</span> <span class="s1">'{print $1}'</span> /var/log/nginx/access.log  <span class="c"># 특정 컬럼만 출력</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p><strong>파이프와 AWK 사용</strong>:<br />
+파이프(<code class="language-plaintext highlighter-rouge">|</code>)와 <code class="language-plaintext highlighter-rouge">awk</code> 명령어를 사용해 로그 파일에서 특정 정보를 추출.</p>
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">awk</span> <span class="s1">'{print $1}'</span> /var/log/nginx/access.log | <span class="nb">sort</span> | <span class="nb">uniq</span> <span class="nt">-c</span> | <span class="nb">sort</span> <span class="nt">-r</span>  <span class="c"># 접속 IP 카운트</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/linux/linux-os/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">리눅스 운영체제의 특징</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/airflow-decorator/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Airflow 대그에서 파이썬 함수와 데코레이터</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

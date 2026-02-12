@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>직렬화와 역직렬화로 LangChain 모델 로드하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">직렬화와 역직렬화로 LangChain 모델 로드하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#serialization</span>
+                
+                <span class="tag">#model-persistence</span>
+                
+                <span class="tag">#chain-storage</span>
+                
+                <span class="tag">#json</span>
+                
+                <span class="tag">#data-management</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="직렬화와-역직렬화로-모델-로드하기">직렬화와 역직렬화로 모델 로드하기</h1>
+
+<p>직렬화는 데이터 구조나 객체의 상태를 저장하거나 전송하기 위해 일련의 바이트나 문자열 형식으로 변환하는 과정. 
+RAG 에서 직렬화의 주된 목적은 모델을 저장하는데 잇음. 
+예를 들어 사용자가 만든 체인을 저장해야할 때 체인을 직렬화 해서 json 형식으로 변환해서 저장한다 .</p>
+
+<p>역직렬화는 데이터를 원래 객체나 데이터 구조의 형태로 복원하는 과정.</p>
+
+<h2 id="직렬화-가능-여부-확인하기">직렬화 가능 여부 확인하기</h2>
+<p>모든 데이터 타입이 직렬화가 가능한 것은 아니므로 가능 여부를 먼저 확인해야한다. 
+예를 들어, 랭체인 프레임워크에서 만든 체인의 직렬화 여부를 확인하기 위해서는 이런 메서드를 사용한다.
+체인 뿐만 아니라, llm 객체나 프롬프트에 대해서도 동일한 방법으로 확인이 가능하다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chain = prompt | model
+
+chain.is_lc_serializable()
+</code></pre></div></div>
+
+<h2 id="직렬화하기">직렬화하기</h2>
+<p>직렬화 가능한 객체를 딕셔너리나 json 문자열로 변환한다. 
+이때 객체의 속성과 데이터를 키-값 쌍으로 변환한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from langchain_core.load import dumpd, dumps
+
+dumpd_chain = dumpd(chain)
+</code></pre></div></div>
+
+<h2 id="역직렬화하기">역직렬화하기</h2>
+<p>json이나 딕셔너리 형식으로 직렬화되었던 체인은 역직렬화를 하면 스트링 타입으로 변환된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dumps_chain = dumbps(chain)
+</code></pre></div></div>
+
+<h1 id="pickle-파일로-직렬화하고-로드하기">pickle 파일로 직렬화하고 로드하기</h1>
+<p>직렬화된 파일을 저장할때는 피클이라는 파일 형태로 저장한다. 
+피클이란 파이썬 객체를 바이너리 형태로 변환하는 포맷으로, 파일이나 메모리에 빠르게 저장할 수 있고, 저장된 데이터를 로드해서 복원할 수 잇다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pickle
+
+with open("chain.pkl", "wb") as f:
+    pickle.dump(dumpd_chain, f)
+</code></pre></div></div>
+
+<p>이렇게 저장해두면 이 파일을 제3자에게 전달해서 재사용할 수 있다. 이 파일을 전달받은 사람이 체인을 사용하려면 먼저 파일을 로드하고, 역직렬화해서 사용하면 된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pickle
+
+with open("chain.pkl", "rb") as f:
+    loaded_chain = pickle.load(f)
+
+from langchain_core.load import load
+
+chain_from_file = load(loaded_chain)
+
+response = chain_from_file.invoke(...)
+</code></pre></div></div>
+
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/langchain-memory/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LangChain 메모리 시스템</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/text-split/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Chunk 알고리즘</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

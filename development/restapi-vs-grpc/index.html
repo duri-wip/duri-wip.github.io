@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API vs gRPC: 마이크로서비스 통신 방식 비교</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">REST API vs gRPC: 마이크로서비스 통신 방식 비교</h1>
+        <div class="post-meta">
+            <time class="post-date">2026년 02월 05일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#grpc</span>
+                
+                <span class="tag">#restapi</span>
+                
+                <span class="tag">#microservice</span>
+                
+                <span class="tag">#protobuf</span>
+                
+                <span class="tag">#python</span>
+                
+                <span class="tag">#api</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="grpc란">gRPC란?</h1>
+
+<p>gRPC는 구글이 만든 고성능 오픈소스 RPC(Remote Procedure Call) 프레임워크이다. 다른 서버에 있는 함수를 마치 내 서버에 있는 함수처럼 호출해서 쓸 수 있게 해주는 기술이다.</p>
+
+<h1 id="rest-api-vs-grpc">REST API vs gRPC</h1>
+
+<p>마이크로서비스 환경에서 서비스 간 통신(Internal API Call)에 REST API와 gRPC는 다음 관점에서 다르다.</p>
+
+<h2 id="1-데이터-형식">1. 데이터 형식</h2>
+
+<p><strong>REST API</strong>는 JSON을 사용한다.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"홍길동"</span><span class="p">,</span><span class="w"> </span><span class="nl">"age"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>텍스트 기반이라 컴퓨터가 이를 다시 해석(Parsing)해야 해서 상대적으로 느리다.</p>
+
+<p><strong>gRPC</strong>는 Protocol Buffers(Protobuf)라는 이진 데이터를 사용한다. 데이터를 아주 작게 압축된 이진 코드(Binary)로 보내기 때문에:</p>
+<ul>
+  <li>데이터 크기가 훨씬 작다</li>
+  <li>컴퓨터가 해석할 필요 없이 바로 처리한다</li>
+  <li>통신 속도가 획기적으로 빠르다</li>
+</ul>
+
+<h2 id="2-통신-프로토콜">2. 통신 프로토콜</h2>
+
+<p><strong>REST API</strong></p>
+<ul>
+  <li>주로 HTTP/1.1 사용</li>
+  <li>요청-응답이 1:1로 매핑되어 단방향으로만 동작</li>
+  <li>요청 하나당 연결을 하나씩 맺고 끊어서 오버헤드가 크다</li>
+</ul>
+
+<p><strong>gRPC</strong></p>
+<ul>
+  <li>HTTP/2 사용</li>
+  <li>양방향 통신 가능</li>
+  <li>하나의 연결로 여러 요청을 동시에 처리(Multiplexing)</li>
+  <li>마이크로서비스끼리 수많은 데이터를 주고받을 때 유리하다</li>
+</ul>
+
+<h2 id="3-type-safety">3. Type Safety</h2>
+
+<p><strong>gRPC</strong>는 <code class="language-plaintext highlighter-rouge">.proto</code>라는 파일로 서로 주고받을 데이터 타입을 엄격하게 미리 정의한다. 코드를 짤 때부터 에러를 잡을 수 있어(Type-safe), 서비스 간의 통신 오류를 줄여준다.</p>
+
+<h1 id="grpc-구현-방법">gRPC 구현 방법</h1>
+
+<p>gRPC를 만들려면 코드를 짜기 전에 <code class="language-plaintext highlighter-rouge">.proto</code>라는 파일부터 먼저 만들어야 한다. 여기에는 IDL(Interface Definition Language)이라는 인터페이스 정의 언어가 사용된다.</p>
+
+<h2 id="단계-1-명세서-작성-userproto">단계 1: 명세서 작성 (<code class="language-plaintext highlighter-rouge">user.proto</code>)</h2>
+
+<div class="language-protobuf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">syntax</span> <span class="o">=</span> <span class="s">"proto3"</span><span class="p">;</span>
+
+<span class="c1">// 서비스(함수) 정의</span>
+<span class="kd">service</span> <span class="n">UserService</span> <span class="p">{</span>
+  <span class="k">rpc</span> <span class="n">GetUser</span> <span class="p">(</span><span class="n">UserRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">UserResponse</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 주고받을 데이터 모양 정의</span>
+<span class="kd">message</span> <span class="nc">UserRequest</span> <span class="p">{</span>
+  <span class="kt">int32</span> <span class="na">user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">UserResponse</span> <span class="p">{</span>
+  <span class="kt">int32</span> <span class="na">user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">user_id = 1</code>처럼 숫자를 지정하는 것은 필드의 고유 태그이다. 확장할때 좋다는데.. 아직 잘 모르겠음</p>
+
+<h2 id="단계-2-파이썬-코드-생성">단계 2: 파이썬 코드 생성</h2>
+
+<p>다음 명령어를 실행하면 파이썬 파일 2개가 생성된다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> grpc_tools.protoc <span class="nt">-I</span><span class="nb">.</span> <span class="nt">--python_out</span><span class="o">=</span><span class="nb">.</span> <span class="nt">--grpc_python_out</span><span class="o">=</span><span class="nb">.</span> user.proto
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">user_pb2.py</code>: 데이터 구조를 담고 있다</li>
+  <li><code class="language-plaintext highlighter-rouge">user_pb2_grpc.py</code>: 통신을 담당한다</li>
+</ul>
+
+<p>두 개의 파일로 분리한 이유는 <strong>책임과 역할의 분리</strong> 때문이다. 어떤 시스템에서는 데이터 구조만 필요하고 서버 기능은 필요 없을 수 있다. 또한 의존성 관리도 더 쉬워진다.</p>
+
+<h2 id="단계-3-서버-구현-serverpy">단계 3: 서버 구현 (<code class="language-plaintext highlighter-rouge">server.py</code>)</h2>
+
+<p>생성된 파일을 import해서 빈칸 채우기를 한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">grpc</span>
+<span class="kn">from</span> <span class="n">concurrent</span> <span class="kn">import</span> <span class="n">futures</span>
+<span class="kn">import</span> <span class="n">user_pb2</span>        <span class="c1"># 생성된 데이터 코드
+</span><span class="kn">import</span> <span class="n">user_pb2_grpc</span>   <span class="c1"># 생성된 통신 코드
+</span>
+<span class="c1"># 생성된 부모 클래스(UserServiceServicer)를 상속받는다
+</span><span class="k">class</span> <span class="nc">UserService</span><span class="p">(</span><span class="n">user_pb2_grpc</span><span class="p">.</span><span class="n">UserServiceServicer</span><span class="p">):</span>
+
+    <span class="c1"># 비즈니스 로직을 채워 넣는다
+</span>    <span class="k">def</span> <span class="nf">GetUser</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="c1"># request.user_id처럼 점(.)으로 데이터에 접근한다
+</span>        <span class="k">return</span> <span class="n">user_pb2</span><span class="p">.</span><span class="nc">UserResponse</span><span class="p">(</span>
+            <span class="n">user_id</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">김제미니</span><span class="sh">"</span>
+        <span class="p">)</span>
+
+<span class="c1"># 서버 실행 코드
+</span><span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">grpc</span><span class="p">.</span><span class="nf">server</span><span class="p">(</span><span class="n">futures</span><span class="p">.</span><span class="nc">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">user_pb2_grpc</span><span class="p">.</span><span class="nf">add_UserServiceServicer_to_server</span><span class="p">(</span><span class="nc">UserService</span><span class="p">(),</span> <span class="n">server</span><span class="p">)</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">add_insecure_port</span><span class="p">(</span><span class="sh">'</span><span class="s">[::]:50051</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">wait_for_termination</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">serve</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="단계-4-클라이언트-구현-clientpy">단계 4: 클라이언트 구현 (<code class="language-plaintext highlighter-rouge">client.py</code>)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">grpc</span>
+<span class="kn">import</span> <span class="n">user_pb2</span>
+<span class="kn">import</span> <span class="n">user_pb2_grpc</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="c1"># 서버와 연결하는 통로 생성
+</span>    <span class="k">with</span> <span class="n">grpc</span><span class="p">.</span><span class="nf">insecure_channel</span><span class="p">(</span><span class="sh">'</span><span class="s">localhost:50051</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+        <span class="c1"># 서버의 함수를 호출할 대리인(Stub) 생성
+</span>        <span class="n">stub</span> <span class="o">=</span> <span class="n">user_pb2_grpc</span><span class="p">.</span><span class="nc">UserServiceStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+
+        <span class="c1"># 실제 호출
+</span>        <span class="n">response</span> <span class="o">=</span> <span class="n">stub</span><span class="p">.</span><span class="nc">GetUser</span><span class="p">(</span><span class="n">user_pb2</span><span class="p">.</span><span class="nc">UserRequest</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">123</span><span class="p">))</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">받은 데이터: </span><span class="si">{</span><span class="n">response</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s"> (ID: </span><span class="si">{</span><span class="n">response</span><span class="p">.</span><span class="n">user_id</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">run</span><span class="p">()</span>
+</code></pre></div></div>
+
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/unit-test-design/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">단위 테스트 설계하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/k8s-architecture-and-grpc/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">쿠버네티스 아키텍처와 gRPC</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

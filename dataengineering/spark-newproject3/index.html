@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spark 클러스터 구축하기3</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Spark 클러스터 구축하기3</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 28일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">spark</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#spark</span>
+                
+                <span class="tag">#cluster-setup</span>
+                
+                <span class="tag">#distributed-computing</span>
+                
+                <span class="tag">#high-availability</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>지난 포스팅에서 스파크를 각 노드에 설치하고 config 설정을 통해 클러스터를 구성하는 과정을 마쳤다.</p>
+
+<p>그런데 이 방식은 마스터 노드를 명시적으로 지정함으로써 마스터 노드에 장애가 생기면 클러스터 전체를 운영할 수 없게 된다는 치명적인 단점을 가지게 된다.</p>
+
+<h1 id="spark-클러스터의-고가용성">spark 클러스터의 고가용성</h1>
+
+<h3 id="spark는-내장-하둡을-쓰는데-하둡의-yarn을-쓸수는-없을까">spark는 내장 하둡을 쓰는데 하둡의 yarn을 쓸수는 없을까?</h3>
+
+<p>spark3.5.1을 설치하려고 하면 하둡이 있는 버전과 없는 버전(without hadoop)이 있다. 그렇지만 하둡이 없는 버전이라고 해서 하둡이 필요 없는것이 아니다. 사용자가 설정한 하둡을 쓸 수 있는 버전에 불과하다.
+하둡이 있는 버전의 스파크를 설치하면 파일 내에 yarn(하둡 에코시스템의 리소스 관리 시스템) 파일이 있게 된다. 그러면 그 yarn을 활용해서 고가용성을 확보할수는 없을까?</p>
+
+<p>결론부터 말하자면 이 프로젝트에서는 그럴 수 <strong>없다.</strong></p>
+
+<h4 id="이유-1">이유 1:</h4>
+
+<p>얀을 이용하려면 먼저 하둡 클러스터를 구성해야한다. 그리고 얀을 마스터로 지정해 얀 클러스터에 spark 작업을 spark-submit 을 이용해서 제출해야한다.</p>
+
+<p>그렇지만 이 프로젝트에서는 프로그램을 완전히 구성해서 짜지 않고 주피터랩을 이용해서 실험환경을 구성할 계획이므로 하둡 클러스터를 설계할 수는 없다.</p>
+
+<h4 id="이유-2">이유 2:</h4>
+
+<p>스파크를 설치하면서 함께 설치된 내장 하둡을 클러스터를 구성할때 사용하려면 추가 구성이 필요하다. 이 추가 구성이 없으면(하둡 클러스터를 구성하지 않으면) 독립적인 얀 리소스매니저와 노드매니저를 활성화할 수 없다.</p>
+
+<p>즉 이 프로젝트에서 원하는 것처럼 failover를 구현할 수는 없는것이다.</p>
+
+<hr />
+
+<h3 id="따라서-주키퍼를-이용해-고가용성을-확보하도록-한다">따라서 주키퍼를 이용해 고가용성을 확보하도록 한다.</h3>
+
+<h2 id="1-모든-노드에-주키퍼-설치하기">1. 모든 노드에 주키퍼 설치하기</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install </span>zookeeperd
+</code></pre></div></div>
+
+<h3 id="주키퍼-설정">주키퍼 설정</h3>
+
+<p><strong>/etc/zookeeper/conf/zoo.cfg</strong>파일을 수정한다(기본경로)</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#모든 클러스터 노드 리스트 설정</span>
+server.1<span class="o">=</span>zookeeper-node-1:2888:3888
+server.2<span class="o">=</span>zookeeper-node-2:2888:3888
+server.3<span class="o">=</span>zookeeper-node-3:2888:3888
+</code></pre></div></div>
+
+<p>여기서 zookeeper-node-1…에 들어갈 수 있는 정보는 다음과 같다.</p>
+
+<ul>
+  <li>/etc/hosts 에 설정한 이름</li>
+  <li>노드의 ip</li>
+</ul>
+
+<p><strong>/var/share/zookeeper/conf/</strong> 디렉토리 안에 myid 파일을 만들어준다</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> <span class="nt">-i</span>
+<span class="nb">echo</span> <span class="s1">'1'</span> <span class="o">&gt;</span> /var/share/zookeeper/conf/myid
+</code></pre></div></div>
+
+<p>각각의 노드에 대해 맞게 id를 지정해줘야함</p>
+
+<h4 id="방화벽-규칙-설정">방화벽 규칙 설정</h4>
+
+<p>2888, 3888, 2181을 주키퍼가 사용할 포트이므로 미리 열어준다.</p>
+
+<p>스파크 마스터 노드는 7077을 사용하므로 이것도 열어준다.</p>
+
+<h2 id="2-스파크-설정-추가하기">2. 스파크 설정 추가하기</h2>
+
+<p>$SPARK_HOME/conf/spark-env.sh에 다음과 같은 설정을 추가한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">SPARK_DAEMON_JAVA_OPTS</span><span class="o">=</span><span class="s2">"-Dspark.deploy.recoveryMode=ZOOKEEPER -Dspark.deploy.zookeeper.url=zookeeper-node-1:2181,zookeeper-node-2:2181,zookeeper-node-3:2181 -Dspark.deploy.zookeeper.dir=/spark"</span>
+</code></pre></div></div>
+
+<p>이때 기존에 worker, master 설정을 한게 있다면 확인하고 삭제해주도록 한다.</p>
+
+<h2 id="3-실행하기">3. 실행하기</h2>
+
+<p>여기서부터가 복잡한데, 왜 사람들이 이런식으로 클러스터를 구성하지 않는지, k8s나 하둡을 사용하는지 알 수 있는 대목이었다.</p>
+
+<h3 id="1-각-노드에서-마스터-노드를-실행한다-모든-노드에서-실행해야함">1. 각 노드에서 마스터 노드를 실행한다. (모든 노드에서 실행해야함)</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$SPARK_HOME</span>/sbin/start-master.sh
+</code></pre></div></div>
+
+<p>그러면 각각의 노드에서 마스터 프로세스가 실행되게 되고, 이 과정에서 주키퍼가 리더를 선출하여 하나의 마스터 노드만 활성 상태로 운영된다.
+나머지 선출되지 못한 노드들은 스탠바이 상태가 된다.</p>
+
+<h3 id="2-어떤-노드가-리더로-선출되었는지-확인하기">2. 어떤 노드가 리더로 선출되었는지 확인하기</h3>
+
+<p>주키퍼 명령어 쉘을 이용해서 리더로 선출된 노드의 정보를 확인한다.
+zkCli.sh에 접속하면 되는데, 이 파일은 보통 <strong>/usr/share/zookeeper/bin/</strong> 에 저장되어 있다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/usr/share/zookeeper/bin/zkCli.sh <span class="nt">-server</span> spark01:2181
+</code></pre></div></div>
+
+<p>:::warning
+log4j:ERROR setFile(null,true) call failed.
+java.io.FileNotFoundException: /var/log/zookeeper/zookeeper.log (Permission denied)
+:::</p>
+
+<p>이런 에러가 뜨는 경우에는 log 파일에 접근할 권한이 없어서 그럴 수 있다. 나는 소유자를 확인하고 그 유저로 확인하는 방법으로 해결했다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo</span> <span class="nt">-u</span> zookeeper /usr/share/zookeeper/bin/zkCli.sh <span class="nt">-server</span> spark01:2181
+</code></pre></div></div>
+
+<p>이 쉘에 접속해서 interactive 방식으로 선출된 리더 정보를 확인한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>get /spark/master_status
+</code></pre></div></div>
+
+<p>이런식으로 정보가 뜬다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[zk: spark02:2181(CONNECTED) 0] get /spark/master_status
+10.178.0.8
+cZxid = 0x300000004
+ctime = Mon Oct 28 05:45:10 UTC 2024
+mZxid = 0x300000004
+mtime = Mon Oct 28 05:45:10 UTC 2024
+pZxid = 0x300000004
+cversion = 0
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 10
+numChildren = 0
+</code></pre></div></div>
+
+<h3 id="3-리더-이외의-노드에서-스파크-프로세스를-끄고-워커-노드-시작하기">3. 리더 이외의 노드에서 스파크 프로세스를 끄고 워커 노드 시작하기</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ps <span class="nt">-ef</span> |grep spark
+</code></pre></div></div>
+
+<p>로 기존에 마스터 버전으로 켰던 스파크 프로세스의 pid를 확인하고 삭제한다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$SPARK_HOME</span>/sbin/start-worker.sh spark://&lt;선출된 리더 ip&gt;:7077
+</code></pre></div></div>
+
+<p>선출된 리더 아이피를 가지고 워커 노드를 시작한다.</p>
+
+<p><img src="/assets/images/post_img/spark-cluster-master-web-ui.png" alt="구성된 모습" /></p>
+
+<p>마스터 웹 ui를 확인하면 이렇게 구성된걸 볼 수 있다.</p>
+
+<p>–</p>
+
+<p>리더에 장애가 발생하면 주키퍼가 이를 감지하여 새로운 노드를 리더로 선출한다. ( <strong>fail over</strong> )</p>
+
+<p><strong>fail back 하는 법 : 장애노드 복구 후 원래 상태로 복귀하기</strong>
+이러한 설정에서는 fail back이 자동으로 이뤄지지 않는다. 따라서 복구된 노드에서 다시 start-master 쉘을 실행해줘야 클러스터에 노드로 등록된다.</p>
+
+<p><strong>fail back이 자동으로 되지 않는 이유:</strong></p>
+
+<ul>
+  <li>fail back은 복구된 리더가 자동으로 리더 역할을 맡도록 설정해준다.</li>
+  <li>그런데 스파크 고가용성은 안정성을 우선시하기 때문에 이미 안정적으로 운영중인 리더를 교체하지 않는다.</li>
+</ul>
+
+<hr />
+
+<p>이렇게 매번 수동으로 모든걸 해주기 어렵기 때문에 아무도 이렇게 안하나보다..
+자동화 스크립트를 짜서 그걸 실행하는 방법이 나을것 같다.</p>
+
+<h3 id="4-jupyter-lab-실행하기">4. jupyter lab 실행하기</h3>
+
+<ul>
+  <li>주피터랩을 모든 노드에 설치함</li>
+  <li>주피터랩을 실행할 쉘 파일을 모든 노드에 만들어줌</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># pyenv 환경 초기화</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">"</span><span class="nv">$HOME</span><span class="s2">/.pyenv/bin:</span><span class="nv">$PATH</span><span class="s2">"</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>pyenv init <span class="nt">--path</span><span class="si">)</span><span class="s2">"</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>penv init -<span class="si">)</span><span class="s2">"</span>
+<span class="nb">eval</span> <span class="s2">"</span><span class="si">$(</span>pyenv virtualenv-init -<span class="si">)</span><span class="s2">"</span>
+
+<span class="c"># 가상환경 활성화</span>
+pyenv activate spark
+
+
+<span class="c"># Jupyter Lab 실행</span>
+~/.pyenv/versions/spark/bin/jupyter lab <span class="nt">--no-browser</span> <span class="nt">--port</span><span class="o">=</span>8888 <span class="nt">--ip</span><span class="o">=</span>0.0.0.0
+</code></pre></div></div>
+
+<ul>
+  <li>고정적으로 하나의 노드에서 마스터 ip를 찾아서 주피터랩을 실행하도록 하는 쉘을 만듦</li>
+</ul>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Zookeeper로부터 현재 마스터 IP 조회</span>
+<span class="k">while </span><span class="nb">true</span><span class="p">;</span> <span class="k">do
+    </span><span class="nv">master_ip</span><span class="o">=</span><span class="si">$(</span><span class="nb">sudo</span> <span class="nt">-u</span> zookeeper /usr/share/zookeeper/bin/zkCli.sh <span class="nt">-server</span> spark01:2181 get /spark/master_status | <span class="nb">grep</span> <span class="nt">-Eo</span> <span class="s1">'([0-9]{1,3}\.){3}[0-9]{1,3}'</span><span class="si">)</span>
+
+    <span class="k">if</span> <span class="o">[</span> <span class="o">!</span> <span class="nt">-z</span> <span class="s2">"</span><span class="nv">$master_ip</span><span class="s2">"</span> <span class="o">]</span><span class="p">;</span> <span class="k">then
+        </span><span class="nb">echo</span> <span class="s2">"마스터 IP: </span><span class="nv">$master_ip</span><span class="s2">"</span>
+
+        <span class="c"># SSH 터널링 설정 (기존 터널 종료 후 재설정)</span>
+        pkill <span class="nt">-f</span> <span class="s2">"ssh -L 8888"</span>
+        ssh <span class="nt">-L</span> 8888:<span class="nv">$master_ip</span>:8888 swc@<span class="nv">$master_ip</span> <span class="nt">-f</span> <span class="s2">"~/start_jupyter.sh"</span> &amp;
+
+    <span class="k">fi
+
+    </span><span class="nb">sleep </span>50  <span class="c"># 주기적 확인</span>
+<span class="k">done</span>
+</code></pre></div></div>
+
+<p>이 쉘을 실행하면 마스터 ip를 찾아서 주피터 랩을 실행해준다.
+그러면 이 마스터 ip의 8888번 포트에 들어가 주피터랩에 접근한다.</p>
+
+<hr />
+
+<p>왜 아무도 이런짓을 안하는지 잘 알수 있었다..</p>
+
+<p>다음 포스팅에서는 드디어 수집을 해보겠다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/spark-newproject2/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Spark 클러스터 구축하기2</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/langchain-framework/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">langchain 프레임워크</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

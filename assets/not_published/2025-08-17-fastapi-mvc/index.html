@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI MVC 패턴</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">FastAPI MVC 패턴</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 17일</time>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#mvc</span>
+                
+                <span class="tag">#router</span>
+                
+                <span class="tag">#design-patterns</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="라우터">라우터</h1>
+
+<p>라우터는 클라이언트의 요청을 해당 요청에 맞는 핸들러 또는 컨트롤러로 연결해주는 메커니즘이다.
+일반적으로 http요청과 url 경로를 특정 함수 또는 핸들러로 매핑해준다.</p>
+
+<p>mvc 패턴에서는 라우터의 역할을 하는 구성요소를 컨트롤러라고 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@router.post(prefix="/users",status_code=201)
+def create_user():
+    return "user created"
+</code></pre></div></div>
+
+<p>여기서 status_code는 유저 리소스 생성이 성공했을때 응답의 http 상태 코드를 말한다.
+이 상태 코드에 대한 mdn문서의 설명</p>
+
+<ul>
+  <li>http 201
+요청이 성공적으로 처리되었으며, 자원이 생성되었음을 나타내는 성공상태 응답코드. 응답이 반환되기 이전에 새로운 리소스가 생성되며 응답 메시지 본문에 새로 만들어진 리소스 혹은 리소스에 대한 설명과 링크를 메시지 본문에 넣어 반환합니ㅏㄷ.</li>
+</ul>
+
+<h2 id="파이단틱을-통한-유효성-검사">파이단틱을 통한 유효성 검사</h2>
+
+<p>fastapi는 400에러를 422에러로 처리하고 있다. 이를 http 스펙에 맞춰서다른 에러코드로 변경하고 싶다면 변경하면된다.
+본문의 타입을 잘못 전달하면 에러가 발생하도록 해야하고, 어떤 에러가 나오도록하는지는 설계자의 몫이다.</p>
+
+<ul>
+  <li>
+    <p>http 400
+서버가 클라이언트오류(잘못된 요청 구문, 유효하지 않은 요청 메시지 프레이밍, 변조된 요청 라우팅)을 감지해 요청을 처리할 수 없거나 하지 않는다는 것</p>
+  </li>
+  <li>
+    <p>http 422
+서버가 요청 엔티티의 콘텐츠 형식을 이해했고 요청 엔티티의 문법도 올바르지만 요청된 지시를 처리할 수 없음</p>
+  </li>
+</ul>
+
+<p>책에서 제안하는 방법</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<p>request validation error가 발생했을때의 에러 헨들러를 등록하고, 응답 코드를 400으로 변환해서 반환하도록 한다.</p>
+
+<p>애플리케이션 계층에 있는 유저 서비스 객체를 만들고 유저 생성 유스케이스 함수를 호출해서 구현한다.</p>
+
+<p>-&gt; 인프라 계층</p>
+
+<h1 id="orm--객체-관계-매핑">ORM = 객체 관계 매핑</h1>
+
+<p>데이터베이스와 객체 지향 프로그래밍 언어 간의 데이터 변환을 도와주는 기술이다.
+orm을 쓰지 않으면 프로그램에 sql을 직접 기술하고, 수행 결과를 가공하는 작업을 해야한다.
+또한 특정 데이터베이스에 종속성을 덜어냄으로써 이식성을 높일 수 있다.</p>
+
+<p>fastapi는 객체관계매핑이 내장되어있지 않으므로 따로 설치해서 사용해야하고, 가장 많이 쓰는 sqlalchemy를 사용한다.</p>
+
+<p>루트 디렉토리에 생성하는 데이터베이스 연결 스크립트</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SQLALCHEMY_DB_URL = "...://..."
+engine = create_engine(SQLALCHEMY_DB_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>SessionLocal 데이터베이스 세션을 생성한다. 옵션으로 오토커밋을 설정할 수 잇다.</p>
+  </li>
+  <li>Base : 모듈에서 이 클래스를 상속받아 사용한다.</li>
+  <li>declarative_base는 선언형 클래스를 정의하기 위한 기본 클래스를 생성한다. 이 기본클래스는 메타 클래스를 생성하는데, 이는 적합한 table 객체를 생성하고 클래스 내에서 선언된 정보와 클래스의 하위 클래스로부터 제공된 정보를 기반으로 적절한 매퍼를 생성한다.</li>
+</ul>
+
+<h1 id="alembic으로-테이블-생성-및-리비전-관리">alembic으로 테이블 생성 및 리비전 관리</h1>
+
+<h2 id="순서">순서</h2>
+
+<ol>
+  <li>
+    <p>설치
+<code class="language-plaintext highlighter-rouge">pip install alembic</code></p>
+  </li>
+  <li>초기화
+<code class="language-plaintext highlighter-rouge">alembic init migrations</code>
+alembic.ini파일과 migration하위에 여러 파일이 생성된다.</li>
+  <li>ini파일 수정</li>
+</ol>
+
+<ul>
+  <li>리비전 파일 형식의 지정: file_template 설정 주석 풀기</li>
+  <li>사용할 데이터베이스 url 설정에 맞는거 넣기
+여기에서는 sqlalchemy.url = “database.py에 설정한 값과 동일한 라인 넣기”로 마쳤다.</li>
+</ul>
+
+<ol>
+  <li>env.py의 수정
+database모듈을 임포트해 target.metadata에 지정해준다.
+이건 어떻게 가능한거지?? sql alchemy로 세션을 만들면 자동으로 메타데이터 클래스가 생성되는건가?</li>
+</ol>
+
+<p>데이터베이스 모델을 지정해준다.</p>
+
+<ol>
+  <li>alembic revision파일의 생성
+리비전 파일은 스키마의 버전을 추적하고 스키마 변경 내역을 기록하는 역할을 한다.
+<code class="language-plaintext highlighter-rouge">alembic revision --autogenerate</code></li>
+</ol>
+
+<p>리비전 파일이 있으면 이전의 어떤 리비전 파일에 의존하는지를 통해 데이터베이스를 새로 생성할때 마이그레이션을 순서대로 할 수 있다.</p>
+
+<p>– 가장 최신의 리비전 파일까지 수행하기
+<code class="language-plaintext highlighter-rouge">alembic upgrade head</code></p>
+
+<p>– 수행한 마이그레이션 취소하기 :가장 최근의 리비젼으로 되돌리기
+<code class="language-plaintext highlighter-rouge">alembic downgrade -1</code></p>
+
+<h1 id="인프라-계층-객체구현하기">인프라 계층 객체구현하기</h1>
+
+<ul>
+  <li>try ~ finally문으로 감싸서 리소스 누수를 막자
+왜 불러올때 vo라고 불러올까?</li>
+  <li>레포지토리에서 처리 결과로 도메인 객체를 넘겨주는데, 이를 매번 매핑하지 않고 간편하게 처리하기
+sqlalchemy 에서 제공하는 inspect함수를 통해 row의 속성을 딕셔너리로 변환하자
+before</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>return UserVO(
+    id=user.id
+    email=user.email
+    ...
+)
+</code></pre></div></div>
+
+<p>after</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def row_to_dict(row) -&gt; dict:
+    return {key: getattr(key, row) for key in inspect(row).attrs.keys()}
+
+...
+
+return UserVO(**row_to_dict(user))
+</code></pre></div></div>
+
+<p>안쪽부터 각 계층을 구현하면서 해당 계층에 맞는 모자로 바꿔 써보기
+모자 바꿔쓰기 : 테스트코드, 실행코드, 리팩터링 코드를 작성할 때 각각에 해당하는 코드 작성자의 입장에서 코드를 바라보는 것. 레드-그린-리팩터라고 부르며 정신을 각각의 상태에 맞게 쉽게 바꾸도록 모자를 바꿔쓰라는 비유다.</p>
+
+<h2 id="의존성-주입">의존성 주입</h2>
+
+<p>의존성 주입은 객체간의 의존성을 외부에서 주입하는 소프트디자인패턴이다.
+의존성은 어떤 함수, 클래스, 모듈이 다른 구성요소에 의존해 해당 구성요소를 사용할때 발생한다. 의존성이 발생하는것은 막을 수 없고 막아서도 안되나, 의존성 객체의 생성을 직접 수행하는 방식으로 구성되서는 안된다.
+의존성의 구현이 변경되생성자가 바뀐다면 의존성을 사용하는 모든 곳에서 수정이 일어나기때문이다.
+의존성 주입의 유형에 대해서 알아보자.</p>
+
+<ol>
+  <li>생성자 주입(constructor)
+의존성을 객체 생성자를 통해 주입하는 방법이다.
+객체가 생성될 때 필요한 의존성을 외부에서 주입해 객체를 생성한다.</li>
+  <li>세터 주입(setter)
+의존성을 세터 메서드를 통해 주입한다. 객체 생성 후에 의존성을 주입할 수 있다.</li>
+  <li>메서드 주입
+의존성을 메서드의 인수를 통해 주입한다. 해당 메서드를 호출할 때 의존성을 전달한다.</li>
+</ol>
+
+<p>모든 의존성 객체를 한곳에서 관리함으로써 다음과 같은 이점을 얻을 수 있다.</p>
+
+<ul>
+  <li>공통 로직을 공유하고자 할때</li>
+  <li>데이터베이스 연결을 공유해서 사용하고자 할 때</li>
+  <li>인증, 권한 관리 등 보안을 강화하고자 할 때</li>
+</ul>
+
+<p>fastapi에서는 의존성 주입 방식을 제공한다. 이 방식에서 제공하는 이점이 뭔지 알아보고, 의존성 주입 프레임워크를 이용하는 것의 장점은 무엇인지 알아보자.</p>
+
+<h1 id="fastapi-depends">fastapi-depends</h1>
+
+<p>depends함수의 원형은 다음과 같다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def Depends(
+    dependancy: Optional[Callable[..., Any]] = None, *, use_cache: bool = True
+) -&gt; Any:
+    return params.Depends(dependancy=dependancy, use_cache=use_cache)
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>dependancy
+dependable, callable 객체를 전달받아 Depends가 선언된 함수가 실행될 때 호출된다.</p>
+  </li>
+  <li>
+    <p>use_cache
+api 요청으로 의존성이 처음 호출된 후, 해당 의존성이 요청을 처리하는 나머지 과정에서 다시 선언되면 그 값은 요청의 나머지 부분동안 재사용된다.</p>
+  </li>
+</ul>
+
+<h1 id="dependancy-injector">dependancy-injector</h1>
+
+<p>fastapi가 제공하는 depends는 사용하기 편리하지만, 의존성 역전의 관점에서 보면 여전히 의존성이 주입되는 객체를 만들어야하므로 직접 의존할 수 밖에 없다는문제가 있다.
+이때 이 프레임워크를 자주 사용한다.
+dependancy-injector는 ioc컨테이너를 제공한다.
+ioc컨테이너란 제어역전 컨테이너라고도 불리며, ioc 원칙에 따라 객체의 생성 및 의존성을 관리한다.
+애플리케이션이 구동될 때 ioc 컨테이너에 미리 의존성을 제공하는 객체를 등록해두고 필요한 모듈에서 주입하도록 할 수 있다. 이렇게 되면 주입할 때의 타입을 인터페이스로 미리 선언하더라도 실제로 주입되는 객체는 구현체가 되도록 할 수 있게 된다.</p>
+
+<p>컨테이너 파일을 만든다.</p>
+
+<blockquote>
+  <p>containers.py
+from dependency_injector import containers, providers</p>
+</blockquote>
+
+<p>class Container(containers.DeclarativeContainer):
+wiring_config = containers.WiringConfiguration(
+packages=[“user”]
+)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>user_repo = providers.Factory(UserRepository)
+</code></pre></div></div>
+
+<p>providers 모듈에는 팩토리 외에도 다양한 프로바이더를 제공한다.</p>
+
+<ul>
+  <li>factory: 객체를 매번 생성하기</li>
+  <li>singleton: 처음호출될 때 생성한 객체를 제활용</li>
+</ul>
+
+<p>사용하는 방법은 이렇다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dependency_injector.wiring import inject, Provide
+from fastapi import Depends
+from containers import Container
+
+class UserService:
+    @inject
+    def __init__(
+        self,
+        user_repo: IUserRepository = Depends(
+            Provide[Container.user_repo]
+        )
+    ):
+        self.user_repo = user_repo
+        ...
+
+</code></pre></div></div>
+
+<p>Depends의 함수로 컨테이너에 등록된 UserRepository의 팩토리를 제공한다. !</p>
+
+<p>Depends를 안쓰고 ? 주입할 수도 있다. fastapi를 안쓸수도 잇으니깐..</p>
+
+<blockquote>
+  <p>containers.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dependancy_injector import containers, providers
+...
+
+class Container(containers.DeclarativeContainser):
+    wiring_config = containers.WiringConfiguration(
+        packages=["user"]
+    )
+
+    user_repo = providers.Factory(UserRepository)
+    user_serive = providers.Factory(UserService, user_repo=user_repo)
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>user_controller.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>@router.post("")
+@inject
+def create_user(
+    user: CreateUserBody,
+    user_service: UserService = Depends(Provice[Containser.user_service])
+)
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

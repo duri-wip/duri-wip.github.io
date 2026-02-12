@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastAPI Background Tasks</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">FastAPI Background Tasks</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 17일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#background-tasks</span>
+                
+                <span class="tag">#async</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="background-tasks">background tasks</h1>
+
+<p>클라이언트로부터 요청을 받은 우 작업을 백그라운드에서 수행하도록 하는 도우미 클래스.
+http 요청을 처리할때 작업이 오래 걸리거나 비동기적으로 처리해야하는 경우
+클라이언트에게 즉시 응답을 보내고 작업을 백그라운드에서 처리하고자 하는 경우에 사용한다.</p>
+
+<h2 id="유스케이스-1">유스케이스 1</h2>
+<h3 id="엔드포인트에서-매개변수로-주입받아-사용하고-fastapi가-나머지를-처리하도록-하는-경우">엔드포인트에서 매개변수로 주입받아 사용하고 fastapi가 나머지를 처리하도록 하는 경우</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import asyncio
+
+from fastapi import APIRouter, BackgroundTasks
+
+router = APIRouter()
+async def perform_task(task_id: int):
+    await asyncio.sleep(3)
+
+@router.post("")
+def create_task(task_id, background_tasks: BackgroundTasks):
+    background_tasks.add_task(perform_task, task_id)
+    return
+</code></pre></div></div>
+
+<ol>
+  <li>백그라운드로 수행되는 작업 정의</li>
+  <li>라우터 함수에 BackgroundTasks 객체 주입</li>
+  <li>백그라운드 작업 추가</li>
+  <li>응답 반환</li>
+</ol>
+
+<p>BackgroundTasks클래스는 starlette.background 모듈에서 제공한다. fastapi에 포함돼 있으므로 모듈에서 가져와 사용할 수 있다.
+starlette.background 의 Background(s가 없음)이 아니다.</p>
+
+<p>backgroundtask 객체는 dependable, callable하지 않아서 depends로 불러와서 사용할 수 없기 때문에 직접 주입해서 사용해야 한다.</p>
+
+<h1 id="셀러리">셀러리</h1>
+
+<h2 id="셀러리란">셀러리란?</h2>
+
+<p>유닉스 시스템 기반의 분산작업 큐로, 비동기 작업을 처리하고 관리하는데 사용된다.
+주로 백그라운드 작업을 처리하거나 스케줄링하고 분산 환경에서 작업을 실행한다.
+파이썬 기반의 메시징 시스템은 셀러리 외에도 레디스 큐, 드라마틱 휴이, aiohttp와 같은 것을 고려할 수 잇고, 카프카도 있다.</p>
+
+<p>메시징 시스템의 특징</p>
+
+<ul>
+  <li>작업 큐</li>
+  <li>분산 환경</li>
+  <li>작업 처리</li>
+  <li>메시지 브로커</li>
+</ul>
+
+<p>셀러리 메시징 시스템의 구성 요소</p>
+
+<ul>
+  <li>브로커
+작업을 관리하고 전달하는 중간 매개체</li>
+  <li>백엔드
+작업의 결과를 저장하고 추적하기 위한 저장소</li>
+  <li>워커
+브로커로부터 할당된 작업을 받아 실행하고 실행한 결과를 백엔드에 기록한다</li>
+  <li>태스크
+수행되는 개별 작업. 데코레이터로 구현할 수 있다.</li>
+</ul>
+
+<p>브로커와 백엔드 역할을 하는 시스템으로서 레디스나 rabbitmq 등을 사용할 수 있다.</p>
+
+<h2 id="1-환경-설정">1. 환경 설정</h2>
+
+<p>fastapi에서 셀러리를 이용하기 위해 브로커는 래빗엠큐를 이용하고 저장소는 mysql을 이용한다</p>
+
+<blockquote>
+  <p>pip install celery
+docker run -d –hostname myrabbit –name myrabbit -e RABBITMQ_DEFAULT_USER=root -e RABBITMQ_DEFAULT_PASS=test -p 5672:5672 -p 15672:15672 rabbitmq:3-management</p>
+</blockquote>
+
+<ul>
+  <li>rabbitmq:3-management는 3.x 버전 중 관리 플러그인이 포함된 버전을 말한다. 웹 기반의 사용자 인터페이스를 제공한다.</li>
+</ul>
+
+<h2 id="태스크-수행">태스크 수행</h2>
+
+<p>간단한 덧셈을 수행하는 함수를 셀러리에서 백그라운드로 실행하고 셀러리는 그 태스크 수행 결과를 데이터베이스에 저장한다.</p>
+
+<h3 id="태스크-정의">태스크 정의</h3>
+
+<blockquote>
+  <p>example01.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from common.messaging import celery
+
+@celery.task
+def add(x,y):
+    return x+y
+</code></pre></div></div>
+
+<h3 id="셀러리-객체를-생성">셀러리 객체를 생성</h3>
+
+<blockquote>
+  <p>common/messaging.py</p>
+</blockquote>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from celery import Celery
+
+celery = Celery(
+    "fastapi-ca",
+    broker=settings.celery_broker_url,
+    backend=settings.celery_backend_url,
+    broker_connection_retry_on_startup=True,
+    include=["example01"]
+)
+</code></pre></div></div>
+
+<h3 id="셀러리-워커의-구동">셀러리 워커의 구동</h3>
+
+<p>워커를 여러개 생성하고 싶은 경우 새로운 창에서 각각 구동하면 된다</p>
+
+<blockquote>
+  <p>celery -A common.messaging.celery worker -n worker1 –loglevel=info
+celery -A common.messaging.celery worker -n worker2 –loglevel=info</p>
+</blockquote>
+
+<h3 id="셀러리-워커에-태스크-전달">셀러리 워커에 태스크 전달</h3>
+
+<blockquote>
+  <blockquote>
+    <p>from example import add
+task1 = add.delay(1,2)</p>
+  </blockquote>
+</blockquote>
+
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/fastapi-clean-architecture/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">FastAPI Clean Architecture</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/fastapi-middleware/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">FastAPI 미들웨어</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

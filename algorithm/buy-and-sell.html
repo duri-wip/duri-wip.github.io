@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best time to buy and sell stock</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Best time to buy and sell stock</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 21일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-algorithm-solving</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="문제">문제</h2>
+
+<p>가격이 시간순으로 나열된 prices 리스트가 주어졌을때 최대의 이익을 보기 위해서 언제 주식을 사고 팔아야 하는지를 계산해서 그 최대 이익값을 반환한다. 만약 이익을 볼 수 없는 리스트가 주어진 경우 0을 반환한다.</p>
+
+<p>prices = [7,1,5,3,6,4]
+-&gt; output = 5:(6-1이라서)</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>이중포인터를 사용해서 최대 값을 받으려고 했다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">new_prices</span> <span class="o">=</span> <span class="p">[[</span><span class="n">i</span><span class="p">,</span><span class="n">v</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span><span class="n">v</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">prices</span><span class="p">)]</span>
+        <span class="n">new_prices</span><span class="p">.</span><span class="nf">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        
+        <span class="n">max_profit</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">profits</span> <span class="o">=</span><span class="p">[]</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)):</span>
+            <span class="n">left</span> <span class="o">=</span> <span class="n">i</span>
+            <span class="n">right</span> <span class="o">=</span> <span class="nf">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span>
+            <span class="k">while</span> <span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">new_prices</span><span class="p">[</span><span class="n">right</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">new_prices</span><span class="p">[</span><span class="n">left</span><span class="p">][</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">max_profit</span> <span class="o">=</span> <span class="n">new_prices</span><span class="p">[</span><span class="n">right</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">new_prices</span><span class="p">[</span><span class="n">left</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">right</span> <span class="o">-=</span> <span class="mi">1</span>
+                    <span class="n">profits</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">max_profit</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">profits</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nf">max</span><span class="p">(</span><span class="n">profits</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>시간초과가 난다.
+정렬하고 반복문을 모든 시작점에 대해서 돌려야 하기 때문이다. 따라서 이중포인터로 푸는 방식에서 효율 이득을 얻지 못하는 문제다.</p>
+
+<p>다른 방식으로 풀어보았다. 
+어차피 시간순서대로 최대값을 구해야하므로 순차적으로 한번은 돌아야 한다. 최대 한번만 도는 방식으로 재구성해본다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">max_profit</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="nf">len</span><span class="p">(</span><span class="n">prices</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">rest</span> <span class="o">=</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">:]</span>
+            <span class="n">max_price</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">rest</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">max_price</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">max_profit</span> <span class="o">&lt;</span> <span class="n">max_price</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                    <span class="n">max_profit</span> <span class="o">=</span> <span class="n">max_price</span> <span class="o">-</span> <span class="n">prices</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">max_profit</span>
+</code></pre></div></div>
+
+<p>이렇게 해서 시간 복잡도를 줄이기는 했지만 그래도 시간 초과가 발생했다.
+다른 방법으로 해결해야 한다. 
+아무래도 문제가 있는 부분은 max_price를 구하기 위해 rest를 구하는 과정에서인것 같다.
+이렇게 하지 않고 결국 뒷부분의 최대값을 구하는 것이 핵심이므로 리스트를 뒤집어 뒤에서부터 최대값을 찾는 방식으로 개선해보려고 한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">maxProfit</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">prices</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="n">max_profit</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">max_price</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="k">for</span> <span class="n">price</span> <span class="ow">in</span> <span class="nf">reversed</span><span class="p">(</span><span class="n">prices</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">max_price</span> <span class="o">&lt;</span> <span class="n">price</span><span class="p">:</span>
+                <span class="n">max_price</span> <span class="o">=</span> <span class="n">price</span>
+                <span class="nf">print</span><span class="p">(</span><span class="n">max_price</span><span class="p">)</span>
+            <span class="n">max_profit</span> <span class="o">=</span> <span class="nf">max</span><span class="p">(</span><span class="n">max_profit</span><span class="p">,</span> <span class="n">max_price</span> <span class="o">-</span> <span class="n">price</span><span class="p">)</span>
+            <span class="nf">print</span><span class="p">(</span><span class="n">max_profit</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">max_profit</span>
+</code></pre></div></div>
+
+<p>해결했다.</p>
+
+<h2 id="알게된-점">알게된 점</h2>
+<ul>
+  <li>이중포인터는 왼쪽과 오른쪽을 모두 움직일 수 없는 상황에서는 효율적이지 않다.</li>
+  <li>슬라이스를 해서 반복문으로 돌아야하는 리스트의 길이를 줄이는 것이 그다지 시간 효율을 줄여주지는 않는다.</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/algorithm/keys-and-rooms">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">keys and rooms</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/algorithm/palindrome">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Valid Palindrome</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

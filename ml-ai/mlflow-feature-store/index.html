@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Lv 2 아키텍처에서의 피처스토어</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">MLOps Lv 2 아키텍처에서의 피처스토어</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">mlops</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#mlops</span>
+                
+                <span class="tag">#mlflow</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="mlops에서-피처스토어는-어떤-역할을-해야할까">mlops에서 피처스토어는 어떤 역할을 해야할까?</h1>
+
+<p>두번의 mlops 프로젝트를 진행하면서 피처스토어의 역할에 대한 의문이 생겼다. 왜 피처스토어를 사용하는 것이며, 잘 사용하기 위해서는 어떤 특징을 알아야 할까?</p>
+
+<p>첫번재 프로젝트에서는 자연어 데이터에 대한 모델을 구축했고, 두번째 프로젝트에서는 이미지데이터를 사용해 모델을 구축했다. 두번 모두 데이터 레이크에서 직접 데이터를 꺼내썼으며, 피처 스토어를 구축하지는 않았다.</p>
+
+<h2 id="피처스토어의-역할">피처스토어의 역할</h2>
+
+<p>우선 피처스토어가 어떤 역할을 하는지 알아보자.</p>
+
+<ol>
+  <li>중앙화된 데이터 저장소</li>
+</ol>
+
+<p>다양한 소스에서 수집된 피처(특징)을 중앙화하여 저장. 데이터가 일관되게 처리되고여러 팀이나 모델이 동일한 피처를 재사용할 수 있도록 보장</p>
+
+<ol>
+  <li>실시간 배치 처리 및 지원 :</li>
+</ol>
+
+<p>실시간으로 업데이트되는 데이터와 배치로 처리된 데이터를 모두 지원</p>
+
+<ol>
+  <li>데이터 품질 보장</li>
+</ol>
+
+<p>피처 엔지니어링 과정에서 사용되는 스케일링, 정규화 등의 전처리 작업을 관리하고, 일관된 전처리 로직을 적용하여 학습과 예측 시 데이터 불일치를 방지</p>
+
+<ol>
+  <li>버전 관리</li>
+</ol>
+
+<p>피처스토어는 각 피처의 버전을 관리하여 모델 학습 당시 사용된 피처와 예측시 사용되는 피처 간의 일관성을 유지. 이를 통해 모델 재학습시 과거 피처와 비교하거나 실험할 수 있도록 함</p>
+
+<ol>
+  <li>재사용성 향상</li>
+</ol>
+
+<p>이미 만들어진 피처를 여러 모델, 팀에서 재사용 할 수 있도록 하여 중복된 피처 엔지니어링 과정을 방지</p>
+
+<hr />
+
+<h2 id="그렇다면-각각의-프로젝트에서-피처스토어를-아키텍처에-끼워넣는다면-어떤-그림이-그려질까">그렇다면 각각의 프로젝트에서 피처스토어를 아키텍처에 끼워넣는다면 어떤 그림이 그려질까?</h2>
+
+<h3 id="1-텍스트-데이터를-사용하는-경우-피처스토어의-역할">1. 텍스트 데이터를 사용하는 경우 피처스토어의 역할</h3>
+
+<p>첫번째 프로젝트의 아키텍처다. 수집한 데이터는 자연어 데이터로, ‘가수 - 노래’ 또는 ‘노래 - 가수’로 전처리하는 과정을 거쳤다.
+이 과정에서 피처를 따로 저장한다면 어떤 과정을 거칠 수 있을까?</p>
+
+<p>보통 자연어를 활용하는 모델의 경우에는 텍스트를 토큰화하여</p>
+
+<h3 id="이미지-데이터를-사용하는-경우에-피처-스토어의-역할">이미지 데이터를 사용하는 경우에 피처 스토어의 역할</h3>
+
+<p>이미지 데이터의 경우에는 이미지 자체를 저장하는게 아니라 이미지에서 추출한 피처를 저장한다.</p>
+
+<h2 id="s3-버킷에-메타데이터-저장-vs-피처스토어의-차이">S3 버킷에 메타데이터 저장 vs. 피처스토어의 차이</h2>
+
+<p>데이터 접근 방식:</p>
+
+<p>S3: S3는 데이터를 저장하고 불러오는 용도로 사용할 수 있지만, 각 피처에 대한 관리나 실시간 피처 제공, 업데이트 추적 기능이 없습니다. 사용자가 직접 파일을 불러와 데이터를 처리해야 합니다.</p>
+
+<p>피처스토어: 피처스토어는 API를 통해 피처를 실시간으로 제공하거나 대규모 배치 처리가 가능하며, 모델 학습과 예측에 필요한 피처를 효율적으로 제공하는 기능을 갖추고 있습니다.
+버전 관리:</p>
+
+<p>S3: S3에서 버전 관리 기능을 사용할 수 있지만, S3 자체가 피처의 변화나 다양한 피처 집합을 관리하는 데 특화된 도구는 아닙니다. 이를 통해 복잡한 버전 관리나 피처 히스토리 트래킹을 하기는 어렵습니다.</p>
+
+<p>피처스토어: 피처스토어는 각 피처의 버전을 관리하여 과거 피처와 현재 피처 간의 비교를 용이하게 하고, 모델 학습 시 일관성 있는 데이터를 제공하도록 설계되어 있습니다.
+데이터 품질 및 일관성 보장:</p>
+
+<p>S3: S3는 데이터 품질에 대한 별도의 검증이나 일관성 유지 기능이 없습니다. 사용자가 직접 데이터 품질을 확인하고, 저장된 메타데이터의 정확성을 보장해야 합니다.</p>
+
+<p>피처스토어: 피처스토어는 피처 엔지니어링 및 전처리 과정에서 일관성 있는 데이터 제공을 보장하며, 학습 시점과 예측 시점 간의 데이터 일관성 문제를 해결하는 데 도움을 줍니다.</p>
+
+<p>데이터 실시간 제공:</p>
+
+<p>S3: S3에 저장된 데이터는 요청 시 가져와야 하며, 실시간으로 데이터를 업데이트하거나 제공하는 기능은 지원하지 않습니다.
+피처스토어: 피처스토어는 실시간으로 업데이트되는 데이터를 관리하고, 모델 예측 시 실시간 피처를 제공하는 기능을 포함합니다.</p>
+
+<p>S3를 피처스토어로 활용하려면?
+S3에 저장된 메타데이터를 피처스토어처럼 활용하려면 추가적인 작업이 필요합니다. 예를 들어:</p>
+
+<p>메타데이터와 피처의 체계적 관리: S3에 저장된 메타데이터가 단순 파일 형태가 아닌, 피처스토어처럼 피처의 버전 관리와 함께 사용될 수 있도록 체계적으로 저장해야 합니다.
+실시간 피처 제공: S3에서 피처 데이터를 실시간으로 가져오는 API를 개발하여 실시간 데이터 제공이 가능하게 합니다.
+일관성 있는 데이터 제공: S3에 저장된 데이터의 전처리 일관성을 유지하기 위해, 데이터 엔지니어링 단계에서의 전처리 로직을 자동화하고, 학습과 예측에 동일한 전처리 과정이 적용되도록 해야 합니다.
+피처 카탈로그 구축: 저장된 메타데이터를 체계적으로 검색하고 접근할 수 있는 카탈로그 기능을 추가하여, 사용자가 필요한 피처를 쉽게 찾고 사용할 수 있도록 합니다.
+결론
+S3에 이미지 메타데이터를 저장하는 것은 기본적인 데이터 저장소의 역할을 할 수 있지만, 피처스토어로서의 기능을 완벽하게 제공하기 위해서는 추가적인 관리 시스템과 기능이 필요합니다. 피처스토어는 데이터 버전 관리, 실시간 제공, 일관성 있는 전처리 및 재사용성 등을 갖춘 특화된 피처 관리 시스템이며, S3는 이러한 기능을 모두 지원하지 않기 때문에 그 자체로는 피처스토어라고 부르기 어렵습니다. 하지만 S3를 기반으로 추가적인 기능을 구축하면 피처스토어의 역할을 수행할 수 있습니다.</p>
+
+<p>mlops에서는 실험환경과 운영 환경이 동일하게 유지되는 것이 중요!
+실험환경에 대한 일관성 -&gt; pyenv</p>
+
+<p>에어플로우 대그에 대한 실패 관리를 중요하게 보는듯. 이걸 실패하고 나면 다시 어떻게 복구할 수 있나?
+fail 된 태스크의 재수행은 안되고 지연된 태스크에는 재수행이 된다 - xcom으로 수행
+실패를 했을때 어떻게 대응할 지에 대한 고민을 꼭 해봐야함!!
+그러니까 데이터의 일관성을 유지하는 것에 대한 고민을 꼭 하고 거기에 대한 대응을 해봐야 함-&gt; 우리는 어노테이션 파일로 정합성을 확인할 수 있도록 구성했다고 대답할것
+그라파나 메트릭 수집의 이유</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/DB-heartbeat-failover/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">HA 패턴 중 하트비트 기반 솔루션, pacemaker</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/spark-cluster-ha/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">spark cluster의 고가용성 구성방식</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

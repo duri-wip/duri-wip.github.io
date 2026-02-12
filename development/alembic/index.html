@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLAlchemy와 Alembic으로 DB 관리하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">SQLAlchemy와 Alembic으로 DB 관리하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 17일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#alembic</span>
+                
+                <span class="tag">#sqlalchemy</span>
+                
+                <span class="tag">#orm</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="데이터베이스-관리">데이터베이스 관리</h1>
+
+<p>애플리케이션의 핵심 데이터를 영속적으로 저장하고 관리할 인프라 계층을 구축한다. 이번 포스트에서는  sqlalchemy와 alembic을 사용해 데이터베이스를 설정하고 변경 사항을 체계적으록 관리하는 방법에 대해서 배워본다.</p>
+
+<h2 id="1-orm이란">1. ORM이란?</h2>
+<p><strong>Object Relational Mapping</strong> 은 데이터베이스와 객체지향  프로그래밍 언어 간의 데이터 변환을 도와주는 기술이다. orm을 쓰지 않으면 코드에 sql을 직접 작성하고, 실행 결과를 일일히 객체로 가공하는 작업을 해야한다.</p>
+
+<ul>
+  <li>orm 을 사용하는 경우에 얻을 수 있는 장점
+    <ul>
+      <li>sql에 대한 의존성을 줄여 비즈니스 로직에 더 집중할 수 있다. sql의 문법에 신경쓰지 않고 기능을 구현할 수 있다.</li>
+      <li>특정 데이터베이스에 대한 종속성을 덜어내 코드의 이식성을 높일 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="2-sqlalchemy">2. SQLAlchemy</h2>
+
+<p>가장 많이 쓰는 파이썬 기반 orm 라이브러리다. 기본적으로 이렇게 동작한다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from sqlalchemy import creaete_engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.declarative import declarative_base
+
+DB_URL = "postgresql://user:password@postgresserver/db"
+
+engine = create_engine(DB_URL)
+SessionLocal = sessionmkaker(autocommit=False, autoflush=False)
+
+Base = declarative_base()
+</code></pre></div></div>
+
+<ul>
+  <li>engine: 데이터베이스와의 핵심 연결 통로. SQLAlchemy의 모든 통신은 이 엔진을 통해 이루어진다.</li>
+  <li>SessionLocal: 데이터베이스 세션을 만드는 팩토리. 실제 DB 조작은 이 세션을 통해 이루어진다. autocommit=False는 데이터 변경 후 명시적으로 commit()을 호출해야만 DB에 반영되도록 하는 안전장치다.</li>
+  <li>Base: 앞으로 만들 모든 ORM 모델(테이블)들이 상속받을 기본 클래스다. declarative_base는 이 Base 클래스가 자신의 하위 클래스들(우리가 만들 모델들)을 SQLAlchemy에 등록하고, 적절한 DB 테이블과 매핑되도록 한다.</li>
+</ul>
+
+<h2 id="3-alembic-데이터베이스-스키마의-버전-관리">3. Alembic: 데이터베이스 스키마의 버전 관리</h2>
+
+<p>애플리케이션을 개발하다보면 모델에 새로운 컬럼을 추가하거나 타입을 변경하는 등 데이터베이스 스키마를 수정할 일이 계속 생긴다. 이때마다 수동으로 DB 에 접속해 테이블 스키마를 변경하는 것은 위험하고 또 번거롭다. 알렘빅은 이런 스키마 변경 내역을 revision 파일로 만들어 체계적으로 추적하고 관리하는 마이그레이션 도구다.</p>
+
+<h3 id="설정-순서">설정 순서</h3>
+<h4 id="1-설치-및-초기화">1. 설치 및 초기화</h4>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install alembic
+alembic init migrations # migrations라는 디렉토리에 설정 파일 생성
+</code></pre></div></div>
+
+<h4 id="2-alembicini-파일-수정">2. alembic.ini 파일 수정</h4>
+<ul>
+  <li><strong>file_template</strong> 설정의 주석을 풀어 리비전 파일의 이름 형식을 지정한다</li>
+  <li><strong>sqlalchemy.url</strong> 설정에 DB 연결 URL 을 넣어준다</li>
+</ul>
+
+<h4 id="3-migrationenvpy-파일-수정">3. migration/env.py 파일 수정</h4>
+<p>알렘빅이 어떤 모델을 기준으로 스키마 변경을 감지할 지 알려주는 단계로, env.py의 target_metadata에 아래와 같이 설정한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>target_metadata = Base.metadata
+</code></pre></div></div>
+
+<p>여기서 주입한 Base.metadata는 sqlalchemy의 declarative_base가 생성하는 특별한 객체다. Base를 상속받아 모델 클래스를 만들면, sqlalchemy는 이 모델들의 정보를 Base.metadata 안에 자동으로 차곡차곡 쌓아둔다. 알렘빅은 이 metadata를 읽어서 현재 데이터베이스의 상태와 비교하여 변경된 부분을 찾아내는 방식으로 스키마 변경을 감지한다.</p>
+
+<h4 id="4-리비전-파일-생성-및-실행">4. 리비전 파일 생성 및 실행</h4>
+
+<ol>
+  <li>모델을 수정했으면, 아래 명령어로 변경 사항을 감지하고 마이그레이션 스크립트를 자동으로 생성한다.</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">alembic revision --autogenereate -m "Add user table"</code></p>
+
+<ol>
+  <li>마이그레이션 실행
+생성된 리비전 파일의 내용을 데이터베이스에 적용한다. 최신 변경 사항까지 모두 마이그레이션 하는 명령어다.
+<code class="language-plaintext highlighter-rouge">alembic upgrade head</code></li>
+</ol>
+
+<p>2-1. 마이그레이션 취소
+가장 최근에 적용한 변경 사항을 되돌린다.</p>
+
+<p>`alembic downgrade’</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/fastapi-paging/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">FastAPI 페이징 및 페이지네이션</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/tools/jekyll-basic/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Jekyll Basic</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

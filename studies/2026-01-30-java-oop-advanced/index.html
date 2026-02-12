@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java 객체지향 심화 - 상속, 다형성, 추상화</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Java 객체지향 심화 - 상속, 다형성, 추상화</h1>
+        <div class="post-meta">
+            <time class="post-date">2026년 01월 30일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-java</span>
+                
+                <span class="tag">#java</span>
+                
+                <span class="tag">#oop</span>
+                
+                <span class="tag">#inheritance</span>
+                
+                <span class="tag">#polymorphism</span>
+                
+                <span class="tag">#abstract</span>
+                
+                <span class="tag">#interface</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="1-상속-inheritance">1. 상속 (Inheritance)</h2>
+
+<p>상속은 부모 클래스의 필드와 메서드를 자식 클래스가 물려받는 것이다. <code class="language-plaintext highlighter-rouge">extends</code> 키워드를 사용한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 부모 클래스 (슈퍼클래스)</span>
+<span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">eat</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 먹이를 먹습니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">sleep</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 잠을 잡니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 자식 클래스 (서브클래스)</span>
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">breed</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 멍멍 짖습니다!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">meow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 야옹~ 합니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InheritanceExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Dog</span> <span class="n">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"바둑이"</span><span class="o">;</span>  <span class="c1">// 부모로부터 상속</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>          <span class="c1">// 부모로부터 상속</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">breed</span> <span class="o">=</span> <span class="s">"진돗개"</span><span class="o">;</span> <span class="c1">// 자신의 필드</span>
+
+        <span class="n">dog</span><span class="o">.</span><span class="na">eat</span><span class="o">();</span>    <span class="c1">// 부모 메서드</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">sleep</span><span class="o">();</span>  <span class="c1">// 부모 메서드</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">bark</span><span class="o">();</span>   <span class="c1">// 자신의 메서드</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="상속의-특징">상속의 특징</h3>
+
+<ul>
+  <li>자식 클래스는 부모 클래스의 메서드를 선언 없이 사용할 수 있다</li>
+  <li>자식 클래스의 메서드는 부모 클래스가 사용할 수 없다</li>
+  <li>자식 클래스끼리는 메서드 공유가 불가능하다</li>
+</ul>
+
+<h3 id="상속의-장점">상속의 장점</h3>
+
+<ul>
+  <li>코드 재사용성 향상</li>
+  <li>유지보수 용이</li>
+  <li>계층적 구조 표현</li>
+</ul>
+
+<hr />
+
+<h2 id="2-메서드-오버라이딩-overriding">2. 메서드 오버라이딩 (Overriding)</h2>
+
+<p>부모 클래스의 메서드를 자식 클래스에서 <strong>재정의</strong>하는 것이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">sound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"동물이 소리를 냅니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nd">@Override</span>  <span class="c1">// 오버라이딩 어노테이션 (선택이지만 권장이라고 함..)</span>
+    <span class="kt">void</span> <span class="nf">sound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">": 멍멍!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kt">void</span> <span class="nf">sound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">": 야옹~"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OverridingExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Animal</span><span class="o">();</span>
+        <span class="nc">Dog</span> <span class="n">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+        <span class="nc">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Cat</span><span class="o">();</span>
+
+        <span class="n">dog</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"바둑이"</span><span class="o">;</span>
+        <span class="n">cat</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"나비"</span><span class="o">;</span>
+
+        <span class="n">animal</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 동물이 소리를 냅니다.</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>     <span class="c1">// 바둑이: 멍멍!</span>
+        <span class="n">cat</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>     <span class="c1">// 나비: 야옹~</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="오버로딩-vs-오버라이딩">오버로딩 vs 오버라이딩</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>오버로딩 (Overloading)</th>
+      <th>오버라이딩 (Overriding)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>위치</td>
+      <td>같은 클래스</td>
+      <td>상속 관계</td>
+    </tr>
+    <tr>
+      <td>메서드명</td>
+      <td>동일</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>매개변수</td>
+      <td><strong>다름</strong></td>
+      <td><strong>동일</strong></td>
+    </tr>
+    <tr>
+      <td>반환타입</td>
+      <td>상관없음</td>
+      <td>동일</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="3-super-키워드">3. super 키워드</h2>
+
+<p><code class="language-plaintext highlighter-rouge">super</code>는 자식 클래스에서 부모 클래스를 참조할 때 사용하는 키워드다.</p>
+
+<h3 id="super로-부모-필드메서드-접근">super로 부모 필드/메서드 접근</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"부모"</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Parent의 show()"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"자식"</span><span class="o">;</span>  <span class="c1">// 부모와 같은 이름의 필드</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Child의 show()"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"this.name: "</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>   <span class="c1">// 자식</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"super.name: "</span> <span class="o">+</span> <span class="kd">super</span><span class="o">.</span><span class="na">name</span><span class="o">);</span> <span class="c1">// 부모</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>   <span class="c1">// Child의 show()</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>  <span class="c1">// Parent의 show()</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="super-생성자">super() 생성자</h3>
+
+<p>부모 클래스의 생성자를 호출할 때 사용한다. 
+왜 가능한지는 모르지만 private이 아닌 경우에는 자식클래스에서 부모 클래스의 필드에 대해 조회/변경이 모두 가능하다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nc">Animal</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">breed</span><span class="o">;</span>
+
+    <span class="nc">Dog</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">breed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>  <span class="c1">// 부모 생성자 호출</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">breed</span> <span class="o">=</span> <span class="n">breed</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>중요:</strong> <code class="language-plaintext highlighter-rouge">super()</code>는 반드시 <strong>생성자의 첫 줄</strong>에 위치해야 한다!</p>
+</blockquote>
+
+<hr />
+
+<h2 id="4-다형성-polymorphism">4. 다형성 (Polymorphism)</h2>
+
+<p>부모 타입으로 자식 객체를 참조할 수 있다. 이를 통해 같은 타입으로 다양한 객체를 다룰 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PolymorphismExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 다형성: 부모 타입으로 자식 객체 참조</span>
+        <span class="nc">Animal</span> <span class="n">animal1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+        <span class="nc">Animal</span> <span class="n">animal2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Cat</span><span class="o">();</span>
+
+        <span class="n">animal1</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 멍멍! (Dog의 오버라이딩된 메서드)</span>
+        <span class="n">animal2</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 야옹~ (Cat의 오버라이딩된 메서드)</span>
+
+        <span class="c1">// 배열로 여러 타입 관리</span>
+        <span class="nc">Animal</span><span class="o">[]</span> <span class="n">animals</span> <span class="o">=</span> <span class="o">{</span><span class="k">new</span> <span class="nc">Dog</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Cat</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Cow</span><span class="o">()};</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Animal</span> <span class="n">a</span> <span class="o">:</span> <span class="n">animals</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">a</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 각 객체의 오버라이딩된 메서드 호출</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="5-추상-클래스와-인터페이스">5. 추상 클래스와 인터페이스</h2>
+
+<h3 id="추상-클래스-abstract-class">추상 클래스 (Abstract Class)</h3>
+
+<p>미완성 메서드를 포함한 클래스로, <strong>인스턴스를 생성할 수 없다.</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Shape</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+
+    <span class="c1">// 추상 메서드 (구현부 없음)</span>
+    <span class="kd">abstract</span> <span class="kt">double</span> <span class="nf">getArea</span><span class="o">();</span>
+
+    <span class="c1">// 일반 메서드 (구현부 있음)</span>
+    <span class="kt">void</span> <span class="nf">setColor</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">extends</span> <span class="nc">Shape</span> <span class="o">{</span>
+    <span class="kt">double</span> <span class="n">radius</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">double</span> <span class="nf">getArea</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Math</span><span class="o">.</span><span class="na">PI</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="인터페이스-interface">인터페이스 (Interface)</h3>
+
+<p>추상 메서드의 집합으로, 클래스가 <strong>반드시 구현해야 할 기능을 정의</strong>한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">Flyable</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">fly</span><span class="o">();</span>  <span class="c1">// 추상 메서드 (public abstract 생략)</span>
+
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">land</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// default 메서드</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"착륙합니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">info</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// static 메서드</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Flyable 인터페이스"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Bird</span> <span class="kd">implements</span> <span class="nc">Flyable</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"새가 날아갑니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="추상-클래스-vs-인터페이스">추상 클래스 vs 인터페이스</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>추상 클래스</th>
+      <th>인터페이스</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>다중 상속</td>
+      <td>불가능</td>
+      <td>가능 (<code class="language-plaintext highlighter-rouge">implements</code>)</td>
+    </tr>
+    <tr>
+      <td>변수</td>
+      <td>모든 종류 가능</td>
+      <td><code class="language-plaintext highlighter-rouge">public static final</code>만</td>
+    </tr>
+    <tr>
+      <td>메서드</td>
+      <td>추상/일반 모두 가능</td>
+      <td>추상 메서드 (default, static 가능)</td>
+    </tr>
+    <tr>
+      <td>목적</td>
+      <td>“~이다” (is-a)</td>
+      <td>“~할 수 있다” (can-do)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="추상-클래스">추상 클래스</h4>
+<ul>
+  <li>추상 클래스를 상속 받는 자식 클래스마다 반드시 동작이 달라지는 경우에 추상 클래스를 사용한다.</li>
+  <li>추상 클래스에는 일반 메서드와 추상 메서드가 포함될 수 있다.</li>
+  <li>추상 메서드는 시그니처만 있고 구현은 되어있지 않다.</li>
+  <li>일반 메서드는 구현해야하고, 추상 메서드만 구현하지 않는다.</li>
+</ul>
+
+<h4 id="인터페이스">인터페이스</h4>
+<ul>
+  <li>어떤 대상들 사이에서 소통하는 역할을 하는 클래스</li>
+  <li>객체가 행동할 내용은 구현 클래스에 맡긴다.</li>
+  <li>동작의 명세만을 작성해서 구현하는 쪽이 어떤 동작을 구현해야하는지 알 수 있다.</li>
+  <li>추상 메서드만 작성할 수 있다.</li>
+  <li>여러 인터페이스를 상속해서 다중 구현이 가능하다.</li>
+</ul>
+
+<p>왜 두개를 나누어 두었을까?</p>
+
+<p>추상화, 캡슐화의 관점에서 봤을때 인터페이스가 추상 클래스보다 유연하다. 상속은 사실 이해하려면 부모 클래스와 자식 클래스를 모두 이해해야한다. 근데 추상 클래스는 구현체만 이해하면 됨. 그리고 부모 클래스의 변경이 자식 클래스에게 영향을 주기때문에 독립성의 부분에서 봤을때도 추상 클래스가 더 객체 지향적이라고 할 수 잇다. 상속은 상속을 받는 순간 명세가 바뀌지 않더라도 영향을 주는 것임. 동작에 대한 명세를 하고 싶으면 인터페이스를 사용하는 걸 추천한다.</p>
+
+<p><img src="https://en.wikipedia.org/wiki/Composition_over_inheritance" alt="참고 :" /></p>
+
+<h3 id="default와-static의-차이">default와 static의 차이</h3>
+
+<p>인터페이스에서:</p>
+
+<ul>
+  <li><strong>default</strong>: 객체가 있어야 호출 가능, 오버라이딩 <strong>가능</strong></li>
+  <li><strong>static</strong>: 객체 없이 호출 가능, 오버라이딩 <strong>불가능</strong></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">MyInterface</span> <span class="o">{</span>
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">defaultMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"default 메서드"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">staticMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"static 메서드"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">MyClass</span> <span class="kd">implements</span> <span class="nc">MyInterface</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">defaultMethod</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// 오버라이딩 가능</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"오버라이딩된 default 메서드"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// static 메서드는 오버라이딩 불가!</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">MyClass</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyClass</span><span class="o">();</span>
+        <span class="n">obj</span><span class="o">.</span><span class="na">defaultMethod</span><span class="o">();</span>  <span class="c1">// 객체 필요</span>
+
+        <span class="nc">MyInterface</span><span class="o">.</span><span class="na">staticMethod</span><span class="o">();</span>  <span class="c1">// 객체 없이 호출</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/studies/2026-01-15-kubernetes-basics/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Kubernetes 기초 - 왜 쿠버네티스인가?</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/studies/2026-02-03-java-exception-handling/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Java 예외 처리 - try-catch, 예외 ...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

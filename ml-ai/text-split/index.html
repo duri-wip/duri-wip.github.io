@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chunk 알고리즘</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Chunk 알고리즘</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">rag</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#rag</span>
+                
+                <span class="tag">#vector-store</span>
+                
+                <span class="tag">#embedding</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="텍스트-분할">텍스트 분할</h1>
+
+<p>청크는 질문과의 유사도를 계산해 관련성 높은 정보를 추출하는데 사용된다. 잘 나뉜 청크는 질문에 적합한 정보를 효과적으로 가져온다.
+그치만 너무 크게 나누면 유사도가 떨어지고 너무 작게 나누면 컨텍스트를 잃을 수 있다.
+문서를 분할하는 전략은 다양하며, 실험을 통해 문서와 질문에 적합한 방식을 찾아야 한다.
+또 오버랩은 청크 사이에 일부 겹치는 부분을 만들어 문장이 잘리지 않도록 하는 방법을 말한다.</p>
+
+<h2 id="문자-단위로-분할하기">문자 단위로 분할하기</h2>
+
+<p>기본적으로 “\n\n”을 기준으로 글자 단위로 텍스트를 분할한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>with open("data.txt") as f:
+    file = f.read()
+
+from langchai_text_splitters import CharacterTextSplitter
+
+text_splitter = CharacterTextSplitter(
+    seperator="\n\n",
+    chunk_size=210,
+    chunk_overlap=0,
+    length_function=len,
+)
+
+text = text_splitter.create_documents([file])
+
+# 이렇게도 쓸 수 있다.
+text2 = text_splitter.create_documents([
+    file, file
+])
+</code></pre></div></div>
+
+<h2 id="문자-단위로-재귀적으로-분할하기">문자 단위로 재귀적으로 분할하기</h2>
+
+<p>특정 문자 목록을 기준으로 텍스트를 나누며, 기본적으로 단락(\n\n)을 먼저 분할하고, 이후 문장, 단어, 개별 문자까지 재귀적으로 세분화한다.
+즉 설정된 청크 크기가 기준에 맞게 충분히 작아질 때까지 단락 -&gt; 문장 -&gt; 단어 -&gt; 글자 순서로 점점 더 작은 단위로 나누는 것을 계속해서 청크 크기를 조절한다.
+이 방식을 사용하면 단락, 문장, 단어가 서로 밀접하게 관련된 의미를 가진 하나의 덩어리로 보고 가능한 한 이런 단위가 끊어지지 않도록 유지하는 장점이 있다.</p>
+
+<p>사용 방법</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>with open("data.txt") as f:
+    file = f.read()
+
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+text_splitter = RecursiveCharactorTextSplitter(
+    chunk_size=250,
+    chunk_overlap=50,
+    length_function=len,
+    is_seperator_regex=False
+)
+
+texts = text_splitter.create_documents([file])
+</code></pre></div></div>
+
+<p>이렇게 하면 텍스트 스플리터가 파일 텍스트를 문서 단위로 분할하고, texts 리스트에 분할된 문서가 저장된다.
+여기서 create_documents 메서드로 텍스트와 메터데이터가 반환된다.</p>
+
+<p>여기에 split_text 메서드를 적용하면 텍스트를 분할해서 문자열 리스트로 반환한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>text_splitter.split_text(file)
+</code></pre></div></div>
+
+<h2 id="토큰-단위로-분할하기">토큰 단위로 분할하기</h2>
+
+<p>텍스트를 효율적으로 분할하기 위해 토크나이저를 활용한다. 이는 텍스트를 토큰으로 변환하는데 사용되는 알고리즘이다.
+토크나이저에 따라서 토큰 개수를 계산하는 방식이나 청크 분할 결과가 달라지므로 모델에 입력하기 전에 적절한 토크나이저를 선택하는 것이 중요하다.</p>
+
+<h3 id="텍스트-분할-방식에-따른-크기-제한의-크기">텍스트 분할 방식에 따른 크기 제한의 크기</h3>
+
+<p>재귀적 방식을 사용하면 항상 토큰 크기 제한 내에 텍스트가 들어오게 된다.
+흠..
+토크나이저 종류를 소개하는데 각각의 차이가 뭔지 잘 모르겠고 찾아봐야겟음</p>
+
+<ul>
+  <li>tiktoken</li>
+  <li>TokenTextSplitter</li>
+  <li>spaCy</li>
+  <li>SentenceTransformers</li>
+  <li>NLTK</li>
+  <li>KoNLPy</li>
+  <li>HuggingFace 토크나이저 중 GPT2TokenizerFast</li>
+</ul>
+
+<h2 id="의미-단위로-분할하기">의미 단위로 분할하기</h2>
+
+<p>일반적으로 텍스트를 분할할 때 글자 수나 토큰 수를 기준으로 나누지 않고 의미적으로 유사한 문장끼리 묶을 수도 있다.
+이런 방식은 청크의 크기가 일정하지 않게 된다는 특징이 있다. 그렇지만 실제로는 문서에서 문단의 길이는 상황에 따라 달라질 수 있으므로 의미적으로는 사람이 이해하는 방식과 더 유사하다고 할 수 있다.</p>
+
+<p>종류</p>
+
+<ul>
+  <li>SemanticChunker</li>
+</ul>
+
+<p>이 토크나이저를 사용할때 문장 분할 기준점은이렇게 계산된다.</p>
+
+<ul>
+  <li>먼저 문장간 유사도를 계산한다.</li>
+  <li>각 문장 쌍 사이의 거리로 나타난다.</li>
+  <li>계산된 거리 값들을 그래프 형태로 표현하여 문장들 간 거리가 가까운 경우와 먼 경우를 파악한다</li>
+  <li>문장 간 거리를 기준으로 텍스트를 나누는 지점인 분할 기준점을 지정한다. 분할 기준점은 백분위수, 표준편차, 사분위수 범위 등으로 지정할 수 있다.</li>
+  <li>임계값을 넘는 지점에서 문장이 분리되어 하나의 청크를 이루게 된다.</li>
+</ul>
+
+<h2 id="마크다운-헤더로-분할하기">마크다운 헤더로 분할하기</h2>
+
+<p>문서를 지정된 헤더를 기준으로 분할한다.</p>
+
+<p>사용 방식</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from langchain_text_splitters import MarkdownHeaderTextSplitter
+
+markdown_document = " ..."
+
+headers_to_split_on = [
+    ("#","Header 1"),
+    ("##","Header 2"),
+    ("###","Header 3")
+]
+
+markdown_splitter = MarkdownHeaderTextSplitter(
+    headers_to_split_on=headers_to_split_on
+)
+
+splits = markdown_splitter.split_text(markdown_document)
+</code></pre></div></div>
+
+<ul>
+  <li>여기서 strip_headers 옵션으로 헤더 포함 여부를 결정할 수 있다.</li>
+</ul>
+
+<p>이렇게 분할된 결과를 다시 recursive 하게 스플릿할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chunk_size=200
+chunk_overlap=20
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=chunk_size, chunk_overlap=chunk_overlap
+)
+split = text_splitter.split_documents(splits)
+</code></pre></div></div>
+
+<h2 id="html-헤더로-분할하기">html 헤더로 분할하기</h2>
+
+<p>html 문서에서는 &lt;h1&gt;, &lt;h2&gt;, &lt;h3&gt; 과 같은 h태그를 사용해 헤더를 구분한다.
+매개변수로 분할 기준이 되는 헤더 태그와 이름을 지정해서 스플리터에 넘겨주는 걸 만들어야한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>header_to_split_on = [
+    ("h1","Header1"),
+    ("h2","Header2"),
+    ("h3","Header3"),
+]
+
+html_splitter = HTMLHeaderTextSplitter(
+    header_to_split_on = headers_to_split_on
+)
+
+html_header_split = html_splitter.split_text(html_string)
+</code></pre></div></div>
+
+<p>그리고 이렇게 분할된 텍스트가 여전히 길 경우에 마찬가지로 재귀적으로 분할하는 분할기를 추가해서 추가로 수행할 수 있다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from langchain_text_splitters import RecursiveCharactreTextSplitter
+
+url = "https://...."
+
+chunk_size = 500
+chunk_overlap = 20
+
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=chunk_size, chunk_overlap=chunk_overlap
+)
+
+splits = text_splitter.split_documents(html_header_splits)
+
+</code></pre></div></div>
+
+<ul>
+  <li>그렇지만 html 문서의 구조가 불규칙적이거나 예상과 다를 경우 원하는 결과를 얻지 못할 수도 있다. 계층구조가 일관되지 않게 배치될 수 있기 때문이다. 그래서 가져올 html 의 구조를 먼저 확인하는 것이 중요하다. 불규칙 한 경우에는 다른 분할기를 사용하는 것이 더 나을 수 있다.</li>
+</ul>
+
+<h2 id="json-단위로-분할하기">json 단위로 분할하기</h2>
+
+<p>recursive json splitter는 json 데이터를 깊이 우선 방식으로 탐색하여 더 작은 json 청크를 생성하는 방식으로 분할한다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/langchain-modelload/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">직렬화와 역직렬화로 LangChain 모델 로드하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/document/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Document Parsing</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

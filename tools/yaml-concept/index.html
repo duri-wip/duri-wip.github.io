@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YAML 파일 사용법과 기본 개념</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">YAML 파일 사용법과 기본 개념</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 01일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Tools</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">development-environment</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#yaml</span>
+                
+                <span class="tag">#configuration</span>
+                
+                <span class="tag">#docker</span>
+                
+                <span class="tag">#tools</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <ul>
+  <li>
+    <ol>
+      <li>YAML? : yaml 파일 사용법</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="yaml">YAML</h2>
+
+<p>Yaml aint markup language
+구성파일을 작성하는 방법
+쉽게 읽고 이해할 수 있도록 설계되어 있고 다른 프로그래밍 언어와 함께 사용할 수 있다.
+xml, json 파일과 비교되는데 가독성이 더 높고 사용자 친화적이다.</p>
+
+<p>![예시]</p>
+
+<h3 id="기본문법">기본문법</h3>
+
+<ul>
+  <li>계층을 나타낼 때 띄어쓰기 2칸을 사용한다.</li>
+  <li>키 : 값의 구조를 가진다. -&gt; 키값을 찾으면 값을 반환받는다.</li>
+  <li>콜론의 왼쪽에는 공백이 없고 오른쪽에는 한칸 이상의 공백이 있어야 한다.</li>
+  <li>-는 공백 하나를 대체하고, 리스트의 시작으로 해석한다.</li>
+</ul>
+
+<h3 id="pyyaml-라이브러리의-활용">pyyaml 라이브러리의 활용</h3>
+
+<p>파이썬에서 yaml 파일을 다룰수 있도록 해주는 프레임워크</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>!pip install pyyaml
+
+import pyyaml
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <h2 id="json을-yml-파일로-변환하기">json을 yml 파일로 변환하기</h2>
+  </li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/docker-storage/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">도커 스토리지의 구조와 관리법</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/airflow-context/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Airflow에서 context와 args, kw...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1019 @@
+/* 모달 스타일 */
+.modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: var(--bg-window);
+    margin: 5% auto;
+    padding: 20px;
+    border: 2px solid var(--window-border);
+    width: 80%;
+    max-width: 800px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 2px 2px 0px var(--window-shadow);
+}
+
+.close {
+    color: var(--text-muted);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: var(--text-primary);
+}
+
+.modal-posts {
+    margin-top: 20px;
+}
+
+.modal-post-item {
+    padding: 15px;
+    margin-bottom: 15px;
+    background: var(--bg-card);
+    border: 1px solid var(--window-border);
+}
+
+.modal-post-item h4 {
+    margin: 0 0 8px 0;
+    color: var(--text-primary);
+}
+
+.modal-post-item h4 a {
+    color: var(--accent-primary);
+    text-decoration: none;
+}
+
+.modal-post-item h4 a:hover {
+    text-decoration: underline;
+}
+
+.modal-post-item .post-date {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin: 0 0 8px 0;
+}
+
+.modal-post-item .post-excerpt {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* 스터디 대시보드 스타일 (기존) */
+.study-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0;
+}
+
+.study-page .page-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.study-page .page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.study-page .page-description {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 0;
+}
+
+.study-page .section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.study-page .section-title i {
+    color: var(--accent-primary);
+}
+
+/* 학습 통계 */
+.study-page .study-stats {
+    margin-bottom: 3rem;
+}
+
+.study-page .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1.5rem;
+}
+
+.study-page .stat-card {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 2rem;
+    background: var(--bg-card);
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 2px 2px 0px var(--window-shadow);
+}
+
+.study-page .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.study-page .stat-card.primary::before { background: var(--accent-primary); }
+.study-page .stat-card.success::before { background: var(--status-success); }
+.study-page .stat-card.warning::before { background: var(--status-warning); }
+.study-page .stat-card.info::before { background: var(--status-info); }
+
+.study-page .stat-card:hover {
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+    background: var(--bg-hover);
+    box-shadow: inset 1px 1px 1px var(--window-border), 2px 2px 0px var(--window-shadow);
+}
+
+.study-page .stat-icon {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 24px;
+}
+
+.study-page .stat-card.primary .stat-icon {
+    background: var(--accent-light);
+    color: var(--accent-primary);
+}
+
+.study-page .stat-card.success .stat-icon {
+    background: var(--accent-light);
+    color: #10b981;
+}
+
+.study-page .stat-card.warning .stat-icon {
+    background: var(--accent-light);
+    color: #f59e0b;
+}
+
+.study-page .stat-card.info .stat-icon {
+    background: var(--accent-light);
+    color: #3b82f6;
+}
+
+.study-page .stat-content {
+    flex: 1;
+}
+
+.study-page .stat-number {
+    display: block;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.study-page .stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+/* 오늘의 목표 */
+.study-page .today-goals {
+    margin-bottom: 3rem;
+    background: var(--bg-card);
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: 2px 2px 0px var(--window-shadow);
+}
+
+.study-page .goals-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.study-page .today-date {
+    font-size: 13px;
+    color: var(--text-primary);
+    background: var(--bg-secondary);
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 1px 1px 0px var(--window-shadow);
+}
+
+.study-page .goals-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.study-page .goal-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.study-page .goal-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.study-page .goal-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.study-page .goal-status {
+    font-size: 11px;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 1px 1px 0px var(--window-shadow);
+}
+
+.study-page .goal-status.completed {
+    background: var(--accent-light);
+    color: #10b981;
+}
+
+.study-page .goal-status.in-progress {
+    background: var(--accent-light);
+    color: #f59e0b;
+}
+
+.study-page .goal-status.pending {
+    background: var(--bg-secondary);
+    color: var(--text-muted);
+}
+
+.study-page .goal-bar {
+    height: 8px;
+    background: var(--bg-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.study-page .goal-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 4px;
+    transition: width 0.8s ease;
+}
+
+/* 진행중인 스터디 */
+.ongoing-studies {
+    margin-bottom: 3rem;
+}
+
+.studies-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.study-card {
+    background: var(--bg-card);
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    padding: 2rem;
+    transition: all 0.2s ease;
+    box-shadow: 2px 2px 0px var(--window-shadow);
+}
+
+.study-card.active {
+    border-color: var(--accent-tertiary);
+    border: 1px solid var(--accent-tertiary);
+}
+
+.study-card:hover {
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+    background: var(--bg-hover);
+    box-shadow: inset 1px 1px 1px var(--window-border), 2px 2px 0px var(--window-shadow);
+}
+
+.study-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.5rem;
+}
+
+.study-info {
+    flex: 1;
+}
+
+.study-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.study-description {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.study-status-badge {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 16px;
+}
+
+.status-ongoing {
+    background: var(--accent-light);
+    color: var(--accent-primary);
+}
+
+/* 진행률 */
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.8rem;
+}
+
+.progress-text {
+    font-size: 15px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.progress-percentage {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--accent-primary);
+}
+
+.progress-bar {
+    height: 12px;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 0.8rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+    border-radius: 6px;
+    transition: width 1s ease;
+}
+
+.progress-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.current-progress {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* 스터디 포스트 */
+
+.posts-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.posts-list {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.post-link {
+    display: table-row;
+    text-decoration: none;
+    font-size: 12px;
+    color: var(--text-secondary);
+    transition: color 0.2s ease;
+}
+
+.post-link:hover {
+    color: var(--accent-primary);
+}
+
+.post-link::before {
+    content: "";
+    display: table-cell;
+    width: 4px;
+    padding-right: 0.8rem;
+    vertical-align: middle;
+}
+
+.post-link i {
+    display: none;
+}
+
+.post-link span {
+    display: table-cell;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--bg-secondary);
+}
+
+.post-link:last-child span {
+    border-bottom: none;
+}
+
+/* 스터디 액션 */
+.study-actions {
+    display: flex;
+    gap: 1rem;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex: 1;
+    justify-content: center;
+    box-shadow: 1px 1px 0px var(--window-shadow);
+}
+
+.action-btn.primary {
+    background: var(--accent-primary);
+    color: white;
+}
+
+.action-btn.primary:hover {
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+    box-shadow: inset 1px 1px 1px var(--window-border);
+}
+
+.action-btn.secondary {
+    background: var(--bg-secondary);
+    color: var(--text-secondary);
+}
+
+.action-btn.secondary:hover {
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+    background: var(--bg-hover);
+    box-shadow: inset 1px 1px 1px var(--window-border);
+}
+
+/* 학습 캘린더 */
+.study-calendar {
+    margin-bottom: 3rem;
+    background: var(--bg-card);
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: 2px 2px 0px var(--window-shadow);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.calendar-legend {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.legend-color {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+}
+
+.legend-color.level-0 { background: #ebedf0; }
+.legend-color.level-1 { background: #c6e48b; }
+.legend-color.level-2 { background: #7bc96f; }
+.legend-color.level-3 { background: #239a3b; }
+
+.calendar-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.month-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.month-header {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.calendar-days-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 1rem;
+}
+
+.day-header {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 0.5rem 0;
+    font-weight: 500;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.day {
+    width: 14px;
+    height: 14px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.day.empty {
+    background: transparent;
+    cursor: default;
+}
+
+.day.level-0 { background: #ebedf0; }
+.day.level-1 { background: #c6e48b; }
+.day.level-2 { background: #7bc96f; }
+.day.level-3 { background: #239a3b; }
+
+.day.today {
+    border: 2px solid var(--accent-primary);
+}
+
+.day:hover:not(.empty) {
+    transform: scale(1.2);
+    z-index: 10;
+}
+
+.calendar-summary {
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e8e8e8;
+}
+
+.summary-item {
+    text-align: center;
+}
+
+.summary-label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 0.3rem;
+}
+
+.summary-value {
+    display: block;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* 완료된 스터디 */
+.completed-studies {
+    margin-bottom: 3rem;
+}
+
+.completed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.study-card.completed {
+    position: relative;
+    border-color: var(--status-success);
+    background: var(--bg-card);
+}
+
+.completion-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #10b981, #059669);
+    color: white;
+    border-radius: 50%;
+    font-size: 18px;
+    border: 2px solid var(--status-success);
+}
+
+.completion-stats {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.stat-item i {
+    color: #10b981;
+}
+
+.study-posts.compact {
+    margin-bottom: 0;
+}
+
+.post-link.compact {
+    background: var(--accent-light);
+    color: #059669;
+    font-size: 11px;
+    padding: 0.5rem 0.8rem;
+}
+
+.post-link.compact:hover {
+    background: var(--accent-secondary);
+}
+
+.more-posts {
+    font-size: 11px;
+    color: var(--text-muted);
+    padding: 0.5rem 0.8rem;
+    background: var(--bg-secondary);
+    border-radius: 6px;
+    text-align: center;
+}
+
+/* 최근 학습 활동 */
+.recent-activities {
+    margin-bottom: 3rem;
+}
+
+.activity-timeline {
+    background: var(--bg-card);
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: 2px 2px 0px var(--window-shadow);
+}
+
+.activity-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.activity-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.activity-date {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 60px;
+}
+
+.activity-date .date {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.activity-date .time {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.activity-content {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 16px;
+    color: white;
+}
+
+.activity-icon.algorithm {
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+}
+
+.activity-icon.nextjs {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+}
+
+.activity-details {
+    flex: 1;
+}
+
+.activity-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.activity-description {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+}
+
+.activity-link {
+    font-size: 12px;
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.activity-link:hover {
+    color: var(--accent-dark);
+}
+
+.load-more {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.load-more-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: var(--bg-secondary);
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    border-radius: 0;
+    color: var(--text-secondary);
+    font-size: 13px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 0 auto;
+    box-shadow: 1px 1px 0px var(--window-shadow);
+}
+
+.load-more-btn:hover {
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+    background: var(--bg-hover);
+    color: var(--accent-primary);
+    box-shadow: inset 1px 1px 1px var(--window-border);
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .study-page {
+        padding: 1rem;
+    }
+    
+    .page-title {
+        font-size: 24px;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+    
+    .stat-card {
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+    
+    .stat-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 20px;
+    }
+    
+    .stat-number {
+        font-size: 24px;
+    }
+    
+    .today-goals,
+    .study-calendar,
+    .activity-timeline {
+        padding: 1.5rem;
+    }
+    
+    .goals-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .studies-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .study-card {
+        padding: 1.5rem;
+    }
+    
+    .study-actions {
+        flex-direction: column;
+    }
+    
+    .calendar-legend {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .calendar-summary {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .completed-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .activity-item {
+        gap: 1rem;
+    }
+    
+    .activity-date {
+        min-width: 50px;
+    }
+    
+    .activity-content {
+        gap: 0.8rem;
+    }
+    
+    .activity-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        padding: 1rem;
+    }
+    
+    .calendar-grid {
+        overflow-x: auto;
+    }
+    
+    .days-grid {
+        min-width: 200px;
+    }
+    
+    .activity-item {
+        flex-direction: column;
+        gap: 0.8rem;
+    }
+    
+    .activity-date {
+        flex-direction: row;
+        justify-content: flex-start;
+        gap: 0.5rem;
+        min-width: auto;
+    }
+}

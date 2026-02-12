@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태스크에 SLA 사용하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">태스크에 SLA 사용하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">airflow</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#airflow</span>
+                
+                <span class="tag">#sla</span>
+                
+                <span class="tag">#dag</span>
+                
+                <span class="tag">#performance-optimization</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="sla-및-성능-모니터링">SLA 및 성능 모니터링</h1>
+
+<h2 id="slasla-miss란">SLA(SLA Miss)란?</h2>
+
+<p>SLA(Service Level Agreement)는 각 태스크가 지정된 시간 내에 완료되어야 하는 시간을 정의합니다. Airflow에서 SLA를 설정하면, 특정 태스크가 SLA 내에 완료되지 못했을 때 ‘SLA Miss’ 이벤트가 트리거됩니다. 이를 통해 지연된 태스크를 모니터링하고 적절한 대응을 할 수 있습니다.</p>
+
+<p>SLA는 <code class="language-plaintext highlighter-rouge">timedelta</code>로 정의하며, SLA를 위반한 경우 알림을 보낼 수 있습니다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span>
+<span class="kn">from</span> <span class="n">airflow</span> <span class="kn">import</span> <span class="n">DAG</span>
+<span class="kn">from</span> <span class="n">airflow.operators.bash</span> <span class="kn">import</span> <span class="n">BashOperator</span>
+
+<span class="n">default_args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">'</span><span class="s">start_date</span><span class="sh">'</span><span class="p">:</span> <span class="nf">datetime</span><span class="p">(</span><span class="mi">2024</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+<span class="p">}</span>
+
+<span class="k">with</span> <span class="nc">DAG</span><span class="p">(</span><span class="sh">'</span><span class="s">sla_example_dag</span><span class="sh">'</span><span class="p">,</span> <span class="n">default_args</span><span class="o">=</span><span class="n">default_args</span><span class="p">,</span> <span class="n">schedule_interval</span><span class="o">=</span><span class="sh">'</span><span class="s">@daily</span><span class="sh">'</span><span class="p">,</span> <span class="n">catchup</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="k">as</span> <span class="n">dag</span><span class="p">:</span>
+
+    <span class="n">task_1</span> <span class="o">=</span> <span class="nc">BashOperator</span><span class="p">(</span>
+        <span class="n">task_id</span><span class="o">=</span><span class="sh">'</span><span class="s">task_1</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">bash_command</span><span class="o">=</span><span class="sh">'</span><span class="s">sleep 5</span><span class="sh">'</span><span class="p">,</span>
+        <span class="n">sla</span><span class="o">=</span><span class="nf">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>  <span class="c1"># SLA 3초 설정
+</span>    <span class="p">)</span>
+</code></pre></div></div>
+
+<p>위 코드에서는 <code class="language-plaintext highlighter-rouge">task_1</code>이 3초 이내에 완료되지 않으면 SLA Miss가 발생합니다. Airflow 웹 UI에서 SLA Miss를 확인할 수 있으며, 알림을 설정하여 즉각 대응할 수 있습니다.</p>
+
+<h2 id="성능-모니터링">성능 모니터링</h2>
+
+<p>Airflow는 태스크 및 DAG의 성능을 모니터링할 수 있는 다양한 방법을 제공합니다. Airflow 웹 UI에서 태스크 실행 시간, 성공/실패 여부, 재시도 여부 등을 실시간으로 확인할 수 있습니다. 또한 로그를 통해 각 태스크의 상세 실행 내역을 확인할 수 있습니다.</p>
+
+<p>성능 최적화를 위해 주기적으로 DAG의 성능을 모니터링하고, 병목 구간을 파악하여 병렬 처리, 자원 할당 등을 조정하는 것이 중요합니다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/docker-classnote/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Docker 통합 학습 노트</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/docker-context/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">도커파일의 context</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

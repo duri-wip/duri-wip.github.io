@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP 서버 구축 방식 비교</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">MCP 서버 구축 방식 비교</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 07일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#mcp</span>
+                
+                <span class="tag">#server-architecture</span>
+                
+                <span class="tag">#microservices</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="mcp-서버">mcp 서버</h1>
+
+<p>mcp 서버를 따로 구축하는 것과 llm 서버 내부에 구축하는 방식의 비교</p>
+
+<ol>
+  <li><strong>HTTP 네트워크 통신을 위한 별도 MCP 서버 구축</strong></li>
+</ol>
+
+<p>장점:</p>
+
+<ul>
+  <li>서비스 분리로 인한 높은 확장성과 유연성</li>
+  <li>도구들을 여러 LLM 서버에서 재사용 가능</li>
+  <li>도구 서버 업데이트/배포가 독립적으로 가능</li>
+  <li>리소스 분산으로 각 서버의 부하 관리 용이</li>
+  <li>REST API로 다양한 클라이언트에서 접근 가능</li>
+</ul>
+
+<p>단점:</p>
+
+<ul>
+  <li>네트워크 통신으로 인한 지연시간 발생</li>
+  <li>네트워크 장애 시 서비스 중단 가능성</li>
+  <li>인프라 관리 복잡도 증가 (두 개의 서버 관리)</li>
+  <li>보안 설정 필요 (인증, 인가, CORS 등)</li>
+  <li>네트워크 대역폭 사용</li>
+</ul>
+
+<ol>
+  <li><strong>LLM 서버 내 MCP stdio 모드로 통합</strong></li>
+</ol>
+
+<p>장점:</p>
+
+<ul>
+  <li>매우 빠른 응답 시간 (프로세스 간 직접 통신)</li>
+  <li>네트워크 장애와 무관한 안정성</li>
+  <li>보안 설정 불필요 (외부 노출 없음)</li>
+  <li>단순한 인프라 구조</li>
+  <li>리소스 효율성 (하나의 서버로 통합)</li>
+  <li>배포/관리가 단순</li>
+</ul>
+
+<p>단점:</p>
+
+<ul>
+  <li>도구 재사용이 어려움 (다른 서버에서 사용 불가)</li>
+  <li>서비스 확장이 제한적</li>
+  <li>LLM 서버와 도구가 강하게 결합됨</li>
+  <li>도구 업데이트 시 전체 서버 재배포 필요</li>
+  <li>LLM 서버의 부하가 증가할 수 있음</li>
+</ul>
+
+<p>선택 기준:</p>
+
+<ol>
+  <li>
+    <p><strong>별도 HTTP 서버가 좋은 경우</strong>:</p>
+
+    <ul>
+      <li>여러 LLM 서버에서 도구를 공유해야 할 때</li>
+      <li>도구들을 자주 업데이트해야 할 때</li>
+      <li>확장성이 중요한 대규모 시스템</li>
+      <li>외부 서비스에서도 도구 접근이 필요할 때</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>stdio 모드 통합이 좋은 경우</strong>:</p>
+    <ul>
+      <li>단일 LLM 서버만 사용할 때</li>
+      <li>빠른 응답 시간이 중요할 때</li>
+      <li>간단한 시스템 구조를 원할 때</li>
+      <li>보안이 매우 중요한 경우</li>
+      <li>개발/테스트 환경</li>
+    </ul>
+  </li>
+</ol>
+
+<p>[아키텍처 구성도]</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                                [MCP 도구 서버]
+</code></pre></div></div>
+
+<p>[LLM 서버] FastAPI + FastMCP
+| |
+| HTTP 요청/응답 |
+| ———————————-&gt;|
+| |
+| 1. /tools (GET) |— [도구 1] 문서 검색
+| 2. /run/{tool} (POST) |— [도구 2] 번역
+| |— [도구 3] 계산
+| |
+| |— [DB/저장소]
+| |
+[다른 클라이언트] |— [외부 API]
+| HTTP 요청/응답 |
+| ———————————-&gt;|</p>
+
+<p>FastMCP를 위한 별도 HTTP 서버 아키텍처를 설명드리겠습니다:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[아키텍처 구성도]
+
+                                    [MCP 도구 서버]
+[LLM 서버]                         FastAPI + FastMCP
+   |                                     |
+   |         HTTP 요청/응답              |
+   | ----------------------------------&gt;|
+   |                                    |
+   |          1. /tools (GET)           |--- [도구 1] 문서 검색
+   |          2. /run/{tool} (POST)     |--- [도구 2] 번역
+   |                                    |--- [도구 3] 계산
+   |                                    |
+   |                                    |--- [DB/저장소]
+   |                                    |
+[다른 클라이언트]                       |--- [외부 API]
+   |          HTTP 요청/응답            |
+   | ----------------------------------&gt;|
+
+</code></pre></div></div>
+
+<p><strong>1. MCP 도구 서버 구현</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># mcp_server/app.py
+</span><span class="kn">from</span> <span class="n">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span> <span class="n">fastmcp</span> <span class="kn">import</span> <span class="n">FastMCP</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="nc">FastAPI</span><span class="p">()</span>
+<span class="n">mcp</span> <span class="o">=</span> <span class="nc">FastMCP</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">Tool Server</span><span class="sh">"</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="sh">"</span><span class="s">1.0.0</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 도구 구현
+</span><span class="nd">@mcp.tool</span>
+<span class="k">def</span> <span class="nf">search_docs</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+    <span class="sh">"""</span><span class="s">문서 검색 도구</span><span class="sh">"""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># 검색 로직 구현
+</span>        <span class="n">results</span> <span class="o">=</span> <span class="nf">perform_search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">results</span><span class="sh">"</span><span class="p">:</span> <span class="n">results</span><span class="p">}</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+<span class="nd">@mcp.tool</span>
+<span class="k">def</span> <span class="nf">translate</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_lang</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+    <span class="sh">"""</span><span class="s">번역 도구</span><span class="sh">"""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">translated</span> <span class="o">=</span> <span class="nf">perform_translation</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">target_lang</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">translated_text</span><span class="sh">"</span><span class="p">:</span> <span class="n">translated</span><span class="p">}</span>
+    <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="nf">str</span><span class="p">(</span><span class="n">e</span><span class="p">))</span>
+
+<span class="c1"># FastMCP 라우터 통합
+</span><span class="n">app</span><span class="p">.</span><span class="nf">include_router</span><span class="p">(</span><span class="n">mcp</span><span class="p">.</span><span class="n">router</span><span class="p">)</span>
+
+<span class="c1"># 추가 엔드포인트
+</span><span class="nd">@app.get</span><span class="p">(</span><span class="sh">"</span><span class="s">/health</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">health_check</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">healthy</span><span class="sh">"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p><strong>2. LLM 서버에서의 도구 사용</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># llm_server/tool_client.py
+</span><span class="kn">import</span> <span class="n">requests</span>
+<span class="kn">from</span> <span class="n">typing</span> <span class="kn">import</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Any</span>
+
+<span class="k">class</span> <span class="nc">MCPToolClient</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">base_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">base_url</span> <span class="o">=</span> <span class="n">base_url</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">tools</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_fetch_tools</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_fetch_tools</span><span class="p">(</span><span class="n">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sh">"""</span><span class="s">사용 가능한 도구 목록 조회</span><span class="sh">"""</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">base_url</span><span class="si">}</span><span class="s">/tools</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">.</span><span class="nf">json</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">run_tool</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">tool_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+        <span class="sh">"""</span><span class="s">도구 실행</span><span class="sh">"""</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">post</span><span class="p">(</span>
+            <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">self</span><span class="p">.</span><span class="n">base_url</span><span class="si">}</span><span class="s">/run/</span><span class="si">{</span><span class="n">tool_name</span><span class="si">}</span><span class="sh">"</span><span class="p">,</span>
+            <span class="n">json</span><span class="o">=</span><span class="n">parameters</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="p">.</span><span class="nf">json</span><span class="p">()</span>
+
+<span class="c1"># llm_server/llm_service.py
+</span><span class="kn">from</span> <span class="n">.tool_client</span> <span class="kn">import</span> <span class="n">MCPToolClient</span>
+
+<span class="k">class</span> <span class="nc">LLMService</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">tool_client</span> <span class="o">=</span> <span class="nc">MCPToolClient</span><span class="p">(</span><span class="sh">"</span><span class="s">http://mcp-server:3000</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="k">async</span> <span class="k">def</span> <span class="nf">process_query</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">user_query</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="c1"># LLM이 도구 사용이 필요하다고 판단하면
+</span>        <span class="k">if</span> <span class="nf">needs_tool</span><span class="p">(</span><span class="n">user_query</span><span class="p">):</span>
+            <span class="n">tool_result</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">tool_client</span><span class="p">.</span><span class="nf">run_tool</span><span class="p">(</span>
+                <span class="sh">"</span><span class="s">search_docs</span><span class="sh">"</span><span class="p">,</span>
+                <span class="p">{</span><span class="sh">"</span><span class="s">query</span><span class="sh">"</span><span class="p">:</span> <span class="n">user_query</span><span class="p">}</span>
+            <span class="p">)</span>
+            <span class="c1"># 도구 결과를 LLM에 제공
+</span>            <span class="n">enhanced_response</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">generate_response</span><span class="p">(</span><span class="n">user_query</span><span class="p">,</span> <span class="n">tool_result</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">enhanced_response</span>
+</code></pre></div></div>
+
+<p><strong>3. 배포 구성 (Docker Compose)</strong></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># docker-compose.yml</span>
+<span class="na">version</span><span class="pi">:</span> <span class="s2">"</span><span class="s">3.8"</span>
+
+<span class="na">services</span><span class="pi">:</span>
+  <span class="na">mcp-server</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">./mcp-server</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">3000:3000"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">ELASTICSEARCH_URL=http://elasticsearch:9200</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">elasticsearch</span>
+
+  <span class="na">llm-server</span><span class="pi">:</span>
+    <span class="na">build</span><span class="pi">:</span> <span class="s">./llm-server</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">8000:8000"</span>
+    <span class="na">environment</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">MCP_SERVER_URL=http://mcp-server:3000</span>
+    <span class="na">depends_on</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">mcp-server</span>
+
+  <span class="na">elasticsearch</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span> <span class="s">elasticsearch:8.x</span>
+    <span class="na">ports</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s2">"</span><span class="s">9200:9200"</span>
+</code></pre></div></div>
+
+<p><strong>4. 보안 설정</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># mcp_server/security.py
+</span><span class="kn">from</span> <span class="n">fastapi</span> <span class="kn">import</span> <span class="n">Security</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span class="kn">from</span> <span class="n">fastapi.security</span> <span class="kn">import</span> <span class="n">APIKeyHeader</span>
+
+<span class="n">api_key_header</span> <span class="o">=</span> <span class="nc">APIKeyHeader</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">X-API-Key</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">verify_api_key</span><span class="p">(</span><span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Security</span><span class="p">(</span><span class="n">api_key_header</span><span class="p">)):</span>
+    <span class="k">if</span> <span class="n">api_key</span> <span class="o">!=</span> <span class="n">VALID_API_KEY</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="nc">HTTPException</span><span class="p">(</span><span class="n">status_code</span><span class="o">=</span><span class="mi">403</span><span class="p">,</span> <span class="n">detail</span><span class="o">=</span><span class="sh">"</span><span class="s">Invalid API key</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">api_key</span>
+
+<span class="c1"># app.py에 보안 적용
+</span><span class="nd">@app.post</span><span class="p">(</span><span class="sh">"</span><span class="s">/run/{tool_name}</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">run_tool</span><span class="p">(</span>
+    <span class="n">tool_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+    <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Security</span><span class="p">(</span><span class="n">verify_api_key</span><span class="p">)</span>
+<span class="p">):</span>
+    <span class="c1"># 도구 실행 로직
+</span></code></pre></div></div>
+
+<p>이 아키텍처의 특징:</p>
+
+<ol>
+  <li>
+    <p><strong>확장성</strong></p>
+
+    <ul>
+      <li>도구 서버와 LLM 서버가 독립적으로 스케일링 가능</li>
+      <li>새로운 도구 추가가 용이</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>모니터링/로깅</strong></p>
+
+    <ul>
+      <li>각 서버의 상태와 성능을 독립적으로 모니터링</li>
+      <li>도구 사용 통계 수집 용이</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>장애 격리</strong></p>
+
+    <ul>
+      <li>도구 서버 장애가 LLM 서버에 직접적인 영향을 주지 않음</li>
+      <li>장애 복구가 독립적으로 가능</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>보안</strong></p>
+    <ul>
+      <li>API 키 기반 인증</li>
+      <li>도구별 접근 제어 가능</li>
+      <li>네트워크 수준의 보안 설정 가능</li>
+    </ul>
+  </li>
+</ol>
+
+<p>mcp를 쓰면 이런게 좋구나&gt;</p>
+
+<ul>
+  <li>타입 검증</li>
+  <li>필수 타입 등에 대한 메서드 제공</li>
+  <li>통일된 인터페이스 제공</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/mcp-fastmcp-basic/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">FastMCP 기초 사용법</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/langgraph/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">LangGraph 활용하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

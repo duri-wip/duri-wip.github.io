@@ -1,0 +1,127 @@
+@font-face {
+    font-family: 'JoseonGulim';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@1.0/ChosunGu.woff') format('woff');
+    font-weight: normal;
+    font-display: swap;
+    unicode-range: U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
+}
+
+:root {
+    /* 미니멀리스틱 색상 팔레트 */
+    --bg-primary: #ffffff;      /* 순수 화이트 */
+    --bg-secondary: #f8f9fa;    /* 연한 회색 */
+    --bg-card: #ffffff;         /* 순수 화이트 */
+    --bg-hover: #f1f3f4;        /* 호버 회색 */
+    --bg-window: #ffffff;       /* 윈도우 화이트 */
+    --bg-pattern: #f8f9fa;      /* 패턴 연한 회색 */
+    
+    /* 텍스트 색상 */
+    --text-primary: #1a1a1a;    /* 더 진한 회색 (거의 검정) */
+    --text-secondary: #4a4a4a;  /* 진한 중간 회색 */
+    --text-muted: #757575;      /* 진한 연한 회색 */
+    
+    /* 초록 액센트 컬러 시스템 */
+    --accent-primary: #3fd166;  /* 구글 그린 */
+    --accent-secondary: #137333; /* 진한 그린 */
+    --accent-tertiary: #0f9d58; /* 미디엄 그린 */
+    --accent-dark: #10893d;     /* 매우 진한 그린 */
+    --accent-light: #e6f4ea;    /* 밝은 그린 */
+    
+    /* 윈도우 프레임 색상 */
+    --window-border: #bdc1c6;   /* 더 진한 회색 테두리 */
+    --window-shadow: #1a1a1a;   /* 더 진한 회색 그림자 */
+    --white: #ffffff;           /* 순수 화이트 */
+    
+    /* 단순화된 회색 톤 */
+    --gray-100: #f8f9fa;        /* 밝은 회색 */
+    
+    /* 상태 색상 */
+    --status-success: #34a853;  /* 성공 그린 */
+    --status-warning: #fbbc04;  /* 경고 노랑 */
+    --status-error: #ea4335;    /* 에러 빨강 */
+    --status-info: #4285f4;     /* 정보 파랑 */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', 'JoseonGulim', 'Monaco', monospace;
+    line-height: 1.4;
+    color: var(--text-secondary);
+    background: 
+        radial-gradient(circle at 2px 2px, var(--bg-pattern) 1px, transparent 1px),
+        var(--bg-primary);
+    background-size: 20px 20px;
+    font-size: 12px;
+    font-weight: 400;
+    image-rendering: pixelated;
+}
+
+.container {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: var(--bg-window);
+    border: 1px solid var(--window-border);
+    box-shadow: 
+        2px 2px 0px var(--window-shadow),
+        inset 1px 1px 0px var(--white);
+}
+
+/* 메인 콘텐츠 영역 */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 콘텐츠 영역 */
+.content {
+    flex: 1;
+    padding: 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--window-border);
+    margin: 8px;
+}
+
+/* 섹션 제목 공통 스타일 */
+.section-title {
+    font-size: 14px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    position: relative;
+    padding: 4px 16px;
+    background: var(--bg-window);
+    border: 1px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+}
+
+.section-title::before {
+    content: '■';
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--accent-primary);
+    font-size: 8px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .content {
+        padding: 1.5rem;
+    }
+}

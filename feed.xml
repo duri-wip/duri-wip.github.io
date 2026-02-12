@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://duri-wip.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://duri-wip.github.io/" rel="alternate" type="text/html" /><updated>2026-02-12T01:12:26+00:00</updated><id>https://duri-wip.github.io/feed.xml</id><title type="html">Duri’s Work In Progress</title><subtitle>열심히 배우고 있습니다.</subtitle><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><entry><title type="html">쿠버네티스 아키텍처와 gRPC</title><link href="https://duri-wip.github.io/development/k8s-architecture-and-grpc/" rel="alternate" type="text/html" title="쿠버네티스 아키텍처와 gRPC" /><published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/k8s-architecture-and-grpc</id><content type="html" xml:base="https://duri-wip.github.io/development/k8s-architecture-and-grpc/"><![CDATA[<h2 id="grpc는-어디에-쓰이는-걸까">gRPC는 어디에 쓰이는 걸까?</h2>
+
+<p><a href="/development/restapi-vs-grpc/">이전 포스트</a>에서 gRPC가 내부 통신을 빠르게 해준다는 걸 알아봤다. 그럼 실제로 어디에 쓰이는 걸까? 가장 가까운 예로 쿠버네티스를 찾을 수 있었다.</p>
+
+<p>쿠버네티스의 핵심 구성 요소들은 서로 gRPC로 통신하고, 새로운 컨테이너 런타임이나 네트워크 플러그인을 끼워넣을 수 있는 것도 gRPC 인터페이스 덕분이다.</p>
+
+<h2 id="쿠버네티스-아키텍처">쿠버네티스 아키텍처</h2>
+
+<p>쿠버네티스는 크게 두 파트로 나뉜다. 전체를 관리하는 <strong>컨트롤 플레인</strong>과 실제 컨테이너가 실행되는 <strong>노드</strong>다.</p>
+
+<h3 id="컨트롤-플레인">컨트롤 플레인</h3>
+
+<p>클러스터의 두뇌 역할을 한다. 네 가지 핵심 컴포넌트로 구성된다.</p>
+
+<ul>
+  <li><strong>API 서버</strong>: 모든 요청의 관문이다. 외부 요청도, 내부 구성 요소끼리의 통신도 전부 API 서버를 거친다</li>
+  <li><strong>etcd</strong>: 클러스터의 메모리다. 모든 상태 정보(설정값, 어떤 노드에 뭐가 떠있는지 등)를 저장하는 key-value 저장소</li>
+  <li><strong>스케줄러</strong>: 새로 만든 Pod를 어떤 노드에 배치할지를 결정한다</li>
+  <li><strong>컨트롤러 매니저</strong>: 현재 떠 있는 컨테이너가 선언된 상태와 일치하는지를 계속 확인하고, 하나가 죽으면 다시 살려내는 일을 한다</li>
+</ul>
+
+<h3 id="노드">노드</h3>
+
+<p>실제 컨테이너들이 실행되는 워커 머신이다. 세 가지 컴포넌트가 있다.</p>
+
+<ul>
+  <li><strong>kubelet</strong>: 컨트롤 플레인과 소통하는 에이전트다. 해당 노드에 어떤 컨테이너가 띄워져야 하는지 명령을 받고, 실행하고, 상태를 보고한다</li>
+  <li><strong>kube-proxy</strong>: 노드로 들어오는 네트워크 트래픽을 어떤 컨테이너로 보낼지 정리하는 네트워크 규칙을 관리한다. 쉽게 말하면 로드 밸런서 역할이다. 서비스 이름으로 오는 트래픽을 살아있는 Pod에게 나누어준다</li>
+  <li><strong>컨테이너 런타임</strong>: 실제로 컨테이너를 구동시키는 실행 엔진이다</li>
+</ul>
+
+<h2 id="인터페이스-중심-설계-쿠버네티스가-유연한-이유">인터페이스 중심 설계: 쿠버네티스가 유연한 이유</h2>
+
+<p>쿠버네티스가 유연한 확장이 가능한 이유는 처음부터 <strong>표준 인터페이스만 정해두고 실제 동작은 구현하지 않겠다</strong>는 설계 철학이 있기 때문이다.</p>
+
+<p>쿠버네티스가 정의한 gRPC 인터페이스 규격은 세 가지다.</p>
+
+<ul>
+  <li><strong>CRI (Container Runtime Interface)</strong>: “컨테이너 실행” 규격</li>
+  <li><strong>CSI (Container Storage Interface)</strong>: “디스크 연결” 규격</li>
+  <li><strong>CNI (Container Network Interface)</strong>: “네트워크 설정” 규격</li>
+</ul>
+
+<p>이 규격들은 모두 <code class="language-plaintext highlighter-rouge">.proto</code> 파일로 정의되어 있다. 예를 들어, 새로운 컨테이너 엔진을 만들고 싶다면 쿠버네티스가 정의한 <code class="language-plaintext highlighter-rouge">runtime.proto</code>의 명세대로 gRPC 서버를 구현하기만 하면 된다. 이 구조 덕분에 Docker 대신 containerd를 쓰든, Calico 대신 Cilium을 쓰든, 쿠버네티스 코어를 건드릴 필요가 없다.</p>
+
+<h2 id="pod가-생성되기까지-전체-흐름">Pod가 생성되기까지: 전체 흐름</h2>
+
+<p>사용자가 YAML을 선언하고 나서 실제로 컨테이너가 뜨기까지의 과정을 따라가보자.</p>
+
+<h3 id="1단계-인증과-저장">1단계: 인증과 저장</h3>
+
+<p><code class="language-plaintext highlighter-rouge">kubectl</code>은 사용자가 작성한 YAML을 API 서버에 전달한다. API 서버는 인증/인가를 확인하고, 이상이 없으면 YAML 파일 내용을 <strong>etcd에 저장</strong>한다.</p>
+
+<h3 id="2단계-배치-결정">2단계: 배치 결정</h3>
+
+<p>스케줄러는 API 서버를 감시하고 있다가, <strong>노드에 배정되지 않은 Pod</strong>가 생긴 걸 확인한다. 배정되지 않은 Pod란 etcd에 저장된 Pod 정보 중 <code class="language-plaintext highlighter-rouge">nodeName</code> 필드가 비어있는 경우를 의미한다.</p>
+
+<p>그럼 스케줄러는 각 노드의 리소스 상황을 확인하고 가장 적절한 노드를 골라 API 서버에 보고한다. 이때 <strong>필터링</strong>과 <strong>스코어링</strong> 두 단계를 거친다.</p>
+
+<ul>
+  <li><strong>필터링</strong>: Pod가 요구하는 CPU/메모리가 충분한가? 특정 노드에만 띄우라는 조건(nodeSelector 등)이 있는가? 등 노드의 사양이 충분한지를 판단하여 후보를 거른다</li>
+  <li><strong>스코어링</strong>: 남은 후보 노드들에 점수를 매긴다. 이미지가 이미 다운로드되어 있는지, 리소스 여유가 더 많은지 등을 따져서 가장 점수가 높은 노드를 선택한다</li>
+</ul>
+
+<h3 id="3단계-명령-전달">3단계: 명령 전달</h3>
+
+<p>kubelet이 자신의 노드에 할당된 새로운 Pod 정보를 API 서버로부터 전달받는다. kubelet은 미리 생성된 <strong>gRPC Stub</strong>을 이용해 노드의 컨테이너 런타임에 명령을 보낸다. 이때 kubelet과 컨테이너 런타임 사이의 통신은 <strong>CRI 규격</strong>을 통해 구성되어 있다.</p>
+
+<h3 id="4단계-실제-생성">4단계: 실제 생성</h3>
+
+<p>컨테이너 런타임은 명령을 받고 이미지를 pull한 후 컨테이너를 생성한다. 그 다음 두 가지 추가 작업이 진행된다.</p>
+
+<p><strong>네트워크 설정</strong>: 컨테이너에 IP 주소를 할당하기 위해 gRPC 통신으로 <strong>CNI 플러그인</strong>에게 네트워크 설정을 요청한다. CNI 플러그인은 컨테이너 내부에 고유한 IP 주소를 부여하고, 컨테이너끼리 서로 통신할 수 있는 네트워크를 구성하는 역할을 한다.</p>
+
+<p><strong>스토리지 연결</strong>: 영구 저장소가 필요한 경우 gRPC 통신으로 <strong>CSI 플러그인</strong>에게 디스크 연결을 요청한다. CSI 플러그인은 컨테이너가 삭제되어도 데이터가 날아가지 않도록 외부 저장소와 컨테이너를 연결해주는 역할을 한다.</p>
+
+<h3 id="5단계-완료-보고">5단계: 완료 보고</h3>
+
+<p>kubelet이 API 서버에게 생성 완료 사실을 알린다. kubelet은 컨테이너 런타임으로부터 <strong>gRPC 응답</strong>으로 작업 완료 사실을 전달받고, 이후에도 주기적으로 gRPC 폴링을 통해 컨테이너 내부 프로세스의 상태를 실시간으로 체크하여 보고한다.</p>
+
+<p>API 서버는 이 상태를 다시 etcd에 기록하며, 이로써 선언된 상태와 실제 상태가 일치하게 된다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="kubernetes" /><category term="grpc" /><category term="container" /><category term="docker" /><category term="devops" /><category term="cri" /><category term="cni" /><category term="csi" /><summary type="html"><![CDATA[쿠버네티스가 컨트롤 플레인과 노드 사이에서 gRPC를 활용하는 방식과, Pod가 생성되기까지의 전체 흐름을 정리한다]]></summary></entry><entry><title type="html">uv로 Python 의존성 관리하기 - 로컬부터 CI/CD까지</title><link href="https://duri-wip.github.io/development/uv-python-dependency-management/" rel="alternate" type="text/html" title="uv로 Python 의존성 관리하기 - 로컬부터 CI/CD까지" /><published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/uv-python-dependency-management</id><content type="html" xml:base="https://duri-wip.github.io/development/uv-python-dependency-management/"><![CDATA[<h2 id="의존성-관리가-중요한-이유">의존성 관리가 중요한 이유</h2>
+
+<p>“내 컴퓨터에서는 잘 되는데요?!”</p>
+
+<p>하 혈압올라… 의존성 관리의 핵심 원칙은 두가지다.</p>
+
+<ul>
+  <li><strong>환경 일관성</strong>: 각각 다른 개발자의 환경에서도 문제 없이 동일한 소프트웨어 환경을 구축할 수 있어야 함</li>
+  <li><strong>재현 가능성</strong>: 각 개발자의 로컬 개발 환경의 차이에도 불구하고 동일한 소프트웨어 의존성을 구축해야 함</li>
+</ul>
+
+<p>이 원칙이 깨지는 빈번한 이유는 보통 다음과 같다.</p>
+<ul>
+  <li><strong>버전의 파편화</strong>: 어떤 사람은 Python 3.9를 쓰고 운영 서버는 Python 3.8을 쓰고…</li>
+  <li><strong>라이브러리 오염</strong>: 로컬에 설치된 다른 프로젝트의 라이브러리가 현재 프로젝트에 영향을 미침</li>
+  <li><strong>OS 종속성</strong>: 윈도우 환경에서 개발했는데 리눅스 서버로 배포하는 경우</li>
+</ul>
+
+<p>그래서 동일한 환경을 구축하기 위해 세 가지 계층의 대응이 필요하다.</p>
+<ol>
+  <li><strong>의존성 고정</strong>: 라이브러리 A의 특정 버전을 써라</li>
+  <li><strong>가상 환경</strong>: 해당 프로젝트만을 위한 환경에서 써라</li>
+  <li><strong>컨테이너화</strong>: OS 수준에서 환경을 캡슐화하여 개발자의 로컬 = 테스트 서버 = 운영 서버 환경을 구축</li>
+</ol>
+
+<h2 id="uv-vs-pip-무엇이-다른가">uv vs pip: 무엇이 다른가?</h2>
+
+<p>uv는 Rust로 작성된 Python 패키지 매니저로, pip 대비 다음과 같은 장점을 가진다.</p>
+
+<h3 id="1-병렬-다운로드--설치">1. 병렬 다운로드 &amp; 설치</h3>
+<p>pip는 Global Interpreter Lock(GIL)을 사용하기 때문에 병렬 다운로드와 설치가 불가능하다. uv는 Rust 기반이라 이런 제약이 없다.</p>
+
+<h3 id="2-글로벌-캐시-시스템">2. 글로벌 캐시 시스템</h3>
+<p>한번 다운로드하면 영원히 재사용한다. 한 프로젝트에서 설치된 패키지는 다른 프로젝트에서도 캐시로 사용된다. pip는 캐시가 있어도 매번 복사 설치한다.</p>
+
+<h3 id="3-의존성-해결-알고리즘-최적화">3. 의존성 해결 알고리즘 최적화</h3>
+<p>pip는 백트래킹으로 의존성을 해결하려고 하는데, uv는 전체 패키지의 제약조건을 한번에 분석해 최적의 버전 조합을 빠르게 계산한다.</p>
+
+<h3 id="4-universal-locking">4. Universal Locking</h3>
+<p>모든 플랫폼(OS)과의 호환성을 검토하고 <code class="language-plaintext highlighter-rouge">uv.lock</code>을 업데이트한다.</p>
+
+<h2 id="uv-프로젝트-구조">uv 프로젝트 구조</h2>
+
+<p><code class="language-plaintext highlighter-rouge">uv init</code>을 실행하면 프로젝트가 초기화되고 다음 파일들이 생성된다.</p>
+
+<h3 id="python-version">.python-version</h3>
+<p>현재 개발 환경의 파이썬 버전을 명시한다.</p>
+
+<h3 id="pyprojecttoml">pyproject.toml</h3>
+<p>개발자가 직접 설치한 의존성 라이브러리들을 관리한다. <code class="language-plaintext highlighter-rouge">uv add library-a</code>로 의존성을 설치하면 이 라이브러리의 버전이 명시된다.</p>
+
+<h3 id="uvlock">uv.lock</h3>
+<p><code class="language-plaintext highlighter-rouge">uv add</code>, <code class="language-plaintext highlighter-rouge">uv sync</code>를 실행하면 생성된다. pyproject.toml에 적힌 라이브러리뿐만 아니라, 그 라이브러리가 의존하는 하위 의존성까지 전부 계산하여 특정 버전으로 박제한다.</p>
+
+<ul>
+  <li>add는 라이브러리 추가</li>
+  <li>sync는 명시되어있는 의존성 설치</li>
+</ul>
+
+<h2 id="universal-lock-파일의-비밀">Universal Lock 파일의 비밀</h2>
+
+<p>uv의 락 파일은 OS에 종속되지 않는 유니버설 구조다. 이게 무슨 의미일까?</p>
+
+<p>해당 패키지가 어떤 환경에서 무엇을 필요로 하는지 메타데이터를 정적으로 분석한다. 그리고 각 OS별 바이너리 파일들의 hash를 모두 락 파일에 적어둔다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">uv.lock</code> 파일을 열어보면 이런 정보가 있다.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">dependencies</span> <span class="p">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="py">name</span> <span class="p">=</span> <span class="s">"some-package"</span><span class="p">,</span> <span class="py">marker</span> <span class="p">=</span> <span class="py">"sys_platform</span> <span class="p">=</span><span class="err">=</span> <span class="s">'win32'" }</span><span class="err">
+]</span>
+</code></pre></div></div>
+
+<p>어떤 패키지에는 마커가 붙어있고 어떤 것에는 안 붙어있는데, 이는 분기 처리한 흔적이다. 안 붙어있는 패키지는 OS마다 동일한 파이썬 라이브러리이기 때문이고, 플랫폼 종속적인 패키지들만 마커가 붙는다.</p>
+
+<p>또한 <code class="language-plaintext highlighter-rouge">whl</code>, <code class="language-plaintext highlighter-rouge">sdist</code>의 정보는 각 OS별 바이너리 파일의 해시값을 기록해두는 태그다. 이를 통해 어떤 개발 환경에서 개발하더라도 동일한 의존성 파일을 참고할 수 있다.</p>
+
+<h2 id="uv가-빠른-이유-글로벌-캐시-시스템">uv가 빠른 이유: 글로벌 캐시 시스템</h2>
+
+<p>uv의 동작 과정은 다음과 같다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">pyproject.toml</code> 파일을 읽고 <code class="language-plaintext highlighter-rouge">uv.lock</code> 파일을 업데이트</li>
+  <li>각 OS별 캐시 경로에서 라이브러리 파일을 찾음</li>
+  <li>캐시에 있으면 새로 다운로드하지 않음, 없으면 다운로드하여 글로벌 캐시에 저장</li>
+  <li>프로젝트 폴더의 <code class="language-plaintext highlighter-rouge">.venv</code> 폴더에 <strong>심볼릭 링크 또는 하드 링크</strong>를 사용하여 글로벌 캐시와 가상 환경을 연결</li>
+</ol>
+
+<p>pip처럼 매번 복사하지 않고 링크만 걸기 때문에 빠르고 디스크 공간도 절약된다.</p>
+
+<h2 id="docker에서-uv-사용하기">Docker에서 uv 사용하기</h2>
+
+<p>로컬에서 개발할 때는 글로벌 캐시를 사용하지만, Docker로 빌드할 때는 어떻게 해야 할까?</p>
+
+<p>Docker 빌드 시에는 글로벌 캐시가 없다. 하지만 <strong>Docker BuildKit 캐시</strong>를 활용하면 uv의 장점을 살릴 수 있다.</p>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> python:3.10-slim</span>
+
+<span class="c"># 1. uv 설치</span>
+<span class="k">COPY</span><span class="s"> --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/</span>
+
+<span class="c"># 2. 작업 디렉토리 설정</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+
+<span class="c"># 3. 의존성 파일 먼저 복사 (캐시 효율화)</span>
+<span class="k">COPY</span><span class="s"> pyproject.toml uv.lock ./</span>
+
+<span class="c"># 4. 도커 캐시 마운트를 활용한 패키지 설치</span>
+<span class="k">RUN </span><span class="nt">--mount</span><span class="o">=</span><span class="nb">type</span><span class="o">=</span>cache,target<span class="o">=</span>/root/.cache/uv <span class="se">\
+</span>    uv <span class="nb">sync</span> <span class="nt">--frozen</span> <span class="nt">--no-install-project</span>
+
+<span class="c"># 5. 소스 코드 복사</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+
+<span class="c"># 6. 가상환경 활성화 상태로 실행</span>
+<span class="k">ENV</span><span class="s"> PATH="/app/.venv/bin:$PATH"</span>
+<span class="k">CMD</span><span class="s"> ["uvicorn", "main:app", "--host", "0.0.0.0"]</span>
+</code></pre></div></div>
+
+<p>여기서 사용되는 Docker 캐시는 Docker 빌드 엔진인 BuildKit이 관리하는 별도의 로컬 캐시 버킷에 저장된다. 이 버킷은 이미지 레이어와 관련 없이 호스트에 남기 때문에, 다른 이미지를 빌드할 때도 글로벌 캐시처럼 사용할 수 있다.</p>
+
+<h2 id="github-actions에서-uv-캐시-활용하기">GitHub Actions에서 uv 캐시 활용하기</h2>
+
+<p>CI/CD 파이프라인에서는 빌드가 끝나면 서버가 통째로 사라지는 경우가 많다. 그래서 캐시를 외부 저장소에 따로 빼두고 가져오는 방식을 사용한다.</p>
+
+<p>Dockerfile은 위와 동일하게 캐시 마운트를 사용하고, workflow yaml 파일은 다음과 같이 구성한다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v4</span>
+
+      <span class="c1"># BuildKit 빌더 설정 - 캐시 기능 활성화</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Setup docker buildx</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">docker/setup-buildx-action@v3</span>
+
+      <span class="c1"># push 설정을 위한 레지스트리 로그인</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Login to container registry</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">docker/login-action@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">registry</span><span class="pi">:</span> <span class="s">ghcr.io</span>
+          <span class="na">username</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">password</span><span class="pi">:</span> <span class="s">$</span>
+
+      <span class="c1"># Docker 이미지 빌드 + 캐시 설정</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Build and push</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">docker/build-push-action@v5</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">context</span><span class="pi">:</span> <span class="s">.</span>
+          <span class="na">push</span><span class="pi">:</span> <span class="kc">true</span>
+          <span class="na">tags</span><span class="pi">:</span> <span class="s">ghcr.io/$:latest</span>
+          <span class="na">cache-from</span><span class="pi">:</span> <span class="s">type=gha</span>
+          <span class="na">cache-to</span><span class="pi">:</span> <span class="s">type=gha,mode=max</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">cache-from: type=gha</code>와 <code class="language-plaintext highlighter-rouge">cache-to: type=gha,mode=max</code> 설정을 통해 GitHub의 레포지토리별로 관리되는 캐시 서버에서 uv 라이브러리 파일을 가져오고, 빌드가 끝나면 새로 추가된 라이브러리를 다시 서버에 업로드한다.</p>
+
+<h2 id="cloud-build-환경에서는">Cloud Build 환경에서는?</h2>
+
+<p>Google Cloud Build와 같은 환경에서는 GitHub Actions처럼 기본 캐시 기능을 제공하지 않는다. 따라서 캐시 파일을 담아둘 <strong>GCS 버킷</strong>을 만들고, 빌드 설정에서 직접 캐시 파일을 업로드/다운로드해야 한다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="python" /><category term="uv" /><category term="docker" /><category term="ci-cd" /><category term="dependency-management" /><summary type="html"><![CDATA[pip보다 빠른 uv의 동작 원리와 Docker, GitHub Actions 환경에서 캐시를 활용하는 방법]]></summary></entry><entry><title type="html">REST API vs gRPC: 마이크로서비스 통신 방식 비교</title><link href="https://duri-wip.github.io/development/restapi-vs-grpc/" rel="alternate" type="text/html" title="REST API vs gRPC: 마이크로서비스 통신 방식 비교" /><published>2026-02-05T00:00:00+00:00</published><updated>2026-02-05T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/restapi-vs-grpc</id><content type="html" xml:base="https://duri-wip.github.io/development/restapi-vs-grpc/"><![CDATA[<h1 id="grpc란">gRPC란?</h1>
+
+<p>gRPC는 구글이 만든 고성능 오픈소스 RPC(Remote Procedure Call) 프레임워크이다. 다른 서버에 있는 함수를 마치 내 서버에 있는 함수처럼 호출해서 쓸 수 있게 해주는 기술이다.</p>
+
+<h1 id="rest-api-vs-grpc">REST API vs gRPC</h1>
+
+<p>마이크로서비스 환경에서 서비스 간 통신(Internal API Call)에 REST API와 gRPC는 다음 관점에서 다르다.</p>
+
+<h2 id="1-데이터-형식">1. 데이터 형식</h2>
+
+<p><strong>REST API</strong>는 JSON을 사용한다.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"홍길동"</span><span class="p">,</span><span class="w"> </span><span class="nl">"age"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>텍스트 기반이라 컴퓨터가 이를 다시 해석(Parsing)해야 해서 상대적으로 느리다.</p>
+
+<p><strong>gRPC</strong>는 Protocol Buffers(Protobuf)라는 이진 데이터를 사용한다. 데이터를 아주 작게 압축된 이진 코드(Binary)로 보내기 때문에:</p>
+<ul>
+  <li>데이터 크기가 훨씬 작다</li>
+  <li>컴퓨터가 해석할 필요 없이 바로 처리한다</li>
+  <li>통신 속도가 획기적으로 빠르다</li>
+</ul>
+
+<h2 id="2-통신-프로토콜">2. 통신 프로토콜</h2>
+
+<p><strong>REST API</strong></p>
+<ul>
+  <li>주로 HTTP/1.1 사용</li>
+  <li>요청-응답이 1:1로 매핑되어 단방향으로만 동작</li>
+  <li>요청 하나당 연결을 하나씩 맺고 끊어서 오버헤드가 크다</li>
+</ul>
+
+<p><strong>gRPC</strong></p>
+<ul>
+  <li>HTTP/2 사용</li>
+  <li>양방향 통신 가능</li>
+  <li>하나의 연결로 여러 요청을 동시에 처리(Multiplexing)</li>
+  <li>마이크로서비스끼리 수많은 데이터를 주고받을 때 유리하다</li>
+</ul>
+
+<h2 id="3-type-safety">3. Type Safety</h2>
+
+<p><strong>gRPC</strong>는 <code class="language-plaintext highlighter-rouge">.proto</code>라는 파일로 서로 주고받을 데이터 타입을 엄격하게 미리 정의한다. 코드를 짤 때부터 에러를 잡을 수 있어(Type-safe), 서비스 간의 통신 오류를 줄여준다.</p>
+
+<h1 id="grpc-구현-방법">gRPC 구현 방법</h1>
+
+<p>gRPC를 만들려면 코드를 짜기 전에 <code class="language-plaintext highlighter-rouge">.proto</code>라는 파일부터 먼저 만들어야 한다. 여기에는 IDL(Interface Definition Language)이라는 인터페이스 정의 언어가 사용된다.</p>
+
+<h2 id="단계-1-명세서-작성-userproto">단계 1: 명세서 작성 (<code class="language-plaintext highlighter-rouge">user.proto</code>)</h2>
+
+<div class="language-protobuf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">syntax</span> <span class="o">=</span> <span class="s">"proto3"</span><span class="p">;</span>
+
+<span class="c1">// 서비스(함수) 정의</span>
+<span class="kd">service</span> <span class="n">UserService</span> <span class="p">{</span>
+  <span class="k">rpc</span> <span class="n">GetUser</span> <span class="p">(</span><span class="n">UserRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">UserResponse</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 주고받을 데이터 모양 정의</span>
+<span class="kd">message</span> <span class="nc">UserRequest</span> <span class="p">{</span>
+  <span class="kt">int32</span> <span class="na">user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">UserResponse</span> <span class="p">{</span>
+  <span class="kt">int32</span> <span class="na">user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">user_id = 1</code>처럼 숫자를 지정하는 것은 필드의 고유 태그이다. 확장할때 좋다는데.. 아직 잘 모르겠음</p>
+
+<h2 id="단계-2-파이썬-코드-생성">단계 2: 파이썬 코드 생성</h2>
+
+<p>다음 명령어를 실행하면 파이썬 파일 2개가 생성된다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> grpc_tools.protoc <span class="nt">-I</span><span class="nb">.</span> <span class="nt">--python_out</span><span class="o">=</span><span class="nb">.</span> <span class="nt">--grpc_python_out</span><span class="o">=</span><span class="nb">.</span> user.proto
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">user_pb2.py</code>: 데이터 구조를 담고 있다</li>
+  <li><code class="language-plaintext highlighter-rouge">user_pb2_grpc.py</code>: 통신을 담당한다</li>
+</ul>
+
+<p>두 개의 파일로 분리한 이유는 <strong>책임과 역할의 분리</strong> 때문이다. 어떤 시스템에서는 데이터 구조만 필요하고 서버 기능은 필요 없을 수 있다. 또한 의존성 관리도 더 쉬워진다.</p>
+
+<h2 id="단계-3-서버-구현-serverpy">단계 3: 서버 구현 (<code class="language-plaintext highlighter-rouge">server.py</code>)</h2>
+
+<p>생성된 파일을 import해서 빈칸 채우기를 한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">grpc</span>
+<span class="kn">from</span> <span class="n">concurrent</span> <span class="kn">import</span> <span class="n">futures</span>
+<span class="kn">import</span> <span class="n">user_pb2</span>        <span class="c1"># 생성된 데이터 코드
+</span><span class="kn">import</span> <span class="n">user_pb2_grpc</span>   <span class="c1"># 생성된 통신 코드
+</span>
+<span class="c1"># 생성된 부모 클래스(UserServiceServicer)를 상속받는다
+</span><span class="k">class</span> <span class="nc">UserService</span><span class="p">(</span><span class="n">user_pb2_grpc</span><span class="p">.</span><span class="n">UserServiceServicer</span><span class="p">):</span>
+
+    <span class="c1"># 비즈니스 로직을 채워 넣는다
+</span>    <span class="k">def</span> <span class="nf">GetUser</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="c1"># request.user_id처럼 점(.)으로 데이터에 접근한다
+</span>        <span class="k">return</span> <span class="n">user_pb2</span><span class="p">.</span><span class="nc">UserResponse</span><span class="p">(</span>
+            <span class="n">user_id</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">김제미니</span><span class="sh">"</span>
+        <span class="p">)</span>
+
+<span class="c1"># 서버 실행 코드
+</span><span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">grpc</span><span class="p">.</span><span class="nf">server</span><span class="p">(</span><span class="n">futures</span><span class="p">.</span><span class="nc">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">user_pb2_grpc</span><span class="p">.</span><span class="nf">add_UserServiceServicer_to_server</span><span class="p">(</span><span class="nc">UserService</span><span class="p">(),</span> <span class="n">server</span><span class="p">)</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">add_insecure_port</span><span class="p">(</span><span class="sh">'</span><span class="s">[::]:50051</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">wait_for_termination</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">serve</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="단계-4-클라이언트-구현-clientpy">단계 4: 클라이언트 구현 (<code class="language-plaintext highlighter-rouge">client.py</code>)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">grpc</span>
+<span class="kn">import</span> <span class="n">user_pb2</span>
+<span class="kn">import</span> <span class="n">user_pb2_grpc</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="c1"># 서버와 연결하는 통로 생성
+</span>    <span class="k">with</span> <span class="n">grpc</span><span class="p">.</span><span class="nf">insecure_channel</span><span class="p">(</span><span class="sh">'</span><span class="s">localhost:50051</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+        <span class="c1"># 서버의 함수를 호출할 대리인(Stub) 생성
+</span>        <span class="n">stub</span> <span class="o">=</span> <span class="n">user_pb2_grpc</span><span class="p">.</span><span class="nc">UserServiceStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+
+        <span class="c1"># 실제 호출
+</span>        <span class="n">response</span> <span class="o">=</span> <span class="n">stub</span><span class="p">.</span><span class="nc">GetUser</span><span class="p">(</span><span class="n">user_pb2</span><span class="p">.</span><span class="nc">UserRequest</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">123</span><span class="p">))</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">받은 데이터: </span><span class="si">{</span><span class="n">response</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s"> (ID: </span><span class="si">{</span><span class="n">response</span><span class="p">.</span><span class="n">user_id</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">run</span><span class="p">()</span>
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="grpc" /><category term="restapi" /><category term="microservice" /><category term="protobuf" /><category term="python" /><category term="api" /><summary type="html"><![CDATA[REST API와 gRPC의 차이점을 알아보고, gRPC 서버/클라이언트 구현 방법을 살펴본다]]></summary></entry><entry><title type="html">단위 테스트 설계하기</title><link href="https://duri-wip.github.io/development/unit-test-design/" rel="alternate" type="text/html" title="단위 테스트 설계하기" /><published>2026-01-30T00:00:00+00:00</published><updated>2026-01-30T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/unit-test-design</id><content type="html" xml:base="https://duri-wip.github.io/development/unit-test-design/"><![CDATA[<h2 id="1-왜-테스트를-작성하는가">1. 왜 테스트를 작성하는가?</h2>
+
+<p>테스트를 먼저 생각하면 더 나은 API 설계가 나온다는 것이 TDD의 핵심 철학이다. 테스트 코드를 작성하면서 얻는 이점은 다음과 같다.</p>
+
+<ul>
+  <li><strong>리팩토링 안전망</strong>: 코드 변경이 수반되는 경우에도 기능이 동작함을 보장할 수 있다</li>
+  <li><strong>빠른 검증</strong>: 컴파일/실행 없이 빠르게 검증할 수 있다</li>
+  <li><strong>설계 개선</strong>: 테스트하기 어려운 코드는 대체로 설계가 좋지 않다는 신호다</li>
+</ul>
+
+<hr />
+
+<h2 id="2-어떤-코드에-테스트가-필요한가">2. 어떤 코드에 테스트가 필요한가?</h2>
+
+<blockquote>
+  <p><strong>내가 만든 로직은 테스트하고, 남이 만든 건 테스트하지 않는다!</strong></p>
+</blockquote>
+
+<h3 id="테스트하지-않아도-되는-코드">테스트하지 않아도 되는 코드</h3>
+
+<h4 id="일회성-스크립트">일회성 스크립트</h4>
+<p>테스트 범위는 프로덕션으로 한정한다. 프로덕션에 들어가지 않는 일회성 스크립트는 테스트 대상이 아니다.</p>
+
+<h4 id="외부-라이브러리">외부 라이브러리</h4>
+<p>외부 라이브러리는 의존성에 해당한다. 테스트는 ‘내가 작성한 코드’에 한정한다.</p>
+
+<h4 id="프레임워크-코드">프레임워크 코드</h4>
+<p>프레임워크가 이미 테스트한 기능은 다시 테스트하지 않는다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@router.get</span><span class="p">(</span><span class="sh">"</span><span class="s">/health</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_health</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">healthy</span><span class="sh">"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>위 코드에서 라우터가 진짜 라우팅을 하는지 검증하는 <code class="language-plaintext highlighter-rouge">test_router_exists</code>를 만들 필요는 없다. SQLAlchemy로 정의된 모델이 진짜 존재하는지를 <code class="language-plaintext highlighter-rouge">getattr()</code>로 확인할 필요도 없다.</p>
+
+<p>그러면 라우터는 어떻게 테스트할까?</p>
+<ul>
+  <li><strong>서비스 계층에서 테스트</strong>: 비즈니스 로직을 담당하는 서비스 계층을 테스트한다</li>
+  <li><strong>통합 테스트</strong>: 전체 흐름을 통합 테스트에서 검증한다</li>
+</ul>
+
+<p>단, 모델에 비즈니스 로직이 있을 때는 테스트한다. 예를 들어 모델을 만들 때 <code class="language-plaintext highlighter-rouge">updated_at</code>을 자동으로 업데이트하는 로직이 있다면, 그 로직은 테스트 대상이다.</p>
+
+<h4 id="트리비얼-코드">트리비얼 코드</h4>
+<p>너무 단순해서 버그가 생길 일이 없는 코드는 테스트하지 않는다.</p>
+
+<ul>
+  <li>Pydantic 모델로 만들어진 데이터 클래스 등 자체 검증이 내장된 클래스</li>
+  <li>단순한 getter/setter</li>
+</ul>
+
+<p>다만, 같은 getter/setter 패턴이어도 비즈니스 로직에 따라 값을 설정하는 setter는 테스트해야 한다.</p>
+
+<hr />
+
+<h2 id="3-단위-테스트가-다른-테스트와-다른-점">3. 단위 테스트가 다른 테스트와 다른 점</h2>
+
+<p>테스트의 종류에는 단위 테스트, 통합 테스트, E2E 테스트가 있다.</p>
+
+<h3 id="단위-테스트-unit-test">단위 테스트 (Unit Test)</h3>
+<ul>
+  <li>함수, 메서드, 클래스 단위로 테스트</li>
+  <li>외부 의존성 없음 (Mock 사용)</li>
+</ul>
+
+<h3 id="통합-테스트-integration-test">통합 테스트 (Integration Test)</h3>
+<ul>
+  <li>여러 모듈 간의 상호작용 테스트</li>
+  <li>실제 의존성 사용
+    <ul>
+      <li>실제 데이터베이스와 연결해서 하는 테스트</li>
+      <li>실제 외부 API를 호출하는 테스트</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="e2e-테스트-end-to-end-test">E2E 테스트 (End-to-End Test)</h3>
+<ul>
+  <li>전체 시스템을 사용자 관점에서 테스트</li>
+  <li>실제 환경과 동일하게 구성</li>
+  <li>QA와 비슷한 역할?</li>
+  <li>중요한 기능을 이중 검증하기 위해 수행</li>
+</ul>
+
+<hr />
+
+<h2 id="4-좋은-테스트의-조건">4. 좋은 테스트의 조건</h2>
+
+<h3 id="빠르게-실행되어야-한다">빠르게 실행되어야 한다</h3>
+<p>느린 테스트는 개발 흐름을 방해한다.</p>
+
+<h3 id="독립적이어야-한다">독립적이어야 한다</h3>
+<p>다른 테스트에 영향을 주거나 받지 않아야 한다.</p>
+
+<h3 id="반복-가능해야-한다">반복 가능해야 한다</h3>
+<p>같은 테스트를 여러 번 실행해도 같은 결과가 나와야 한다. 시간에 따라 실패하거나 간헐적으로 실패하는 테스트를 작성하지 않는다.</p>
+
+<h3 id="자동으로-판단해야-한다">자동으로 판단해야 한다</h3>
+<p>테스트 결과를 사람이 판단하지 않아야 한다. <code class="language-plaintext highlighter-rouge">assert</code>로 명확하게 판단한다.</p>
+
+<h3 id="red-green-refactor-패턴을-따른다">Red-Green-Refactor 패턴을 따른다</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. RED: 먼저 실패하는 테스트를 작성한다
+2. GREEN: 테스트를 통과하는 최소한의 코드를 작성한다
+3. REFACTOR: 코드를 리팩토링한다
+</code></pre></div></div>
+
+<h3 id="공개-api에-집중한다">공개 API에 집중한다</h3>
+<p>테스트는 공개 API에 집중하고 내부 구현부는 테스트하지 않는다.</p>
+
+<p>예를 들어 주문을 처리하는 엔드포인트가 있고, 내부적으로 <code class="language-plaintext highlighter-rouge">품목 조회 → 주문 저장</code> 과정이 있다면, <strong>“주문이 처리되었는지”</strong>를 테스트하면 되지 “품목 조회”와 “주문 저장”을 개별적으로 테스트하지 않는다.</p>
+
+<h3 id="엣지케이스를-테스트한다">엣지케이스를 테스트한다</h3>
+
+<p><strong>숫자</strong></p>
+<ul>
+  <li>0, 1, -1</li>
+  <li>최댓값, 최솟값</li>
+  <li>음수, 양수</li>
+  <li>정수, 소수</li>
+</ul>
+
+<p><strong>문자열</strong></p>
+<ul>
+  <li>빈 문자열 <code class="language-plaintext highlighter-rouge">""</code></li>
+  <li>공백 <code class="language-plaintext highlighter-rouge">" "</code></li>
+  <li>매우 긴 문자열</li>
+  <li>특수문자, 유니코드</li>
+  <li><code class="language-plaintext highlighter-rouge">None</code>/<code class="language-plaintext highlighter-rouge">null</code></li>
+</ul>
+
+<p><strong>컬렉션</strong></p>
+<ul>
+  <li>빈 리스트 <code class="language-plaintext highlighter-rouge">[]</code></li>
+  <li>단일 원소 <code class="language-plaintext highlighter-rouge">[1]</code></li>
+  <li>중복 원소</li>
+  <li><code class="language-plaintext highlighter-rouge">None</code></li>
+</ul>
+
+<p><strong>날짜/시간</strong></p>
+<ul>
+  <li>윤년, 평년</li>
+  <li>월말 (28, 29, 30, 31일)</li>
+  <li>시간대 경계</li>
+  <li>과거, 미래, 현재</li>
+</ul>
+
+<h3 id="테스트-커버리지">테스트 커버리지</h3>
+<p>커버리지를 높이는 것은 중요하지만, 그보다 더 중요한 것은 테스트 케이스를 잘 마련해두는 것이다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># pytest-cov 설치</span>
+pip <span class="nb">install </span>pytest-cov
+
+<span class="c"># 커버리지 측정</span>
+pytest <span class="nt">--cov</span><span class="o">=</span>src <span class="nt">--cov-report</span><span class="o">=</span>html
+
+<span class="c"># HTML 리포트 확인</span>
+open htmlcov/index.html
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="5-어떤-코드를-먼저-테스트해야-할까">5. 어떤 코드를 먼저 테스트해야 할까?</h2>
+
+<p>모든 코드가 같은 중요도를 가지지 않으므로 다음 기준에 따라 우선순위를 정한다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>우선순위</th>
+      <th>대상</th>
+      <th>목표 커버리지</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1순위</td>
+      <td>비즈니스 핵심 로직</td>
+      <td>80~90%</td>
+    </tr>
+    <tr>
+      <td>2순위</td>
+      <td>자주 변경되는 코드</td>
+      <td>70~80%</td>
+    </tr>
+    <tr>
+      <td>3순위</td>
+      <td>안정적인 유틸리티</td>
+      <td>50~60%</td>
+    </tr>
+    <tr>
+      <td>4순위</td>
+      <td>프레임워크 래퍼</td>
+      <td>테스트 불필요</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>비즈니스 핵심 로직</strong>이 가장 중요하다. 돈이 오가는 로직, 사용자 데이터를 다루는 로직 등이 여기에 해당한다.</p>
+
+<p><strong>자주 변경되는 코드</strong>는 회귀 버그 발생 가능성이 높으므로 테스트로 보호해야 한다.</p>
+
+<p><strong>안정적인 유틸리티</strong>는 한 번 작성하면 잘 변경되지 않으므로 상대적으로 낮은 우선순위를 가진다.</p>
+
+<p><strong>프레임워크 래퍼</strong>는 프레임워크가 이미 테스트하고 있으므로 별도 테스트가 불필요하다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="testing" /><category term="unit-test" /><category term="tdd" /><category term="pytest" /><category term="test-design" /><summary type="html"><![CDATA[왜 테스트를 작성해야하는지? 좋은 테스트는 뭔지?]]></summary></entry><entry><title type="html">Refrag</title><link href="https://duri-wip.github.io/REFRAG/" rel="alternate" type="text/html" title="Refrag" /><published>2025-10-15T00:00:00+00:00</published><updated>2025-10-15T00:00:00+00:00</updated><id>https://duri-wip.github.io/REFRAG</id><content type="html" xml:base="https://duri-wip.github.io/REFRAG/"><![CDATA[<h1 id="ref-rag">REF RAG</h1>
+
+<h1 id="ragas">ragas</h1>
+
+<p>rag 시스템의 성능을 정량적으로 평가하기 위한 프레임워크.</p>
+
+<ol>
+  <li>retrieval 평가
+검색된 문서가 질문에 얼마나 관련 있는지 측정함.</li>
+  <li>generation 평가
+생성된 답변이 검색된 문서에 근거하고 있는지(faithfulness)
+생성된 답변이 질문에 얼마나 적절한지 등</li>
+</ol>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><summary type="html"><![CDATA[REF RAG]]></summary></entry><entry><title type="html">Document Parsing</title><link href="https://duri-wip.github.io/ml-ai/document/" rel="alternate" type="text/html" title="Document Parsing" /><published>2025-09-17T00:00:00+00:00</published><updated>2025-09-17T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/document</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/document/"><![CDATA[<p>#[https://python.langchain.com/v0.1/docs/integrations/document_loaders]</p>
+
+<h1 id="document">document</h1>
+<h2 id="랭체인의-기본-문서-객체-문서-로더로-다양한-형식의-문서-파일을-불러오면-document-객체-형태로-로드한다">랭체인의 기본 문서 객체. 문서 로더로 다양한 형식의 문서 파일을 불러오면 document 객체 형태로 로드한다.</h2>
+<h2 id="커스텀-로더를-구현하면-반드시-문서를-document-객체로-감싸줘야한다">커스텀 로더를 구현하면 반드시 문서를 document 객체로 감싸줘야한다.</h2>
+
+<h2 id="documentpage_content--문서의-텍스트--documentmetadata--문서와-관련된-속성값">document.page_content : 문서의 텍스트 // document.metadata : 문서와 관련된 속성값</h2>
+
+<h1 id="문서-로더">문서 로더</h1>
+<h2 id="종류">종류</h2>
+<p>’’’</p>
+<ul>
+  <li>pyPDFLoader</li>
+  <li>CSVLoader</li>
+  <li>UnstructuredHTMLLoader</li>
+  <li>JSONLoader</li>
+  <li>TextLoader</li>
+  <li>DirectoryLoader</li>
+</ul>
+
+<h2 id="자주-쓰는-메서드-소개">자주 쓰는 메서드 소개</h2>
+
+<ol>
+  <li>load_and_split(): 문서 로드와 텍스트 분할 작업을 하나의 단계로 결합한것으로, 문서를 로드한 뒤 텍스트 분할기를 사용해 텍스트를 원하는 기준으로 나눈다.</li>
+  <li>lazy_load() : 모든 페이지를 메모리에 즉시 로드하지 않고 필요할때 순차적으로 하나씩 로드한다.(제너레이터 방식)</li>
+  <li>aload() : 비동기 방식으로 문서를 로드한다. 문서를 로드할 때 즉시 실행되지 않고 비동기 객체를 반환하며, await 키워드를 사용해 실행한다.
+‘’’</li>
+</ol>
+
+<h1 id="예시">예시</h1>
+<p>FILE_PATH = “./data/1205document.pdf”</p>
+
+<p>from langchain_community.document_loaders import pyPDFLoader</p>
+
+<p>loader = pyPDFLoader(FILE_PATH)</p>
+
+<p>docs = loader.load()</p>
+
+<p>from langchain_text_splitters import RecursiveCharactorTextSplitter</p>
+
+<p>text_splitter = RecursiveCharactorTextSplitter(chunk_size=200, chunk_overlap=0)
+split_docs=loader.load_and_split(text_splitter=text_splitter)</p>
+
+<p>for docs in loader.lazy_load():
+    print(docs.metadata)</p>
+
+<p>adocs = loader.aload()
+await adocs</p>
+
+<h2 id="pdf-로더">pdf 로더</h2>
+<p>’’’</p>
+<ul>
+  <li>pymupdf : chatgpt에 통합되어있는 로더. 파일경로, 페이지 뿐 아니라 페이지 수, 형식, 제목, 작성자 등 다양한 메타데이터를 지원함.</li>
+  <li>unstructuredpdf : 마크다운이나 pdf와 같은 비구조화된  또는 반구조화된 파일 형식을 다루기 위한 공통 인터페이스를 지원함. 
+                  이미지만 따로 추출해서 저장하는 기능도 있다. 내부적으로 각 텍스트들을 별도의 요소로 생성한다. load()에서 mode=”elements” 옵션을 설정하면 텍스트 청크들이 서로 분리된 상태에서 별도의 도큐먼트 객체로 변환된다.</li>
+  <li>pypdfium2 : 로더 역시 처리 속도가 빠르고 정확성도 높아 복잡한 구조의 pdf 파일에서도 안정적으로 텍스트를 추출할 수 있다.</li>
+  <li>pdfminer : pdf파일을 로드해서 html 텍스트를 생성할 수 있다. html 코드 자체를 임베딩해서 llm 에전달하는 방식으로 사용하면 더 정확한 콘텐츠를 사용할 수 있다.</li>
+  <li>pypdfdirectory :  특정한 파일 경로 안에 있는 여러개의 pdf 내용을 한번에 로드할 수 있다.</li>
+  <li>pdfplumber : 출력 문서에 pdf와 그 메타데이터를 함께 저장한다. 특히 pdf 안에 바운딩 박스를 지정해서 원하는 부분만 가져올 수 잇도록 한다.
+‘’’</li>
+</ul>
+
+<h2 id="hwp-로더">hwp 로더</h2>
+<p>’’’
+langchain에서는 구성되어있지 않기때문에 커스텀으로 만들었다. 이 책에서..</p>
+
+<p>from langchain_teddynote.document_loaders immport HWPLoader
+‘’’</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="genai-llm" /><category term="langchain" /><category term="rag" /><category term="vector-store" /><category term="embedding" /><category term="study-llm-framework" /><summary type="html"><![CDATA[다양한 문서 형식을 텍스트로 파싱하기]]></summary></entry><entry><title type="html">LangChain LLM 답변 캐싱하기</title><link href="https://duri-wip.github.io/ml-ai/langchain-caching/" rel="alternate" type="text/html" title="LangChain LLM 답변 캐싱하기" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-caching</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-caching/"><![CDATA[<h1 id="llm-답변-캐싱하기">llm 답변 캐싱하기</h1>
+
+<p>동일한 질문에 대해서는 캐싱된 답변을 내보내는 것으로 토큰 비용을 줄이는 방법을 말한다. 동일한 질문이 언제 들어올지, 또 동일한 질문이라는건 토씨하나 안틀리고 동일한 질문만을 말하는건지 궁금하기는 하다.</p>
+
+<h1 id="캐싱-방법">캐싱 방법</h1>
+<p>애플리케이션에서 캐싱을 위해 사용할 수 있는 방식으로는 인메모리 캐시와 sqlite 캐시가 있다.</p>
+<ul>
+  <li>인메모리 캐시 : 메모리 공간을 활용해 동일한 질문에 대한 답변을 일시적으로 저장함. 동일한 요청이 반복될 경우 캐시된 응답을 즉시 반환. 프로그램 종료시 메모리가 휘발됨
+사용자별 맞춤형 질문이나 로그아웃시 초기화가 필요한 경우에 유용.
+고객센터, AS 센터 등 자주 반복되는 정형화된 질문과 답변에 적합한 방식</li>
+  <li>SQLITE 캐시 : 데이터베이스 파일을 활용해 캐시 데이터를 저장하여 메모리가 휘발되지 않음
+```
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate</li>
+</ul>
+
+<p>llm = ChatOpenAI(model_name=”…”)</p>
+
+<p>prompt = PrompotTemplate.from_template(“{country}에 대해서 200자 내외로 요약해줘”)</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>chain = prompt</td>
+      <td>llm</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>from langchain.globals import set_llm_cache
+from langchain.cache import InMemoryCache</p>
+
+<p>set_llm_cache(InMemoryCache())</p>
+
+<p>response = chain.invoke({“country”:”korea”})</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+그리고 나서 캐싱된 답변을 사용하기 위해서도 동일하게 invoke해주면 된다. 
+</code></pre></div></div>
+<p>response = chain.invoke({“country”:”korea”})
+```</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="caching" /><category term="llm" /><category term="token-optimization" /><category term="memory-cache" /><category term="sqlite" /><category term="study-llm-framework" /><summary type="html"><![CDATA[동일한 질문에 대해 캐싱된 답변을 제공하여 토큰 비용을 절약하는 방법]]></summary></entry><entry><title type="html">LCEL에 메모리 추가하기</title><link href="https://duri-wip.github.io/ml-ai/langchain-memory-2/" rel="alternate" type="text/html" title="LCEL에 메모리 추가하기" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-memory-2</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-memory-2/"><![CDATA[<h1 id="lcel에-메모리-추가하기">LCEL에 메모리 추가하기</h1>
+
+<p>체인에 메모리를 추가해서 컨텍스트를 토대로 답변할 수 있도록 하는 기능이다. 
+매 포스트 마다 말하지만 랭체인 프레임워크가 아니라면 이런 것도 다 손수 만들어야한다..
+그리고 어떤 컨텍스트 까지 가져올건지(최근 몇개인지, 그걸 요약할건지 등..)도 다 정책으로 만들어서 구성해야한다.
+랭체인이 이걸 대신 해줘서 넘 감사하다.</p>
+
+<h2 id="사용-방법">사용 방법</h2>
+
+<ol>
+  <li>모델 초기화 및 프롬프트 입력</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from operator import itemgetter
+from langchain.memory import ConversationBufferMemory
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain_openai import ChatOpenAI
+
+model = ChatOpenAI()
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "당신은 유용한 챗봇입니다."),
+    MessagePlaceholder(variable_name="chat_history"),
+    ("human", "{input}")
+])
+</code></pre></div></div>
+<ul>
+  <li>message place holder 에서 이전 대화 기록을 chat_history라는 키값을 기준으로 삽입한다.</li>
+</ul>
+
+<ol>
+  <li>메모리 생성
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>memory = ConversationBufferMemory(return_messages=True, memory_key="chat_history")
+</code></pre></div>    </div>
+    <ul>
+      <li>memory_key 는 나중에 체인의 prompt 안에 대입될 키이다.</li>
+    </ul>
+  </li>
+  <li>이후 러너블 생성
+메모리에 저장된 대화 기록을 추출하고, 다른 프로세스에 이를 전달해 답변을 생성할 수 있도록 만든다.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>runnable = RunnablePassthrough.assign(
+    chat_history=RunnableLambda(memory.load_memory_variables) | itemgetter("chat_history")
+)
+
+runnable.invoke({"input": "hello"})
+</code></pre></div></div>
+
+<p>그리고 이 러너블을 체인에 연결한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chain = runnable | prompt | model
+
+chain.invoke({"input": "안녕하세요"})
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="lcel" /><category term="memory" /><category term="conversation" /><category term="context" /><category term="chat-history" /><category term="study-llm-framework" /><summary type="html"><![CDATA[LangChain LCEL 체인에 메모리를 추가하여 컨텍스트 기반 대화 구현]]></summary></entry><entry><title type="html">LangChain 메모리 시스템</title><link href="https://duri-wip.github.io/ml-ai/langchain-memory/" rel="alternate" type="text/html" title="LangChain 메모리 시스템" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-memory</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-memory/"><![CDATA[<h1 id="메모리">메모리</h1>
+<p>챗 히스토리를 저장하기 위해 사용하는 기능. 앞서 다뤘던 챗 히스토리와 비슷한 기능이다. 둘의 차이점은 이후에 설명한다.</p>
+
+<p>종류가 다양하다.</p>
+<ul>
+  <li>대화 버퍼 메모리 : 가장 기본적인 메모리 유형으로, 메시지를 사람의 입력과 ai의 답변으로 짝지어서 저장한다. 모든 대화 내용을 저장한다.</li>
+  <li>대화 버퍼 윈도우 메모리 : 너무 많은 대화 내용을 저장하면 토큰문제가 발생할 수 있으므로, 얼마만큼의 윈도우 분량까지만 대화를 기록할 지 정할 수 있다. 여기서의 윈도우는 최근 대화의 최대 메시지 수를 말한다.</li>
+  <li>대화 토큰 버퍼 메모리 : 윈도우가 아닌 토큰 단위로 대화 기록을 조절하는 방법이다.</li>
+  <li>대화 엔티티 메모리 : 토큰이나 윈도우는 절대적인 양을 토대로 제한하지만, 엔티티의 경우에는 대화에서 엔티티를 추출해 이를 기준으로 대화의 양을 지정하는 방법이다. 엔티티란 대화, 데이터에서 특정한 의미를 가지는 핵심 정보를 의미한다.</li>
+  <li>대화 지식 그래프 메모리 : 지식 그래프를 활용해서 정보를 저장하고 불러오기. 모델이 서로 다른 개체 간의 관계를 이해하는데 도움을 주고, 복잡한 연결망과 역사적 맥락을 기반으로 대응하는 능력을 향상시킨다.</li>
+  <li>대화 요약 메모리 : 이전 대화의 내용을 원문 텍스트 그대로 보관하지 않고 대화가 진행되는 동안 대화를 요약하고 요약본을 메모리에 저장한다.</li>
+</ul>
+
+<h2 id="대화-버퍼-메모리-사용">대화 버퍼 메모리 사용</h2>
+
+<ol>
+  <li>버퍼 메모리 초기화
+```
+from langchain.memory import ConversationBufferMemory</li>
+</ol>
+
+<p>memory = ConversationBufferMemory()</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 메모리에 대화 내용 저장. save_context는 메모리에 대화 내용을 누적으로 저장한다.
+</code></pre></div></div>
+<p>memory.save_context(
+    inputs={
+        “human”: “hello”
+    },
+    outputs={
+        “ai” : “Hello, how can i help you today?”
+    }
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>3. 메모리에 저장된 대화 내용 불러오기
+</code></pre></div></div>
+<p>memory.load_memory_variables({})[“history”]</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## 대화 버퍼 윈도우 메모리 사용
+
+1. 버퍼 메모리 초기화
+</code></pre></div></div>
+<p>from langchain.memory import ConversationBufferWindowMemory</p>
+
+<p>memory = ConversationBufferWindowMemory(k=2, return_messages=True)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>- return_messages 옵션은 출력 결과를 보여준다.
+- 사용은 대화 버퍼 메모리와 동일하게 한다. 
+
+## 대화 토큰 버퍼 메모리
+
+1. 메모리 초기화
+llm 자체에서 토큰을 계산하는 기능을 사용하기 때문에 llm을 먼저 설정해야한다. 
+
+</code></pre></div></div>
+<p>from langchain.memory import ConversationTokenBufferMemory
+from langchain_openai import ChatOpenAI</p>
+
+<p>llm = ChatOpenAI(model_name=”gpt-4o”)
+memory = ConversationTokenBufferMemory(
+    llm=llm, max_token_limit=150, return_messages=true
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>2. 대화 내용 저장. 
+- save_context 메서드를 사용해서 저장한다.
+- 특이한 점은, 전체 대화의 토큰을 제한하는게 아니라, save_context 메서드를 한번 사용할때의 토큰을 제한하므로 각 대화 입력, 출력에 대해서 길이가 제한된다.
+
+## 대화 엔티티 메모리
+1. 엔티티 추출을 위한 템플릿 설정 임포트 - 기본 설정 프롬프트 활용
+</code></pre></div></div>
+<p>from langchain_openai import ChatOpenAI
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationEntitiMemory
+from langchain.memory.propmt import ENTITY_MEMORY_CONVERSATION_TEMPLATE</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+2. conversation chain 생성
+* 랭체인에서 대화 흐름을 관리하는 객체로, llm 과 대화 메모리를 결합하여 컨텍스트를 유지한다.
+</code></pre></div></div>
+<p>llm = ChatOpenAI(model_name=”gpt-4o”)</p>
+
+<p>conversation = ConversationChain(
+    llm = llm,
+    prompt = ENTITY_MEMORY_CONVERSATION_TEMPLATE,
+    memory = ConversationEntityMemory(llm=llm)
+)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+3. 저장된 엔티티 확인 방법
+</code></pre></div></div>
+<p>conversation.memory.entity_store.entity</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+## 대화 지식 그래프 메모리
+
+대화 지식 그래프 메모리는 핵심 정볼르 효율적으로 저장할 수 잇지만 세부 내용이 엔티티나 지식 그래프에 포함되지 않는 경우에 세세한 사항에 대해 물어보면 제대로 답변하지 못한다.
+
+
+## 대화 요약 메모리
+
+여러가지 방식이 있다.
+- conversation summary memory :  바로바로 요약함
+- conversation summery buffer memory :  최근 대화 기록과 요약을 결합한 방식. 일정 수준 까지는 대화의 원본을 유지하면서 사용자가 최신 대화를 이용할 수 있도록 하다가, 대화가 길어져 메모리가 초과되면 이전 대화를 요약해서 저장함
+
+</code></pre></div></div>
+<p>from langchain.memory import ConversationSummaryMemory
+from langchain_openai import ChatOpenAI</p>
+
+<p>memory = ConversationSummaryBufferMemory(
+    llm=ChatOpenAI(model_name=””),
+    max_token_limit=200,
+    return_messages=True
+)</p>
+
+<p>memory.save_context( … )</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+## 벡터 스토어 검색 메모리
+대화 내용을 벡터 스토어 데이터 베이스에 저장하고 조회해볼 수 있는 기능이다. 다른 메모리 클래스에서는 대화 기록을 시간 순서에 따라서 저장하는데 반해 벡터 데이터 스토어에서는 시간 순서를 고려하지 않고 대화 내용에서 필요한 내용을 검색해서 사용한다.
+
+1. 임베딩 모델 정의, 데이터 베이스 초기화
+</code></pre></div></div>
+<p>import faiss
+from langchain_openai import OpenAIEmbeddings
+from langchain.docstore import InMemoryDocstore
+from langchain.vectorstores import FAISS</p>
+
+<p>embedding_model = OpenAIEmbeddings()
+embedding_size = 1536
+index = faiss.IndexFlatL2(embedding_size)
+vector_store = FAISS(embedding_model, index, InMemoryDocstore({}), {})</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>* faiss : 페이스북에서 만든 벡터 데이터베이스
+
+2. 리트리버 추가
+</code></pre></div></div>
+<p>from langchain.memory import VectorStoreRetrieverMemory</p>
+
+<p>retriever = vectorstore.as_retriever(search_kwargs={“k”:1})
+memory = VecotStoreRetrieverMemory(retriever=retriever)
+```</p>
+
+<ol>
+  <li>저장 및 불러오기
+    <ul>
+      <li>save_context, load_memory_variables라는 동일한 메서드를 사용한다.</li>
+      <li>모든 메모리 사용 방식이 동일하다는 점이 정말 편리!</li>
+    </ul>
+  </li>
+</ol>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="memory" /><category term="conversation" /><category term="buffer" /><category term="token-management" /><category term="chat-history" /><category term="study-llm-framework" /><summary type="html"><![CDATA[LangChain의 다양한 메모리 유형과 대화 히스토리 관리 방법]]></summary></entry><entry><title type="html">직렬화와 역직렬화로 LangChain 모델 로드하기</title><link href="https://duri-wip.github.io/ml-ai/langchain-modelload/" rel="alternate" type="text/html" title="직렬화와 역직렬화로 LangChain 모델 로드하기" /><published>2025-09-11T00:00:00+00:00</published><updated>2025-09-11T00:00:00+00:00</updated><id>https://duri-wip.github.io/ml-ai/langchain-modelload</id><content type="html" xml:base="https://duri-wip.github.io/ml-ai/langchain-modelload/"><![CDATA[<h1 id="직렬화와-역직렬화로-모델-로드하기">직렬화와 역직렬화로 모델 로드하기</h1>
+
+<p>직렬화는 데이터 구조나 객체의 상태를 저장하거나 전송하기 위해 일련의 바이트나 문자열 형식으로 변환하는 과정. 
+RAG 에서 직렬화의 주된 목적은 모델을 저장하는데 잇음. 
+예를 들어 사용자가 만든 체인을 저장해야할 때 체인을 직렬화 해서 json 형식으로 변환해서 저장한다 .</p>
+
+<p>역직렬화는 데이터를 원래 객체나 데이터 구조의 형태로 복원하는 과정.</p>
+
+<h2 id="직렬화-가능-여부-확인하기">직렬화 가능 여부 확인하기</h2>
+<p>모든 데이터 타입이 직렬화가 가능한 것은 아니므로 가능 여부를 먼저 확인해야한다. 
+예를 들어, 랭체인 프레임워크에서 만든 체인의 직렬화 여부를 확인하기 위해서는 이런 메서드를 사용한다.
+체인 뿐만 아니라, llm 객체나 프롬프트에 대해서도 동일한 방법으로 확인이 가능하다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chain = prompt | model
+
+chain.is_lc_serializable()
+</code></pre></div></div>
+
+<h2 id="직렬화하기">직렬화하기</h2>
+<p>직렬화 가능한 객체를 딕셔너리나 json 문자열로 변환한다. 
+이때 객체의 속성과 데이터를 키-값 쌍으로 변환한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from langchain_core.load import dumpd, dumps
+
+dumpd_chain = dumpd(chain)
+</code></pre></div></div>
+
+<h2 id="역직렬화하기">역직렬화하기</h2>
+<p>json이나 딕셔너리 형식으로 직렬화되었던 체인은 역직렬화를 하면 스트링 타입으로 변환된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>dumps_chain = dumbps(chain)
+</code></pre></div></div>
+
+<h1 id="pickle-파일로-직렬화하고-로드하기">pickle 파일로 직렬화하고 로드하기</h1>
+<p>직렬화된 파일을 저장할때는 피클이라는 파일 형태로 저장한다. 
+피클이란 파이썬 객체를 바이너리 형태로 변환하는 포맷으로, 파일이나 메모리에 빠르게 저장할 수 있고, 저장된 데이터를 로드해서 복원할 수 잇다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pickle
+
+with open("chain.pkl", "wb") as f:
+    pickle.dump(dumpd_chain, f)
+</code></pre></div></div>
+
+<p>이렇게 저장해두면 이 파일을 제3자에게 전달해서 재사용할 수 있다. 이 파일을 전달받은 사람이 체인을 사용하려면 먼저 파일을 로드하고, 역직렬화해서 사용하면 된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import pickle
+
+with open("chain.pkl", "rb") as f:
+    loaded_chain = pickle.load(f)
+
+from langchain_core.load import load
+
+chain_from_file = load(loaded_chain)
+
+response = chain_from_file.invoke(...)
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="langchain" /><category term="serialization" /><category term="model-persistence" /><category term="chain-storage" /><category term="json" /><category term="data-management" /><category term="study-llm-framework" /><summary type="html"><![CDATA[LangChain 모델과 체인의 직렬화/역직렬화를 통한 저장 및 로드 방법]]></summary></entry></feed>

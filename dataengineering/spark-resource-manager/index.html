@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spark cluster의 리소스 매니저</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">spark cluster의 리소스 매니저</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 16일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">spark</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#spark</span>
+                
+                <span class="tag">#resource-manager</span>
+                
+                <span class="tag">#cluster</span>
+                
+                <span class="tag">#distributed-computing</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="스파크-클러스터에서-리소스-매니저란">스파크 클러스터에서 리소스 매니저란?</h1>
+
+<p>리소스 매니저는 스파크 클러스터에서 자원(cpu, 메모리 등)을 효율적으로 관리하고, 스파크 애플리케이션의 실행을 조율하는 시스템이다. 대규모 데이터를 처리하는 분산 시스템에서 작업을 최적화하고, 여러 작업 간 자원 분배를 조정하는데 필수적인 역할을 한다.</p>
+
+<h3 id="클러스터-리소스-매니저의-역할"><strong>클러스터 리소스 매니저의 역할</strong></h3>
+
+<ul>
+  <li><strong>클러스터 관리</strong>
+    <ul>
+      <li>애플리케이션을 실행하기 위해 적절한 수의 노드를 자동으로 시작, 중지, 확장하여 클러스터의 자원을 효율적으로 관리한다.</li>
+    </ul>
+  </li>
+  <li><strong>클러스터 최적화</strong>
+    <ul>
+      <li>클러스터 전체의 자원 사용률을 최적화하고, 각 노드가 과부하에 걸리지 않도록 조정.</li>
+    </ul>
+  </li>
+  <li><strong>워커 관리</strong>
+    <ul>
+      <li>애플리케이션 작업을 수행하는데 도움이 되는 다양한 유형의 워커를 관리하는데, 여기에 실행자 및 드라이버가 포함된다.</li>
+    </ul>
+  </li>
+  <li><strong>자원 할당</strong>
+    <ul>
+      <li>각 작업이 필요한 자원을 얼마나 할당받을지 결정.</li>
+      <li>CPU, 메모리와 같은 자원 사용을 조율.</li>
+    </ul>
+  </li>
+  <li><strong>작업 스케줄링</strong>
+    <ul>
+      <li>클러스터 내에서 각 노드에 작업을 분배하고, 이를 효율적으로 스케줄링.</li>
+    </ul>
+  </li>
+  <li><strong>오작동 감지 및 복구</strong>
+    <ul>
+      <li>작업 중 장애가 발생할 경우, 이를 감지하고 자동으로 작업을 재시작하거나 다른 노드에 작업을 재배치.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="스파크의-리소스-매니저-종류"><strong>스파크의 리소스 매니저 종류</strong></h2>
+
+<ul>
+  <li><strong>Standalone Mode</strong>
+    <ul>
+      <li>스파크에서 기본 제공되는 리소스 매니저로, 독립적인 클러스터 환경에서 자원을 관리한다.</li>
+      <li>소규모 또는 테스트 환경에서 사용하기 적합.</li>
+    </ul>
+  </li>
+  <li><strong>YARN (Yet Another Resource Negotiator)</strong>
+    <ul>
+      <li>하둡 에코시스템에서 가장 널리 사용되는 리소스 매니저.</li>
+      <li>YARN은 스파크 작업을 하둡 클러스터 내에서 관리하고, 자원을 동적으로 할당.</li>
+      <li>다양한 클러스터 애플리케이션을 관리하는 데 유리하다.</li>
+    </ul>
+  </li>
+  <li><strong>Mesos</strong>
+    <ul>
+      <li>더 복잡한 클러스터 관리 기능을 제공하는 리소스 매니저로, 다양한 종류의 애플리케이션을 실행할 수 있는 분산 시스템.</li>
+      <li>스케줄링 정책과 다양한 기능을 지원하여 고도화된 배포 환경에 적합.</li>
+    </ul>
+  </li>
+  <li><strong>Kubernetes</strong>
+    <ul>
+      <li>최근에 많은 인기를 얻은 컨테이너 오케스트레이션 플랫폼.</li>
+      <li>스파크 애플리케이션을 쿠버네티스 클러스터에서 관리하며, 자원을 할당하고 컨테이너 기반으로 배포 가능.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="그렇다면-어떻게-리소스-매니저를-선택해야할까">그렇다면 어떻게 리소스 매니저를 선택해야할까?</h2>
+
+<p>지난 프로젝트에서 스파크 애플리케이션을 수행하면서 여러가지 시행착오를 겪었다. 우리는 하둡 hdfs를 사용했기 때문에 모든 서버에서 동작하는 hadoop이 있었고, 따라서 yarn을 리소스 매니저로 활용하는 것이 가능했다. 따라서 후보에 들어왔던 리소스 매니저는 <strong>standalone</strong>, <strong>yarn</strong>이었다. yarn을 사용하지 않았던 이유는 프로젝트 구성상의 문제로 담당자가 달라 환경 통합에 어려움이 있었기 때문이었다. 프로젝트 규모가 작기도 했고, 가장 오류가 나지 않았던 모드가 standalone이었기 때문에 최종적으로 선택한 리소스 매니저는 standalone이었다.</p>
+
+<p>공식적으로 글을 남겨 리소스 매니저를 선택하는 가이드를 남겨두려고 한다.</p>
+
+<h3 id="리소스-매니저-선택-가이드"><strong>리소스 매니저 선택 가이드</strong></h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>특징</th>
+      <th>리소스 매니저</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>소규모 클러스터</td>
+      <td>Standalone 모드</td>
+    </tr>
+    <tr>
+      <td>하둡 클러스터 활용</td>
+      <td>YARN</td>
+    </tr>
+    <tr>
+      <td>다양한 애플리케이션 통합</td>
+      <td>Mesos</td>
+    </tr>
+    <tr>
+      <td>컨테이너 기반의 대규모 확장</td>
+      <td>Kubernetes</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="1-standalone-mode">1. <strong>Standalone Mode</strong></h3>
+
+<p><strong>장점:</strong></p>
+
+<ul>
+  <li>설치 및 설정이 매우 간단하고 독립적인 환경에서 동작.</li>
+  <li>스파크와 완전히 통합되어 별도의 외부 시스템이 필요하지 않음.</li>
+  <li>소규모 클러스터나 테스트 환경에서 사용하기 적합.</li>
+</ul>
+
+<p><strong>단점:</strong></p>
+
+<ul>
+  <li><strong>확장성 부족</strong>: 대규모 클러스터에서는 자원 관리에 한계가 있음. 다른 매니저와 비교했을때, 여러 애플리케이션의 자원 할당을 비효율적으로 관리하는 면이 있음</li>
+  <li>복잡한 워크로드나 다양한 애플리케이션을 다루기에 부적합.</li>
+  <li>대규모 클러스터에서 많은 노드와 애플리케이션을 관리하기에는 부적합.</li>
+  <li>다른 시스템과의 통합 기능은 부족함</li>
+</ul>
+
+<p><strong>사용 시나리오:</strong></p>
+
+<ul>
+  <li><strong>소규모 또는 테스트 환경</strong>: 수십 개 정도의 노드를 사용하는 소규모 클러스터에서 성능을 테스트하거나, 가벼운 애플리케이션을 실행할 때 적합.</li>
+  <li><strong>개발 단계</strong>: 리소스 관리의 복잡성을 최소화하여 빠르게 결과를 확인하고 싶을 때.</li>
+</ul>
+
+<h3 id="2-yarn-yet-another-resource-negotiator">2. <strong>YARN (Yet Another Resource Negotiator)</strong></h3>
+
+<p><strong>장점:</strong></p>
+
+<ul>
+  <li><strong>하둡 에코시스템과 자연스러운 통합</strong>: YARN은 하둡 기반의 클러스터에서 자연스럽게 통합되고 관리할 수 있음.</li>
+  <li><strong>자원 관리</strong>: 스파크뿐만 아니라 하둡의 맵리듀스와 같은 다른 애플리케이션과 자원을 공유할 수 있음.</li>
+  <li><strong>안정성</strong>: 대규모 데이터 클러스터에서 안정적인 자원 할당과 작업 스케줄링을 제공.</li>
+</ul>
+
+<p><strong>단점:</strong></p>
+
+<ul>
+  <li><strong>설정 복잡성</strong>: Standalone에 비해 설정이 복잡할 수 있음.</li>
+  <li><strong>오버헤드</strong>: yarn 자체가 복잡하고 다양한 기능을 제공하기 때문에 운영 오버헤드가 발생할 수 있음.</li>
+  <li><strong>하둡 종속성</strong>: YARN은 하둡 클러스터에 의존하기 때문에 하둡 에코시스템을 사용하지 않는다면 불필요한 오버헤드가 발생할 수 있음.</li>
+</ul>
+
+<p><strong>사용 시나리오:</strong></p>
+
+<ul>
+  <li><strong>대규모 데이터 처리</strong>: 이미 하둡 클러스터를 사용 중인 환경에서는 스파크 작업을 YARN 위에서 실행하는 것이 매우 효율적.</li>
+  <li><strong>다중 워크로드 관리</strong>: 클러스터에서 다양한 워크로드(예: 맵리듀스, 스파크 등)를 동시에 실행하는 경우 YARN을 사용하여 자원을 유연하게 분배할 수 있음.</li>
+</ul>
+
+<h3 id="3-mesos">3. <strong>Mesos</strong></h3>
+
+<p><strong>장점:</strong></p>
+
+<ul>
+  <li><strong>다양한 워크로드 지원</strong>: 스파크 외에도 다양한 애플리케이션을 동시에 실행할 수 있음.</li>
+  <li><strong>고도화된 자원 스케줄링</strong>: 자원 사용을 최적화하고, 다양한 스케줄링 정책을 사용할 수 있음.</li>
+  <li><strong>유연성</strong>: 동적 자원 할당을 통해 클러스터의 자원을 효율적으로 사용할 수 있음.</li>
+</ul>
+
+<p><strong>단점:</strong></p>
+
+<ul>
+  <li><strong>복잡한 설정</strong>: Mesos는 설정과 관리가 상당히 복잡할 수 있음.</li>
+  <li><strong>지원 부족</strong>: YARN이나 Kubernetes에 비해 Mesos는 상대적으로 덜 사용되며, 커뮤니티 지원도 적음.</li>
+</ul>
+
+<p><strong>사용 시나리오:</strong></p>
+
+<ul>
+  <li><strong>복잡한 다중 애플리케이션 환경</strong>: 다양한 종류의 애플리케이션을 한 클러스터에서 관리하려는 경우.</li>
+  <li><strong>스케줄링 유연성 필요</strong>: 자원 스케줄링을 세밀하게 제어하고, 여러 정책을 적용하여 자원 활용을 극대화해야 하는 경우.</li>
+</ul>
+
+<h3 id="4-kubernetes">4. <strong>Kubernetes</strong></h3>
+
+<p><strong>장점:</strong></p>
+
+<ul>
+  <li><strong>컨테이너 기반</strong>: 스파크 작업을 컨테이너로 실행하여 애플리케이션 격리 및 이식성을 제공.</li>
+  <li><strong>확장성</strong>: 컨테이너 오케스트레이션 기능 덕분에 쉽게 클러스터를 확장할 수 있음.</li>
+  <li><strong>유연성</strong>: 다양한 환경에서 컨테이너 기반으로 배포할 수 있기 때문에 클라우드나 온프레미스 환경에서 유연하게 사용 가능.</li>
+</ul>
+
+<p><strong>단점:</strong></p>
+
+<ul>
+  <li><strong>복잡한 설정</strong>: 컨테이너 관리 및 오케스트레이션에 대한 경험이 필요함.</li>
+  <li><strong>초기 학습 곡선</strong>: Kubernetes는 복잡한 시스템이므로 학습에 시간이 필요하고, 설정 및 관리가 다소 까다로울 수 있음.</li>
+</ul>
+
+<p><strong>사용 시나리오:</strong></p>
+
+<ul>
+  <li><strong>클라우드 기반 대규모 클러스터</strong>: 스파크 작업을 대규모 클러스터에서 효율적으로 확장하고, 컨테이너 환경에서 애플리케이션을 쉽게 배포하고 관리하려는 경우.</li>
+  <li><strong>마이크로서비스 아키텍처</strong>: Kubernetes는 컨테이너 기반의 마이크로서비스 아키텍처와 잘 맞으며, 여러 작업을 쉽게 관리할 수 있음.</li>
+  <li><strong>이식성 및 유연성 필요</strong>: 다양한 클라우드 및 온프레미스 환경에서 스파크 작업을 이식성 있게 관리하고자 할 때.</li>
+</ul>
+
+<hr />
+
+<h3 id="5-선택-시-고려할-사항">5. <strong>선택 시 고려할 사항</strong></h3>
+
+<ul>
+  <li>
+    <p><strong>프로젝트의 규모</strong>:</p>
+
+    <ul>
+      <li>소규모 개발이나 테스트 환경에서는 Standalone 모드를 고려할 수 있음.</li>
+      <li>대규모 데이터 처리와 여러 작업을 동시에 실행해야 한다면 YARN 또는 Mesos가 적합.</li>
+      <li>클라우드 기반의 확장성과 유연성을 원한다면 Kubernetes가 가장 적합.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>클러스터의 사용 목적</strong>:</p>
+
+    <ul>
+      <li>스파크뿐만 아니라 다른 애플리케이션도 같은 클러스터에서 실행하는 경우 YARN이나 Mesos가 더 나은 선택일 수 있음.</li>
+      <li>스파크만 사용한다면 Standalone 모드가 간단하고 효율적일 수 있음.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>컨테이너 사용 여부</strong>:</p>
+
+    <ul>
+      <li>컨테이너화된 애플리케이션 관리가 필요하다면 Kubernetes가 적합하며, 이를 통해 클러스터 환경을 쉽게 배포하고 확장할 수 있음.</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>환경 구성의 복잡성</strong>:</p>
+    <ul>
+      <li>Standalone 모드는 간단하지만 확장성은 제한적임.</li>
+      <li>YARN과 Kubernetes는 더 많은 기능을 제공하지만, 복잡한 설정과 관리를 요구함.</li>
+    </ul>
+  </li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/spark-cluster-ha/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">spark cluster의 고가용성 구성방식</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/kafka-classnote/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">카프카</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

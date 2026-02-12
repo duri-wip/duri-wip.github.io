@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FastMCP 기초 사용법</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">FastMCP 기초 사용법</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 07일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#mcp</span>
+                
+                <span class="tag">#fastmcp</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#tools</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from fastapi import FastAPI
+from fastmcp import FastMCP
+from typing import Dict
+
+app = FastAPI()
+mcp = FastMCP(
+name="Tool Server",
+version="1.0.0"
+)
+
+@mcp.tool
+def plus(a: int, b: int) -&gt; int:
+"""
+두 숫자를 더하는 도구입니다.
+
+    Args:
+        a: 첫 번째 숫자
+        b: 두 번째 숫자
+
+    Returns:
+        두 숫자의 합
+
+    Examples:
+        - a=5, b=3 -&gt; 8
+    """
+    return a + b
+
+@app.get("/tools")
+async def get_tools(): # await 사용
+tools = await mcp.get_tools()
+tools_info = {}
+
+    for name, tool in tools.items():
+        tools_info[name] = {
+            "name": name,
+            "description": tool.description,
+            "enabled": tool.enabled,
+            "metadata": {
+                "parameters": {
+                    "a": {"type": "integer", "description": "첫 번째 숫자"},
+                    "b": {"type": "integer", "description": "두 번째 숫자"}
+                },
+                "returns": {"type": "integer", "description": "두 숫자의 합"},
+                "examples": ["a=5, b=3 -&gt; 8"]
+            }
+        }
+
+    return tools_info
+
+@app.get("/tools/{tool_name}")
+async def get_tool(tool_name: str): # await 사용
+tools = await mcp.get_tools()
+if tool_name not in tools:
+return {"error": "Tool not found"}
+
+    tool = tools[tool_name]
+    return {
+        "name": tool_name,
+        "description": tool.description,
+        "enabled": tool.enabled,
+        "metadata": {
+            "parameters": {
+                "a": {"type": "integer", "description": "첫 번째 숫자"},
+                "b": {"type": "integer", "description": "두 번째 숫자"}
+            },
+            "returns": {"type": "integer", "description": "두 숫자의 합"},
+            "examples": ["a=5, b=3 -&gt; 8"]
+        }
+    }
+
+if **name** == "**main**":
+import uvicorn
+uvicorn.run(app, host="0.0.0.0", port=3000)
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/DB-nosql-and-vectordb/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">NoSQL과 Vector Database</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/mcp-fastmcp/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">MCP 서버 구축 방식 비교</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

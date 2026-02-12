@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataFlow의 핵심 기능 및 활용</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">DataFlow의 핵심 기능 및 활용</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 04월 13일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-google-de</span>
+                
+                <span class="tag">#course-review</span>
+                
+                <span class="tag">#google-cloud</span>
+                
+                <span class="tag">#dataflow</span>
+                
+                <span class="tag">#data-engineering</span>
+                
+                <span class="tag">#gcp</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <hr />
+
+<h1 id="dataflow">Dataflow</h1>
+
+<p>대규모 데이터 처리 파이프라인 구축을 위한 완전 관리형 서비스로, 사용자가 데이터 처리 로직 개발에만 집중할 수 있도록 기반 인프라 관리, 확장, 성능 최적화 등은 클라우드가 관리할 수 있게 한 서비스이다.</p>
+
+<p>서버리스 방식으로 운영되므로 별도의 서버를 프로비저닝하거나 관리할 필요가 없고, 필요한 컴퓨팅 자원은 자동으로 할당되며 작업이 완료되면 회수되므로 비용 효율적인 데이터 처리가 가능하다.</p>
+
+<ul>
+  <li>
+    <p><strong>핵심 목표</strong>
+개발자가 대규모 파이프라인을 빠르게 구축하고 실행할 수 있도록 지원하는 것. 데이터 수집, 변환, 분석, 저장 등의 작업으로 구성된다.</p>
+  </li>
+  <li>
+    <p><strong>기반 기술</strong>
+Apache Beam을 기반으로 하기 때문에 일관된 방식으로 일괄처리(batch processing)과 스트림처리(stream processing)을 모두 정의할 수 있다. 데이터 플로우는 이런 파이프라인을 효율적으로 실행하기 위한 실행 엔진을 제공한다.
+작업은 자동으로 병렬로 처리되며, 각 워커가 작업을 분할하여 수행함으로써 확장성과 성능을 제공한다.</p>
+  </li>
+</ul>
+
+<h2 id="작업-로그-확인하는-방법">작업 로그 확인하는 방법</h2>
+
+<p><strong>1. cloud logging(stackdriver logging)</strong>
+다양한 소스에서 생성되는 로그 데이터를 중앙 집중식으로 수집, 저장, 분석하는 서비스이다.
+Dataflow 작업에서 발생하는 사용자 정의 애플리케이션 로그, 시스템 로그 등을 메시지 형태로 확인할 수 있어, 문제의 근본 원인을 파악하는 데 유용하다.
+로그 쿼리, 필터링, 뷰어 기능 등을 통해 특정 오류 또는 이벤트 로그를 쉽게 찾고 분석할 수 있다.</p>
+
+<p><strong>2. cloud monitoring(stackdriver monitoring)</strong>
+사용자 정의 애플리케이션의 CPU 사용량, 메모리 사용량, 처리량, 지연 시간 등 다양한 성능 지표를 수집하고 시각화하여 제공한다.
+Dataflow 작업의 전반적인 상태를 실시간으로 파악하고, 성능 병목 구간이나 이상 징후를 식별하는 데 활용된다.
+특히, Dataflow 파이프라인 그래프를 UI를 통해 시각적으로 제공하여 작업의 실행 논리를 직관적으로 이해할 수 있도록 돕는다. 파이프라인은 노드(변환 작업)와 엣지(데이터 흐름)로 구성되어 작업의 단계를 명확하게 보여준다.</p>
+
+<p><strong>3. cloud trace(stackdriver trace)</strong>
+애플리케이션의 요청 대기 시간을 추적하고 분석하는 데 사용된다.
+Dataflow 파이프라인 내 각 작업의 실행 시간을 상세하게 보여주어, 지연 시간이 발생하는 구간을 식별하고 성능 최적화의 방향을 설정하는 데 도움을 준다.</p>
+
+<p><strong>4. cloud profiler(stackdriver profiler)</strong>
+애플리케이션의 CPU 및 메모리 사용량을 분석하는 도구이다.
+Dataflow 워커에서 실행되는 코드의 CPU 사용률과 메모리 할당 정보를 프로파일링하여, 성능 병목의 원인이 되는 특정 함수나 코드 부분을 파악하는 데 유용하다.</p>
+
+<h2 id="파이프라인-생성하기">파이프라인 생성하기</h2>
+
+<p>Dataflow 파이프라인을 생성하기 위해서는 먼저 데이터의 소스(예: Cloud Storage, Pub/Sub, BigQuery)와 대상(예: Cloud Storage, BigQuery, 데이터베이스)을 준비해야 한다. 그 후, Apache Beam SDK와 같은 프로그래밍 모델을 사용하여 데이터 처리 로직을 정의하고, Dataflow 서비스에 파이프라인 실행을 요청한다.</p>
+
+<h2 id="성능-향상-비용-절감의-문제">성능 향상 비용 절감의 문제</h2>
+
+<p>Dataflow 작업의 성능 향상과 비용 절감은 워커의 구성 방식에 따라 영향을 받을 수 있다. 현재 10개의 워커를 각 10 용량으로 사용하는 상황에서, 15개의 워커를 각 5 용량으로 변경하는 것과 5개의 워커를 각 15 용량으로 변경하는 것을 비교해보자.</p>
+
+<p><strong>결론적으로, 일반적으로 더 작은 용량의 많은 워커를 사용하는 것이 더 효율적이다. 그 이유는 다음과 같다.</strong></p>
+
+<ul>
+  <li>병렬 처리 극대화: 작업을 더 작은 단위로 나누어 더 많은 워커에 분산시키면 병렬 처리의 효율성이 높아져 전체 처리 시간을 단축할 수 있다.</li>
+  <li>유연한 확장성: 워커 수가 많으면 작업 부하 변화에 더 유연하게 대응할 수 있다. 갑작스러운 부하 증가 시 자동 크기 조정 기능을 통해 더 많은 워커를 빠르게 할당하여 안정적인 성능을 유지할 수 있다.</li>
+  <li>내결함성 향상: 더 많은 수의 작은 워커를 사용하는 경우, 일부 워커에 장애가 발생하더라도 전체 작업에 미치는 영향이 줄어든다.</li>
+</ul>
+
+<p>반면, 더 적은 수의 큰 용량 워커를 사용하는 방식은 특정 작업이 단일 워커의 고성능에 의존하는 경우에 유리할 수 있지만, 전반적인 병렬 처리 효율성이나 확장성 측면에서는 불리할 수 있다.</p>
+
+<h2 id="작업시-워커의-수-조정-방법">작업시 워커의 수 조정 방법</h2>
+
+<p>Dataflow 작업의 워커 수를 효율적으로 관리하는 방법에는 다음과 같은 세 가지 옵션이 있다.</p>
+
+<ul>
+  <li>자동 크기 조정 (Autoscaling): Dataflow 서비스가 작업 부하를 자동으로 모니터링하여 필요에 따라 워커 수를 동적으로 조정한다. 이는 작업 부하가 변동적인 경우 비용 효율성을 높이고 안정적인 성능을 유지하는 데 효과적이다.</li>
+  <li>수동 크기 조정 (Manual Scaling): 사용자가 작업 생성 시 또는 실행 중에 워커 수를 직접 지정하고 조정한다. 예측 가능한 워크로드에 적합하며, 세밀한 제어가 필요한 경우 유용하다.</li>
+  <li>고정 크기 조정 (Fixed Scaling): 작업 생성 시 지정한 워커 수를 작업이 완료될 때까지 유지한다. 워크로드 변화가 거의 없고 일정한 성능을 보장해야 하는 경우에 고려할 수 있지만, 유휴 워커로 인한 비용 낭비가 발생할 수 있다.</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/studies/2025-04-13-bigtable/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Bigtable의 기능, 역할 및 최적화</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/studies/2025-04-13-iam/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">구글 클라우드 서비스에서 IAM</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

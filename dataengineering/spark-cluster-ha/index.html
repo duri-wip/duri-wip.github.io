@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>spark cluster의 고가용성 구성방식</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">spark cluster의 고가용성 구성방식</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 16일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">spark</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#spark</span>
+                
+                <span class="tag">#cluster</span>
+                
+                <span class="tag">#high-availability</span>
+                
+                <span class="tag">#distributed-computing</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="스파크-클러스터의-고가용성-보장하기">스파크 클러스터의 고가용성 보장하기</h1>
+
+<p>고가용성은 클러스터 내의 한 노드, 컴포넌트가 실패하더라도 시스템이 지속적으로 동작할 수 있도록 하는 방법이다. 스파크 클러스터에서도 여러가지 방식으로 고가용성을 보장할 수 있다.</p>
+
+<h3 id="1-마스터-노드의-고가용성">1. <strong>마스터 노드의 고가용성</strong></h3>
+
+<p>스파크 클러스터에서 <strong>마스터노드</strong>는 작업을 스케줄링하고 워커 노드에 자원을 할당하는 역할을 하는 가장 중요한 컴포넌트이다. 마스터 노드에 장애가 발생하면 클러스터 전체가 멈출 수 있기 때문에 고가용성 구성이 중요하다.</p>
+
+<p><strong>고가용성 마스터노드 구성을 위한 방법</strong>:</p>
+
+<ul>
+  <li><strong>복수의 마스터 노드 실행</strong>: 여러 마스터 노드를 활성 상태로 실행할 수 있으며, 이를 통해 한 마스터가 장애를 일으키더라도 다른 마스터가 자동으로 역할을 대체한다.</li>
+  <li><strong>Zookeeper 사용</strong>: 스파크는 고가용성 마스터 구성을 위해 <strong>Zookeeper</strong>를 사용할 수 있다. Zookeeper는 분산 시스템에서 리더 선출과 같은 기능을 제공하는 분산 코디네이터 역할을 한다.
+    <ul>
+      <li>마스터 노드를 다수 실행하고 Zookeeper를 이용하여 하나의 <strong>리더 마스터</strong>를 선택.</li>
+      <li>리더 마스터가 장애가 발생할 경우 Zookeeper가 다른 마스터 노드를 리더로 선출하여 클러스터의 가용성을 유지.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-스파크-드라이버의-고가용성">2. <strong>스파크 드라이버의 고가용성</strong></h3>
+
+<p><strong>드라이버</strong>는 스파크 애플리케이션의 진입점으로, 스파크 컨텍스트를 생성하고, 클러스터에서 작업을 분배하고 스케줄링하는 역할을 한다. 하지만 드라이버가 실패하면 스파크 애플리케이션 전체가 중단될 수 있기 때문에, 드라이버의 고가용성도 매우 중요하다.</p>
+
+<p><strong>고가용성 드라이버 구성을 위한 방법</strong>:</p>
+
+<ul>
+  <li><strong>클러스터 모드에서 실행</strong>: 스파크 애플리케이션을 <strong>클러스터 모드</strong>에서 실행하면 드라이버가 워크 노드 중 하나에서 실행되며, 워크 노드가 실패하면 다른 노드로 재시작될 수 있다. 이는 드라이버가 로컬 머신에서 실행되는 <strong>클라이언트 모드</strong>보다 더 높은 신뢰성을 제공한다.</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/mlflow-feature-store/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">MLOps Lv 2 아키텍처에서의 피처스토어</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/dataengineering/spark-resource-manager/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">spark cluster의 리소스 매니저</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCEL에 메모리 추가하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">LCEL에 메모리 추가하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#lcel</span>
+                
+                <span class="tag">#memory</span>
+                
+                <span class="tag">#conversation</span>
+                
+                <span class="tag">#context</span>
+                
+                <span class="tag">#chat-history</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="lcel에-메모리-추가하기">LCEL에 메모리 추가하기</h1>
+
+<p>체인에 메모리를 추가해서 컨텍스트를 토대로 답변할 수 있도록 하는 기능이다. 
+매 포스트 마다 말하지만 랭체인 프레임워크가 아니라면 이런 것도 다 손수 만들어야한다..
+그리고 어떤 컨텍스트 까지 가져올건지(최근 몇개인지, 그걸 요약할건지 등..)도 다 정책으로 만들어서 구성해야한다.
+랭체인이 이걸 대신 해줘서 넘 감사하다.</p>
+
+<h2 id="사용-방법">사용 방법</h2>
+
+<ol>
+  <li>모델 초기화 및 프롬프트 입력</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from operator import itemgetter
+from langchain.memory import ConversationBufferMemory
+from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
+from langchain_core.runnables import RunnableLambda, RunnablePassthrough
+from langchain_openai import ChatOpenAI
+
+model = ChatOpenAI()
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "당신은 유용한 챗봇입니다."),
+    MessagePlaceholder(variable_name="chat_history"),
+    ("human", "{input}")
+])
+</code></pre></div></div>
+<ul>
+  <li>message place holder 에서 이전 대화 기록을 chat_history라는 키값을 기준으로 삽입한다.</li>
+</ul>
+
+<ol>
+  <li>메모리 생성
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>memory = ConversationBufferMemory(return_messages=True, memory_key="chat_history")
+</code></pre></div>    </div>
+    <ul>
+      <li>memory_key 는 나중에 체인의 prompt 안에 대입될 키이다.</li>
+    </ul>
+  </li>
+  <li>이후 러너블 생성
+메모리에 저장된 대화 기록을 추출하고, 다른 프로세스에 이를 전달해 답변을 생성할 수 있도록 만든다.</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>runnable = RunnablePassthrough.assign(
+    chat_history=RunnableLambda(memory.load_memory_variables) | itemgetter("chat_history")
+)
+
+runnable.invoke({"input": "hello"})
+</code></pre></div></div>
+
+<p>그리고 이 러너블을 체인에 연결한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chain = runnable | prompt | model
+
+chain.invoke({"input": "안녕하세요"})
+</code></pre></div></div>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/langchain-caching/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LangChain LLM 답변 캐싱하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/langchain-memory/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">LangChain 메모리 시스템</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

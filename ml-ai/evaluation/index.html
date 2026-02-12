@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG 시스템 평가하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">RAG 시스템 평가하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 07월 31일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">rag</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#rag</span>
+                
+                <span class="tag">#vector-store</span>
+                
+                <span class="tag">#embedding</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="rag-시스템-평가">RAG 시스템 평가</h1>
+
+<p>RAG 시스템의 평가는 <strong>오프라인 평가</strong>와 <strong>온라인 평가</strong>가 있습니다. 온라인 평가는 사용자 피드백에 의한 피드백 루프를 타는 내용이므로 오프라인 평가에 대해서만 다룹니다.</p>
+
+<h2 id="1-ragas-rag-assessment">1. RAGAS (RAG Assessment)</h2>
+
+<p>RAGAS는 RAG 시스템을 평가하기 위한 프레임워크로, 다양한 평가 메트릭을 제공합니다.</p>
+
+<h3 id="검색-관련-메트릭">검색 관련 메트릭</h3>
+
+<h4 id="1-콘텍스트-정밀도-context-precision">1. 콘텍스트 정밀도 (Context Precision)</h4>
+<ul>
+  <li><strong>정의</strong>: 질문과 기대하는 답변을 고려해 실제 검색 결과 중 유용하다고 LLM이 추론하는 비율</li>
+  <li><strong>측정</strong>: 검색된 문서 중 실제로 답변에 도움이 되는 문서의 비율</li>
+</ul>
+
+<h4 id="2-콘텍스트-재현율-context-recall">2. 콘텍스트 재현율 (Context Recall)</h4>
+<ul>
+  <li><strong>정의</strong>: 기대하는 답변을 여러 문장으로 나눴을 때 실제 검색 결과로 설명할 수 있는 비율</li>
+  <li><strong>측정</strong>: 정답에 포함된 정보 중 검색된 문서에서 찾을 수 있는 정보의 비율</li>
+</ul>
+
+<h4 id="3-콘텍스트-엔티티-재현율-context-entity-recall">3. 콘텍스트 엔티티 재현율 (Context Entity Recall)</h4>
+<ul>
+  <li><strong>정의</strong>: 기대하는 답변에 포함된 엔티티(개체) 중 실제 검색 결과에 포함된 비율</li>
+  <li><strong>측정</strong>: 정답의 핵심 엔티티 중 검색 문서에서 발견되는 엔티티의 비율</li>
+</ul>
+
+<h3 id="생성-관련-메트릭">생성 관련 메트릭</h3>
+
+<h4 id="1-답변-관련성-answer-relevancy">1. 답변 관련성 (Answer Relevancy)</h4>
+<ul>
+  <li><strong>정의</strong>: 실제 답변이 질문과 얼마나 관련되는지 측정</li>
+  <li><strong>계산</strong>: 실제 답변에서 LLM으로 추론한 질문과 원래 질문의 임베딩 벡터 코사인 유사도 평균값</li>
+</ul>
+
+<h4 id="2-충실성-faithfulness">2. 충실성 (Faithfulness)</h4>
+<ul>
+  <li><strong>정의</strong>: 실제 답변에 포함된 주장 중 실제 검색 결과와 일관된 비율</li>
+  <li><strong>측정</strong>: 생성된 답변이 검색된 문서의 내용과 얼마나 일치하는지 평가</li>
+</ul>
+
+<h3 id="검색--생성-통합-메트릭">검색 + 생성 통합 메트릭</h3>
+
+<h4 id="1-답변-유사성-answer-similarity">1. 답변 유사성 (Answer Similarity)</h4>
+<ul>
+  <li><strong>정의</strong>: 실제 답변과 기대하는 답변의 임베딩 벡터 코사인 유사도</li>
+  <li><strong>측정</strong>: 생성된 답변과 정답 사이의 의미적 유사도</li>
+</ul>
+
+<h4 id="2-답변-정확성-answer-correctness">2. 답변 정확성 (Answer Correctness)</h4>
+<ul>
+  <li><strong>정의</strong>: 실제 답변과 기대하는 답변의 사실적 유사성과 의미적 유사성의 가중 평균</li>
+  <li><strong>측정</strong>: 정확성과 완전성을 모두 고려한 종합적 평가 지표</li>
+</ul>
+
+<p>이러한 메트릭들을 통해 RAG 시스템의 검색 품질과 생성 품질을 종합적으로 평가할 수 있습니다.</p>
+
+<h2 id="-추가로-알아볼-내용">📚 추가로 알아볼 내용</h2>
+
+<h3 id="1-고급-평가-메트릭">1. 고급 평가 메트릭</h3>
+
+<p><strong>Custom Evaluation Metrics:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="c1"># 도메인별 맞춤 평가
+</span><span class="k">class</span> <span class="nc">CustomRAGEvaluator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">domain</span><span class="o">=</span><span class="sh">"</span><span class="s">general</span><span class="sh">"</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">domain</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">evaluator_llm</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">evaluate_domain_relevance</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">question</span><span class="p">,</span> <span class="n">answer</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"""</span><span class="s">
+        도메인: {domain}
+        질문: {question}
+        답변: {answer}
+        컨텍스트: {context}
+        
+        이 답변이 {domain} 도메인에서 얼마나 적절한지 1-10점으로 평가하고 이유를 설명하세요.
+        </span><span class="sh">"""</span><span class="p">)</span>
+        
+        <span class="n">evaluation</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">evaluator_llm</span><span class="p">.</span><span class="nf">invoke</span><span class="p">(</span><span class="n">prompt</span><span class="p">.</span><span class="nf">format</span><span class="p">(</span>
+            <span class="n">domain</span><span class="o">=</span><span class="n">self</span><span class="p">.</span><span class="n">domain</span><span class="p">,</span>
+            <span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span>
+            <span class="n">answer</span><span class="o">=</span><span class="n">answer</span><span class="p">,</span>
+            <span class="n">context</span><span class="o">=</span><span class="n">context</span>
+        <span class="p">))</span>
+        
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">_extract_score</span><span class="p">(</span><span class="n">evaluation</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>Retrieval Quality Metrics:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">from</span> <span class="n">sklearn.metrics.pairwise</span> <span class="kn">import</span> <span class="n">cosine_similarity</span>
+
+<span class="k">class</span> <span class="nc">RetrievalQualityEvaluator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">embeddings_model</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings_model</span>
+    
+    <span class="k">def</span> <span class="nf">calculate_mrr</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">queries</span><span class="p">,</span> <span class="n">retrieved_docs</span><span class="p">,</span> <span class="n">relevant_docs</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">Mean Reciprocal Rank 계산</span><span class="sh">"""</span>
+        <span class="n">mrr_scores</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">query</span><span class="p">,</span> <span class="n">retrieved</span><span class="p">,</span> <span class="n">relevant</span> <span class="ow">in</span> <span class="nf">zip</span><span class="p">(</span><span class="n">queries</span><span class="p">,</span> <span class="n">retrieved_docs</span><span class="p">,</span> <span class="n">relevant_docs</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">retrieved</span><span class="p">,</span> <span class="mi">1</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">doc</span><span class="p">.</span><span class="n">metadata</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">'</span><span class="s">id</span><span class="sh">'</span><span class="p">)</span> <span class="ow">in</span> <span class="n">relevant</span><span class="p">:</span>
+                    <span class="n">mrr_scores</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mf">1.0</span> <span class="o">/</span> <span class="n">rank</span><span class="p">)</span>
+                    <span class="k">break</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mrr_scores</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">mrr_scores</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">calculate_ndcg</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">queries</span><span class="p">,</span> <span class="n">retrieved_docs</span><span class="p">,</span> <span class="n">relevance_scores</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">Normalized Discounted Cumulative Gain 계산</span><span class="sh">"""</span>
+        <span class="n">ndcg_scores</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">query_idx</span><span class="p">,</span> <span class="n">retrieved</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">retrieved_docs</span><span class="p">):</span>
+            <span class="n">dcg</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">idcg</span> <span class="o">=</span> <span class="mi">0</span>
+            
+            <span class="c1"># 실제 순서의 DCG 계산
+</span>            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">retrieved</span><span class="p">[:</span><span class="n">k</span><span class="p">]):</span>
+                <span class="n">relevance</span> <span class="o">=</span> <span class="n">relevance_scores</span><span class="p">[</span><span class="n">query_idx</span><span class="p">].</span><span class="nf">get</span><span class="p">(</span><span class="n">doc</span><span class="p">.</span><span class="n">metadata</span><span class="p">[</span><span class="sh">'</span><span class="s">id</span><span class="sh">'</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">dcg</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">relevance</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nf">log2</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+            
+            <span class="c1"># 이상적 순서의 IDCG 계산
+</span>            <span class="n">ideal_relevances</span> <span class="o">=</span> <span class="nf">sorted</span><span class="p">(</span><span class="n">relevance_scores</span><span class="p">[</span><span class="n">query_idx</span><span class="p">].</span><span class="nf">values</span><span class="p">(),</span> <span class="n">reverse</span><span class="o">=</span><span class="bp">True</span><span class="p">)[:</span><span class="n">k</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">rel</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">ideal_relevances</span><span class="p">):</span>
+                <span class="n">idcg</span> <span class="o">+=</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">rel</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="p">.</span><span class="nf">log2</span><span class="p">(</span><span class="n">i</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span>
+            
+            <span class="n">ndcg_scores</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">dcg</span> <span class="o">/</span> <span class="n">idcg</span> <span class="k">if</span> <span class="n">idcg</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">ndcg_scores</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="2-자동화된-평가-파이프라인">2. 자동화된 평가 파이프라인</h3>
+
+<p><strong>Continuous Evaluation:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">schedule</span>
+<span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="n">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
+
+<span class="k">class</span> <span class="nc">ContinuousRAGEvaluator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">rag_chain</span><span class="p">,</span> <span class="n">test_dataset</span><span class="p">,</span> <span class="n">evaluators</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">rag_chain</span> <span class="o">=</span> <span class="n">rag_chain</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">test_dataset</span> <span class="o">=</span> <span class="n">test_dataset</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">evaluators</span> <span class="o">=</span> <span class="n">evaluators</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">results_history</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="k">def</span> <span class="nf">run_evaluation</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">정기 평가 실행</span><span class="sh">"""</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Starting evaluation at </span><span class="si">{</span><span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="n">results</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">:</span> <span class="n">datetime</span><span class="p">.</span><span class="nf">now</span><span class="p">(),</span>
+            <span class="sh">'</span><span class="s">metrics</span><span class="sh">'</span><span class="p">:</span> <span class="p">{}</span>
+        <span class="p">}</span>
+        
+        <span class="c1"># 각 평가자별로 메트릭 계산
+</span>        <span class="k">for</span> <span class="n">evaluator_name</span><span class="p">,</span> <span class="n">evaluator</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">evaluators</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">metric_score</span> <span class="o">=</span> <span class="n">evaluator</span><span class="p">.</span><span class="nf">evaluate</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">rag_chain</span><span class="p">,</span> <span class="n">self</span><span class="p">.</span><span class="n">test_dataset</span><span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="sh">'</span><span class="s">metrics</span><span class="sh">'</span><span class="p">][</span><span class="n">evaluator_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">metric_score</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">evaluator_name</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">metric_score</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error in </span><span class="si">{</span><span class="n">evaluator_name</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+                <span class="n">results</span><span class="p">[</span><span class="sh">'</span><span class="s">metrics</span><span class="sh">'</span><span class="p">][</span><span class="n">evaluator_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">None</span>
+        
+        <span class="n">self</span><span class="p">.</span><span class="n">results_history</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="nf">_check_performance_degradation</span><span class="p">()</span>
+    
+    <span class="k">def</span> <span class="nf">_check_performance_degradation</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">성능 저하 감지</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="nf">len</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">results_history</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span>
+        
+        <span class="n">current</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">results_history</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="sh">'</span><span class="s">metrics</span><span class="sh">'</span><span class="p">]</span>
+        <span class="n">previous</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">results_history</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="sh">'</span><span class="s">metrics</span><span class="sh">'</span><span class="p">]</span>
+        
+        <span class="k">for</span> <span class="n">metric_name</span><span class="p">,</span> <span class="n">current_score</span> <span class="ow">in</span> <span class="n">current</span><span class="p">.</span><span class="nf">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">current_score</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">previous</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="n">metric_name</span><span class="p">)</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            
+            <span class="n">degradation</span> <span class="o">=</span> <span class="n">previous</span><span class="p">[</span><span class="n">metric_name</span><span class="p">]</span> <span class="o">-</span> <span class="n">current_score</span>
+            <span class="k">if</span> <span class="n">degradation</span> <span class="o">&gt;</span> <span class="n">threshold</span><span class="p">:</span>
+                <span class="n">self</span><span class="p">.</span><span class="nf">_alert_performance_issue</span><span class="p">(</span><span class="n">metric_name</span><span class="p">,</span> <span class="n">degradation</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">schedule_evaluations</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">interval_hours</span><span class="o">=</span><span class="mi">24</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">정기 평가 스케줄링</span><span class="sh">"""</span>
+        <span class="n">schedule</span><span class="p">.</span><span class="nf">every</span><span class="p">(</span><span class="n">interval_hours</span><span class="p">).</span><span class="n">hours</span><span class="p">.</span><span class="nf">do</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="n">run_evaluation</span><span class="p">)</span>
+        
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="n">schedule</span><span class="p">.</span><span class="nf">run_pending</span><span class="p">()</span>
+            <span class="n">time</span><span class="p">.</span><span class="nf">sleep</span><span class="p">(</span><span class="mi">3600</span><span class="p">)</span>  <span class="c1"># 1시간마다 체크
+</span></code></pre></div></div>
+
+<h3 id="3-벤치마크-데이터셋-활용">3. 벤치마크 데이터셋 활용</h3>
+
+<p><strong>Popular RAG Benchmarks:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># MS MARCO 데이터셋 활용
+</span><span class="kn">from</span> <span class="n">datasets</span> <span class="kn">import</span> <span class="n">load_dataset</span>
+
+<span class="k">class</span> <span class="nc">BenchmarkEvaluator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">benchmarks</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">ms_marco</span><span class="sh">'</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="nf">_load_ms_marco</span><span class="p">(),</span>
+            <span class="sh">'</span><span class="s">natural_questions</span><span class="sh">'</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="nf">_load_nq</span><span class="p">(),</span>
+            <span class="sh">'</span><span class="s">hotpot_qa</span><span class="sh">'</span><span class="p">:</span> <span class="n">self</span><span class="p">.</span><span class="nf">_load_hotpot</span><span class="p">()</span>
+        <span class="p">}</span>
+    
+    <span class="k">def</span> <span class="nf">_load_ms_marco</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="n">dataset</span> <span class="o">=</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="sh">"</span><span class="s">ms_marco</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">v1.1</span><span class="sh">"</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="sh">"</span><span class="s">validation</span><span class="sh">"</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">[{</span>
+            <span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">query</span><span class="sh">'</span><span class="p">],</span>
+            <span class="sh">'</span><span class="s">expected_answer</span><span class="sh">'</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">answers</span><span class="sh">'</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="k">if</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">answers</span><span class="sh">'</span><span class="p">]</span> <span class="k">else</span> <span class="sh">''</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">context</span><span class="sh">'</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">passages</span><span class="sh">'</span><span class="p">]</span>
+        <span class="p">}</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">.</span><span class="nf">select</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="mi">100</span><span class="p">))]</span>
+    
+    <span class="k">def</span> <span class="nf">evaluate_on_benchmark</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">rag_chain</span><span class="p">,</span> <span class="n">benchmark_name</span><span class="p">):</span>
+        <span class="sh">"""</span><span class="s">벤치마크 데이터셋으로 평가</span><span class="sh">"""</span>
+        <span class="k">if</span> <span class="n">benchmark_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">self</span><span class="p">.</span><span class="n">benchmarks</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="nc">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Unknown benchmark: </span><span class="si">{</span><span class="n">benchmark_name</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+        
+        <span class="n">benchmark_data</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">benchmarks</span><span class="p">[</span><span class="n">benchmark_name</span><span class="p">]</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="p">[]</span>
+        
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">benchmark_data</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">answer</span> <span class="o">=</span> <span class="n">rag_chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">question</span><span class="sh">'</span><span class="p">]})</span>
+                <span class="n">score</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_calculate_similarity</span><span class="p">(</span><span class="n">answer</span><span class="p">,</span> <span class="n">item</span><span class="p">[</span><span class="sh">'</span><span class="s">expected_answer</span><span class="sh">'</span><span class="p">])</span>
+                <span class="n">scores</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error processing question: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+                <span class="n">scores</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">benchmark</span><span class="sh">'</span><span class="p">:</span> <span class="n">benchmark_name</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">average_score</span><span class="sh">'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">scores</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">total_questions</span><span class="sh">'</span><span class="p">:</span> <span class="nf">len</span><span class="p">(</span><span class="n">benchmark_data</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">successful_answers</span><span class="sh">'</span><span class="p">:</span> <span class="nf">len</span><span class="p">([</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">scores</span> <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">])</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="-학습하면서-알게-된-점">🔍 학습하면서 알게 된 점</h2>
+
+<h3 id="1-ragas-메트릭의-실제-해석">1. RAGAS 메트릭의 실제 해석</h3>
+
+<p><strong>Context Precision의 함정:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Context Precision이 높다고 항상 좋은 것은 아님
+</span><span class="k">def</span> <span class="nf">analyze_context_precision</span><span class="p">():</span>
+    <span class="n">scenarios</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">높은_정밀도_좋은_경우</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">description</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">관련성 높은 문서만 검색</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">precision</span><span class="sh">"</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">context_quality</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">excellent</span><span class="sh">"</span>
+        <span class="p">},</span>
+        <span class="sh">"</span><span class="s">높은_정밀도_나쁜_경우</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="sh">"</span><span class="s">description</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">검색된 문서 수가 너무 적음</span><span class="sh">"</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">precision</span><span class="sh">"</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+            <span class="sh">"</span><span class="s">context_quality</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">insufficient</span><span class="sh">"</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">scenarios</span>
+</code></pre></div></div>
+
+<p><strong>실제 경험:</strong></p>
+<ul>
+  <li>Context Precision 0.8+ : 우수</li>
+  <li>Context Recall 0.7+ : 양호</li>
+  <li>Answer Relevancy 0.8+ : 우수</li>
+  <li>Faithfulness 0.9+ : 필수 (hallucination 방지)</li>
+</ul>
+
+<h3 id="2-메트릭-간-트레이드오프-관계">2. 메트릭 간 트레이드오프 관계</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tradeoffs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="sh">"</span><span class="s">정밀도_vs_재현율</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">high_precision</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">관련 문서만 검색, 정보 부족 위험</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">high_recall</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">모든 관련 정보 포함, 노이즈 증가</span><span class="sh">"</span>
+    <span class="p">},</span>
+    <span class="sh">"</span><span class="s">충실성_vs_관련성</span><span class="sh">"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="sh">"</span><span class="s">high_faithfulness</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">검색 문서에만 의존, 창의적 답변 제한</span><span class="sh">"</span><span class="p">,</span>
+        <span class="sh">"</span><span class="s">high_relevancy</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">질문에 최적화, 사실 왜곡 위험</span><span class="sh">"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="3-도메인별-평가-기준-차이">3. 도메인별 평가 기준 차이</h3>
+
+<p><strong>의료/법률 도메인:</strong></p>
+<ul>
+  <li>Faithfulness &gt; 0.95 (사실 정확성 중요)</li>
+  <li>Context Precision &gt; 0.9 (전문성 요구)</li>
+</ul>
+
+<p><strong>창작/마케팅 도메인:</strong></p>
+<ul>
+  <li>Answer Relevancy &gt; 0.85 (사용자 만족도 중요)</li>
+  <li>Faithfulness &gt; 0.7 (창의성 허용)</li>
+</ul>
+
+<h3 id="4-평가-자동화의-실제-구현">4. 평가 자동화의 실제 구현</h3>
+
+<p><strong>A/B 테스트 통합:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">RAGABTestEvaluator</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">variant_a</span><span class="p">,</span> <span class="n">variant_b</span><span class="p">):</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">variant_a</span> <span class="o">=</span> <span class="n">variant_a</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">variant_b</span> <span class="o">=</span> <span class="n">variant_b</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">results</span> <span class="o">=</span> <span class="p">{</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">:</span> <span class="p">[],</span> <span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">:</span> <span class="p">[]}</span>
+    
+    <span class="k">def</span> <span class="nf">run_split_test</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">questions</span><span class="p">,</span> <span class="n">split_ratio</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="n">random</span>
+        
+        <span class="k">for</span> <span class="n">question</span> <span class="ow">in</span> <span class="n">questions</span><span class="p">:</span>
+            <span class="n">variant</span> <span class="o">=</span> <span class="sh">'</span><span class="s">a</span><span class="sh">'</span> <span class="k">if</span> <span class="n">random</span><span class="p">.</span><span class="nf">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">split_ratio</span> <span class="k">else</span> <span class="sh">'</span><span class="s">b</span><span class="sh">'</span>
+            <span class="n">chain</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">variant_a</span> <span class="k">if</span> <span class="n">variant</span> <span class="o">==</span> <span class="sh">'</span><span class="s">a</span><span class="sh">'</span> <span class="k">else</span> <span class="n">self</span><span class="p">.</span><span class="n">variant_b</span>
+            
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">answer</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">question</span><span class="sh">"</span><span class="p">:</span> <span class="n">question</span><span class="p">})</span>
+                <span class="c1"># 사용자 피드백 수집 (실제 환경에서)
+</span>                <span class="n">feedback_score</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">_collect_user_feedback</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">answer</span><span class="p">)</span>
+                <span class="n">self</span><span class="p">.</span><span class="n">results</span><span class="p">[</span><span class="n">variant</span><span class="p">].</span><span class="nf">append</span><span class="p">(</span><span class="n">feedback_score</span><span class="p">)</span>
+            <span class="k">except</span> <span class="nb">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Error in variant </span><span class="si">{</span><span class="n">variant</span><span class="si">}</span><span class="s">: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="k">def</span> <span class="nf">analyze_results</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="kn">from</span> <span class="n">scipy</span> <span class="kn">import</span> <span class="n">stats</span>
+        
+        <span class="n">scores_a</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">results</span><span class="p">[</span><span class="sh">'</span><span class="s">a</span><span class="sh">'</span><span class="p">]</span>
+        <span class="n">scores_b</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="n">results</span><span class="p">[</span><span class="sh">'</span><span class="s">b</span><span class="sh">'</span><span class="p">]</span>
+        
+        <span class="c1"># 통계적 유의성 검정
+</span>        <span class="n">t_stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">stats</span><span class="p">.</span><span class="nf">ttest_ind</span><span class="p">(</span><span class="n">scores_a</span><span class="p">,</span> <span class="n">scores_b</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="sh">'</span><span class="s">variant_a_mean</span><span class="sh">'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">scores_a</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">variant_b_mean</span><span class="sh">'</span><span class="p">:</span> <span class="n">np</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">scores_b</span><span class="p">),</span>
+            <span class="sh">'</span><span class="s">p_value</span><span class="sh">'</span><span class="p">:</span> <span class="n">p_value</span><span class="p">,</span>
+            <span class="sh">'</span><span class="s">significant</span><span class="sh">'</span><span class="p">:</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.05</span>
+        <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="5-실전-평가-시스템-구축-경험">5. 실전 평가 시스템 구축 경험</h3>
+
+<p><strong>모니터링 대시보드:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">streamlit</span> <span class="k">as</span> <span class="n">st</span>
+<span class="kn">import</span> <span class="n">plotly.express</span> <span class="k">as</span> <span class="n">px</span>
+
+<span class="k">def</span> <span class="nf">create_rag_dashboard</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">):</span>
+    <span class="n">st</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">RAG System Performance Dashboard</span><span class="sh">"</span><span class="p">)</span>
+    
+    <span class="c1"># 메트릭 트렌드
+</span>    <span class="n">metrics_df</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">(</span><span class="n">evaluation_results</span><span class="p">)</span>
+    <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="p">.</span><span class="nf">line</span><span class="p">(</span><span class="n">metrics_df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="sh">'</span><span class="s">timestamp</span><span class="sh">'</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="sh">'</span><span class="s">faithfulness</span><span class="sh">'</span><span class="p">,</span> <span class="sh">'</span><span class="s">answer_relevancy</span><span class="sh">'</span><span class="p">],</span> 
+                  <span class="n">title</span><span class="o">=</span><span class="sh">'</span><span class="s">Performance Trends Over Time</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">st</span><span class="p">.</span><span class="nf">plotly_chart</span><span class="p">(</span><span class="n">fig</span><span class="p">)</span>
+    
+    <span class="c1"># 성능 분포
+</span>    <span class="n">col1</span><span class="p">,</span> <span class="n">col2</span> <span class="o">=</span> <span class="n">st</span><span class="p">.</span><span class="nf">columns</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">col1</span><span class="p">:</span>
+        <span class="n">st</span><span class="p">.</span><span class="nf">metric</span><span class="p">(</span><span class="sh">"</span><span class="s">Average Faithfulness</span><span class="sh">"</span><span class="p">,</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">metrics_df</span><span class="p">[</span><span class="sh">'</span><span class="s">faithfulness</span><span class="sh">'</span><span class="p">].</span><span class="nf">mean</span><span class="p">()</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">col2</span><span class="p">:</span>
+        <span class="n">st</span><span class="p">.</span><span class="nf">metric</span><span class="p">(</span><span class="sh">"</span><span class="s">Average Answer Relevancy</span><span class="sh">"</span><span class="p">,</span> <span class="sa">f</span><span class="sh">"</span><span class="si">{</span><span class="n">metrics_df</span><span class="p">[</span><span class="sh">'</span><span class="s">answer_relevancy</span><span class="sh">'</span><span class="p">].</span><span class="nf">mean</span><span class="p">()</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>실시간 성능 알림:</strong></p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">setup_performance_alerts</span><span class="p">():</span>
+    <span class="n">thresholds</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="sh">'</span><span class="s">faithfulness</span><span class="sh">'</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">answer_relevancy</span><span class="sh">'</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
+        <span class="sh">'</span><span class="s">context_precision</span><span class="sh">'</span><span class="p">:</span> <span class="mf">0.7</span>
+    <span class="p">}</span>
+    
+    <span class="c1"># Slack, 이메일 등으로 알림
+</span>    <span class="k">def</span> <span class="nf">alert_performance_drop</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">current_score</span><span class="p">,</span> <span class="n">threshold</span><span class="p">):</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">⚠️ </span><span class="si">{</span><span class="n">metric</span><span class="si">}</span><span class="s"> dropped to </span><span class="si">{</span><span class="n">current_score</span><span class="si">:</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="si">}</span><span class="s"> (threshold: </span><span class="si">{</span><span class="n">threshold</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span>
+        <span class="nf">send_slack_notification</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이러한 포괄적인 평가 시스템을 통해 RAG 애플리케이션의 품질을 지속적으로 모니터링하고 개선할 수 있습니다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/RAG/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">RAG (Retrieval-Augmented Ge...</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/RAG-advance/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">RAG 고급 기법 완전 정복</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

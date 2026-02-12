@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계층별 엔티티 설계하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">계층별 엔티티 설계하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 08월 16일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">backend</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#backend</span>
+                
+                <span class="tag">#fastapi</span>
+                
+                <span class="tag">#domain</span>
+                
+                <span class="tag">#data-model</span>
+                
+                <span class="tag">#design-patterns</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="각-계층의-역할은-알겠는데-어떻게-작성하지">각 계층의 역할은 알겠는데.. 어떻게 작성하지?</h1>
+
+<p>클린아키텍처와 도메인 주도 설계에서 설명하는 개념은 어느 정도 DTO, DAO, VO 개념과 맞닿아있다. 직접 구현하는 예제는 없어도 각 계층의 역할을 DTO, DAO, VO 개념과 빗대어 설명하는 경우가 잦다.</p>
+
+<p>이런 객체 패턴들이 나에게 낯선 이유는 아마 내가 파이썬으로 개발을 시작했기 때문일 것이다. 자바같은 컴파일 언어를 먼저 했다면 익숙했을 텐데, 파이썬은 여러가지 특징 상 이런 아키텍처를 몰라도 기능 구현에 집중할 수 있기 때문이다.</p>
+
+<p>그래서 이번 기회에 각 계층이 뭘 하는건지, 그리고 이런 구조로 코드를 짜려면 어떤 순서로 생각해야하는지 나만의 원칙을 정리해두려고 한다.</p>
+
+<h2 id="1-파이썬에서의-dto-dao-vo">1. 파이썬에서의 DTO, DAO, VO</h2>
+
+<h3 id="개념">개념</h3>
+
+<h4 id="dto--data-transfer-object">dto : data transfer object</h4>
+<p>계층간 데이터 전송을 위해 사용하는 객체이다.</p>
+<ul>
+  <li>비즈니스 로직을 포함하지 않고 데이터를 전달하는 역할만 하기 때문에, 가져오는 getter와 전달하는 setter 메서드만 가진다.
+    <h4 id="dao--data-access-object">dao : data access object</h4>
+    <p>데이터베이스에 접근해서 crud 작업을 전담하는 객체. 서비스 계층이 데이터베이스의 구체적인 구현 방식을 몰라도 되도록 역할을 분리해준다.</p>
+  </li>
+  <li>데이터베이스 연결, 쿼리 실행, 트랜잭션 처리 등 데이터 영속성과 관련된 로직을 모두 담당한다.</li>
+</ul>
+
+<h4 id="vo--value-object">vo : value object</h4>
+<p>값 그 자체를 표현하는 객체로, 불변성을 갖는 것이 가장 큰 특징이다. 즉 한번 생성되면 내부의 값을 변경할 수 없다. 값을 바꾸려면 새로운 vo를 만들어야 하고, 이런 방식으로 일관성과 안전성을 보장한다.</p>
+
+<p>예를 들면 이렇다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>from dataclasses import dataclass
+
+@dataclass(frozen=True)
+class Money:
+   amount: int
+   currency: str
+
+   def __add__(self, other):
+      if self.currency != other.currency:
+         raise ValueError("다른 통화끼리는 더할 수 없습니다.")
+      return Money(self.amount + other.amount, self.currency)
+</code></pre></div></div>
+<p>Money라는 vo를 만들어 값과 통화를 함께 묶고 불변 객체로 만들면, 다른 변수와 값으로 비교가 가능할 뿐 아니라 값을 변경할 수 없어 일관성이 생긴다.  또 잘못된 연산을 원천 차단해서 비즈니스 로직상에서 생길 수 있는 문제를 방지한다. 코드의 의도도 명확해진다.</p>
+
+<blockquote>
+  <p>엔티티와 vo는 다르다.
+엔티티는 고유한 id를 가지는 객체일 뿐이다. 상태의 불변성을 보장하지 않는다는 점에서 vo와 차이점이 있다.</p>
+</blockquote>
+
+<h3 id="파이썬에서는-이-패턴의-클래스들을-직접-만들지-않는다">파이썬에서는 이 패턴의 클래스들을 직접 만들지 않는다.</h3>
+<p>왜냐면 굳이 직접 만들어서 객체에 속성을 부여하지 않더라도 <strong>덕테이핑</strong>이 가능한 파이썬에서는 해당 역할을 하는 클래스가 있기만 하면 되기 때문이다. 
+예를 들면 getter, setter같은 패턴을 써서 dto를 만들지 않아도 dataclasses, dict가 dto의 역할을 한다. 또 sqlalchemy 같은 orm을 사용하면 dao 객체를 따로 구현할 필요가 없다.</p>
+
+<h2 id="2-각-계층의-역할에-대한-간단-정리">2. 각 계층의 역할에 대한 간단 정리</h2>
+
+<p>지난번 포스팅에서 각 계층의 역할에 대해서 공부했으니 이번에는 간략하게만 정리해본다. 익숙해지기 전까지는 계속 헷갈릴테니 계속 리마인드하고 활용해보는게 좋다.</p>
+
+<ul>
+  <li>도메인 계층
+    <ul>
+      <li>역할 : 시스템의 <strong>핵심 비즈니스 규칙과 엔티티, 리포지토리의 추상클래스</strong>가 있는 곳.</li>
+      <li>원칙 : 프레임워크나 DB코드가 전혀 없어야 한다.</li>
+    </ul>
+  </li>
+  <li>애플리케이션 계층
+    <ul>
+      <li>역할 : 실제 유스케이스 실행. 도메인 객체들을 가져와서 <strong>유스케이스를 실행</strong>한다.</li>
+      <li>원칙 : 오직 도메인 계층에만 의존해야하며 DB나 API는 몰라야 한다.</li>
+    </ul>
+  </li>
+  <li>인프라 계층
+    <ul>
+      <li>역할 : DB, 외부 API 등 외부 인프라와의 <strong>통신</strong>을 실제로 구현한다.</li>
+      <li>원칙 : 도메인 계층에 정의된 <strong>리포지토리의 추상 클래스</strong>를 실제로 구현한다.</li>
+    </ul>
+  </li>
+  <li>인터페이스 계층
+    <ul>
+      <li>역할 : 사용자의 요청을 받는 진입점이다. <strong>서버의 라우터, 웹 컨트롤러 등</strong>이 포함된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="3-생각의-순서">3. 생각의 순서</h2>
+
+<blockquote>
+  <p>모든 의존성은 바깥에서 안쪽으로 향한다.</p>
+</blockquote>
+
+<p>바깥이 어디고 안쪽이 어디냐면, 당연하게도 사용자랑 만나는 인터페이스 계층이 가장 바깥이고, 프레임워크나 DB 코드 등에서 자유롭게 원칙만이 구현된 도메인 계층이 가장 안쪽이다. 근데 이 방향은 익숙해지기 전까지는 계속 헷갈릴 것 같다. 그래서 코드는 안쪽에서 바깥쪽 순서로 구현하는게 편하다.</p>
+
+<p>예를 들어보자. 회원가입을 받는 간단한 엔드포인트를 만든다고 할때 .. 어떻게 생각해야할까?</p>
+
+<h3 id="step1--도메인-모델-정의">STEP1 : 도메인 모델 정의</h3>
+
+<p>가장 먼저 제일 안쪽의 도메인 부터 정의한다. 
+엔티티인 User는 어떤 속성을 가져야하는가? 를 바탕으로 모델을 작성한다.</p>
+
+<blockquote>
+  <p>엔티티를 정의할 때, 엔티티의 속성 중 vo로 만들 수 있는 것을 식별한다. 
+즉 단순히 문자열이나 숫자형으로 표현하지 않고 비즈니스 로직을 담아야하는 속성을 식별해 vo로 만든다.</p>
+</blockquote>
+
+<h3 id="step2--도메인-리포지토리-인터페이스-정의">STEP2 : 도메인 리포지토리 인터페이스 정의</h3>
+
+<p>실제 구현체와의 계약서라고 생각하면 된다. 추상 클래스는 구현체가 가져야만 하는 메서드를 설정하고, 이 메서드가 없으면 에러가 나도록 구속한다. 그래야 여러 구현체를 사용하는 경우에도 약속된 메서드를 조달받을 수 있다.</p>
+
+<p>예를 들어서, domain/user_repo.py에서 추상 클래스를 만들고 save()같은 기능 명세서만 작성한다. 실제 코드는 없다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class ...:
+   def save(self):
+      raise NotImplementedError
+</code></pre></div></div>
+
+<blockquote>
+  <p>이 도메인 인터페이스는 누가 어떻게 사용하는가?</p>
+</blockquote>
+
+<p>애플리케이션 계층이 도메인 인터페이스에 의존하게 된다. 애플리케이션 계층은 도메인 계층이 약속한 추상 메서드를 사용하게 되고, 인프라 계층은 도메인 계층과 약속한 추상 메서드를 구현한다. 이런 방식으로 결합을 느슨하게 할 수 있다. 실제 인프라 계층에서 데이터베이스를 postgresql에서 mysql로 바꿔도 애플리케이션 계층은 이런 변경 상황에 영향을 받지 않게 되기 때문이다.</p>
+
+<blockquote>
+  <p>도메인 객체를 만드는 것은 DAO의 추상화 개념과 맞닿아있다.
+실제 코드는 없지만 데이터에 접근하는 객체가 어떤 기능을 해야하는지를 계약해두는 것이기 때문이다.</p>
+</blockquote>
+
+<h3 id="step3--애플리케이션-유스케이스-구현">STEP3 : 애플리케이션 유스케이스 구현</h3>
+
+<p>정의된 도메인 모델과 리포지토리 인터페이스를 가지고 실제 비즈니스 로직을 구현한다. 여기서의 비즈니스로직이라는 것은 외부 인프라와 관계 없이 서버 내에서 해야하는 고유한 활동을 말하게 된다. 
+예를 들어서 회원가입 하는 사람이 기입한 사용자 인풋 중 비밀번호를 암호화해서 인프라 계층의 객체에 전달하는 역할 등을 할 수 있다.</p>
+
+<blockquote>
+  <p>애플리케이션 유스케이스는 DTO를 만들고 DAO 인터페이스를 호출하는 방시긍로 동작한다. 
+즉 외부 계층으로부터 데이터를 직접 받기 위한 DTO를 사용한다. 그리고 이 데이터를 사용해 VO가 포함된 도메인 객체를 생성하고, DAO에 넘겨 기능을 수행하도록 한다.</p>
+</blockquote>
+
+<h3 id="step4--인프라-계층-구현">STEP4 : 인프라 계층 구현</h3>
+
+<p>외부 기술을 사용해서 도메인 인터페이스에 정의된 메서드를 실제로 구현한다. 도메인에 정의된 규칙을 실제로 구현하는 단계이다.</p>
+
+<blockquote>
+  <p>DAO의 실제 구현이 일어나는 부분이다.
+즉 도메인 객체를 실제 구현체에 맞게 변환해서 사용하는 작업이 일어날 수 있다.</p>
+</blockquote>
+
+<h3 id="step5--인터페이스-계층의-외부-진입점-연결">STEP5 : 인터페이스 계층의 외부 진입점 연결</h3>
+
+<p>사용자가 이 서비스를 이용할 수 있도록 API 엔드포인트를 만든다.</p>
+
+<blockquote>
+  <p>인터페이스 계층에서는 가장 적극적으로 DTO를 활용한다.
+즉 사용자의 요청 본문을 검증하고 파싱하기 위해 pydantic 모델을 사용해서 만드는데, 이 과정이 DTO객체의 작동 과정과 동일하다. 즉 요청을 DTO 형식으로 변환해서 애플리케이션 계층에 전달한다.</p>
+</blockquote>
+
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/langgraph/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LangGraph 활용하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/fastapi-clean-architecture/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">FastAPI Clean Architecture</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

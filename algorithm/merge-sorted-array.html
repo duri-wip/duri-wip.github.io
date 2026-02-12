@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>정렬된 배열에 대한 merge</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/study.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/study">study</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">정렬된 배열에 대한 merge</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 25일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-algorithm-solving</span>
+                
+                <span class="tag">#알고리즘</span>
+                
+                <span class="tag">#Grind75</span>
+                
+                <span class="tag">#merge</span>
+                
+                <span class="tag">#sorting</span>
+                
+                <span class="tag">#array</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>링크드 리스트에 대해서 더 알아보고 싶어서 연관 문제를 풀어봤다.</p>
+
+<h2 id="문제">문제</h2>
+
+<p>두개의 배열이 주어지고 유효한 요소의 숫자가 각각 주어질때 두 배열을 합치고 정렬한다. 
+근데 이때 새로운 요소를 만들어 반환하지 않고 nums1요소를 수정한다.</p>
+
+<p>예시)</p>
+
+<p>Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+Output: [1,2,2,3,5,6]
+Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.</p>
+
+<h2 id="풀이">풀이</h2>
+
+<p>처음에는 새로운 요소를 반환하지 않고 nums1 요소를 수정한다고 해서 이렇게 풀었다.</p>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">Solution</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">merge</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">nums1</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">m</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">nums2</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="sh">"""</span><span class="s">
+        Do not return anything, modify nums1 in-place instead.
+        </span><span class="sh">"""</span>
+        <span class="n">nums1</span> <span class="o">=</span> <span class="n">nums1</span><span class="p">[:</span><span class="n">m</span><span class="p">]</span> <span class="o">+</span> <span class="n">nums2</span><span class="p">[:</span><span class="n">n</span><span class="p">]</span>
+        <span class="n">nums1</span><span class="p">.</span><span class="nf">sort</span><span class="p">()</span>
+</code></pre></div></div>
+<p>근데 프린트를 하면 답이 나오는데 채점 결과는 계속 틀린것. 
+그래서 다시 생각해보니 내가 하고 있었던 것은 지역변수에 대한 수정이었다.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>전역변수
+nums1, nums2
+지역변수
+</code></pre></div></div>
+<p>의 상태에서 nums1 = nums1[:m] + nums2[:n]을 수행하면</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>전역변수
+nums1, nums2
+지역변수
+nums1
+</code></pre></div></div>
+<p>의 상태로 변경된다. 함수 내에서는 지역변수인 nums1을 바라보게 되므로 print하면 맞게 뜨지만 채점을 하면 전역변수 nums1을 바라보고 있으니까 틀린것..
+return을 하지 말라는 문제는 처음 만나봐서 이런 생각은 안해봤다.</p>
+
+<p>다시 풀어본다.
+nums1의 인덱스를 받아 비교하고 수정하고 추가하는 방법이면 되려나?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+</code></pre></div></div>
+
+<p>앞에서 부터 수정하려고 했는데, 리스트의 길이때문에 어떤 테스트 케이스는 해결할 수 없었다. 
+뒤에서부터 비교하는 알고리즘으로 수정해본다. 그러면 길이대로 리스트를 수정하는 과정을 거치지 않아도 되고, 길이 문제도 해결할 수 있을것이다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/algorithm/implementing-queue-using-stack">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">스택을 사용해서 queue 실행하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/algorithm/first-bad-version">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">첫번째 bad version 찾기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
