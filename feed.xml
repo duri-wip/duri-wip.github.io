@@ -1,0 +1,2347 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="https://duri-wip.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://duri-wip.github.io/" rel="alternate" type="text/html" /><updated>2026-03-12T02:27:06+00:00</updated><id>https://duri-wip.github.io/feed.xml</id><title type="html">Duri’s Work In Progress</title><subtitle>열심히 배우고 있습니다.</subtitle><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><entry><title type="html">쿠버네티스 아키텍처와 gRPC</title><link href="https://duri-wip.github.io/development/k8s-architecture-and-grpc/" rel="alternate" type="text/html" title="쿠버네티스 아키텍처와 gRPC" /><published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/k8s-architecture-and-grpc</id><content type="html" xml:base="https://duri-wip.github.io/development/k8s-architecture-and-grpc/"><![CDATA[<h2 id="grpc는-어디에-쓰이는-걸까">gRPC는 어디에 쓰이는 걸까?</h2>
+
+<p><a href="/development/restapi-vs-grpc/">이전 포스트</a>에서 gRPC가 내부 통신을 빠르게 해준다는 걸 알아봤다. 그럼 실제로 어디에 쓰이는 걸까? 가장 가까운 예로 쿠버네티스를 찾을 수 있었다.</p>
+
+<p>쿠버네티스의 핵심 구성 요소들은 서로 gRPC로 통신하고, 새로운 컨테이너 런타임이나 네트워크 플러그인을 끼워넣을 수 있는 것도 gRPC 인터페이스 덕분이다.</p>
+
+<h2 id="쿠버네티스-아키텍처">쿠버네티스 아키텍처</h2>
+
+<p>쿠버네티스는 크게 두 파트로 나뉜다. 전체를 관리하는 <strong>컨트롤 플레인</strong>과 실제 컨테이너가 실행되는 <strong>노드</strong>다.</p>
+
+<h3 id="컨트롤-플레인">컨트롤 플레인</h3>
+
+<p>클러스터의 두뇌 역할을 한다. 네 가지 핵심 컴포넌트로 구성된다.</p>
+
+<ul>
+  <li><strong>API 서버</strong>: 모든 요청의 관문이다. 외부 요청도, 내부 구성 요소끼리의 통신도 전부 API 서버를 거친다</li>
+  <li><strong>etcd</strong>: 클러스터의 메모리다. 모든 상태 정보(설정값, 어떤 노드에 뭐가 떠있는지 등)를 저장하는 key-value 저장소</li>
+  <li><strong>스케줄러</strong>: 새로 만든 Pod를 어떤 노드에 배치할지를 결정한다</li>
+  <li><strong>컨트롤러 매니저</strong>: 현재 떠 있는 컨테이너가 선언된 상태와 일치하는지를 계속 확인하고, 하나가 죽으면 다시 살려내는 일을 한다</li>
+</ul>
+
+<h3 id="노드">노드</h3>
+
+<p>실제 컨테이너들이 실행되는 워커 머신이다. 세 가지 컴포넌트가 있다.</p>
+
+<ul>
+  <li><strong>kubelet</strong>: 컨트롤 플레인과 소통하는 에이전트다. 해당 노드에 어떤 컨테이너가 띄워져야 하는지 명령을 받고, 실행하고, 상태를 보고한다</li>
+  <li><strong>kube-proxy</strong>: 노드로 들어오는 네트워크 트래픽을 어떤 컨테이너로 보낼지 정리하는 네트워크 규칙을 관리한다. 쉽게 말하면 로드 밸런서 역할이다. 서비스 이름으로 오는 트래픽을 살아있는 Pod에게 나누어준다</li>
+  <li><strong>컨테이너 런타임</strong>: 실제로 컨테이너를 구동시키는 실행 엔진이다</li>
+</ul>
+
+<h2 id="인터페이스-중심-설계-쿠버네티스가-유연한-이유">인터페이스 중심 설계: 쿠버네티스가 유연한 이유</h2>
+
+<p>쿠버네티스가 유연한 확장이 가능한 이유는 처음부터 <strong>표준 인터페이스만 정해두고 실제 동작은 구현하지 않겠다</strong>는 설계 철학이 있기 때문이다.</p>
+
+<p>쿠버네티스가 정의한 gRPC 인터페이스 규격은 세 가지다.</p>
+
+<ul>
+  <li><strong>CRI (Container Runtime Interface)</strong>: “컨테이너 실행” 규격</li>
+  <li><strong>CSI (Container Storage Interface)</strong>: “디스크 연결” 규격</li>
+  <li><strong>CNI (Container Network Interface)</strong>: “네트워크 설정” 규격</li>
+</ul>
+
+<p>이 규격들은 모두 <code class="language-plaintext highlighter-rouge">.proto</code> 파일로 정의되어 있다. 예를 들어, 새로운 컨테이너 엔진을 만들고 싶다면 쿠버네티스가 정의한 <code class="language-plaintext highlighter-rouge">runtime.proto</code>의 명세대로 gRPC 서버를 구현하기만 하면 된다. 이 구조 덕분에 Docker 대신 containerd를 쓰든, Calico 대신 Cilium을 쓰든, 쿠버네티스 코어를 건드릴 필요가 없다.</p>
+
+<h2 id="pod가-생성되기까지-전체-흐름">Pod가 생성되기까지: 전체 흐름</h2>
+
+<p>사용자가 YAML을 선언하고 나서 실제로 컨테이너가 뜨기까지의 과정을 따라가보자.</p>
+
+<h3 id="1단계-인증과-저장">1단계: 인증과 저장</h3>
+
+<p><code class="language-plaintext highlighter-rouge">kubectl</code>은 사용자가 작성한 YAML을 API 서버에 전달한다. API 서버는 인증/인가를 확인하고, 이상이 없으면 YAML 파일 내용을 <strong>etcd에 저장</strong>한다.</p>
+
+<h3 id="2단계-배치-결정">2단계: 배치 결정</h3>
+
+<p>스케줄러는 API 서버를 감시하고 있다가, <strong>노드에 배정되지 않은 Pod</strong>가 생긴 걸 확인한다. 배정되지 않은 Pod란 etcd에 저장된 Pod 정보 중 <code class="language-plaintext highlighter-rouge">nodeName</code> 필드가 비어있는 경우를 의미한다.</p>
+
+<p>그럼 스케줄러는 각 노드의 리소스 상황을 확인하고 가장 적절한 노드를 골라 API 서버에 보고한다. 이때 <strong>필터링</strong>과 <strong>스코어링</strong> 두 단계를 거친다.</p>
+
+<ul>
+  <li><strong>필터링</strong>: Pod가 요구하는 CPU/메모리가 충분한가? 특정 노드에만 띄우라는 조건(nodeSelector 등)이 있는가? 등 노드의 사양이 충분한지를 판단하여 후보를 거른다</li>
+  <li><strong>스코어링</strong>: 남은 후보 노드들에 점수를 매긴다. 이미지가 이미 다운로드되어 있는지, 리소스 여유가 더 많은지 등을 따져서 가장 점수가 높은 노드를 선택한다</li>
+</ul>
+
+<h3 id="3단계-명령-전달">3단계: 명령 전달</h3>
+
+<p>kubelet이 자신의 노드에 할당된 새로운 Pod 정보를 API 서버로부터 전달받는다. kubelet은 미리 생성된 <strong>gRPC Stub</strong>을 이용해 노드의 컨테이너 런타임에 명령을 보낸다. 이때 kubelet과 컨테이너 런타임 사이의 통신은 <strong>CRI 규격</strong>을 통해 구성되어 있다.</p>
+
+<h3 id="4단계-실제-생성">4단계: 실제 생성</h3>
+
+<p>컨테이너 런타임은 명령을 받고 이미지를 pull한 후 컨테이너를 생성한다. 그 다음 두 가지 추가 작업이 진행된다.</p>
+
+<p><strong>네트워크 설정</strong>: 컨테이너에 IP 주소를 할당하기 위해 gRPC 통신으로 <strong>CNI 플러그인</strong>에게 네트워크 설정을 요청한다. CNI 플러그인은 컨테이너 내부에 고유한 IP 주소를 부여하고, 컨테이너끼리 서로 통신할 수 있는 네트워크를 구성하는 역할을 한다.</p>
+
+<p><strong>스토리지 연결</strong>: 영구 저장소가 필요한 경우 gRPC 통신으로 <strong>CSI 플러그인</strong>에게 디스크 연결을 요청한다. CSI 플러그인은 컨테이너가 삭제되어도 데이터가 날아가지 않도록 외부 저장소와 컨테이너를 연결해주는 역할을 한다.</p>
+
+<h3 id="5단계-완료-보고">5단계: 완료 보고</h3>
+
+<p>kubelet이 API 서버에게 생성 완료 사실을 알린다. kubelet은 컨테이너 런타임으로부터 <strong>gRPC 응답</strong>으로 작업 완료 사실을 전달받고, 이후에도 주기적으로 gRPC 폴링을 통해 컨테이너 내부 프로세스의 상태를 실시간으로 체크하여 보고한다.</p>
+
+<p>API 서버는 이 상태를 다시 etcd에 기록하며, 이로써 선언된 상태와 실제 상태가 일치하게 된다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="kubernetes" /><category term="grpc" /><category term="container" /><category term="docker" /><category term="devops" /><category term="cri" /><category term="cni" /><category term="csi" /><summary type="html"><![CDATA[쿠버네티스가 컨트롤 플레인과 노드 사이에서 gRPC를 활용하는 방식과, Pod가 생성되기까지의 전체 흐름을 정리한다]]></summary></entry><entry><title type="html">uv로 Python 의존성 관리하기 - 로컬부터 CI/CD까지</title><link href="https://duri-wip.github.io/development/uv-python-dependency-management/" rel="alternate" type="text/html" title="uv로 Python 의존성 관리하기 - 로컬부터 CI/CD까지" /><published>2026-02-06T00:00:00+00:00</published><updated>2026-02-06T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/uv-python-dependency-management</id><content type="html" xml:base="https://duri-wip.github.io/development/uv-python-dependency-management/"><![CDATA[<h2 id="의존성-관리가-중요한-이유">의존성 관리가 중요한 이유</h2>
+
+<p>“내 컴퓨터에서는 잘 되는데요?!”</p>
+
+<p>하 혈압올라… 의존성 관리의 핵심 원칙은 두가지다.</p>
+
+<ul>
+  <li><strong>환경 일관성</strong>: 각각 다른 개발자의 환경에서도 문제 없이 동일한 소프트웨어 환경을 구축할 수 있어야 함</li>
+  <li><strong>재현 가능성</strong>: 각 개발자의 로컬 개발 환경의 차이에도 불구하고 동일한 소프트웨어 의존성을 구축해야 함</li>
+</ul>
+
+<p>이 원칙이 깨지는 빈번한 이유는 보통 다음과 같다.</p>
+<ul>
+  <li><strong>버전의 파편화</strong>: 어떤 사람은 Python 3.9를 쓰고 운영 서버는 Python 3.8을 쓰고…</li>
+  <li><strong>라이브러리 오염</strong>: 로컬에 설치된 다른 프로젝트의 라이브러리가 현재 프로젝트에 영향을 미침</li>
+  <li><strong>OS 종속성</strong>: 윈도우 환경에서 개발했는데 리눅스 서버로 배포하는 경우</li>
+</ul>
+
+<p>그래서 동일한 환경을 구축하기 위해 세 가지 계층의 대응이 필요하다.</p>
+<ol>
+  <li><strong>의존성 고정</strong>: 라이브러리 A의 특정 버전을 써라</li>
+  <li><strong>가상 환경</strong>: 해당 프로젝트만을 위한 환경에서 써라</li>
+  <li><strong>컨테이너화</strong>: OS 수준에서 환경을 캡슐화하여 개발자의 로컬 = 테스트 서버 = 운영 서버 환경을 구축</li>
+</ol>
+
+<h2 id="uv-vs-pip-무엇이-다른가">uv vs pip: 무엇이 다른가?</h2>
+
+<p>uv는 Rust로 작성된 Python 패키지 매니저로, pip 대비 다음과 같은 장점을 가진다.</p>
+
+<h3 id="1-병렬-다운로드--설치">1. 병렬 다운로드 &amp; 설치</h3>
+<p>pip는 Global Interpreter Lock(GIL)을 사용하기 때문에 병렬 다운로드와 설치가 불가능하다. uv는 Rust 기반이라 이런 제약이 없다.</p>
+
+<h3 id="2-글로벌-캐시-시스템">2. 글로벌 캐시 시스템</h3>
+<p>한번 다운로드하면 영원히 재사용한다. 한 프로젝트에서 설치된 패키지는 다른 프로젝트에서도 캐시로 사용된다. pip는 캐시가 있어도 매번 복사 설치한다.</p>
+
+<h3 id="3-의존성-해결-알고리즘-최적화">3. 의존성 해결 알고리즘 최적화</h3>
+<p>pip는 백트래킹으로 의존성을 해결하려고 하는데, uv는 전체 패키지의 제약조건을 한번에 분석해 최적의 버전 조합을 빠르게 계산한다.</p>
+
+<h3 id="4-universal-locking">4. Universal Locking</h3>
+<p>모든 플랫폼(OS)과의 호환성을 검토하고 <code class="language-plaintext highlighter-rouge">uv.lock</code>을 업데이트한다.</p>
+
+<h2 id="uv-프로젝트-구조">uv 프로젝트 구조</h2>
+
+<p><code class="language-plaintext highlighter-rouge">uv init</code>을 실행하면 프로젝트가 초기화되고 다음 파일들이 생성된다.</p>
+
+<h3 id="python-version">.python-version</h3>
+<p>현재 개발 환경의 파이썬 버전을 명시한다.</p>
+
+<h3 id="pyprojecttoml">pyproject.toml</h3>
+<p>개발자가 직접 설치한 의존성 라이브러리들을 관리한다. <code class="language-plaintext highlighter-rouge">uv add library-a</code>로 의존성을 설치하면 이 라이브러리의 버전이 명시된다.</p>
+
+<h3 id="uvlock">uv.lock</h3>
+<p><code class="language-plaintext highlighter-rouge">uv add</code>, <code class="language-plaintext highlighter-rouge">uv sync</code>를 실행하면 생성된다. pyproject.toml에 적힌 라이브러리뿐만 아니라, 그 라이브러리가 의존하는 하위 의존성까지 전부 계산하여 특정 버전으로 박제한다.</p>
+
+<ul>
+  <li>add는 라이브러리 추가</li>
+  <li>sync는 명시되어있는 의존성 설치</li>
+</ul>
+
+<h2 id="universal-lock-파일의-비밀">Universal Lock 파일의 비밀</h2>
+
+<p>uv의 락 파일은 OS에 종속되지 않는 유니버설 구조다. 이게 무슨 의미일까?</p>
+
+<p>해당 패키지가 어떤 환경에서 무엇을 필요로 하는지 메타데이터를 정적으로 분석한다. 그리고 각 OS별 바이너리 파일들의 hash를 모두 락 파일에 적어둔다.</p>
+
+<p><code class="language-plaintext highlighter-rouge">uv.lock</code> 파일을 열어보면 이런 정보가 있다.</p>
+
+<div class="language-toml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">dependencies</span> <span class="p">=</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="py">name</span> <span class="p">=</span> <span class="s">"some-package"</span><span class="p">,</span> <span class="py">marker</span> <span class="p">=</span> <span class="py">"sys_platform</span> <span class="p">=</span><span class="err">=</span> <span class="s">'win32'" }</span><span class="err">
+]</span>
+</code></pre></div></div>
+
+<p>어떤 패키지에는 마커가 붙어있고 어떤 것에는 안 붙어있는데, 이는 분기 처리한 흔적이다. 안 붙어있는 패키지는 OS마다 동일한 파이썬 라이브러리이기 때문이고, 플랫폼 종속적인 패키지들만 마커가 붙는다.</p>
+
+<p>또한 <code class="language-plaintext highlighter-rouge">whl</code>, <code class="language-plaintext highlighter-rouge">sdist</code>의 정보는 각 OS별 바이너리 파일의 해시값을 기록해두는 태그다. 이를 통해 어떤 개발 환경에서 개발하더라도 동일한 의존성 파일을 참고할 수 있다.</p>
+
+<h2 id="uv가-빠른-이유-글로벌-캐시-시스템">uv가 빠른 이유: 글로벌 캐시 시스템</h2>
+
+<p>uv의 동작 과정은 다음과 같다.</p>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">pyproject.toml</code> 파일을 읽고 <code class="language-plaintext highlighter-rouge">uv.lock</code> 파일을 업데이트</li>
+  <li>각 OS별 캐시 경로에서 라이브러리 파일을 찾음</li>
+  <li>캐시에 있으면 새로 다운로드하지 않음, 없으면 다운로드하여 글로벌 캐시에 저장</li>
+  <li>프로젝트 폴더의 <code class="language-plaintext highlighter-rouge">.venv</code> 폴더에 <strong>심볼릭 링크 또는 하드 링크</strong>를 사용하여 글로벌 캐시와 가상 환경을 연결</li>
+</ol>
+
+<p>pip처럼 매번 복사하지 않고 링크만 걸기 때문에 빠르고 디스크 공간도 절약된다.</p>
+
+<h2 id="docker에서-uv-사용하기">Docker에서 uv 사용하기</h2>
+
+<p>로컬에서 개발할 때는 글로벌 캐시를 사용하지만, Docker로 빌드할 때는 어떻게 해야 할까?</p>
+
+<p>Docker 빌드 시에는 글로벌 캐시가 없다. 하지만 <strong>Docker BuildKit 캐시</strong>를 활용하면 uv의 장점을 살릴 수 있다.</p>
+
+<div class="language-dockerfile highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">FROM</span><span class="s"> python:3.10-slim</span>
+
+<span class="c"># 1. uv 설치</span>
+<span class="k">COPY</span><span class="s"> --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/</span>
+
+<span class="c"># 2. 작업 디렉토리 설정</span>
+<span class="k">WORKDIR</span><span class="s"> /app</span>
+
+<span class="c"># 3. 의존성 파일 먼저 복사 (캐시 효율화)</span>
+<span class="k">COPY</span><span class="s"> pyproject.toml uv.lock ./</span>
+
+<span class="c"># 4. 도커 캐시 마운트를 활용한 패키지 설치</span>
+<span class="k">RUN </span><span class="nt">--mount</span><span class="o">=</span><span class="nb">type</span><span class="o">=</span>cache,target<span class="o">=</span>/root/.cache/uv <span class="se">\
+</span>    uv <span class="nb">sync</span> <span class="nt">--frozen</span> <span class="nt">--no-install-project</span>
+
+<span class="c"># 5. 소스 코드 복사</span>
+<span class="k">COPY</span><span class="s"> . .</span>
+
+<span class="c"># 6. 가상환경 활성화 상태로 실행</span>
+<span class="k">ENV</span><span class="s"> PATH="/app/.venv/bin:$PATH"</span>
+<span class="k">CMD</span><span class="s"> ["uvicorn", "main:app", "--host", "0.0.0.0"]</span>
+</code></pre></div></div>
+
+<p>여기서 사용되는 Docker 캐시는 Docker 빌드 엔진인 BuildKit이 관리하는 별도의 로컬 캐시 버킷에 저장된다. 이 버킷은 이미지 레이어와 관련 없이 호스트에 남기 때문에, 다른 이미지를 빌드할 때도 글로벌 캐시처럼 사용할 수 있다.</p>
+
+<h2 id="github-actions에서-uv-캐시-활용하기">GitHub Actions에서 uv 캐시 활용하기</h2>
+
+<p>CI/CD 파이프라인에서는 빌드가 끝나면 서버가 통째로 사라지는 경우가 많다. 그래서 캐시를 외부 저장소에 따로 빼두고 가져오는 방식을 사용한다.</p>
+
+<p>Dockerfile은 위와 동일하게 캐시 마운트를 사용하고, workflow yaml 파일은 다음과 같이 구성한다.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">build</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">ubuntu-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v4</span>
+
+      <span class="c1"># BuildKit 빌더 설정 - 캐시 기능 활성화</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Setup docker buildx</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">docker/setup-buildx-action@v3</span>
+
+      <span class="c1"># push 설정을 위한 레지스트리 로그인</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Login to container registry</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">docker/login-action@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">registry</span><span class="pi">:</span> <span class="s">ghcr.io</span>
+          <span class="na">username</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">password</span><span class="pi">:</span> <span class="s">$</span>
+
+      <span class="c1"># Docker 이미지 빌드 + 캐시 설정</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">Build and push</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">docker/build-push-action@v5</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">context</span><span class="pi">:</span> <span class="s">.</span>
+          <span class="na">push</span><span class="pi">:</span> <span class="kc">true</span>
+          <span class="na">tags</span><span class="pi">:</span> <span class="s">ghcr.io/$:latest</span>
+          <span class="na">cache-from</span><span class="pi">:</span> <span class="s">type=gha</span>
+          <span class="na">cache-to</span><span class="pi">:</span> <span class="s">type=gha,mode=max</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">cache-from: type=gha</code>와 <code class="language-plaintext highlighter-rouge">cache-to: type=gha,mode=max</code> 설정을 통해 GitHub의 레포지토리별로 관리되는 캐시 서버에서 uv 라이브러리 파일을 가져오고, 빌드가 끝나면 새로 추가된 라이브러리를 다시 서버에 업로드한다.</p>
+
+<h2 id="cloud-build-환경에서는">Cloud Build 환경에서는?</h2>
+
+<p>Google Cloud Build와 같은 환경에서는 GitHub Actions처럼 기본 캐시 기능을 제공하지 않는다. 따라서 캐시 파일을 담아둘 <strong>GCS 버킷</strong>을 만들고, 빌드 설정에서 직접 캐시 파일을 업로드/다운로드해야 한다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="python" /><category term="uv" /><category term="docker" /><category term="ci-cd" /><category term="dependency-management" /><summary type="html"><![CDATA[pip보다 빠른 uv의 동작 원리와 Docker, GitHub Actions 환경에서 캐시를 활용하는 방법]]></summary></entry><entry><title type="html">REST API vs gRPC: 마이크로서비스 통신 방식 비교</title><link href="https://duri-wip.github.io/development/restapi-vs-grpc/" rel="alternate" type="text/html" title="REST API vs gRPC: 마이크로서비스 통신 방식 비교" /><published>2026-02-05T00:00:00+00:00</published><updated>2026-02-05T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/restapi-vs-grpc</id><content type="html" xml:base="https://duri-wip.github.io/development/restapi-vs-grpc/"><![CDATA[<h1 id="grpc란">gRPC란?</h1>
+
+<p>gRPC는 구글이 만든 고성능 오픈소스 RPC(Remote Procedure Call) 프레임워크이다. 다른 서버에 있는 함수를 마치 내 서버에 있는 함수처럼 호출해서 쓸 수 있게 해주는 기술이다.</p>
+
+<h1 id="rest-api-vs-grpc">REST API vs gRPC</h1>
+
+<p>마이크로서비스 환경에서 서비스 간 통신(Internal API Call)에 REST API와 gRPC는 다음 관점에서 다르다.</p>
+
+<h2 id="1-데이터-형식">1. 데이터 형식</h2>
+
+<p><strong>REST API</strong>는 JSON을 사용한다.</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"홍길동"</span><span class="p">,</span><span class="w"> </span><span class="nl">"age"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>텍스트 기반이라 컴퓨터가 이를 다시 해석(Parsing)해야 해서 상대적으로 느리다.</p>
+
+<p><strong>gRPC</strong>는 Protocol Buffers(Protobuf)라는 이진 데이터를 사용한다. 데이터를 아주 작게 압축된 이진 코드(Binary)로 보내기 때문에:</p>
+<ul>
+  <li>데이터 크기가 훨씬 작다</li>
+  <li>컴퓨터가 해석할 필요 없이 바로 처리한다</li>
+  <li>통신 속도가 획기적으로 빠르다</li>
+</ul>
+
+<h2 id="2-통신-프로토콜">2. 통신 프로토콜</h2>
+
+<p><strong>REST API</strong></p>
+<ul>
+  <li>주로 HTTP/1.1 사용</li>
+  <li>요청-응답이 1:1로 매핑되어 단방향으로만 동작</li>
+  <li>요청 하나당 연결을 하나씩 맺고 끊어서 오버헤드가 크다</li>
+</ul>
+
+<p><strong>gRPC</strong></p>
+<ul>
+  <li>HTTP/2 사용</li>
+  <li>양방향 통신 가능</li>
+  <li>하나의 연결로 여러 요청을 동시에 처리(Multiplexing)</li>
+  <li>마이크로서비스끼리 수많은 데이터를 주고받을 때 유리하다</li>
+</ul>
+
+<h2 id="3-type-safety">3. Type Safety</h2>
+
+<p><strong>gRPC</strong>는 <code class="language-plaintext highlighter-rouge">.proto</code>라는 파일로 서로 주고받을 데이터 타입을 엄격하게 미리 정의한다. 코드를 짤 때부터 에러를 잡을 수 있어(Type-safe), 서비스 간의 통신 오류를 줄여준다.</p>
+
+<h1 id="grpc-구현-방법">gRPC 구현 방법</h1>
+
+<p>gRPC를 만들려면 코드를 짜기 전에 <code class="language-plaintext highlighter-rouge">.proto</code>라는 파일부터 먼저 만들어야 한다. 여기에는 IDL(Interface Definition Language)이라는 인터페이스 정의 언어가 사용된다.</p>
+
+<h2 id="단계-1-명세서-작성-userproto">단계 1: 명세서 작성 (<code class="language-plaintext highlighter-rouge">user.proto</code>)</h2>
+
+<div class="language-protobuf highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">syntax</span> <span class="o">=</span> <span class="s">"proto3"</span><span class="p">;</span>
+
+<span class="c1">// 서비스(함수) 정의</span>
+<span class="kd">service</span> <span class="n">UserService</span> <span class="p">{</span>
+  <span class="k">rpc</span> <span class="n">GetUser</span> <span class="p">(</span><span class="n">UserRequest</span><span class="p">)</span> <span class="k">returns</span> <span class="p">(</span><span class="n">UserResponse</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">// 주고받을 데이터 모양 정의</span>
+<span class="kd">message</span> <span class="nc">UserRequest</span> <span class="p">{</span>
+  <span class="kt">int32</span> <span class="na">user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">message</span> <span class="nc">UserResponse</span> <span class="p">{</span>
+  <span class="kt">int32</span> <span class="na">user_id</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="kt">string</span> <span class="na">name</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">user_id = 1</code>처럼 숫자를 지정하는 것은 필드의 고유 태그이다. 확장할때 좋다는데.. 아직 잘 모르겠음</p>
+
+<h2 id="단계-2-파이썬-코드-생성">단계 2: 파이썬 코드 생성</h2>
+
+<p>다음 명령어를 실행하면 파이썬 파일 2개가 생성된다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python <span class="nt">-m</span> grpc_tools.protoc <span class="nt">-I</span><span class="nb">.</span> <span class="nt">--python_out</span><span class="o">=</span><span class="nb">.</span> <span class="nt">--grpc_python_out</span><span class="o">=</span><span class="nb">.</span> user.proto
+</code></pre></div></div>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">user_pb2.py</code>: 데이터 구조를 담고 있다</li>
+  <li><code class="language-plaintext highlighter-rouge">user_pb2_grpc.py</code>: 통신을 담당한다</li>
+</ul>
+
+<p>두 개의 파일로 분리한 이유는 <strong>책임과 역할의 분리</strong> 때문이다. 어떤 시스템에서는 데이터 구조만 필요하고 서버 기능은 필요 없을 수 있다. 또한 의존성 관리도 더 쉬워진다.</p>
+
+<h2 id="단계-3-서버-구현-serverpy">단계 3: 서버 구현 (<code class="language-plaintext highlighter-rouge">server.py</code>)</h2>
+
+<p>생성된 파일을 import해서 빈칸 채우기를 한다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">grpc</span>
+<span class="kn">from</span> <span class="n">concurrent</span> <span class="kn">import</span> <span class="n">futures</span>
+<span class="kn">import</span> <span class="n">user_pb2</span>        <span class="c1"># 생성된 데이터 코드
+</span><span class="kn">import</span> <span class="n">user_pb2_grpc</span>   <span class="c1"># 생성된 통신 코드
+</span>
+<span class="c1"># 생성된 부모 클래스(UserServiceServicer)를 상속받는다
+</span><span class="k">class</span> <span class="nc">UserService</span><span class="p">(</span><span class="n">user_pb2_grpc</span><span class="p">.</span><span class="n">UserServiceServicer</span><span class="p">):</span>
+
+    <span class="c1"># 비즈니스 로직을 채워 넣는다
+</span>    <span class="k">def</span> <span class="nf">GetUser</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">context</span><span class="p">):</span>
+        <span class="c1"># request.user_id처럼 점(.)으로 데이터에 접근한다
+</span>        <span class="k">return</span> <span class="n">user_pb2</span><span class="p">.</span><span class="nc">UserResponse</span><span class="p">(</span>
+            <span class="n">user_id</span><span class="o">=</span><span class="n">request</span><span class="p">.</span><span class="n">user_id</span><span class="p">,</span>
+            <span class="n">name</span><span class="o">=</span><span class="sh">"</span><span class="s">김제미니</span><span class="sh">"</span>
+        <span class="p">)</span>
+
+<span class="c1"># 서버 실행 코드
+</span><span class="k">def</span> <span class="nf">serve</span><span class="p">():</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">grpc</span><span class="p">.</span><span class="nf">server</span><span class="p">(</span><span class="n">futures</span><span class="p">.</span><span class="nc">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">10</span><span class="p">))</span>
+    <span class="n">user_pb2_grpc</span><span class="p">.</span><span class="nf">add_UserServiceServicer_to_server</span><span class="p">(</span><span class="nc">UserService</span><span class="p">(),</span> <span class="n">server</span><span class="p">)</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">add_insecure_port</span><span class="p">(</span><span class="sh">'</span><span class="s">[::]:50051</span><span class="sh">'</span><span class="p">)</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">start</span><span class="p">()</span>
+    <span class="n">server</span><span class="p">.</span><span class="nf">wait_for_termination</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">serve</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="단계-4-클라이언트-구현-clientpy">단계 4: 클라이언트 구현 (<code class="language-plaintext highlighter-rouge">client.py</code>)</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">grpc</span>
+<span class="kn">import</span> <span class="n">user_pb2</span>
+<span class="kn">import</span> <span class="n">user_pb2_grpc</span>
+
+<span class="k">def</span> <span class="nf">run</span><span class="p">():</span>
+    <span class="c1"># 서버와 연결하는 통로 생성
+</span>    <span class="k">with</span> <span class="n">grpc</span><span class="p">.</span><span class="nf">insecure_channel</span><span class="p">(</span><span class="sh">'</span><span class="s">localhost:50051</span><span class="sh">'</span><span class="p">)</span> <span class="k">as</span> <span class="n">channel</span><span class="p">:</span>
+        <span class="c1"># 서버의 함수를 호출할 대리인(Stub) 생성
+</span>        <span class="n">stub</span> <span class="o">=</span> <span class="n">user_pb2_grpc</span><span class="p">.</span><span class="nc">UserServiceStub</span><span class="p">(</span><span class="n">channel</span><span class="p">)</span>
+
+        <span class="c1"># 실제 호출
+</span>        <span class="n">response</span> <span class="o">=</span> <span class="n">stub</span><span class="p">.</span><span class="nc">GetUser</span><span class="p">(</span><span class="n">user_pb2</span><span class="p">.</span><span class="nc">UserRequest</span><span class="p">(</span><span class="n">user_id</span><span class="o">=</span><span class="mi">123</span><span class="p">))</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">받은 데이터: </span><span class="si">{</span><span class="n">response</span><span class="p">.</span><span class="n">name</span><span class="si">}</span><span class="s"> (ID: </span><span class="si">{</span><span class="n">response</span><span class="p">.</span><span class="n">user_id</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="sh">'</span><span class="s">__main__</span><span class="sh">'</span><span class="p">:</span>
+    <span class="nf">run</span><span class="p">()</span>
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="backend" /><category term="grpc" /><category term="restapi" /><category term="microservice" /><category term="protobuf" /><category term="python" /><category term="api" /><summary type="html"><![CDATA[REST API와 gRPC의 차이점을 알아보고, gRPC 서버/클라이언트 구현 방법을 살펴본다]]></summary></entry><entry><title type="html">Java 예외 처리 - try-catch, 예외 클래스, 그리고 흔한 실수들</title><link href="https://duri-wip.github.io/study/java-exception-handling/" rel="alternate" type="text/html" title="Java 예외 처리 - try-catch, 예외 클래스, 그리고 흔한 실수들" /><published>2026-02-03T00:00:00+00:00</published><updated>2026-02-03T00:00:00+00:00</updated><id>https://duri-wip.github.io/study/java-exception-handling</id><content type="html" xml:base="https://duri-wip.github.io/study/java-exception-handling/"><![CDATA[<h2 id="1-예외exception란">1. 예외(Exception)란?</h2>
+
+<p>프로그램 실행 중 발생하는 예상치 못한 상황을 <strong>예외(Exception)</strong>라고 한다. 자바는 예외 클래스를 미리 만들어두어서, 사용자가 적절한 예외 케이스를 가져다 쓰면 된다.</p>
+
+<h3 id="예외의-종류">예외의 종류</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Throwable
+├── Error (시스템 에러, 복구 불가)
+│   ├── OutOfMemoryError
+│   └── StackOverflowError
+│
+└── Exception (프로그램 에러, 복구 가능)
+    ├── RuntimeException (Unchecked Exception)
+    │   ├── NullPointerException
+    │   ├── ArrayIndexOutOfBoundsException
+    │   ├── ArithmeticException
+    │   └── IllegalArgumentException
+    │
+    └── 기타 Exception (Checked Exception)
+        ├── IOException
+        ├── SQLException
+        └── FileNotFoundException
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Checked Exception</strong>: 컴파일 시점에 처리를 강제함 (try-catch 또는 throws 필수)</li>
+  <li><strong>Unchecked Exception</strong>: 런타임에 발생, 처리 선택적</li>
+</ul>
+
+<hr />
+
+<h2 id="2-try-catch-finally">2. try-catch-finally</h2>
+
+<p>예외를 처리하는 기본 구문이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionBasic</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 예외가 발생할 수 있는 코드</span>
+            <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArithmeticException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 예외 처리 코드</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"0으로 나눌 수 없습니다: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="c1">// 예외 발생 여부와 관계없이 항상 실행</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"연산 종료"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="여러-예외-처리하기">여러 예외 처리하기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MultiCatch</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">};</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="mi">5</span><span class="o">]);</span>  <span class="c1">// ArrayIndexOutOfBoundsException</span>
+
+            <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>  <span class="c1">// NullPointerException</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArrayIndexOutOfBoundsException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"배열 인덱스 초과: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NullPointerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"null 참조 에러: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 위에서 잡지 못한 모든 예외</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"기타 예외: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="멀티-catch-java-7">멀티 catch (Java 7+)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// 예외 발생 가능 코드</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArrayIndexOutOfBoundsException</span> <span class="o">|</span> <span class="nc">NullPointerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 두 예외를 동일하게 처리</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"예외 발생: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="3-try-with-resources">3. try-with-resources</h2>
+
+<p>Java 7부터 도입된 문법으로, <code class="language-plaintext highlighter-rouge">AutoCloseable</code>을 구현한 리소스를 자동으로 닫아준다. 파일, 데이터베이스 연결 등의 컨텍스트 매니징을 자동으로 해주는 역할이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 기존 방식 (직접 close 호출)</span>
+<span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">));</span>
+    <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">br</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  <span class="c1">// 닫아줘야 함</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// try-with-resources 방식 (자동 close)</span>
+<span class="k">try</span> <span class="o">(</span><span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="c1">// br.close()가 자동으로 호출됨!</span>
+</code></pre></div></div>
+
+<h3 id="여러-리소스-사용하기">여러 리소스 사용하기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span>
+    <span class="nc">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"input.txt"</span><span class="o">);</span>
+    <span class="nc">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"output.txt"</span><span class="o">)</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">((</span><span class="n">data</span> <span class="o">=</span> <span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="4-계산기-예제와-흔한-실수들">4. 계산기 예제와 흔한 실수들</h2>
+
+<p>계산기를 만들면서 자주 겪는 문제들을 살펴보자.</p>
+
+<h3 id="문제-1-switch문의-break-누락">문제 1: switch문의 break 누락</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">,</span> <span class="kt">char</span> <span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="k">switch</span> <span class="o">(</span><span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="sc">'+'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+                <span class="c1">// break가 없으면 아래 case들이 계속 실행됨!</span>
+            <span class="k">case</span> <span class="sc">'-'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="o">;</span>
+            <span class="k">case</span> <span class="sc">'*'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="o">;</span>
+            <span class="k">case</span> <span class="sc">'/'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>매번 <code class="language-plaintext highlighter-rouge">break</code>를 써줘야 하는 것이 boilerplate처럼 느껴질 수 있다. Java 14부터는 <strong>switch expression</strong>을 사용하면 break 없이 깔끔하게 작성할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Java 14+ switch expression</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">,</span> <span class="kt">char</span> <span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">switch</span> <span class="o">(</span><span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="sc">'+'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">case</span> <span class="sc">'-'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">case</span> <span class="sc">'*'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">case</span> <span class="sc">'/'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">default</span> <span class="o">-&gt;</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"Unknown operator: "</span> <span class="o">+</span> <span class="n">op</span><span class="o">);</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="문제-2-정수-나눗셈-문제">문제 2: 정수 나눗셈 문제</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="kt">float</span> <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>  <span class="c1">// 2.0 (기대한 2.5가 아님!)</span>
+</code></pre></div></div>
+
+<p>왜 이런 결과가 나올까?</p>
+
+<blockquote>
+  <p><strong>자바에서 산술 연산의 타입은 피연산자의 타입에 의해서 결정된다.</strong></p>
+</blockquote>
+
+<p>피연산자 타입 조합에 따른 결과:</p>
+<ul>
+  <li>(정수, 정수) → 정수</li>
+  <li>(실수, 정수) → 실수</li>
+  <li>(실수, 실수) → 실수</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">a / b</code>를 계산할 때:</p>
+<ol>
+  <li>먼저 두 정수를 계산 → 결과는 정수 <code class="language-plaintext highlighter-rouge">2</code></li>
+  <li>이 정수 값을 <code class="language-plaintext highlighter-rouge">result</code> 변수에 할당 → <code class="language-plaintext highlighter-rouge">2.0</code></li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">result</code>가 <code class="language-plaintext highlighter-rouge">float</code>인지 <code class="language-plaintext highlighter-rouge">int</code>인지는 <strong>할당 시점</strong>에 결정되므로, 이미 연산이 끝난 후에는 영향을 주지 않는다.</p>
+
+<h3 id="해결-방법">해결 방법</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 방법 1: 피연산자 중 하나를 실수로 캐스팅</span>
+<span class="kt">float</span> <span class="n">result1</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>  <span class="c1">// 2.5</span>
+
+<span class="c1">// 방법 2: 피연산자 중 하나를 실수 리터럴로</span>
+<span class="kt">float</span> <span class="n">result2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="o">;</span>  <span class="c1">// 2.5</span>
+
+<span class="c1">// 방법 3: 1.0을 곱해서 실수로 변환</span>
+<span class="kt">float</span> <span class="n">result3</span> <span class="o">=</span> <span class="mf">1.0f</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>  <span class="c1">// 2.5</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="5-예외-던지기-throw-throws">5. 예외 던지기 (throw, throws)</h2>
+
+<h3 id="throw-예외-직접-발생시키기">throw: 예외 직접 발생시키기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">divide</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArithmeticException</span><span class="o">(</span><span class="s">"0으로 나눌 수 없습니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="throws-예외-처리-위임하기">throws: 예외 처리 위임하기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FileProcessor</span> <span class="o">{</span>
+    <span class="c1">// 이 메서드를 호출하는 쪽에서 IOException을 처리해야 함</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="n">path</span><span class="o">));</span>
+        <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+        <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="6-사용자-정의-예외">6. 사용자 정의 예외</h2>
+
+<p>특정 상황에 맞는 예외 클래스를 직접 만들 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 사용자 정의 예외 클래스</span>
+<span class="kd">class</span> <span class="nc">InsufficientBalanceException</span> <span class="kd">extends</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">withdrawAmount</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">InsufficientBalanceException</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">,</span> <span class="kt">int</span> <span class="n">withdrawAmount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="s">"잔액이 부족합니다. 현재 잔액: "</span> <span class="o">+</span> <span class="n">balance</span> <span class="o">+</span> <span class="s">", 출금 요청: "</span> <span class="o">+</span> <span class="n">withdrawAmount</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">balance</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">withdrawAmount</span> <span class="o">=</span> <span class="n">withdrawAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getWithdrawAmount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">withdrawAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 사용 예시</span>
+<span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BankAccount</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InsufficientBalanceException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">InsufficientBalanceException</span><span class="o">(</span><span class="n">balance</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="정리">정리</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>구문</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">try-catch</code></td>
+      <td>예외 발생 가능 코드를 감싸고 예외 처리</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">finally</code></td>
+      <td>예외 발생 여부와 관계없이 항상 실행</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">try-with-resources</code></td>
+      <td>AutoCloseable 리소스 자동 해제</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">throw</code></td>
+      <td>예외를 직접 발생시킴</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">throws</code></td>
+      <td>메서드에서 예외 처리를 호출자에게 위임</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="주의할-점">주의할 점</h3>
+
+<ol>
+  <li><strong>switch문에서 break 잊지 말기</strong> (또는 Java 14+ switch expression 사용)</li>
+  <li><strong>정수 나눗셈 결과는 정수</strong> - 실수 결과가 필요하면 캐스팅 필요</li>
+  <li><strong>try-with-resources로 리소스 누수 방지</strong> - 파일, DB 연결 등에 활용</li>
+</ol>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="study-java" /><category term="java" /><category term="exception" /><category term="try-catch" /><category term="error-handling" /><summary type="html"><![CDATA[예외 클래스 활용, try-catch-finally, try-with-resources, switch문 break 누락, 정수 나눗셈 문제]]></summary></entry><entry><title type="html">Java 객체지향 심화 - 상속, 다형성, 추상화</title><link href="https://duri-wip.github.io/study/java-oop-advanced/" rel="alternate" type="text/html" title="Java 객체지향 심화 - 상속, 다형성, 추상화" /><published>2026-01-30T00:00:00+00:00</published><updated>2026-01-30T00:00:00+00:00</updated><id>https://duri-wip.github.io/study/java-oop-advanced</id><content type="html" xml:base="https://duri-wip.github.io/study/java-oop-advanced/"><![CDATA[<h2 id="1-상속-inheritance">1. 상속 (Inheritance)</h2>
+
+<p>상속은 부모 클래스의 필드와 메서드를 자식 클래스가 물려받는 것이다. <code class="language-plaintext highlighter-rouge">extends</code> 키워드를 사용한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 부모 클래스 (슈퍼클래스)</span>
+<span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">eat</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 먹이를 먹습니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">sleep</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 잠을 잡니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 자식 클래스 (서브클래스)</span>
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">breed</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 멍멍 짖습니다!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">meow</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"이(가) 야옹~ 합니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">InheritanceExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Dog</span> <span class="n">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"바둑이"</span><span class="o">;</span>  <span class="c1">// 부모로부터 상속</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>          <span class="c1">// 부모로부터 상속</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">breed</span> <span class="o">=</span> <span class="s">"진돗개"</span><span class="o">;</span> <span class="c1">// 자신의 필드</span>
+
+        <span class="n">dog</span><span class="o">.</span><span class="na">eat</span><span class="o">();</span>    <span class="c1">// 부모 메서드</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">sleep</span><span class="o">();</span>  <span class="c1">// 부모 메서드</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">bark</span><span class="o">();</span>   <span class="c1">// 자신의 메서드</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="상속의-특징">상속의 특징</h3>
+
+<ul>
+  <li>자식 클래스는 부모 클래스의 메서드를 선언 없이 사용할 수 있다</li>
+  <li>자식 클래스의 메서드는 부모 클래스가 사용할 수 없다</li>
+  <li>자식 클래스끼리는 메서드 공유가 불가능하다</li>
+</ul>
+
+<h3 id="상속의-장점">상속의 장점</h3>
+
+<ul>
+  <li>코드 재사용성 향상</li>
+  <li>유지보수 용이</li>
+  <li>계층적 구조 표현</li>
+</ul>
+
+<hr />
+
+<h2 id="2-메서드-오버라이딩-overriding">2. 메서드 오버라이딩 (Overriding)</h2>
+
+<p>부모 클래스의 메서드를 자식 클래스에서 <strong>재정의</strong>하는 것이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">sound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"동물이 소리를 냅니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nd">@Override</span>  <span class="c1">// 오버라이딩 어노테이션 (선택이지만 권장이라고 함..)</span>
+    <span class="kt">void</span> <span class="nf">sound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">": 멍멍!"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kt">void</span> <span class="nf">sound</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">": 야옹~"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">OverridingExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Animal</span> <span class="n">animal</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Animal</span><span class="o">();</span>
+        <span class="nc">Dog</span> <span class="n">dog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+        <span class="nc">Cat</span> <span class="n">cat</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Cat</span><span class="o">();</span>
+
+        <span class="n">dog</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"바둑이"</span><span class="o">;</span>
+        <span class="n">cat</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"나비"</span><span class="o">;</span>
+
+        <span class="n">animal</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 동물이 소리를 냅니다.</span>
+        <span class="n">dog</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>     <span class="c1">// 바둑이: 멍멍!</span>
+        <span class="n">cat</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>     <span class="c1">// 나비: 야옹~</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="오버로딩-vs-오버라이딩">오버로딩 vs 오버라이딩</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>오버로딩 (Overloading)</th>
+      <th>오버라이딩 (Overriding)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>위치</td>
+      <td>같은 클래스</td>
+      <td>상속 관계</td>
+    </tr>
+    <tr>
+      <td>메서드명</td>
+      <td>동일</td>
+      <td>동일</td>
+    </tr>
+    <tr>
+      <td>매개변수</td>
+      <td><strong>다름</strong></td>
+      <td><strong>동일</strong></td>
+    </tr>
+    <tr>
+      <td>반환타입</td>
+      <td>상관없음</td>
+      <td>동일</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="3-super-키워드">3. super 키워드</h2>
+
+<p><code class="language-plaintext highlighter-rouge">super</code>는 자식 클래스에서 부모 클래스를 참조할 때 사용하는 키워드다.</p>
+
+<h3 id="super로-부모-필드메서드-접근">super로 부모 필드/메서드 접근</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"부모"</span><span class="o">;</span>
+
+    <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Parent의 show()"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="nc">Parent</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span> <span class="o">=</span> <span class="s">"자식"</span><span class="o">;</span>  <span class="c1">// 부모와 같은 이름의 필드</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">void</span> <span class="nf">show</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Child의 show()"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"this.name: "</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">);</span>   <span class="c1">// 자식</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"super.name: "</span> <span class="o">+</span> <span class="kd">super</span><span class="o">.</span><span class="na">name</span><span class="o">);</span> <span class="c1">// 부모</span>
+
+        <span class="k">this</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>   <span class="c1">// Child의 show()</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>  <span class="c1">// Parent의 show()</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="super-생성자">super() 생성자</h3>
+
+<p>부모 클래스의 생성자를 호출할 때 사용한다. 
+왜 가능한지는 모르지만 private이 아닌 경우에는 자식클래스에서 부모 클래스의 필드에 대해 조회/변경이 모두 가능하다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+
+    <span class="nc">Animal</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="nc">Animal</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">breed</span><span class="o">;</span>
+
+    <span class="nc">Dog</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="nc">String</span> <span class="n">breed</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>  <span class="c1">// 부모 생성자 호출</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">breed</span> <span class="o">=</span> <span class="n">breed</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p><strong>중요:</strong> <code class="language-plaintext highlighter-rouge">super()</code>는 반드시 <strong>생성자의 첫 줄</strong>에 위치해야 한다!</p>
+</blockquote>
+
+<hr />
+
+<h2 id="4-다형성-polymorphism">4. 다형성 (Polymorphism)</h2>
+
+<p>부모 타입으로 자식 객체를 참조할 수 있다. 이를 통해 같은 타입으로 다양한 객체를 다룰 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PolymorphismExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 다형성: 부모 타입으로 자식 객체 참조</span>
+        <span class="nc">Animal</span> <span class="n">animal1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+        <span class="nc">Animal</span> <span class="n">animal2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Cat</span><span class="o">();</span>
+
+        <span class="n">animal1</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 멍멍! (Dog의 오버라이딩된 메서드)</span>
+        <span class="n">animal2</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 야옹~ (Cat의 오버라이딩된 메서드)</span>
+
+        <span class="c1">// 배열로 여러 타입 관리</span>
+        <span class="nc">Animal</span><span class="o">[]</span> <span class="n">animals</span> <span class="o">=</span> <span class="o">{</span><span class="k">new</span> <span class="nc">Dog</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Cat</span><span class="o">(),</span> <span class="k">new</span> <span class="nc">Cow</span><span class="o">()};</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">Animal</span> <span class="n">a</span> <span class="o">:</span> <span class="n">animals</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">a</span><span class="o">.</span><span class="na">sound</span><span class="o">();</span>  <span class="c1">// 각 객체의 오버라이딩된 메서드 호출</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="5-추상-클래스와-인터페이스">5. 추상 클래스와 인터페이스</h2>
+
+<h3 id="추상-클래스-abstract-class">추상 클래스 (Abstract Class)</h3>
+
+<p>미완성 메서드를 포함한 클래스로, <strong>인스턴스를 생성할 수 없다.</strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Shape</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">color</span><span class="o">;</span>
+
+    <span class="c1">// 추상 메서드 (구현부 없음)</span>
+    <span class="kd">abstract</span> <span class="kt">double</span> <span class="nf">getArea</span><span class="o">();</span>
+
+    <span class="c1">// 일반 메서드 (구현부 있음)</span>
+    <span class="kt">void</span> <span class="nf">setColor</span><span class="o">(</span><span class="nc">String</span> <span class="n">color</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">color</span> <span class="o">=</span> <span class="n">color</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Circle</span> <span class="kd">extends</span> <span class="nc">Shape</span> <span class="o">{</span>
+    <span class="kt">double</span> <span class="n">radius</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kt">double</span> <span class="nf">getArea</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="nc">Math</span><span class="o">.</span><span class="na">PI</span> <span class="o">*</span> <span class="n">radius</span> <span class="o">*</span> <span class="n">radius</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="인터페이스-interface">인터페이스 (Interface)</h3>
+
+<p>추상 메서드의 집합으로, 클래스가 <strong>반드시 구현해야 할 기능을 정의</strong>한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">Flyable</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">fly</span><span class="o">();</span>  <span class="c1">// 추상 메서드 (public abstract 생략)</span>
+
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">land</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// default 메서드</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"착륙합니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">info</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// static 메서드</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Flyable 인터페이스"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Bird</span> <span class="kd">implements</span> <span class="nc">Flyable</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">fly</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"새가 날아갑니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="추상-클래스-vs-인터페이스">추상 클래스 vs 인터페이스</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>구분</th>
+      <th>추상 클래스</th>
+      <th>인터페이스</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>다중 상속</td>
+      <td>불가능</td>
+      <td>가능 (<code class="language-plaintext highlighter-rouge">implements</code>)</td>
+    </tr>
+    <tr>
+      <td>변수</td>
+      <td>모든 종류 가능</td>
+      <td><code class="language-plaintext highlighter-rouge">public static final</code>만</td>
+    </tr>
+    <tr>
+      <td>메서드</td>
+      <td>추상/일반 모두 가능</td>
+      <td>추상 메서드 (default, static 가능)</td>
+    </tr>
+    <tr>
+      <td>목적</td>
+      <td>“~이다” (is-a)</td>
+      <td>“~할 수 있다” (can-do)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h4 id="추상-클래스">추상 클래스</h4>
+<ul>
+  <li>추상 클래스를 상속 받는 자식 클래스마다 반드시 동작이 달라지는 경우에 추상 클래스를 사용한다.</li>
+  <li>추상 클래스에는 일반 메서드와 추상 메서드가 포함될 수 있다.</li>
+  <li>추상 메서드는 시그니처만 있고 구현은 되어있지 않다.</li>
+  <li>일반 메서드는 구현해야하고, 추상 메서드만 구현하지 않는다.</li>
+</ul>
+
+<h4 id="인터페이스">인터페이스</h4>
+<ul>
+  <li>어떤 대상들 사이에서 소통하는 역할을 하는 클래스</li>
+  <li>객체가 행동할 내용은 구현 클래스에 맡긴다.</li>
+  <li>동작의 명세만을 작성해서 구현하는 쪽이 어떤 동작을 구현해야하는지 알 수 있다.</li>
+  <li>추상 메서드만 작성할 수 있다.</li>
+  <li>여러 인터페이스를 상속해서 다중 구현이 가능하다.</li>
+</ul>
+
+<p>왜 두개를 나누어 두었을까?</p>
+
+<p>추상화, 캡슐화의 관점에서 봤을때 인터페이스가 추상 클래스보다 유연하다. 상속은 사실 이해하려면 부모 클래스와 자식 클래스를 모두 이해해야한다. 근데 추상 클래스는 구현체만 이해하면 됨. 그리고 부모 클래스의 변경이 자식 클래스에게 영향을 주기때문에 독립성의 부분에서 봤을때도 추상 클래스가 더 객체 지향적이라고 할 수 잇다. 상속은 상속을 받는 순간 명세가 바뀌지 않더라도 영향을 주는 것임. 동작에 대한 명세를 하고 싶으면 인터페이스를 사용하는 걸 추천한다.</p>
+
+<p><img src="https://en.wikipedia.org/wiki/Composition_over_inheritance" alt="참고 :" /></p>
+
+<h3 id="default와-static의-차이">default와 static의 차이</h3>
+
+<p>인터페이스에서:</p>
+
+<ul>
+  <li><strong>default</strong>: 객체가 있어야 호출 가능, 오버라이딩 <strong>가능</strong></li>
+  <li><strong>static</strong>: 객체 없이 호출 가능, 오버라이딩 <strong>불가능</strong></li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">interface</span> <span class="nc">MyInterface</span> <span class="o">{</span>
+    <span class="k">default</span> <span class="kt">void</span> <span class="nf">defaultMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"default 메서드"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">staticMethod</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"static 메서드"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">MyClass</span> <span class="kd">implements</span> <span class="nc">MyInterface</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">defaultMethod</span><span class="o">()</span> <span class="o">{</span>  <span class="c1">// 오버라이딩 가능</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"오버라이딩된 default 메서드"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">// static 메서드는 오버라이딩 불가!</span>
+<span class="o">}</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">MyClass</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MyClass</span><span class="o">();</span>
+        <span class="n">obj</span><span class="o">.</span><span class="na">defaultMethod</span><span class="o">();</span>  <span class="c1">// 객체 필요</span>
+
+        <span class="nc">MyInterface</span><span class="o">.</span><span class="na">staticMethod</span><span class="o">();</span>  <span class="c1">// 객체 없이 호출</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="study-java" /><category term="java" /><category term="oop" /><category term="inheritance" /><category term="polymorphism" /><category term="abstract" /><category term="interface" /><summary type="html"><![CDATA[상속과 오버라이딩, super 키워드, 다형성, 추상 클래스와 인터페이스의 차이]]></summary></entry><entry><title type="html">단위 테스트 설계하기</title><link href="https://duri-wip.github.io/development/unit-test-design/" rel="alternate" type="text/html" title="단위 테스트 설계하기" /><published>2026-01-30T00:00:00+00:00</published><updated>2026-01-30T00:00:00+00:00</updated><id>https://duri-wip.github.io/development/unit-test-design</id><content type="html" xml:base="https://duri-wip.github.io/development/unit-test-design/"><![CDATA[<h2 id="1-왜-테스트를-작성하는가">1. 왜 테스트를 작성하는가?</h2>
+
+<p>테스트를 먼저 생각하면 더 나은 API 설계가 나온다는 것이 TDD의 핵심 철학이다. 테스트 코드를 작성하면서 얻는 이점은 다음과 같다.</p>
+
+<ul>
+  <li><strong>리팩토링 안전망</strong>: 코드 변경이 수반되는 경우에도 기능이 동작함을 보장할 수 있다</li>
+  <li><strong>빠른 검증</strong>: 컴파일/실행 없이 빠르게 검증할 수 있다</li>
+  <li><strong>설계 개선</strong>: 테스트하기 어려운 코드는 대체로 설계가 좋지 않다는 신호다</li>
+</ul>
+
+<hr />
+
+<h2 id="2-어떤-코드에-테스트가-필요한가">2. 어떤 코드에 테스트가 필요한가?</h2>
+
+<blockquote>
+  <p><strong>내가 만든 로직은 테스트하고, 남이 만든 건 테스트하지 않는다!</strong></p>
+</blockquote>
+
+<h3 id="테스트하지-않아도-되는-코드">테스트하지 않아도 되는 코드</h3>
+
+<h4 id="일회성-스크립트">일회성 스크립트</h4>
+<p>테스트 범위는 프로덕션으로 한정한다. 프로덕션에 들어가지 않는 일회성 스크립트는 테스트 대상이 아니다.</p>
+
+<h4 id="외부-라이브러리">외부 라이브러리</h4>
+<p>외부 라이브러리는 의존성에 해당한다. 테스트는 ‘내가 작성한 코드’에 한정한다.</p>
+
+<h4 id="프레임워크-코드">프레임워크 코드</h4>
+<p>프레임워크가 이미 테스트한 기능은 다시 테스트하지 않는다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@router.get</span><span class="p">(</span><span class="sh">"</span><span class="s">/health</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">get_health</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">status</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">healthy</span><span class="sh">"</span><span class="p">}</span>
+</code></pre></div></div>
+
+<p>위 코드에서 라우터가 진짜 라우팅을 하는지 검증하는 <code class="language-plaintext highlighter-rouge">test_router_exists</code>를 만들 필요는 없다. SQLAlchemy로 정의된 모델이 진짜 존재하는지를 <code class="language-plaintext highlighter-rouge">getattr()</code>로 확인할 필요도 없다.</p>
+
+<p>그러면 라우터는 어떻게 테스트할까?</p>
+<ul>
+  <li><strong>서비스 계층에서 테스트</strong>: 비즈니스 로직을 담당하는 서비스 계층을 테스트한다</li>
+  <li><strong>통합 테스트</strong>: 전체 흐름을 통합 테스트에서 검증한다</li>
+</ul>
+
+<p>단, 모델에 비즈니스 로직이 있을 때는 테스트한다. 예를 들어 모델을 만들 때 <code class="language-plaintext highlighter-rouge">updated_at</code>을 자동으로 업데이트하는 로직이 있다면, 그 로직은 테스트 대상이다.</p>
+
+<h4 id="트리비얼-코드">트리비얼 코드</h4>
+<p>너무 단순해서 버그가 생길 일이 없는 코드는 테스트하지 않는다.</p>
+
+<ul>
+  <li>Pydantic 모델로 만들어진 데이터 클래스 등 자체 검증이 내장된 클래스</li>
+  <li>단순한 getter/setter</li>
+</ul>
+
+<p>다만, 같은 getter/setter 패턴이어도 비즈니스 로직에 따라 값을 설정하는 setter는 테스트해야 한다.</p>
+
+<hr />
+
+<h2 id="3-단위-테스트가-다른-테스트와-다른-점">3. 단위 테스트가 다른 테스트와 다른 점</h2>
+
+<p>테스트의 종류에는 단위 테스트, 통합 테스트, E2E 테스트가 있다.</p>
+
+<h3 id="단위-테스트-unit-test">단위 테스트 (Unit Test)</h3>
+<ul>
+  <li>함수, 메서드, 클래스 단위로 테스트</li>
+  <li>외부 의존성 없음 (Mock 사용)</li>
+</ul>
+
+<h3 id="통합-테스트-integration-test">통합 테스트 (Integration Test)</h3>
+<ul>
+  <li>여러 모듈 간의 상호작용 테스트</li>
+  <li>실제 의존성 사용
+    <ul>
+      <li>실제 데이터베이스와 연결해서 하는 테스트</li>
+      <li>실제 외부 API를 호출하는 테스트</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="e2e-테스트-end-to-end-test">E2E 테스트 (End-to-End Test)</h3>
+<ul>
+  <li>전체 시스템을 사용자 관점에서 테스트</li>
+  <li>실제 환경과 동일하게 구성</li>
+  <li>QA와 비슷한 역할?</li>
+  <li>중요한 기능을 이중 검증하기 위해 수행</li>
+</ul>
+
+<hr />
+
+<h2 id="4-좋은-테스트의-조건">4. 좋은 테스트의 조건</h2>
+
+<h3 id="빠르게-실행되어야-한다">빠르게 실행되어야 한다</h3>
+<p>느린 테스트는 개발 흐름을 방해한다.</p>
+
+<h3 id="독립적이어야-한다">독립적이어야 한다</h3>
+<p>다른 테스트에 영향을 주거나 받지 않아야 한다.</p>
+
+<h3 id="반복-가능해야-한다">반복 가능해야 한다</h3>
+<p>같은 테스트를 여러 번 실행해도 같은 결과가 나와야 한다. 시간에 따라 실패하거나 간헐적으로 실패하는 테스트를 작성하지 않는다.</p>
+
+<h3 id="자동으로-판단해야-한다">자동으로 판단해야 한다</h3>
+<p>테스트 결과를 사람이 판단하지 않아야 한다. <code class="language-plaintext highlighter-rouge">assert</code>로 명확하게 판단한다.</p>
+
+<h3 id="red-green-refactor-패턴을-따른다">Red-Green-Refactor 패턴을 따른다</h3>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1. RED: 먼저 실패하는 테스트를 작성한다
+2. GREEN: 테스트를 통과하는 최소한의 코드를 작성한다
+3. REFACTOR: 코드를 리팩토링한다
+</code></pre></div></div>
+
+<h3 id="공개-api에-집중한다">공개 API에 집중한다</h3>
+<p>테스트는 공개 API에 집중하고 내부 구현부는 테스트하지 않는다.</p>
+
+<p>예를 들어 주문을 처리하는 엔드포인트가 있고, 내부적으로 <code class="language-plaintext highlighter-rouge">품목 조회 → 주문 저장</code> 과정이 있다면, <strong>“주문이 처리되었는지”</strong>를 테스트하면 되지 “품목 조회”와 “주문 저장”을 개별적으로 테스트하지 않는다.</p>
+
+<h3 id="엣지케이스를-테스트한다">엣지케이스를 테스트한다</h3>
+
+<p><strong>숫자</strong></p>
+<ul>
+  <li>0, 1, -1</li>
+  <li>최댓값, 최솟값</li>
+  <li>음수, 양수</li>
+  <li>정수, 소수</li>
+</ul>
+
+<p><strong>문자열</strong></p>
+<ul>
+  <li>빈 문자열 <code class="language-plaintext highlighter-rouge">""</code></li>
+  <li>공백 <code class="language-plaintext highlighter-rouge">" "</code></li>
+  <li>매우 긴 문자열</li>
+  <li>특수문자, 유니코드</li>
+  <li><code class="language-plaintext highlighter-rouge">None</code>/<code class="language-plaintext highlighter-rouge">null</code></li>
+</ul>
+
+<p><strong>컬렉션</strong></p>
+<ul>
+  <li>빈 리스트 <code class="language-plaintext highlighter-rouge">[]</code></li>
+  <li>단일 원소 <code class="language-plaintext highlighter-rouge">[1]</code></li>
+  <li>중복 원소</li>
+  <li><code class="language-plaintext highlighter-rouge">None</code></li>
+</ul>
+
+<p><strong>날짜/시간</strong></p>
+<ul>
+  <li>윤년, 평년</li>
+  <li>월말 (28, 29, 30, 31일)</li>
+  <li>시간대 경계</li>
+  <li>과거, 미래, 현재</li>
+</ul>
+
+<h3 id="테스트-커버리지">테스트 커버리지</h3>
+<p>커버리지를 높이는 것은 중요하지만, 그보다 더 중요한 것은 테스트 케이스를 잘 마련해두는 것이다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># pytest-cov 설치</span>
+pip <span class="nb">install </span>pytest-cov
+
+<span class="c"># 커버리지 측정</span>
+pytest <span class="nt">--cov</span><span class="o">=</span>src <span class="nt">--cov-report</span><span class="o">=</span>html
+
+<span class="c"># HTML 리포트 확인</span>
+open htmlcov/index.html
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="5-어떤-코드를-먼저-테스트해야-할까">5. 어떤 코드를 먼저 테스트해야 할까?</h2>
+
+<p>모든 코드가 같은 중요도를 가지지 않으므로 다음 기준에 따라 우선순위를 정한다.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>우선순위</th>
+      <th>대상</th>
+      <th>목표 커버리지</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1순위</td>
+      <td>비즈니스 핵심 로직</td>
+      <td>80~90%</td>
+    </tr>
+    <tr>
+      <td>2순위</td>
+      <td>자주 변경되는 코드</td>
+      <td>70~80%</td>
+    </tr>
+    <tr>
+      <td>3순위</td>
+      <td>안정적인 유틸리티</td>
+      <td>50~60%</td>
+    </tr>
+    <tr>
+      <td>4순위</td>
+      <td>프레임워크 래퍼</td>
+      <td>테스트 불필요</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>비즈니스 핵심 로직</strong>이 가장 중요하다. 돈이 오가는 로직, 사용자 데이터를 다루는 로직 등이 여기에 해당한다.</p>
+
+<p><strong>자주 변경되는 코드</strong>는 회귀 버그 발생 가능성이 높으므로 테스트로 보호해야 한다.</p>
+
+<p><strong>안정적인 유틸리티</strong>는 한 번 작성하면 잘 변경되지 않으므로 상대적으로 낮은 우선순위를 가진다.</p>
+
+<p><strong>프레임워크 래퍼</strong>는 프레임워크가 이미 테스트하고 있으므로 별도 테스트가 불필요하다.</p>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="testing" /><category term="unit-test" /><category term="tdd" /><category term="pytest" /><category term="test-design" /><summary type="html"><![CDATA[왜 테스트를 작성해야하는지? 좋은 테스트는 뭔지?]]></summary></entry><entry><title type="html">Kubernetes 기초 - 왜 쿠버네티스인가?</title><link href="https://duri-wip.github.io/study/devops/k8s-basics/" rel="alternate" type="text/html" title="Kubernetes 기초 - 왜 쿠버네티스인가?" /><published>2026-01-15T00:00:00+00:00</published><updated>2026-01-15T00:00:00+00:00</updated><id>https://duri-wip.github.io/study/devops/k8s-basics</id><content type="html" xml:base="https://duri-wip.github.io/study/devops/k8s-basics/"><![CDATA[<h2 id="1-개요">1. 개요</h2>
+
+<h3 id="docker만-사용할-때의-문제점">Docker만 사용할 때의 문제점</h3>
+
+<p>Docker만으로 컨테이너를 운영하면 다음과 같은 문제들이 발생한다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>문제</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>스케일링</strong></td>
+      <td>트래픽 증가 시 수동으로 컨테이너를 올리고 연결해야 함</td>
+    </tr>
+    <tr>
+      <td><strong>고가용성</strong></td>
+      <td>컨테이너가 죽으면 직접 확인하고 다시 살려야 함</td>
+    </tr>
+    <tr>
+      <td><strong>서비스 디스커버리</strong></td>
+      <td>여러 컨테이너가 서로를 어떻게 찾을 것인가?</td>
+    </tr>
+    <tr>
+      <td><strong>로드밸런싱</strong></td>
+      <td>트래픽 분산이 없으면 여러 컨테이너를 묶는 의미가 없음</td>
+    </tr>
+    <tr>
+      <td><strong>배포</strong></td>
+      <td>무중단 배포를 어떻게 구현할 것인가?</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Kubernetes는 선언적 구성을 통해 이 문제들을 해결한다.</strong></p>
+
+<hr />
+
+<h2 id="11-kubernetes란">1.1 Kubernetes란?</h2>
+
+<blockquote>
+  <p>컨테이너화된 워크로드와 서비스를 관리하기 위한 <strong>오픈소스 오케스트레이션 플랫폼</strong></p>
+</blockquote>
+
+<h3 id="명령형-vs-선언적-구성">명령형 vs 선언적 구성</h3>
+
+<p><strong>Docker (명령형)</strong></p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-d</span> <span class="nt">--name</span> web <span class="nt">-p</span> 80:80 nginx
+</code></pre></div></div>
+<p>→ “web이라는 컨테이너에 nginx 이미지를 올려서 실행하고 포트는 80:80으로 열어”</p>
+
+<p><strong>Kubernetes (선언적)</strong></p>
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># "나는 nginx 컨테이너가 3개 실행되길 원해"</span>
+<span class="na">spec</span><span class="pi">:</span>
+  <span class="na">replicas</span><span class="pi">:</span> <span class="m">3</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="12-docker와의-관계">1.2 Docker와의 관계</h2>
+
+<p>Kubernetes는 <strong>컨테이너 런타임</strong> 위에서 동작하며, Docker는 그 런타임 중 하나다.</p>
+
+<p><img src="../../../assets/images/post_img/docker-k8s.png" alt="" /></p>
+
+<hr />
+
+<h2 id="2-아키텍처-이해">2. 아키텍처 이해</h2>
+
+<h3 id="21-클러스터-구조">2.1 클러스터 구조</h3>
+
+<p>Kubernetes 클러스터는 <strong>Control Plane</strong>과 <strong>Worker Node</strong>로 구성된다.
+<img src="../../../assets/images/post_img/archi.png" alt="" /></p>
+<h3 id="control-plane-컴포넌트">Control Plane 컴포넌트</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>../../../</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>API Server</strong></td>
+      <td>모든 통신의 중심점. <code class="language-plaintext highlighter-rouge">kubectl</code> 명령을 받음</td>
+    </tr>
+    <tr>
+      <td><strong>etcd</strong></td>
+      <td>클러스터의 모든 상태를 저장하는 분산 key-value 저장소</td>
+    </tr>
+    <tr>
+      <td><strong>Scheduler</strong></td>
+      <td>새 Pod를 어느 노드에 배치할지 결정</td>
+    </tr>
+    <tr>
+      <td><strong>Controller Manager</strong></td>
+      <td>클러스터 상태를 원하는 대로 유지</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="worker-node-컴포넌트">Worker Node 컴포넌트</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>컴포넌트</th>
+      <th>역할</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>kubelet</strong></td>
+      <td>노드의 에이전트. Pod의 생성/삭제를 담당</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
+<h2 id="핵심-정리">핵심 정리</h2>
+
+<ol>
+  <li><strong>Kubernetes가 필요한 이유</strong>: Docker만으로는 스케일링, 고가용성, 서비스 디스커버리, 로드밸런싱, 무중단 배포가 어렵다</li>
+  <li><strong>선언적 구성</strong>: “어떻게”가 아닌 “무엇을” 원하는지 선언하면 Kubernetes가 알아서 처리</li>
+  <li><strong>아키텍처</strong>: Control Plane이 전체를 관리하고, Worker Node에서 실제 워크로드가 실행됨</li>
+</ol>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="kubernetes" /><category term="k8s" /><category term="docker" /><category term="container" /><category term="orchestration" /><summary type="html"><![CDATA[1. 개요]]></summary></entry><entry><title type="html">Java 객체지향 프로그래밍 기초</title><link href="https://duri-wip.github.io/study/java/java-oop-basics/" rel="alternate" type="text/html" title="Java 객체지향 프로그래밍 기초" /><published>2026-01-14T00:00:00+00:00</published><updated>2026-01-14T00:00:00+00:00</updated><id>https://duri-wip.github.io/study/java/java-oop-basics</id><content type="html" xml:base="https://duri-wip.github.io/study/java/java-oop-basics/"><![CDATA[<h2 id="61-클래스와-객체">6.1 클래스와 객체</h2>
+
+<h3 id="파일-규칙">파일 규칙</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">public</code> 클래스는 파일당 1개만 가능하며, 파일명과 동일해야 함</li>
+  <li><code class="language-plaintext highlighter-rouge">private</code> 클래스는 같은 파일에 여러 개 존재할 수 있음</li>
+  <li>클래스마다 파일 분리를 권장</li>
+</ul>
+
+<h3 id="패키지-네이밍-컨벤션">패키지 네이밍 컨벤션</h3>
+
+<p>Java에서는 패키지 이름을 <strong>도메인 역순</strong>으로 짓는 것이 컨벤션이다.</p>
+
+<p>예: <code class="language-plaintext highlighter-rouge">naver.com</code>의 패키지라면 → <code class="language-plaintext highlighter-rouge">com.naver</code></p>
+
+<h3 id="클래스-정의와-사용-예제">클래스 정의와 사용 예제</h3>
+
+<p>파일 구조:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>src
+ └─ com
+     ├─ Dog.java
+     └─ DogExample.java
+</code></pre></div></div>
+
+<p><strong>Dog.java</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Dog</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">breed</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"가 멍멍 짖습니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">eat</span><span class="o">(</span><span class="nc">String</span> <span class="n">food</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">name</span> <span class="o">+</span> <span class="s">"가 "</span> <span class="o">+</span> <span class="n">food</span> <span class="o">+</span> <span class="s">"를 먹습니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>DogExample.java</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DogExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Dog</span> <span class="n">myDog</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Dog</span><span class="o">();</span>
+
+        <span class="n">myDog</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">"보리"</span><span class="o">;</span>
+        <span class="n">myDog</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="mi">3</span><span class="o">;</span>
+        <span class="n">myDog</span><span class="o">.</span><span class="na">breed</span> <span class="o">=</span> <span class="s">"똥개"</span><span class="o">;</span>
+
+        <span class="n">myDog</span><span class="o">.</span><span class="na">bark</span><span class="o">();</span>
+        <span class="n">myDog</span><span class="o">.</span><span class="na">eat</span><span class="o">(</span><span class="s">"고구마"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="package-문에-대한-이해">package 문에 대한 이해</h3>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">package</code> 문은 <strong>“나는 이 폴더에 있다”</strong>는 선언</li>
+  <li>같은 패키지에 있으면 <code class="language-plaintext highlighter-rouge">import</code> 없이 사용 가능</li>
+  <li><code class="language-plaintext highlighter-rouge">package</code>를 선언하지 않으면 default package로 취급됨</li>
+  <li><code class="language-plaintext highlighter-rouge">package com.Dog;</code>처럼 쓰면 에러 → 패키지는 <strong>폴더 경로</strong>이지 클래스 이름이 아님!</li>
+</ul>
+
+<blockquote>
+  <p>폴더는 경로, 클래스는 파일!</p>
+</blockquote>
+
+<hr />
+
+<h2 id="63-변수의-종류">6.3 변수의 종류</h2>
+
+<p>Java에는 세 종류의 변수가 있다:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>변수 종류</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>클래스 변수 (static)</td>
+      <td>모든 인스턴스가 공유</td>
+    </tr>
+    <tr>
+      <td>인스턴스 변수</td>
+      <td>각 인스턴스마다 별도로 존재</td>
+    </tr>
+    <tr>
+      <td>지역 변수</td>
+      <td>메서드 내에서만 유효</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.vari</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">VariableExamples</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">VariableTypes</span><span class="o">.</span><span class="na">classCount</span><span class="o">);</span>
+
+        <span class="nc">VariableTypes</span> <span class="n">v1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">VariableTypes</span><span class="o">();</span>
+        <span class="n">v1</span><span class="o">.</span><span class="na">instanceName</span> <span class="o">=</span> <span class="s">"첫번째 인스턴스"</span><span class="o">;</span>
+        <span class="nc">VariableTypes</span><span class="o">.</span><span class="na">classCount</span><span class="o">++;</span>
+
+        <span class="n">v1</span><span class="o">.</span><span class="na">method</span><span class="o">();</span>
+
+        <span class="nc">VariableTypes</span> <span class="n">v2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">VariableTypes</span><span class="o">();</span>
+        <span class="n">v2</span><span class="o">.</span><span class="na">instanceName</span> <span class="o">=</span> <span class="s">"두번째 인스턴스"</span><span class="o">;</span>
+        <span class="nc">VariableTypes</span><span class="o">.</span><span class="na">classCount</span><span class="o">++;</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">VariableTypes</span><span class="o">.</span><span class="na">classCount</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="변수별-특징">변수별 특징</h3>
+
+<ul>
+  <li><strong>클래스 변수</strong>: 인스턴스가 없어도 <code class="language-plaintext highlighter-rouge">클래스명.변수명</code>으로 접근 가능</li>
+  <li><strong>인스턴스 변수</strong>: 인스턴스를 생성해야 접근 가능</li>
+  <li><strong>지역 변수</strong>: 선언된 블록 밖에서는 접근 불가</li>
+</ul>
+
+<blockquote>
+  <p>for문 안에서 선언된 변수를 밖에서 사용할 수 없는 것은 for문이 메서드라서가 아니라, 해당 <strong>블록 스코프</strong> 내에서만 유효하기 때문이다.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="63-메서드">6.3 메서드</h2>
+
+<p>메서드는 반환값 유무에 따라 구분된다:</p>
+
+<ul>
+  <li><strong>반환값 없는 메서드</strong>: <code class="language-plaintext highlighter-rouge">void</code> 사용</li>
+  <li><strong>반환값 있는 메서드</strong>: 반환 타입 지정</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.method</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+    <span class="kt">void</span> <span class="nf">printMessage</span><span class="o">(</span><span class="nc">String</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kt">int</span> <span class="nf">add</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">double</span> <span class="nf">divide</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"0으로 나눌 수 없습니다."</span><span class="o">);</span>
+            <span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.method</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MethodExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Calculator</span> <span class="n">calc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Calculator</span><span class="o">();</span>
+
+        <span class="n">calc</span><span class="o">.</span><span class="na">printMessage</span><span class="o">(</span><span class="s">"계산 시작"</span><span class="o">);</span>
+        <span class="n">calc</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>  <span class="c1">// 반환값 무시 가능</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="반환값-처리-규칙">반환값 처리 규칙</h3>
+
+<ul>
+  <li>반환값이 있건 없건, 반환값을 변수에 담지 않는 것은 문제없음</li>
+  <li>에러 케이스:
+    <ul>
+      <li>반환값이 없는데 변수에 담으려는 경우</li>
+      <li>반환 타입과 다른 타입의 변수에 담으려는 경우</li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="64-오버로딩-overloading">6.4 오버로딩 (Overloading)</h2>
+
+<p>같은 이름의 메서드를 <strong>매개변수만 다르게</strong> 여러 개 정의하는 것.</p>
+
+<blockquote>
+  <p>오버라이딩(Overriding)과 혼동 주의!</p>
+</blockquote>
+
+<hr />
+
+<h2 id="65-this-키워드와-생성자">6.5 this 키워드와 생성자</h2>
+
+<p>생성자 오버로딩 예제:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.thisthat</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="nc">Person</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="n">age</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"기본 생성자 호출"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nc">Person</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"이름 생성자 호출"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nc">Person</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"나이 생성자 호출"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nc">Person</span><span class="o">(</span><span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"이름, 나이 생성자 호출"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.thisthat</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConstructorExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Person</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">();</span>
+        <span class="nc">Person</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="s">"seowoo"</span><span class="o">);</span>
+        <span class="nc">Person</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">31</span><span class="o">);</span>
+        <span class="nc">Person</span> <span class="n">p4</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Person</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="s">"duri"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>Java는 <strong>매개변수의 순서</strong>가 중요하다. 타입 힌팅을 해도 순서가 맞지 않으면 에러가 발생한다.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="65-실습-도서-관리-시스템">6.5 실습: 도서 관리 시스템</h2>
+
+<p>요구사항:</p>
+<ul>
+  <li>책의 정보(제목, 저자, 가격, 재고)를 입력</li>
+  <li>책 목록을 배열로 관리</li>
+  <li>목록 조회 기능</li>
+</ul>
+
+<p><strong>Book.java</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.books</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Book</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">title</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">author</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">price</span><span class="o">;</span>
+    <span class="kt">int</span> <span class="n">quantity</span><span class="o">;</span>
+
+    <span class="nc">Book</span><span class="o">(</span><span class="nc">String</span> <span class="n">title</span><span class="o">,</span> <span class="nc">String</span> <span class="n">author</span><span class="o">,</span> <span class="kt">int</span> <span class="n">price</span><span class="o">,</span> <span class="kt">int</span> <span class="n">quantity</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">=</span> <span class="n">title</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">author</span> <span class="o">=</span> <span class="n">author</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">=</span> <span class="n">price</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">quantity</span> <span class="o">=</span> <span class="n">quantity</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kt">void</span> <span class="nf">sale</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">*=</span> <span class="mf">0.9</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">title</span> <span class="o">+</span> <span class="s">"의 가격이 "</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">price</span> <span class="o">+</span> <span class="s">"로 할인되었습니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong>BookstoreExample.java</strong></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.books</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BookstoreExample</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Book</span><span class="o">[]</span> <span class="n">books</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+
+        <span class="n">books</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"폭풍의 언덕"</span><span class="o">,</span> <span class="s">"에밀리 브론테"</span><span class="o">,</span> <span class="mi">10000</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+        <span class="n">books</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"1984"</span><span class="o">,</span> <span class="s">"조지 오웰"</span><span class="o">,</span> <span class="mi">12000</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span>
+        <span class="n">books</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Book</span><span class="o">(</span><span class="s">"데미안"</span><span class="o">,</span> <span class="s">"헤르만 헤세"</span><span class="o">,</span> <span class="mi">9000</span><span class="o">,</span> <span class="mi">8</span><span class="o">);</span>
+
+        <span class="c1">// 목록 조회</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">books</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">books</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">title</span> <span class="o">+</span> <span class="s">" - "</span> <span class="o">+</span> <span class="n">books</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">author</span><span class="o">);</span>
+        <span class="o">}</span>
+
+        <span class="n">books</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">sale</span><span class="o">();</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">books</span><span class="o">[</span><span class="mi">0</span><span class="o">].</span><span class="na">price</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>객체로 구성된 배열(<code class="language-plaintext highlighter-rouge">Book[] books</code>)을 만들면 객체들을 리스트처럼 관리할 수 있다.</p>
+</blockquote>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="java" /><category term="oop" /><category term="class" /><category term="method" /><category term="overloading" /><summary type="html"><![CDATA[6.1 클래스와 객체]]></summary></entry><entry><title type="html">자바 변수와 타입 - 기본형부터 형변환까지</title><link href="https://duri-wip.github.io/study/chap2/" rel="alternate" type="text/html" title="자바 변수와 타입 - 기본형부터 형변환까지" /><published>2026-01-07T00:00:00+00:00</published><updated>2026-01-07T00:00:00+00:00</updated><id>https://duri-wip.github.io/study/chap2</id><content type="html" xml:base="https://duri-wip.github.io/study/chap2/"><![CDATA[<h1 id="chapter-3-변수">Chapter 3: 변수</h1>
+
+<h2 id="31-선언과-초기화">3.1 선언과 초기화</h2>
+
+<p>변수를 선언하고 초기화하는 건 이렇게 한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 선언만 하기</span>
+<span class="kt">int</span> <span class="n">number</span><span class="o">;</span>
+
+<span class="c1">// 초기화하기</span>
+<span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+
+<span class="c1">// 선언하고 초기화하기</span>
+<span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">10</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>3.2 primitive types</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 논리형</span>
+<span class="kt">boolean</span> <span class="n">isStudnet</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+
+<span class="c1">// 문자형</span>
+<span class="kt">char</span> <span class="n">grade</span> <span class="o">=</span> <span class="sc">'A'</span><span class="o">;</span>
+
+<span class="c1">// 정수형</span>
+<span class="kt">byte</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">127</span><span class="o">;</span>                <span class="c1">// -128 ~ 127 (1byte)</span>
+<span class="kt">short</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">32767</span><span class="o">;</span>             <span class="c1">// -32,768 ~ 32,767 (2byte)</span>
+<span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2147483647</span><span class="o">;</span>          <span class="c1">// 약 ±21억 (4byte) ★가장 많이 사용</span>
+<span class="kt">long</span> <span class="n">l</span> <span class="o">=</span> <span class="mi">9223372036854775807L</span><span class="o">;</span> <span class="c1">// 매우 큰 정수 (8byte, L 접미사)</span>
+
+<span class="c1">// 실수형</span>
+<span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mf">3.14f</span><span class="o">;</span>             <span class="c1">// 소수점 약 7자리 (4byte, f 접미사)</span>
+<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">3.141592653589</span><span class="o">;</span>   <span class="c1">// 소수점 약 15자리 (8byte) ★기본형</span>
+</code></pre></div></div>
+
+<p>3.3 상수와 리터럴</p>
+
+<p>상수는 값이 변하지 않는 상수로 final 키워드와 함께 쓴다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">final</span> <span class="kt">double</span> <span class="no">PI</span> <span class="o">=</span> <span class="mf">3.14159</span><span class="o">;</span>
+<span class="kd">final</span> <span class="kt">int</span> <span class="no">MAX_SIZE</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>그리고 왠지 상수 변수들은 모두 대문자로 사용하는듯?
+상수로 선언된 변수에 다시 값을 할당하려고 하면 컴파일 에러가 난다.</p>
+
+<p>리터럴은 소스코드에 직접 작성된 값을 의미한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">100</span><span class="o">;</span>
+<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">3.14</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">"hello"</span><span class="o">;</span>
+</code></pre></div></div>
+<h3 id="질문-왜-리터럴-문자열만-string으로-선언하는지-위에는-char이라고-했잖아">질문: 왜 리터럴 문자열만 String으로 선언하는지? 위에는 char이라고 했잖아</h3>
+
+<추가된 답변="">
+char와 String은 서로 다른 타입입니다:
+
+- char: 단일 문자 하나만 저장 (작은따옴표 사용)
+  ```java
+  char c = 'A';      // OK
+  char c = 'AB';     // 에러! 한 글자만 가능
+  ```
+
+- String: 문자열 (여러 문자 또는 문자 없음도 가능, 큰따옴표 사용)
+  ```java
+  String s = "Hello";  // OK
+  String s = "A";      // OK (한 글자도 가능)
+  String s = "";       // OK (빈 문자열도 가능)
+  ```
+
+char는 기본형(primitive type)이고, String은 참조형(reference type)입니다.
+리터럴에서 "hello"처럼 여러 문자를 담으려면 반드시 String을 써야 합니다.
+&lt;/추가된 답변&gt;
+
+printf 쓸때 
+%s -&gt; string
+%d -&gt; double
+%f -&gt; float
+
+### 질문: 맨 뒤에 %n을 붙이는데 이건 뭐야?
+
+<추가된 답변="">
+%n은 줄바꿈(newline)을 의미합니다.
+
+- \n도 줄바꿈이지만 운영체제마다 다를 수 있습니다
+  - Windows: \r\n
+  - Unix/Linux/Mac: \n
+
+- %n은 플랫폼 독립적인 줄바꿈입니다
+  - printf에서 사용하면 현재 운영체제에 맞는 줄바꿈 문자를 자동으로 선택
+
+따라서 printf를 사용할 때는 \n보다 %n을 쓰는 것이 더 안전합니다!
+
+```java
+System.out.printf("첫 줄%n두 번째 줄%n");  // 권장
+System.out.printf("첫 줄\n두 번째 줄\n");    // 동작하지만 비권장
+```
+&lt;/추가된 답변&gt; 
+
+
+```java
+public class PrintfExample {
+    public static void main(String[] args) {
+        String name = "김철수";
+        int age = 20;
+        double score = 95.5;
+        
+        // printf: 형식 지정 출력 (줄바꿈 없음)
+        System.out.printf("이름: %s%n", name);        // %s: 문자열
+        System.out.printf("나이: %d세%n", age);       // %d: 정수
+        System.out.printf("점수: %.1f점%n", score);   // %.1f: 소수점 1자리
+        System.out.printf("합격률: %d%%%n", 85);      // %%: % 출력
+        
+        // 여러 값 동시 출력
+        System.out.printf("%s님은 %d세이고, 점수는 %.2f입니다.%n", 
+                          name, age, score);
+    }
+}
+```
+
+여러 변수를 쓸 수도 있고 불러온 변수 뒤에 문자를 그대로 쓸 수도 있다. % 같은 특수문자를 쓸 때도 그냥 붙이면 됨.
+
+### 질문: 큰따옴표랑 작은따옴표 사이에 차이가 있나?
+
+<추가된 답변="">
+네, 명확한 차이가 있습니다:
+
+- 작은따옴표 (''): char 타입, 단일 문자만
+  ```java
+  char c = 'A';      // OK
+  char c = '한';     // OK
+  char c = 'AB';     // 에러!
+  ```
+
+- 큰따옴표 (""): String 타입, 문자열
+  ```java
+  String s = "Hello";   // OK
+  String s = "A";       // OK (한 글자도 문자열)
+  String s = "";        // OK (빈 문자열)
+  ```
+
+헷갈리지 않으려면:
+- 한 글자 → 작은따옴표
+- 여러 글자 또는 문자열 → 큰따옴표
+&lt;/추가된 답변&gt; 
+
+| 지정자 | 설명 | 예시 |
+|--------|------|------|
+| `%d` | 10진수 정수 | `123` |
+| `%f` | 실수 (기본 소수점 6자리) | `3.140000` |
+| `%.2f` | 실수 (소수점 2자리) | `3.14` |
+| `%s` | 문자열 | `"Hello"` |
+| `%c` | 문자 | `'A'` |
+| `%n` | 줄바꿈 | |
+| `%5d` | 5자리 확보 (우측 정렬) | `  123` |
+| `%-5d` | 5자리 확보 (좌측 정렬) | `123  ` |
+
+
+
+3.4 scanner로 입력받기
+
+동일한 프로젝트에서 여러 소스 코드를 당연히 넣을 수 있다. 다른 역할을 하더라도.
+처음에 프로젝트와 동일한 이름의 클래스를 만들라고 했던 건 내가 잘못 이해한 거고
+파일명과 public 클래스명이 대소문자까지 일치해야 한다는 규칙이다.
+
+### 질문: 왜 이런 규칙이 있을까?
+
+<추가된 답변="">
+이유 1. 클래스 찾기를 쉽게 하려고
+
+자바 컴파일러나 자바 가상머신이 클래스를 로드할 때, 클래스 이름으로 파일을 찾는다. 파일명과 클래스명이 다르면 모든 파일을 각각 열어봐야 해 비효율적이다.
+
+그러면 이름이 다르면 파일을 못 찾나? → 못 찾는 게 아니라 컴파일러가 컴파일하지 않는다. 규칙 위반이라서!
+
+이유 2. 개발자도 찾기 쉽게 하려고
+
+코드를 읽을 때 클래스명만 보고 어느 파일에 있는지 바로 알 수 있다.
+
+이유 3. 하나의 파일 = 하나의 책임
+
+파일 하나에 public 클래스 하나만 허용해서 코드를 명확하게 분리하도록 유도한 철학이다.
+따라서 public이 아닌 클래스는 파일명과 클래스명이 달라도 된다.
+&lt;/추가된 답변&gt;
+
+
+
+**Scanner 주요 메서드:**
+
+| 메서드 | 반환 타입 | 설명 |
+|--------|----------|------|
+| `nextLine()` | String | 한 줄 전체 |
+| `next()` | String | 공백 전까지 |
+| `nextInt()` | int | 정수 |
+| `nextDouble()` | double | 실수 |
+| `nextBoolean()` | boolean | true/false |
+
+암튼 이렇게 해서 계산하는 클래스를 만들었다.
+
+### 질문: 미리 계산 결과를 지정해서 print 찍어야 하는지?
+
+<추가된 답변="">
+궁금했고 예제에서는 미리 지정하라고 했는데 해보니까 지정 안 해도 잘 나왔다. 파이썬이랑 똑같다.
+
+두 방법 모두 가능합니다:
+
+```java
+// 방법 1: 미리 변수에 저장
+int sum = num1 + num2;
+System.out.println(sum);
+
+// 방법 2: 직접 계산
+System.out.println(num1 + num2);
+```
+
+차이점:
+- 방법 1: 값을 재사용할 때 편리, 디버깅 시 변수 확인 가능
+- 방법 2: 간결함, 일회성 계산에 적합
+
+예제에서 미리 지정하라고 한 이유는 학습 목적(변수 연습)과 코드 가독성 때문입니다.
+&lt;/추가된 답변&gt;
+
+3.5 형변환
+
+type casting
+
+자동 형변환은 작은 타입에서 큰 타입으로 따로 변경하지 않고 변수 선언만 해도 된다
+큰 타입에서 작은 타입으로의 변환은 강제로 해줘야 한다. 
+
+### 질문: double -&gt; int로의 변환은 바로 되는데 왜 double을 String으로 변환하는 건 에러가 날까?
+
+에러 메시지:
+```
+incompatible types: double cannot be converted to java.lang.String
+```
+
+<추가된 답변="">
+type casting은 같은 계열의 기본형끼리만 가능하다.
+
+- 숫자 기본형: byte, short, int, long, float, double
+  - 이들끼리는 형변환 가능
+  ```java
+  double d = 3.14;
+  int i = (int) d;  // OK
+  ```
+
+- String은 문자 참조형
+  - 기본형과는 전혀 다른 타입
+  - type casting으로 변환 불가능
+  - 형변환 메서드를 사용해야 함
+  ```java
+  double d = 3.14;
+  String s = String.valueOf(d);     // OK
+  String s = Double.toString(d);    // OK
+  String s = "" + d;                // OK (문자열 연결)
+  ```
+
+반대로 String → double도 마찬가지:
+```java
+String s = "3.14";
+double d = Double.parseDouble(s);  // OK
+```
+&lt;/추가된 답변&gt; 
+
+
+## Chapter 3 실습
+
+### 추가 연습 문제
+
+1. 온도 변환기: 섭씨를 입력받아 화씨로 변환 (공식: F = C × 9/5 + 32)
+2. 윤년 판별기: 연도를 입력받아 윤년인지 판별 (4의 배수이면서 100의 배수가 아니거나, 400의 배수)
+
+힌트: 윤년 조건
+```java
+boolean isLeapYear = (year % 4 == 0 &amp;&amp; year % 100 != 0) || (year % 400 == 0);
+```
+
+### 질문: 왜 이렇게 출력하면 안 돼? 
+
+```java
+import java.util.Scanner;
+
+public class Test2 {
+    // 윤년 판별기
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        System.out.println("연도를 입력해주세요.");
+        int yr = sc.nextInt();
+
+        boolean isLeapYear = (yr % 4 == 0 &amp;&amp; yr % 100 != 0) || (yr % 400 == 0);
+        if (isLeapYear == true) ? System.out.printf("%d 년은 윤년입니다.", yr) : System.out.printf("%d 년은 윤년이 아닙니다.", yr);
+    }
+}
+```
+
+<추가된 답변="">
+문제 1: 삼항 연산자와 if를 섞어서 문제가 생겼다.
+
+문제 2: 그냥 삼항 연산자만 써도 안 되던데?
+
+```java
+(isLeapYear == true) ? System.out.printf("%d 년은 윤년입니다.", yr) : System.out.printf("%d 년은 윤년이 아닙니다.", yr);
+```
+
+이렇게 쓰면 안 되는 이유: Java에서 한 줄의 코드로 인정되는 문장(statement)의 종류가 정해져 있다.
+
+삼항 연산자는 표현식(expression)이지 문장(statement)이 아닙니다. 따라서 결과값을 어딘가에 할당해야 합니다.
+&lt;/추가된 답변&gt; 
+
+Java에서 한 줄의 코드로 인정되는 문장(statement)의 종류:
+
+1. 변수의 선언
+   ```java
+   int x = 5;
+   String name = "서우";
+   final double PI = 3.14;
+   ```
+
+2. 표현식 문장
+   - 대입 연산
+   - 증감 연산
+   - 메서드 호출
+   - 객체 생성
+
+3. 제어문
+   - 조건문 (if, switch)
+   - 반복문 (for, while)
+   - 분기문 (break, continue)
+
+4. 기타
+   - 빈 문장: `;`
+   - 블록: `{ int a = 1; int b = 2; }`
+   - 라벨: `myLabel: for (...) { }`
+   - try-catch: `try { } catch (Exception e) { }`
+   - throw: `throw new RuntimeException();`
+   - synchronized: `synchronized (lock) { }`
+   - assert: `assert x &gt; 0;`
+
+그래서 삼항 연산자를 사용하려면 이 연산으로 얻은 결과를 어떤 변수에 써야 한다.
+
+올바른 사용 예시:
+```java
+// 방법 1: 문자열 변수에 할당
+String message = (isLeapYear == true) ?
+    String.format("%d 년은 윤년입니다.", yr) :
+    String.format("%d 년은 윤년이 아닙니다.", yr);
+System.out.println(message);
+
+// 방법 2: PrintStream에 할당 (고급 기법, 비추천)
+PrintStream out = (isLeapYear == true) ?
+    System.out.printf("%d 년은 윤년입니다.%n", yr) :
+    System.out.printf("%d 년은 윤년이 아닙니다.%n", yr);
+```
+
+그럼 삼항 연산자를 안 쓰고 if를 쓰고 싶은 경우에는? 조건문 챕터에서 배우겠다.
+
+올바른 if문 사용:
+```java
+if (isLeapYear) {
+    System.out.printf("%d 년은 윤년입니다.%n", yr);
+} else {
+    System.out.printf("%d 년은 윤년이 아닙니다.%n", yr);
+}
+``` 
+</추가된></추가된></추가된></추가된></추가된></추가된></추가된>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="study-java" /><category term="java" /><category term="variables" /><category term="types" /><category term="scanner" /><category term="type-casting" /><summary type="html"><![CDATA[자바의 변수 선언, 기본 타입, Scanner 입력, 형변환 완벽 정리]]></summary></entry><entry><title type="html">자바 조건문과 반복문 - if, switch, for, while</title><link href="https://duri-wip.github.io/study/chap3/" rel="alternate" type="text/html" title="자바 조건문과 반복문 - if, switch, for, while" /><published>2026-01-07T00:00:00+00:00</published><updated>2026-01-07T00:00:00+00:00</updated><id>https://duri-wip.github.io/study/chap3</id><content type="html" xml:base="https://duri-wip.github.io/study/chap3/"><![CDATA[<h1 id="chapter-4-조건문과-반복문">Chapter 4: 조건문과 반복문</h1>
+
+<h2 id="41-if-문">4.1 if 문</h2>
+
+<h3 id="실습-로그인-시스템-만들기">실습: 로그인 시스템 만들기</h3>
+
+<p>아이디 비밀번호를 입력하면 맞으면 로그인에 성공합니다.</p>
+
+<p>처음 시도:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginIfs</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">correctId</span> <span class="o">=</span> <span class="s">"seowoo"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">correctPassword</span> <span class="o">=</span> <span class="s">"super"</span><span class="o">;</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"id:"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">correctId</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"password:"</span><span class="o">);</span>
+          <span class="nc">String</span> <span class="n">pw</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">pw</span> <span class="o">==</span> <span class="n">correctPassword</span><span class="o">)</span> <span class="o">{</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"로그인에 성공하였습니다."</span><span class="o">);</span>
+          <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"비밀번호가 틀렸습니다."</span><span class="o">);</span>
+          <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"아이디가 존재하지 않습니다."</span><span class="o">);</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="질문-근데-여기서-맞는-아이디를-입력해도-아이디가-존재하지-않는다고-함-왜지">질문: 근데 여기서 맞는 아이디를 입력해도 아이디가 존재하지 않는다고 함. 왜지?</h3>
+
+<추가된 답변="">
+`==`는 문자열의 내용을 비교하지 않습니다!
+
+자바에서 String은 객체, 즉 참조형입니다. `==`로 비교하면 내용이 아니라 같은 객체인지(참조값)를 비교합니다.
+
+- `correctId`와 `id`는 다른 객체로 선언되었으므로 둘이 같은지를 비교하면 다르다고 나옵니다.
+- 문자열의 내용을 비교하기 위해서는 `.equals()` 메서드를 사용해야 합니다.
+
+올바른 비교 방법:
+```java
+if (id.equals(correctId)) {  // 올바른 문자열 비교
+    // ...
+}
+
+// 또는
+if (correctId.equals(id)) {  // 더 안전 (null 방지)
+    // ...
+}
+```
+
+`==` vs `.equals()`:
+- `==`: 참조(메모리 주소) 비교
+- `.equals()`: 내용(값) 비교
+
+```java
+String s1 = new String("hello");
+String s2 = new String("hello");
+
+System.out.println(s1 == s2);        // false (다른 객체)
+System.out.println(s1.equals(s2));   // true (같은 내용)
+```
+&lt;/추가된 답변&gt; 
+
+## 4.2 switch 문
+
+여러 값 중 하나를 선택하도록 할 때 사용합니다.
+
+### 실습: 계산기 만들기
+
+switch 문의 다양한 방식을 사용해보려고 이렇게 만들었다.
+
+```java
+import java.util.Scanner;
+
+public class CalculatorSwitch {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean valid;
+        double result;
+
+        System.out.println("첫번째 숫자를 입력하세요");
+        int num1 = sc.nextInt();
+
+        System.out.println("연산자를 입력하세요");
+        String calc = sc.nextLine();
+
+        switch (calc) {
+            case "-": case "+": case "/" : case "*":
+                System.out.println("두번째 숫자를 입력하세요");
+                int num2 = sc.nextInt();
+                valid = true;
+                break;
+            default:
+                System.out.println("사칙연산만 가능합니다.");
+                valid = false;
+                break;
+        };
+
+        if (valid) {
+            switch(calc) {
+                case "-":
+                    result = num1 - num2;
+                case "+":
+                    result = num1 + num2;
+                case "/":
+                    result = num1 / num2;
+                case "*":
+                    result = num1 * num2;
+            System.out.print(result);
+            }
+        };
+    }
+}
+```
+
+### 질문: 근데 num2가 정의되지 않았다고 하네. 뭐지???
+
+<추가된 답변="">
+case 안에서 선언한 변수는 밖에서 못 씁니다.
+
+선언과 초기화는 따로 할 수 있는데, 컴파일러가 코드를 빌드하기 전에 체크하면서 사용하기 전에 초기화되지 않을 수 있는 변수에 대해서는 에러를 뱉습니다.
+
+이 로직의 경우:
+- 연산자가 제대로 설정되지 않은 경우에 두 번째 숫자도 받지 말라고 했는데
+- 그래서 사용하기 전에 초기화가 안 되는 경우가 있을 수도 있다
+- 그래서 컴파일러가 컴파일을 안 해주는 것
+
+핵심 개념 - 스코프(Scope):
+- 변수가 살아있는 범위
+- 중괄호 `{}`가 기준이 된다
+- 안쪽에서는 바깥 변수 접근 가능
+- 바깥에서는 안쪽 변수 접근 불가능
+
+```java
+{
+    int outer = 10;
+    {
+        int inner = 20;
+        System.out.println(outer);  // OK (안쪽에서 바깥 접근)
+    }
+    System.out.println(inner);  // 에러! (바깥에서 안쪽 접근 불가)
+}
+```
+&lt;/추가된 답변&gt;
+
+### 추가로 발견한 문제들
+
+1. Scanner에서 `nextInt()`나 `nextDouble()`로 받은 후에는 엔터가 버퍼에 남아있어서 `nextLine()`을 쓰면 바로 넘어가 버립니다.
+   - 해결: 버퍼를 비워주거나 `next()`를 사용
+
+2. switch 문에는 `break`가 있어야 아래 케이스가 쭉 실행되지 않습니다 (fall-through 방지)
+
+수정본:
+
+```java
+import java.util.Scanner;
+
+public class CalculatorSwitch {
+    public static void main(String[] args) {
+        // 숫자 두개와 연산자를 받아서 계산하기
+        Scanner sc = new Scanner(System.in);
+        boolean valid;
+        double result = 0;
+
+        System.out.println("첫번째 숫자를 입력하세요.");
+        int num1 = sc.nextInt();
+
+        System.out.println("두번째 숫자를 입력하세요.");
+        int num2 = sc.nextInt();
+
+        System.out.println("연산자를 입력하세요.");
+        String calc = sc.next();
+
+        switch (calc) {
+            case "-" : case "+" : case "/" : case "*":
+                valid = true;
+                break;
+            default:
+                System.out.println("사칙연산만 가능합니다.");
+                valid = false;
+                break;
+        }
+
+        if (valid) {
+            switch (calc) {
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+            }
+        System.out.printf("%.2f", result);
+        }
+
+    }
+}
+```
+
+## 4.3 for문
+
+별 출력하기 (실습 예제는 튜토리얼 참고)
+
+## 4.4 do-while 문
+
+최소 1번은 실행 후 조건을 검사하는 반복문입니다.
+
+### 실습: 메뉴 시스템 
+
+```java
+import java.util.Scanner;
+
+public class DoWhileExample {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int input;
+        
+        // 메뉴 선택 (0 입력 시 종료)
+        do {
+            System.out.println("\n===== 메뉴 =====");
+            System.out.println("1. 게임 시작");
+            System.out.println("2. 설정");
+            System.out.println("3. 도움말");
+            System.out.println("0. 종료");
+            System.out.print("선택: ");
+            
+            input = sc.nextInt();
+            
+            switch (input) {
+                case 1 -&gt; System.out.println("게임을 시작합니다!");
+                case 2 -&gt; System.out.println("설정 화면입니다.");
+                case 3 -&gt; System.out.println("도움말 화면입니다.");
+                case 0 -&gt; System.out.println("프로그램을 종료합니다.");
+                default -&gt; System.out.println("잘못된 입력입니다.");
+            }
+        } while (input != 0);
+        
+        sc.close();
+    }
+}
+```
+</추가된></추가된>]]></content><author><name>Duri</name><email>8s.eow.ooc@gmail.com</email></author><category term="" /><category term="study-java" /><category term="java" /><category term="control-flow" /><category term="if" /><category term="switch" /><category term="loop" /><category term="for" /><category term="while" /><summary type="html"><![CDATA[자바의 제어문 완벽 정리 - 조건문과 반복문 실습]]></summary></entry></feed>

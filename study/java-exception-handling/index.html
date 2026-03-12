@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java 예외 처리 - try-catch, 예외 클래스, 그리고 흔한 실수들</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Java 예외 처리 - try-catch, 예외 클래스, 그리고 흔한 실수들</h1>
+        <div class="post-meta">
+            <time class="post-date">2026년 02월 03일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-java</span>
+                
+                <span class="tag">#java</span>
+                
+                <span class="tag">#exception</span>
+                
+                <span class="tag">#try-catch</span>
+                
+                <span class="tag">#error-handling</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="1-예외exception란">1. 예외(Exception)란?</h2>
+
+<p>프로그램 실행 중 발생하는 예상치 못한 상황을 <strong>예외(Exception)</strong>라고 한다. 자바는 예외 클래스를 미리 만들어두어서, 사용자가 적절한 예외 케이스를 가져다 쓰면 된다.</p>
+
+<h3 id="예외의-종류">예외의 종류</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Throwable
+├── Error (시스템 에러, 복구 불가)
+│   ├── OutOfMemoryError
+│   └── StackOverflowError
+│
+└── Exception (프로그램 에러, 복구 가능)
+    ├── RuntimeException (Unchecked Exception)
+    │   ├── NullPointerException
+    │   ├── ArrayIndexOutOfBoundsException
+    │   ├── ArithmeticException
+    │   └── IllegalArgumentException
+    │
+    └── 기타 Exception (Checked Exception)
+        ├── IOException
+        ├── SQLException
+        └── FileNotFoundException
+</code></pre></div></div>
+
+<ul>
+  <li><strong>Checked Exception</strong>: 컴파일 시점에 처리를 강제함 (try-catch 또는 throws 필수)</li>
+  <li><strong>Unchecked Exception</strong>: 런타임에 발생, 처리 선택적</li>
+</ul>
+
+<hr />
+
+<h2 id="2-try-catch-finally">2. try-catch-finally</h2>
+
+<p>예외를 처리하는 기본 구문이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionBasic</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="c1">// 예외가 발생할 수 있는 코드</span>
+            <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArithmeticException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 예외 처리 코드</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"0으로 나눌 수 없습니다: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+            <span class="c1">// 예외 발생 여부와 관계없이 항상 실행</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"연산 종료"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="여러-예외-처리하기">여러 예외 처리하기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MultiCatch</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="kt">int</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">};</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arr</span><span class="o">[</span><span class="mi">5</span><span class="o">]);</span>  <span class="c1">// ArrayIndexOutOfBoundsException</span>
+
+            <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">length</span><span class="o">());</span>  <span class="c1">// NullPointerException</span>
+
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArrayIndexOutOfBoundsException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"배열 인덱스 초과: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NullPointerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"null 참조 에러: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 위에서 잡지 못한 모든 예외</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"기타 예외: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="멀티-catch-java-7">멀티 catch (Java 7+)</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+    <span class="c1">// 예외 발생 가능 코드</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">ArrayIndexOutOfBoundsException</span> <span class="o">|</span> <span class="nc">NullPointerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// 두 예외를 동일하게 처리</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"예외 발생: "</span> <span class="o">+</span> <span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="3-try-with-resources">3. try-with-resources</h2>
+
+<p>Java 7부터 도입된 문법으로, <code class="language-plaintext highlighter-rouge">AutoCloseable</code>을 구현한 리소스를 자동으로 닫아준다. 파일, 데이터베이스 연결 등의 컨텍스트 매니징을 자동으로 해주는 역할이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 기존 방식 (직접 close 호출)</span>
+<span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<span class="k">try</span> <span class="o">{</span>
+    <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">));</span>
+    <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">br</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>  <span class="c1">// 닫아줘야 함</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// try-with-resources 방식 (자동 close)</span>
+<span class="k">try</span> <span class="o">(</span><span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">)))</span> <span class="o">{</span>
+    <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+<span class="c1">// br.close()가 자동으로 호출됨!</span>
+</code></pre></div></div>
+
+<h3 id="여러-리소스-사용하기">여러 리소스 사용하기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">(</span>
+    <span class="nc">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"input.txt"</span><span class="o">);</span>
+    <span class="nc">FileOutputStream</span> <span class="n">fos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"output.txt"</span><span class="o">)</span>
+<span class="o">)</span> <span class="o">{</span>
+    <span class="kt">int</span> <span class="n">data</span><span class="o">;</span>
+    <span class="k">while</span> <span class="o">((</span><span class="n">data</span> <span class="o">=</span> <span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">())</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">fos</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="4-계산기-예제와-흔한-실수들">4. 계산기 예제와 흔한 실수들</h2>
+
+<p>계산기를 만들면서 자주 겪는 문제들을 살펴보자.</p>
+
+<h3 id="문제-1-switch문의-break-누락">문제 1: switch문의 break 누락</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">,</span> <span class="kt">char</span> <span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">int</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+
+        <span class="k">switch</span> <span class="o">(</span><span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">case</span> <span class="sc">'+'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+                <span class="c1">// break가 없으면 아래 case들이 계속 실행됨!</span>
+            <span class="k">case</span> <span class="sc">'-'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="o">;</span>
+            <span class="k">case</span> <span class="sc">'*'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="o">;</span>
+            <span class="k">case</span> <span class="sc">'/'</span><span class="o">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>매번 <code class="language-plaintext highlighter-rouge">break</code>를 써줘야 하는 것이 boilerplate처럼 느껴질 수 있다. Java 14부터는 <strong>switch expression</strong>을 사용하면 break 없이 깔끔하게 작성할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Java 14+ switch expression</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">calculate</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">,</span> <span class="kt">char</span> <span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="nf">switch</span> <span class="o">(</span><span class="n">op</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">case</span> <span class="sc">'+'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">case</span> <span class="sc">'-'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">case</span> <span class="sc">'*'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">case</span> <span class="sc">'/'</span> <span class="o">-&gt;</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+        <span class="k">default</span> <span class="o">-&gt;</span> <span class="k">throw</span> <span class="k">new</span> <span class="nc">IllegalArgumentException</span><span class="o">(</span><span class="s">"Unknown operator: "</span> <span class="o">+</span> <span class="n">op</span><span class="o">);</span>
+    <span class="o">};</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="문제-2-정수-나눗셈-문제">문제 2: 정수 나눗셈 문제</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+<span class="kt">int</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+<span class="kt">float</span> <span class="n">result</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>  <span class="c1">// 2.0 (기대한 2.5가 아님!)</span>
+</code></pre></div></div>
+
+<p>왜 이런 결과가 나올까?</p>
+
+<blockquote>
+  <p><strong>자바에서 산술 연산의 타입은 피연산자의 타입에 의해서 결정된다.</strong></p>
+</blockquote>
+
+<p>피연산자 타입 조합에 따른 결과:</p>
+<ul>
+  <li>(정수, 정수) → 정수</li>
+  <li>(실수, 정수) → 실수</li>
+  <li>(실수, 실수) → 실수</li>
+</ul>
+
+<p><code class="language-plaintext highlighter-rouge">a / b</code>를 계산할 때:</p>
+<ol>
+  <li>먼저 두 정수를 계산 → 결과는 정수 <code class="language-plaintext highlighter-rouge">2</code></li>
+  <li>이 정수 값을 <code class="language-plaintext highlighter-rouge">result</code> 변수에 할당 → <code class="language-plaintext highlighter-rouge">2.0</code></li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">result</code>가 <code class="language-plaintext highlighter-rouge">float</code>인지 <code class="language-plaintext highlighter-rouge">int</code>인지는 <strong>할당 시점</strong>에 결정되므로, 이미 연산이 끝난 후에는 영향을 주지 않는다.</p>
+
+<h3 id="해결-방법">해결 방법</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 방법 1: 피연산자 중 하나를 실수로 캐스팅</span>
+<span class="kt">float</span> <span class="n">result1</span> <span class="o">=</span> <span class="o">(</span><span class="kt">float</span><span class="o">)</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>  <span class="c1">// 2.5</span>
+
+<span class="c1">// 방법 2: 피연산자 중 하나를 실수 리터럴로</span>
+<span class="kt">float</span> <span class="n">result2</span> <span class="o">=</span> <span class="n">a</span> <span class="o">/</span> <span class="mf">2.0f</span><span class="o">;</span>  <span class="c1">// 2.5</span>
+
+<span class="c1">// 방법 3: 1.0을 곱해서 실수로 변환</span>
+<span class="kt">float</span> <span class="n">result3</span> <span class="o">=</span> <span class="mf">1.0f</span> <span class="o">*</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>  <span class="c1">// 2.5</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="5-예외-던지기-throw-throws">5. 예외 던지기 (throw, throws)</h2>
+
+<h3 id="throw-예외-직접-발생시키기">throw: 예외 직접 발생시키기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Calculator</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">divide</span><span class="o">(</span><span class="kt">int</span> <span class="n">a</span><span class="o">,</span> <span class="kt">int</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">ArithmeticException</span><span class="o">(</span><span class="s">"0으로 나눌 수 없습니다"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="throws-예외-처리-위임하기">throws: 예외 처리 위임하기</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">FileProcessor</span> <span class="o">{</span>
+    <span class="c1">// 이 메서드를 호출하는 쪽에서 IOException을 처리해야 함</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">readFile</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>
+        <span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="n">path</span><span class="o">));</span>
+        <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+        <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="6-사용자-정의-예외">6. 사용자 정의 예외</h2>
+
+<p>특정 상황에 맞는 예외 클래스를 직접 만들 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 사용자 정의 예외 클래스</span>
+<span class="kd">class</span> <span class="nc">InsufficientBalanceException</span> <span class="kd">extends</span> <span class="nc">Exception</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">withdrawAmount</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">InsufficientBalanceException</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">,</span> <span class="kt">int</span> <span class="n">withdrawAmount</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kd">super</span><span class="o">(</span><span class="s">"잔액이 부족합니다. 현재 잔액: "</span> <span class="o">+</span> <span class="n">balance</span> <span class="o">+</span> <span class="s">", 출금 요청: "</span> <span class="o">+</span> <span class="n">withdrawAmount</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">balance</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">withdrawAmount</span> <span class="o">=</span> <span class="n">withdrawAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getWithdrawAmount</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">withdrawAmount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 사용 예시</span>
+<span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">BankAccount</span><span class="o">(</span><span class="kt">int</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">balance</span> <span class="o">=</span> <span class="n">balance</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">InsufficientBalanceException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="n">balance</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">InsufficientBalanceException</span><span class="o">(</span><span class="n">balance</span><span class="o">,</span> <span class="n">amount</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">balance</span> <span class="o">-=</span> <span class="n">amount</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="정리">정리</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>구문</th>
+      <th>설명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">try-catch</code></td>
+      <td>예외 발생 가능 코드를 감싸고 예외 처리</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">finally</code></td>
+      <td>예외 발생 여부와 관계없이 항상 실행</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">try-with-resources</code></td>
+      <td>AutoCloseable 리소스 자동 해제</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">throw</code></td>
+      <td>예외를 직접 발생시킴</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">throws</code></td>
+      <td>메서드에서 예외 처리를 호출자에게 위임</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="주의할-점">주의할 점</h3>
+
+<ol>
+  <li><strong>switch문에서 break 잊지 말기</strong> (또는 Java 14+ switch expression 사용)</li>
+  <li><strong>정수 나눗셈 결과는 정수</strong> - 실수 결과가 필요하면 캐스팅 필요</li>
+  <li><strong>try-with-resources로 리소스 누수 방지</strong> - 파일, DB 연결 등에 활용</li>
+</ol>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/development/unit-test-design/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">단위 테스트 설계하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/restapi-vs-grpc/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">REST API vs gRPC: 마이크로서비스 통...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

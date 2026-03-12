@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jekyll Basic 2</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Jekyll Basic 2</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 01일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Tools</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">github-blog</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#jekyll</span>
+                
+                <span class="tag">#github_pages</span>
+                
+                <span class="tag">#study-bloging</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>jekyll에서는 레이아웃을 이용해서 HTML을 렌더링하는데요, 다른 사람의 레포지토리를 기워서 블로그를 만들때 이 부분이 꼬여서 한참 고생했던 경험이 있습니다.
+그래서 이번에는 .. 잘 공부해서 만들어봅니다..</p>
+
+<h1 id="레이아웃이란">레이아웃이란?</h1>
+
+<p>레이아웃은 같은 구조의 페이지들을 효율적으로 관리할 수 있도록 해줍니다. 웹페이지의 HTML 템플릿으로, 마크다운 파일의 내용을 감싸서 완성된 웹 사이트로 만들어주는 역할을 합니다.</p>
+
+<p>여기서 템플릿 엔진이라는 개념이 사용되는데, MD 와 레이아웃이 결합되어서 HTML 사이트를 만들어주는 역할을 합니다.</p>
+
+<p>예를 들어 이런 마크다운 페이지가 있습니다.</p>
+
+<div class="language-md highlighter-rouge"><div class="highlight"><pre class="highlight"><code>/---
+layout: post
+title: "내 첫 포스트"
+/---
+
+<span class="gh"># 안녕하세요!</span>
+
+이것은 마크다운 내용입니다.
+</code></pre></div></div>
+
+<p>이 마크다운에서 레이아웃을 post로 지정했고, 레이아웃 html파일은 다음과 같습니다.</p>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- _layouts/post.html --&gt;</span>
+<span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Jekyll Basic 2<span class="nt">&lt;/title&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;article&gt;</span>
+      <span class="nt">&lt;h1&gt;</span>Jekyll Basic 2<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;article</span> <span class="na">class=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;header</span> <span class="na">class=</span><span class="s">"post-header"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;h1</span> <span class="na">class=</span><span class="s">"post-title"</span><span class="nt">&gt;</span>Jekyll Basic<span class="nt">&lt;/h1&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"post-meta"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;time</span> <span class="na">class=</span><span class="s">"post-date"</span><span class="nt">&gt;</span>2025년 09월 01일<span class="nt">&lt;/time&gt;</span>
+            
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"post-categories"</span><span class="nt">&gt;</span>
+                
+                    
+                    <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-tag"</span><span class="nt">&gt;</span>Tools<span class="nt">&lt;/span&gt;</span>
+                    
+                
+                    
+                
+                
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"subcategory-tag"</span><span class="nt">&gt;</span>github-blog<span class="nt">&lt;/span&gt;</span>
+                
+            <span class="nt">&lt;/div&gt;</span>
+            
+            
+            <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"post-tags"</span><span class="nt">&gt;</span>
+                
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"tag"</span><span class="nt">&gt;</span>#jekyll<span class="nt">&lt;/span&gt;</span>
+                
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"tag"</span><span class="nt">&gt;</span>#github_pages<span class="nt">&lt;/span&gt;</span>
+                
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"tag"</span><span class="nt">&gt;</span>#study-bloging<span class="nt">&lt;/span&gt;</span>
+                
+            <span class="nt">&lt;/div&gt;</span>
+            
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/header&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"post-content"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>작년에 처음 jekyll 블로그를 만들어 보았는데요.. css고 자바스크립트고 아무것도 모르겠으니 그냥 귀엽게 만든 분의 레포지토리를 클론해서 사용했습니다. 그래서 그냥 이것저것 gpt에게 던져주면서 누덕누덕 기워서 만들었는데, 이렇게 만들다보니 제대로 이해하지 못해서 구현하고 싶은 부분은 만들지 못하고 넘어갔습니다.
+이번에는 차근차근 공부하면서 나만의 블로그를 제대로 구축해보려고 합니다!!<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>이번 포스트에서는 jekyll이 무엇인지, Github Pages와 어떤 관계인지, 그리고 기본적인 프로젝트 구조는 어떻게 구성되어있는지 알아보겠습니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">"소개"</span><span class="nt">&gt;</span>소개<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"jekyll이란-무엇인가"</span><span class="nt">&gt;</span>jekyll이란 무엇인가?<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>jekyll은 <span class="nt">&lt;strong&gt;</span>정적 사이트 생성기<span class="nt">&lt;/strong&gt;</span>입니다. 마크다운 파일과 HTML 파일을 사용해서 정적 웹사이트를 생성해줍니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>_config.yml와 같은 설정 파일과 마크다운 파일을 읽어서 완성된 HTML 사이트를 생성합니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"github-pages와-무슨-관계인가"</span><span class="nt">&gt;</span>Github Pages와 무슨 관계인가?<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>GitHub Pages는 GitHub에서 제공하는 무료 웹 호스팅 서비스입니다. Jekyll을 공식적으로 지원하기 때문에 마크다운 파일을 푸시하기만 하면 자동으로 빌드되어 웹사이트로 배포됩니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h3</span> <span class="na">id=</span><span class="s">"github-pages--jekyll의-워크플로"</span><span class="nt">&gt;</span>GitHub Pages + Jekyll의 워크플로<span class="nt">&lt;/h3&gt;</span>
+
+<span class="nt">&lt;ol&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;strong&gt;</span>로컬에서 마크다운 작성<span class="nt">&lt;/strong&gt;</span> → 블로그 포스트 작성<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;strong&gt;</span>GitHub 레포지토리에 푸시<span class="nt">&lt;/strong&gt;</span> → <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>git push origin main<span class="nt">&lt;/code&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;strong&gt;</span>GitHub에서 자동 빌드<span class="nt">&lt;/strong&gt;</span> → Jekyll이 HTML로 변환<span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;strong&gt;</span>웹사이트 자동 배포<span class="nt">&lt;/strong&gt;</span> → <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>username.github.io<span class="nt">&lt;/code&gt;</span>에서 확인 가능<span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ol&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>이 과정이 모두 자동화되어 있어서 글 작성에만 집중할 수 있다는 것이 가장 큰 장점입니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h1</span> <span class="na">id=</span><span class="s">"프로젝트-구조-이해하기"</span><span class="nt">&gt;</span>프로젝트 구조 이해하기<span class="nt">&lt;/h1&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>Jekyll 프로젝트의 기본 구조를 살펴보겠습니다:<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;&lt;pre</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;&lt;code&gt;</span>my-blog/
+├── _config.yml          # 사이트 전체 설정
+├── _posts/              # 블로그 포스트들
+│   └── 2025-01-01-first-post.md
+├── _layouts/            # HTML 템플릿들
+│   ├── default.html
+│   └── post.html
+├── _includes/           # 재사용 가능한 HTML 조각들
+│   ├── header.html
+│   └── footer.html
+├── _sass/               # SCSS 부분 파일들
+│   ├── _base.scss
+│   └── _layout.scss
+├── assets/              # CSS, JS, 이미지 등
+│   └── css/
+│       └── style.scss
+├── index.md             # 홈페이지
+└── about.md             # 소개 페이지
+<span class="nt">&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;h3</span> <span class="na">id=</span><span class="s">"주요-폴더와-파일-역할"</span><span class="nt">&gt;</span>주요 폴더와 파일 역할<span class="nt">&lt;/h3&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>_config.yml<span class="nt">&lt;/code&gt;&lt;/strong&gt;</span>: 사이트의 모든 설정을 관리하는 핵심 파일입니다. 사이트 제목, 설명, 플러그인, 테마 등을 여기서 설정합니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>_posts/<span class="nt">&lt;/code&gt;&lt;/strong&gt;</span>: 블로그 포스트들이 저장되는 폴더입니다. 파일명은 반드시 <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>YYYY-MM-DD-title.md<span class="nt">&lt;/code&gt;</span> 형식을 따라야 합니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>_layouts/<span class="nt">&lt;/code&gt;&lt;/strong&gt;</span>: HTML 템플릿들이 저장되는 폴더입니다. 마크다운 파일들은 이 템플릿을 기반으로 완성된 HTML 페이지가 됩니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>_includes/<span class="nt">&lt;/code&gt;&lt;/strong&gt;</span>: 여러 페이지에서 재사용할 수 있는 HTML 조각들을 저장합니다. 헤더, 푸터, 네비게이션 등을 모듈화할 수 있습니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;h2</span> <span class="na">id=</span><span class="s">"_configyml-필수-설정들"</span><span class="nt">&gt;</span>_config.yml 필수 설정들<span class="nt">&lt;/h2&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>Jekyll 사이트의 핵심인 <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>_config.yml<span class="nt">&lt;/code&gt;</span> 파일의 기본 설정을 알아보겠습니다:<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"language-yaml highlighter-rouge"</span><span class="nt">&gt;&lt;div</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;&lt;pre</span> <span class="na">class=</span><span class="s">"highlight"</span><span class="nt">&gt;&lt;code&gt;&lt;span</span> <span class="na">class=</span><span class="s">"c1"</span><span class="nt">&gt;</span># 사이트 기본 정보<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>title<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>개발자 블로그<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>email<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>your-email@example.com<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>description<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span><span class="ni">&amp;gt;</span>-<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>Jekyll과 GitHub Pages로 만든 개발 블로그입니다.<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>프로그래밍과 기술에 대한 이야기를 나눕니다.<span class="nt">&lt;/span&gt;</span>
+
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"c1"</span><span class="nt">&gt;</span># 빌드 설정<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>baseurl<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s2"</span><span class="nt">&gt;</span>"<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>"<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"c1"</span><span class="nt">&gt;</span># 서브 디렉토리가 있다면 "/blog" 형식으로<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>url<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s2"</span><span class="nt">&gt;</span>"<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>https://username.github.io"<span class="nt">&lt;/span&gt;</span>
+
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"c1"</span><span class="nt">&gt;</span># 마크다운 처리<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>markdown<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>kramdown<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>highlighter<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>rouge<span class="nt">&lt;/span&gt;</span>
+
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"c1"</span><span class="nt">&gt;</span># 플러그인<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>plugins<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>jekyll-feed<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>jekyll-sitemap<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>jekyll-seo-tag<span class="nt">&lt;/span&gt;</span>
+
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"c1"</span><span class="nt">&gt;</span># 제외할 파일들<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"na"</span><span class="nt">&gt;</span>exclude<span class="nt">&lt;/span&gt;&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>:<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>Gemfile<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>Gemfile.lock<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>node_modules<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"pi"</span><span class="nt">&gt;</span>-<span class="nt">&lt;/span&gt;</span> <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"s"</span><span class="nt">&gt;</span>vendor<span class="nt">&lt;/span&gt;</span>
+<span class="nt">&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>이 설정들은 Jekyll이 사이트를 빌드할 때 어떻게 처리할지를 결정합니다. 특히 <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>baseurl<span class="nt">&lt;/code&gt;</span>과 <span class="nt">&lt;code</span> <span class="na">class=</span><span class="s">"language-plaintext highlighter-rouge"</span><span class="nt">&gt;</span>url<span class="nt">&lt;/code&gt;</span>은 링크 생성에 중요하므로 정확히 설정해야 합니다.<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;hr</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;p&gt;&lt;strong&gt;</span>참고 자료<span class="nt">&lt;/strong&gt;</span>:<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;ul&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"https://jekyllrb.com/docs/"</span><span class="nt">&gt;</span>Jekyll 공식 문서<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;li&gt;&lt;a</span> <span class="na">href=</span><span class="s">"https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/about-github-pages-and-jekyll"</span><span class="nt">&gt;</span>GitHub Pages 문서<span class="nt">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;footer</span> <span class="na">class=</span><span class="s">"post-footer"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"post-nav"</span><span class="nt">&gt;</span>
+            
+            <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"prev-post"</span> <span class="na">href=</span><span class="s">"/development/alembic/"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nav-label"</span><span class="nt">&gt;</span>이전 글<span class="nt">&lt;/span&gt;</span>
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nav-title"</span><span class="nt">&gt;</span>SQLAlchemy와 Alembic으로 DB 관리하기<span class="nt">&lt;/span&gt;</span>
+            <span class="nt">&lt;/a&gt;</span>
+            
+            
+            
+            <span class="nt">&lt;a</span> <span class="na">class=</span><span class="s">"next-post"</span> <span class="na">href=</span><span class="s">"/tools/jekyll-basic/"</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nav-label"</span><span class="nt">&gt;</span>다음 글<span class="nt">&lt;/span&gt;</span>
+                <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"nav-title"</span><span class="nt">&gt;</span>Jekyll Basic 2<span class="nt">&lt;/span&gt;</span>
+            <span class="nt">&lt;/a&gt;</span>
+            
+        <span class="nt">&lt;/div&gt;</span>
+        
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"back-to-home"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"/"</span><span class="nt">&gt;</span>← 홈으로 돌아가기<span class="nt">&lt;/a&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/footer&gt;</span>
+<span class="nt">&lt;/article&gt;</span>
+        <span class="c">&lt;!-- 마크다운 내용이 여기에! --&gt;</span>
+      <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/article&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div></div>
+
+<p>그러면 두 내용이 결합되어서 페이지가 렌더링 됩니다.</p>
+
+<h2 id="_layouts-폴더-구조와-활용">_layouts 폴더 구조와 활용</h2>
+
+<p>Jekyll에서 레이아웃 파일들은 <code class="language-plaintext highlighter-rouge">_layouts/</code> 폴더에 저장됩니다. 저는 이런 구조로 만들었습니다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>_layouts/
+├── default.html      # 기본 레이아웃 (모든 페이지의 베이스)
+└── post.html         # 블로그 포스트용 레이아웃
+</code></pre></div></div>
+
+<h3 id="defautlhtml--모든-페이지의-베이스가-되는-기본-레이아웃">defautl.html : 모든 페이지의 베이스가 되는 기본 레이아웃</h3>
+
+<p>이 기본 레이아웃은 모든 페이지에 공통으로 들어갈 헤더, 네비게이션, 푸터를 포함합니다.</p>
+
+<h2 id="레이아웃-상속과-계층-구조">레이아웃 상속과 계층 구조</h2>
+
+<p>Jekyll의 강력한 기능 중 하나는 <strong>레이아웃 상속</strong>입니다. 레이아웃이 다른 레이아웃을 상속받을 수 있어요.</p>
+
+<h3 id="posthtml--default-레이아웃을-상속받아-만들어진-post-레이아웃">post.html : default 레이아웃을 상속받아 만들어진 post 레이아웃</h3>
+
+<p>post.html 레이아웃은 default 레이아웃을 상속받아서 포스트 전용 구조를 만듭니다.</p>
+
+<p>이렇게 하면 <code class="language-plaintext highlighter-rouge">post.html</code>의 내용이 <code class="language-plaintext highlighter-rouge">default.html</code>의 content 부분에 들어가게 됩니다.</p>
+
+<hr />
+
+<h2 id="liquid-템플릿-언어-기초">Liquid 템플릿 언어 기초</h2>
+
+<p>Jekyll은 <strong>Liquid</strong> 템플릿 언어를 사용합니다. 이중 중괄호와 중괄호-퍼센트 문법을 통해 동적인 콘텐츠를 생성할 수 있어요.</p>
+
+<h3 id="주요-liquid-문법">주요 Liquid 문법</h3>
+
+<p><strong>변수 출력</strong>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">page.title</code>: 페이지 제목</li>
+  <li><code class="language-plaintext highlighter-rouge">site.title</code>: 사이트 제목</li>
+  <li><code class="language-plaintext highlighter-rouge">content</code>: 페이지/포스트 내용</li>
+</ul>
+
+<p><strong>조건문</strong>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">if</code> 조건문으로 조건부 렌더링</li>
+  <li><code class="language-plaintext highlighter-rouge">unless</code> 조건문으로 반대 조건 처리</li>
+</ul>
+
+<p><strong>반복문</strong>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">for</code> 반복문으로 목록 처리</li>
+  <li>포스트 목록이나 카테고리 목록 순회</li>
+</ul>
+
+<p><strong>필터 활용</strong>:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">date</code>: 날짜 포맷팅</li>
+  <li><code class="language-plaintext highlighter-rouge">strip_html</code>: HTML 태그 제거</li>
+  <li><code class="language-plaintext highlighter-rouge">truncate</code>: 텍스트 자르기</li>
+  <li><code class="language-plaintext highlighter-rouge">relative_url</code>: 상대 URL 생성</li>
+</ul>
+
+<h2 id="페이지별-레이아웃-지정하기">페이지별 레이아웃 지정하기</h2>
+
+<p>마크다운 파일의 Front Matter에서 사용할 레이아웃을 지정합니다:</p>
+
+<p>홈페이지는 <code class="language-plaintext highlighter-rouge">layout: home</code>을 사용하여 홈 레이아웃을 적용합니다.</p>
+
+<p>포스트는 <code class="language-plaintext highlighter-rouge">layout: post</code>를 사용하여 포스트 레이아웃을 적용합니다.</p>
+
+<p>소개 페이지는 <code class="language-plaintext highlighter-rouge">layout: page</code>를 사용하여 기본 페이지 레이아웃을 적용합니다.</p>
+
+<h2 id="실제-활용-예제">실제 활용 예제</h2>
+
+<p>실제로 홈페이지에 섹션을 나누어 구성해보겠습니다:</p>
+
+<p>home.html 레이아웃은 홈페이지 전용으로 히어로 섹션과 최신 포스트 목록을 포함합니다.</p>
+
+<p>이렇게 구성하면 <code class="language-plaintext highlighter-rouge">index.md</code>에서 <code class="language-plaintext highlighter-rouge">layout: home</code>을 지정했을 때 위의 구조로 페이지가 생성됩니다.</p>
+
+<hr />
+
+<p><strong>참고 자료</strong>:</p>
+
+<ul>
+  <li><a href="https://jekyllrb.com/docs/layouts/">Jekyll Layouts 문서</a></li>
+  <li><a href="https://shopify.github.io/liquid/">Liquid 템플릿 언어 문서</a></li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/tools/jekyll-basic/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Jekyll Basic</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/tools/jekyll-scss/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">SCSS</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

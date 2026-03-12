@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airflow 대그에서 파이썬 함수와 데코레이터</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Airflow 대그에서 파이썬 함수와 데코레이터</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 09월 01일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">DataEngineering</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">airflow</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#airflow</span>
+                
+                <span class="tag">#decorator</span>
+                
+                <span class="tag">#python</span>
+                
+                <span class="tag">#task</span>
+                
+                <span class="tag">#data-pipeline</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="데코레이터란">데코레이터란?</h1>
+
+<p>데코레이터는 기존 함수를 감싸서 바깥에 추가 기능을 덧붙이는 파이썬 문법. 함수의 인자로 또 다른 함수를 전달하여, 함수의 실행 전후로 특정 작업을 처리하거나 함수를 수정할 수 있는 유용한 방법이다.</p>
+
+<p>예를 들어 여러가지 함수가 있는데, 이 함수들의 실행 전과 후에 로그를 출력해야하는 상황이 있는 경우에 이에 대한 해결방법은 이런 경우들로 나누어 볼 수 있다.</p>
+
+<h4 id="해결방법">해결방법</h4>
+
+<ol>
+  <li>함수 내에 로그 출력하는 명령 달아두기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>def func():
+   print('작업시작')
+   ...
+   print('작업끝')
+</code></pre></div></div>
+
+<ol>
+  <li>함수 호출 시작 전과 후에 출력 명령 달기</li>
+</ol>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>print('작업시작')
+func()
+print('작업끝')
+</code></pre></div></div>
+
+<ol>
+  <li><strong>데코레이터 활용하기</strong></li>
+</ol>
+
+<p>공통으로 수정해야하는 로직이 있으면 그걸 데코레이터로 정의하고 기존 함수정의에는 데코레이터를 적용한다. 이런 방식으로 로그를 출력하는 데코레이터 함수를 만들고, 실행해야할 함수들에 붙여서 활용할 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">log_decorator</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">func</span><span class="p">.</span><span class="n">__name__</span><span class="si">}</span><span class="s"> 시작</span><span class="sh">'</span><span class="p">)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nf">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">'</span><span class="si">{</span><span class="n">func</span><span class="p">.</span><span class="n">__name__</span><span class="si">}</span><span class="s"> 끝</span><span class="sh">'</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">result</span>
+    <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nd">@log_decorator</span>
+<span class="k">def</span> <span class="nf">sample_task</span><span class="p">():</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">태스크 실행 중...</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="nf">sample_task</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>출력하면 이런 식으로 로그가 뜬다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sample_task 시작
+태스크 실행 중...
+sample_task 끝
+</code></pre></div></div>
+
+<h2 id="airflow에서의-데코레이터-활용">Airflow에서의 데코레이터 활용</h2>
+
+<p>Airflow에서는 태스크 데코레이터를 지원하여 태스크를 정의할 때 코드 중복을 줄일 수 있다. <code class="language-plaintext highlighter-rouge">@task</code> 데코레이터를 사용하면 파이썬 함수가 Airflow 태스크로 변환된다. 별도로 <code class="language-plaintext highlighter-rouge">PythonOperator</code>를 정의할 필요 없이, 함수 위에 <code class="language-plaintext highlighter-rouge">@task</code> 데코레이터만 붙이면 자동으로 DAG 내 태스크로 등록된다.</p>
+
+<h3 id="airflow-태스크-정의하기">Airflow 태스크 정의하기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">airflow.decorators</span> <span class="kn">import</span> <span class="n">dag</span><span class="p">,</span> <span class="n">task</span>
+<span class="kn">from</span> <span class="n">airflow.utils.dates</span> <span class="kn">import</span> <span class="n">days_ago</span>
+
+<span class="nd">@dag</span><span class="p">(</span><span class="n">schedule_interval</span><span class="o">=</span><span class="sh">'</span><span class="s">@daily</span><span class="sh">'</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="nf">days_ago</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">catchup</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">dag</span><span class="p">():</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span> <span class="nf">task_1</span><span class="p">():</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">태스크 1 실행</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span> <span class="nf">task_2</span><span class="p">():</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">태스크 2 실행</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="nf">task_1</span><span class="p">()</span> <span class="o">&gt;&gt;</span> <span class="nf">task_2</span><span class="p">()</span>
+
+<span class="n">dag_instance</span> <span class="o">=</span> <span class="nf">dag</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="태스크간-출력을-입력으로-제공하기">태스크간 출력을 입력으로 제공하기</h3>
+
+<p>한 태스크의 출력을 입력으로 받아서 명령을 수행하는 태스크를 구성할 수 있다.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">airflow.decorators</span> <span class="kn">import</span> <span class="n">dag</span><span class="p">,</span> <span class="n">task</span>
+<span class="kn">from</span> <span class="n">airflow.utils.dates</span> <span class="kn">import</span> <span class="n">days_ago</span>
+
+<span class="nd">@dag</span><span class="p">(</span><span class="n">schedule_interval</span><span class="o">=</span><span class="sh">'</span><span class="s">@daily</span><span class="sh">'</span><span class="p">,</span> <span class="n">start_date</span><span class="o">=</span><span class="nf">days_ago</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span> <span class="n">catchup</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">data_pipeline</span><span class="p">():</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span> <span class="nf">extract_data</span><span class="p">():</span>
+        <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">name</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Airflow</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">Pipeline</span><span class="sh">"</span><span class="p">}</span>
+
+    <span class="nd">@task</span>
+    <span class="k">def</span> <span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">데이터 처리 중: </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sh">'</span><span class="s">name</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s">은 </span><span class="si">{</span><span class="n">data</span><span class="p">[</span><span class="sh">'</span><span class="s">type</span><span class="sh">'</span><span class="p">]</span><span class="si">}</span><span class="s">입니다.</span><span class="sh">"</span><span class="p">)</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="nf">extract_data</span><span class="p">()</span>
+    <span class="nf">process_data</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">dag_instance</span> <span class="o">=</span> <span class="nf">data_pipeline</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>이 코드에서 <code class="language-plaintext highlighter-rouge">extract_data</code> 태스크는 데이터를 반환하고, 그 데이터는 <code class="language-plaintext highlighter-rouge">process_data</code> 태스크로 전달된다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/linux/linux-basic/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">리눅스 기초</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/fastapi-basic/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">FastAPI 기초: ASGI와 URL 이해하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

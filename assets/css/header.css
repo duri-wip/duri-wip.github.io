@@ -1,0 +1,51 @@
+/* Mac Paint 스타일 헤더 */
+.header {
+    background: var(--bg-window);
+    padding: 8px 16px;
+    border-bottom: 2px solid var(--window-border);
+    border-bottom-color: var(--window-border);
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 1px,
+            rgba(128, 128, 128, 0.1) 1px,
+            rgba(128, 128, 128, 0.1) 2px
+        );
+}
+
+.nav-menu {
+    display: flex;
+    gap: 1.5rem;
+    list-style: none;
+}
+
+.nav-item a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 11px;
+    padding: 4px 8px;
+    border: 1px solid transparent;
+    background: var(--bg-window);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-item a:hover {
+    color: var(--text-primary);
+    background: var(--bg-hover);
+    border: 1px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .nav-menu {
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+}

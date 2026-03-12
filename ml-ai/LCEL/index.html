@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LCEL (LangChain Expression Language) 1</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">LCEL (LangChain Expression Language) 1</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 07월 24일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#genai-llm</span>
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#lcel</span>
+                
+                <span class="tag">#chain</span>
+                
+                <span class="tag">#ai</span>
+                
+                <span class="tag">#llm</span>
+                
+                <span class="tag">#python</span>
+                
+                <span class="tag">#genai</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="lcel이란">LCEL이란?</h1>
+
+<p>LangChain에서 chain을 구성하는 방법입니다. 프롬프트나 LLM을 <code class="language-plaintext highlighter-rouge">|</code> 로 연결하여 작성하고 처리의 연쇄를 구성한다.</p>
+
+<blockquote>
+  <p>LCEL에서는 왜 프롬프트, 모델, 아웃풋 파서등을 <code class="language-plaintext highlighter-rouge">|</code>(체인)으로 연결해서 실행할 수 있을까?</p>
+</blockquote>
+
+<p>모든 클래스가 langchain의 <strong>Runnable</strong> 클래스를 상속받고 있기 때문이다.
+Runnable을 연결하면 <strong>RunnableSequence</strong>가 된다. 이 시퀀스도 Runnable의 일종이다.
+RunnableSequence를 invoke하면 runnable이 순서대로 invoke된다.</p>
+
+<h2 id="lcel-내부-구현">LCEL 내부 구현</h2>
+
+<p>LCEL은 어떻게 구현되었길래 체인으로 모델과 프롬프트를 연결할 수 있을까?
+<code class="language-plaintext highlighter-rouge">__or__</code>과 <code class="language-plaintext highlighter-rouge">__ror__</code>가 이렇게 구현되어 있다:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">__or__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span>
+    <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Runnable</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span> <span class="n">Other</span><span class="p">],</span>
+                <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Other</span><span class="p">]],</span>
+                <span class="n">Callable</span><span class="p">[</span><span class="n">Iterator</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Other</span><span class="p">]],</span>
+                <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Runnable</span><span class="p">[</span><span class="n">Any</span><span class="p">,</span><span class="n">Other</span><span class="p">]],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Any</span><span class="p">],</span><span class="n">Other</span><span class="p">],</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">RunnableSerializable</span><span class="p">[</span><span class="n">Input</span><span class="p">,</span> <span class="n">Other</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nc">RunnableSequence</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="n">self</span><span class="p">,</span> <span class="n">last</span><span class="o">=</span><span class="nf">coerce_to_runnable</span><span class="p">(</span><span class="n">other</span><span class="p">))</span>
+
+<span class="k">def</span> <span class="nf">__ror__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span>
+    <span class="n">other</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Runnable</span><span class="p">[</span><span class="n">Other</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
+                <span class="n">Callable</span><span class="p">[[</span><span class="n">Other</span><span class="p">],</span> <span class="n">Any</span><span class="p">]],</span>
+                <span class="n">Callable</span><span class="p">[</span><span class="n">Iterator</span><span class="p">[</span><span class="n">Other</span><span class="p">],</span> <span class="n">Iterator</span><span class="p">[</span><span class="n">Any</span><span class="p">]],</span>
+                <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="n">Runnable</span><span class="p">[</span><span class="n">Other</span><span class="p">,</span><span class="n">Any</span><span class="p">]],</span> <span class="n">Callable</span><span class="p">[[</span><span class="n">Other</span><span class="p">],</span><span class="n">Any</span><span class="p">],</span><span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">RunnableSerializable</span><span class="p">[</span><span class="n">Other</span><span class="p">,</span> <span class="n">Output</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="nc">RunnableSequence</span><span class="p">(</span><span class="n">first</span><span class="o">=</span><span class="nf">coerce_to_runnable</span><span class="p">(</span><span class="n">other</span><span class="p">),</span> <span class="n">last</span><span class="o">=</span><span class="n">self</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>이 연산자들을 통해 체인을 오버로드할 수 있다.</p>
+
+<p>그러니까 원래라면 각각의 러너블을 실행(호출)하는 방법이 달라, 이 컴포넌트들을 연결하는 처리를 개별적으로 구현해야하는데, LCEL을 사용하면 모든 컴포넌트를 <strong>통일된 인터페이스</strong>로 호출할 수 있게 된다. 이게 엄청 편리함!!</p>
+
+<h2 id="lcel이-편리한-유스케이스">LCEL이 편리한 유스케이스</h2>
+
+<ul>
+  <li>프롬프트 템플릿을 채우고, 그 결과를 챗 모델에 제공하고 결과를 파이썬 객체로 변환하고 싶다.</li>
+  <li>프롬프팅으로 단계별로 생각하게 하고 그 결과를 요약하게 하고 싶다</li>
+  <li>출력을 얻은 후에 서비스 정책에 위반되지 않는지 확인하고 싶다</li>
+  <li>출력 결과를 바탕으로 SQL을 실행하여 데이터를 분석하고 싶다.</li>
+</ul>
+
+<h1 id="사용-방법">사용 방법</h1>
+
+<h2 id="1-prompt와-model-연결하기">1. Prompt와 Model 연결하기</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.prompts</span> <span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span> <span class="n">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">system</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">You are a helpful assistant that can answer questions.</span><span class="sh">"</span><span class="p">),</span>
+    <span class="p">(</span><span class="sh">"</span><span class="s">human</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">{input}</span><span class="sh">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-4o-mini</span><span class="sh">"</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">)</span>
+
+<span class="c1"># 체인 생성
+</span><span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span>
+
+<span class="n">ai_message</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">What is the capital of France?</span><span class="sh">"</span><span class="p">})</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">ai_message</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+</code></pre></div></div>
+
+<ul>
+  <li>랭체인을 안쓰는 경우와 크게 달라보이지 않는다. 그렇지만 프롬프트가 다양해지고, 워크플로우가 복잡해지는 경우에는 이 구조가 아주 편리해진다.</li>
+</ul>
+
+<p>예를 들어보자.</p>
+
+<h3 id="예시-prompt-model-pydantic-output-parser-연결하기">예시) Prompt, Model, Pydantic Output Parser 연결하기</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.output_parsers</span> <span class="kn">import</span> <span class="n">PydanticOutputParser</span>
+<span class="kn">from</span> <span class="n">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span><span class="p">,</span> <span class="n">Field</span><span class="p">,</span> <span class="n">List</span>
+
+<span class="c1"># 응답 형식 모델 설정
+</span><span class="k">class</span> <span class="nc">Recipe</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">dish</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">먹고싶은 음식의 이름</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">recipe</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">음식의 요리법</span><span class="sh">"</span><span class="p">)</span>
+    <span class="n">ingredient</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nc">Field</span><span class="p">(</span><span class="n">description</span> <span class="o">=</span> <span class="sh">"</span><span class="s">필요한 재료의 목록</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># 연쇄 처리할 부분
+</span><span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_messages</span><span class="p">([...])</span>
+
+<span class="n">output_parser</span> <span class="o">=</span> <span class="nc">PydanticOutputParser</span><span class="p">(</span><span class="n">pydantic_object</span> <span class="o">=</span> <span class="n">Recipe</span><span class="p">)</span>
+<span class="n">prompt_input</span> <span class="o">=</span> <span class="n">prompt</span><span class="p">.</span><span class="nf">partial</span><span class="p">(</span>
+    <span class="n">format_instructions</span> <span class="o">=</span> <span class="n">output_parser</span><span class="p">.</span><span class="nf">get_format_instructions</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="nc">ChatOpenAI</span><span class="p">(</span><span class="n">model</span> <span class="o">=</span> <span class="sh">"</span><span class="s">gpt-4o-mini</span><span class="sh">"</span><span class="p">,</span> <span class="n">temperature</span> <span class="o">=</span> <span class="mf">0.0</span><span class="p">).</span><span class="nf">bind</span><span class="p">(</span>
+    <span class="n">response_format</span> <span class="o">=</span> <span class="p">{</span><span class="sh">"</span><span class="s">type</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">json_object</span><span class="sh">"</span><span class="p">}</span>
+<span class="p">)</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="n">prompt_input</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="n">output_parser</span>
+
+<span class="n">output</span> <span class="o">=</span> <span class="n">chain</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">당근 카레</span><span class="sh">"</span><span class="p">})</span>
+</code></pre></div></div>
+
+<ul>
+  <li>이렇게 하면 여러개의 러너블도 간단하게 한줄로 연결할 수 있다.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 동일한 기능을 하는 간단한 다른 방법
+</span><span class="n">chain2</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span><span class="p">.</span><span class="nf">with_structured_output</span><span class="p">(</span><span class="n">Recipe</span><span class="p">)</span>
+
+<span class="n">output2</span> <span class="o">=</span> <span class="n">chain2</span><span class="p">.</span><span class="nf">invoke</span><span class="p">({</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="sh">"</span><span class="s">양파 카레</span><span class="sh">"</span><span class="p">})</span>
+</code></pre></div></div>
+
+<h2 id="2-lcel의-고급-연산자들">2. LCEL의 고급 연산자들</h2>
+
+<p><strong>RunnableParallel (병렬 실행):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableParallel</span>
+
+<span class="c1"># 여러 작업을 동시에 실행
+</span><span class="n">parallel_chain</span> <span class="o">=</span> <span class="nc">RunnableParallel</span><span class="p">(</span>
+    <span class="n">summary</span><span class="o">=</span><span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">(),</span>
+    <span class="n">keywords</span><span class="o">=</span><span class="n">keyword_prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">(),</span>
+    <span class="n">sentiment</span><span class="o">=</span><span class="n">sentiment_prompt</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p><strong>RunnableLambda (함수 변환):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableLambda</span>
+
+<span class="k">def</span> <span class="nf">format_input</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">input</span><span class="sh">"</span><span class="p">:</span> <span class="n">x</span><span class="p">.</span><span class="nf">upper</span><span class="p">()}</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="nc">RunnableLambda</span><span class="p">(</span><span class="n">format_input</span><span class="p">)</span> <span class="o">|</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">model</span>
+</code></pre></div></div>
+
+<p><strong>RunnableBranch (조건부 분기):</strong></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">langchain_core.runnables</span> <span class="kn">import</span> <span class="n">RunnableBranch</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="nc">RunnableBranch</span><span class="p">(</span>
+    <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sh">"</span><span class="s">question</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">x</span><span class="p">.</span><span class="nf">lower</span><span class="p">(),</span> <span class="n">question_chain</span><span class="p">),</span>
+    <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="sh">"</span><span class="s">summary</span><span class="sh">"</span> <span class="ow">in</span> <span class="n">x</span><span class="p">.</span><span class="nf">lower</span><span class="p">(),</span> <span class="n">summary_chain</span><span class="p">),</span>
+    <span class="n">default_chain</span>  <span class="c1"># 기본값
+</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h3 id="주의할-점--입출력-타입이-일치할-것">주의할 점 : 입출력 타입이 일치할 것!</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 타입 불일치 예시 (에러 발생)
+</span><span class="n">prompt_returns_messages</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="p">.</span><span class="nf">from_template</span><span class="p">(</span><span class="sh">"</span><span class="s">Hello {name}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">parser_expects_string</span> <span class="o">=</span> <span class="nc">StrOutputParser</span><span class="p">()</span>
+
+<span class="c1"># 올바른 연결
+</span><span class="n">chain</span> <span class="o">=</span> <span class="n">prompt_returns_messages</span> <span class="o">|</span> <span class="n">model</span> <span class="o">|</span> <span class="n">parser_expects_string</span>
+</code></pre></div></div>
+
+<p><strong>주의사항:</strong></p>
+
+<ul>
+  <li>ChatPromptTemplate → AIMessage 객체 출력</li>
+  <li>StrOutputParser → AIMessage.content (string) 추출</li>
+  <li>중간에 모델이 AIMessage 생성해야 함</li>
+</ul>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/ml-ai/output-parse/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">LangChain Output Parser</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/LCEL2/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">LCEL (LangChain Expression ...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

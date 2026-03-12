@@ -1,0 +1,275 @@
+/* ===== 홈 reading 섹션 ===== */
+.reading-section {
+    margin-bottom: 2rem;
+}
+
+.book-strip {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding: 8px 4px 12px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--window-border) transparent;
+}
+
+.book-strip::-webkit-scrollbar {
+    height: 4px;
+}
+
+.book-strip::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.book-strip::-webkit-scrollbar-thumb {
+    background: var(--window-border);
+}
+
+.book-strip-item {
+    flex: 0 0 auto;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.book-strip-cover {
+    width: 80px;
+    height: 112px;
+    object-fit: cover;
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    display: block;
+    transition: all 0.15s ease;
+    background: var(--bg-secondary);
+}
+
+.book-strip-item:hover .book-strip-cover {
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+}
+
+.book-strip-item.is-reading .book-strip-cover {
+    outline: 2px solid var(--accent-primary);
+    outline-offset: 2px;
+}
+
+.book-strip-label {
+    font-size: 9px;
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.book-strip-item.is-reading .book-strip-label {
+    color: var(--accent-primary);
+    font-weight: bold;
+}
+
+
+/* ===== reading 전용 페이지 ===== */
+.reading-page {
+    padding: 0;
+}
+
+.reading-group {
+    margin-bottom: 2.5rem;
+}
+
+.reading-group-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    padding-bottom: 4px;
+    border-bottom: 1px solid var(--window-border);
+}
+
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+}
+
+/* 책 카드 */
+.book-card {
+    width: 120px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.book-cover-wrap {
+    position: relative;
+    width: 120px;
+    height: 168px;
+}
+
+.book-cover {
+    width: 120px;
+    height: 168px;
+    object-fit: cover;
+    border: 2px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    display: block;
+    transition: all 0.15s ease;
+    background: var(--bg-secondary);
+}
+
+.book-card:hover .book-cover,
+.book-card.active .book-cover {
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+}
+
+.book-status-badge {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 2px 5px;
+    border: 1px solid var(--window-border);
+    background: var(--accent-primary);
+    color: var(--bg-window);
+    letter-spacing: 0.5px;
+}
+
+.book-info {
+    text-align: center;
+    width: 100%;
+}
+
+.book-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--text-primary);
+    line-height: 1.4;
+    word-break: keep-all;
+}
+
+.book-author {
+    font-size: 9px;
+    color: var(--text-muted);
+    margin-top: 2px;
+}
+
+/* 포스트 패널 */
+.book-posts-panel {
+    display: none;
+    width: 100%;
+    margin-top: 0.5rem;
+    border: 1px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    background: var(--bg-card);
+    padding: 12px;
+}
+
+.book-posts-panel.open {
+    display: block;
+}
+
+.book-posts-panel-header {
+    font-size: 11px;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.panel-close-btn {
+    cursor: pointer;
+    font-size: 10px;
+    color: var(--text-muted);
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: inherit;
+}
+
+.panel-close-btn:hover {
+    color: var(--text-primary);
+}
+
+.book-post-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.book-post-list li a {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 8px;
+    text-decoration: none;
+    color: var(--text-primary);
+    font-size: 11px;
+    padding: 4px 6px;
+    border: 1px solid transparent;
+    transition: all 0.1s ease;
+}
+
+.book-post-list li a:hover {
+    background: var(--accent-light);
+    border-color: var(--window-border);
+}
+
+.book-post-list li a .post-title-text {
+    flex: 1;
+    line-height: 1.4;
+}
+
+.book-post-list li a .post-date-text {
+    font-size: 9px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.no-posts-msg {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* 패널 행 — 책 그리드와 같은 레벨에서 full width */
+.book-row-container {
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .book-grid {
+        gap: 1rem;
+    }
+    .book-card {
+        width: 90px;
+    }
+    .book-cover-wrap,
+    .book-cover {
+        width: 90px;
+        height: 126px;
+    }
+}

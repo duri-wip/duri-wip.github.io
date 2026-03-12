@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도커파일의 context</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">도커파일의 context</h1>
+        <div class="post-meta">
+            <time class="post-date">2024년 10월 01일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Development</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">devops-infra</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#devops-infra</span>
+                
+                <span class="tag">#docker</span>
+                
+                <span class="tag">#dockerfile</span>
+                
+                <span class="tag">#build-context</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <hr />
+
+<h1 id="dockerfile의-context란">Dockerfile의 Context란?</h1>
+
+<p>도커 빌드를 할 때, <code class="language-plaintext highlighter-rouge">COPY</code>나 <code class="language-plaintext highlighter-rouge">ADD</code> 명령어를 통해 파일을 복사할 때, Docker는 <strong>빌드 컨텍스트(build context)</strong> 안에 있는 파일만 접근할 수 있다. 이 컨텍스트는 <code class="language-plaintext highlighter-rouge">docker build</code> 명령어를 실행할 때 지정한 경로로, 해당 경로 내의 파일 및 디렉토리를 의미한다.</p>
+
+<h2 id="1-docker-build-context">1. <strong>Docker Build Context</strong></h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build <span class="nt">-t</span> your_image_name <span class="nb">.</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">docker build</code> 명령어는 기본적으로 현재 디렉토리 (<code class="language-plaintext highlighter-rouge">.</code>)를 빌드 컨텍스트로 사용한다. 이 경로 하위에 있는 파일들만 Docker가 접근할 수 있으며, Dockerfile에서 이를 참조하여 이미지 빌드를 수행한다.
+위 명령어에서 <code class="language-plaintext highlighter-rouge">.</code>은 현재 디렉토리를 빌드 컨텍스트로 지정한다는 것으로, <code class="language-plaintext highlighter-rouge">COPY</code> 또는 <code class="language-plaintext highlighter-rouge">ADD</code> 명령어를 사용할 때, 이 경로 하위에 있는 파일들만 사용할 수 있다.</p>
+
+<h3 id="하위-경로-파일만-참조-가능"><strong>하위 경로 파일만 참조 가능</strong></h3>
+
+<p>도커는 기본적으로 빌드 컨텍스트 안에서만 파일을 찾을 수 있고, 외부에 있는 파일은 참조할 수 없다. 참조시 오류가 발생한다.</p>
+
+<h3 id="상위-경로의-파일을-참조하려면">상위 경로의 파일을 참조하려면?</h3>
+
+<h4 id="방법-1-빌드-컨텍스트를-상위-디렉토리로-설정">방법 1: 빌드 컨텍스트를 상위 디렉토리로 설정</h4>
+
+<p>Dockerfile과 상위 디렉토리의 파일을 모두 사용하고 싶다면, <code class="language-plaintext highlighter-rouge">docker build</code> 명령어를 실행할 때 빌드 컨텍스트를 상위 디렉토리로 설정할 수 있다.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build <span class="nt">-t</span> your_image_name <span class="nt">-f</span> subdir/Dockerfile ..
+</code></pre></div></div>
+
+<h4 id="방법-2-빌드-전에-파일을-미리-복사">방법 2: 빌드 전에 파일을 미리 복사</h4>
+
+<p>도커 빌드를 실행하기 전 필요한 파일을 하위 경로에 복사해두는 방법도 있다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/dataengineering/airflow-SLA/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">태스크에 SLA 사용하기</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/development/DB-db-and-storage/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">데이터베이스와 스토리지</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

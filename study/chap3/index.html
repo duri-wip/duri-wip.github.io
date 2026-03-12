@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자바 조건문과 반복문 - if, switch, for, while</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">자바 조건문과 반복문 - if, switch, for, while</h1>
+        <div class="post-meta">
+            <time class="post-date">2026년 01월 07일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#study-java</span>
+                
+                <span class="tag">#java</span>
+                
+                <span class="tag">#control-flow</span>
+                
+                <span class="tag">#if</span>
+                
+                <span class="tag">#switch</span>
+                
+                <span class="tag">#loop</span>
+                
+                <span class="tag">#for</span>
+                
+                <span class="tag">#while</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="chapter-4-조건문과-반복문">Chapter 4: 조건문과 반복문</h1>
+
+<h2 id="41-if-문">4.1 if 문</h2>
+
+<h3 id="실습-로그인-시스템-만들기">실습: 로그인 시스템 만들기</h3>
+
+<p>아이디 비밀번호를 입력하면 맞으면 로그인에 성공합니다.</p>
+
+<p>처음 시도:</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.Scanner</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginIfs</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Scanner</span> <span class="n">sc</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Scanner</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">in</span><span class="o">);</span>
+
+        <span class="nc">String</span> <span class="n">correctId</span> <span class="o">=</span> <span class="s">"seowoo"</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">correctPassword</span> <span class="o">=</span> <span class="s">"super"</span><span class="o">;</span>
+
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"id:"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">id</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">id</span> <span class="o">==</span> <span class="n">correctId</span><span class="o">)</span> <span class="o">{</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"password:"</span><span class="o">);</span>
+          <span class="nc">String</span> <span class="n">pw</span> <span class="o">=</span> <span class="n">sc</span><span class="o">.</span><span class="na">nextLine</span><span class="o">();</span>
+          <span class="k">if</span> <span class="o">(</span><span class="n">pw</span> <span class="o">==</span> <span class="n">correctPassword</span><span class="o">)</span> <span class="o">{</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"로그인에 성공하였습니다."</span><span class="o">);</span>
+          <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+              <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"비밀번호가 틀렸습니다."</span><span class="o">);</span>
+          <span class="o">}</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"아이디가 존재하지 않습니다."</span><span class="o">);</span>
+        <span class="o">};</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="질문-근데-여기서-맞는-아이디를-입력해도-아이디가-존재하지-않는다고-함-왜지">질문: 근데 여기서 맞는 아이디를 입력해도 아이디가 존재하지 않는다고 함. 왜지?</h3>
+
+<추가된 답변="">
+`==`는 문자열의 내용을 비교하지 않습니다!
+
+자바에서 String은 객체, 즉 참조형입니다. `==`로 비교하면 내용이 아니라 같은 객체인지(참조값)를 비교합니다.
+
+- `correctId`와 `id`는 다른 객체로 선언되었으므로 둘이 같은지를 비교하면 다르다고 나옵니다.
+- 문자열의 내용을 비교하기 위해서는 `.equals()` 메서드를 사용해야 합니다.
+
+올바른 비교 방법:
+```java
+if (id.equals(correctId)) {  // 올바른 문자열 비교
+    // ...
+}
+
+// 또는
+if (correctId.equals(id)) {  // 더 안전 (null 방지)
+    // ...
+}
+```
+
+`==` vs `.equals()`:
+- `==`: 참조(메모리 주소) 비교
+- `.equals()`: 내용(값) 비교
+
+```java
+String s1 = new String("hello");
+String s2 = new String("hello");
+
+System.out.println(s1 == s2);        // false (다른 객체)
+System.out.println(s1.equals(s2));   // true (같은 내용)
+```
+&lt;/추가된 답변&gt; 
+
+## 4.2 switch 문
+
+여러 값 중 하나를 선택하도록 할 때 사용합니다.
+
+### 실습: 계산기 만들기
+
+switch 문의 다양한 방식을 사용해보려고 이렇게 만들었다.
+
+```java
+import java.util.Scanner;
+
+public class CalculatorSwitch {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        boolean valid;
+        double result;
+
+        System.out.println("첫번째 숫자를 입력하세요");
+        int num1 = sc.nextInt();
+
+        System.out.println("연산자를 입력하세요");
+        String calc = sc.nextLine();
+
+        switch (calc) {
+            case "-": case "+": case "/" : case "*":
+                System.out.println("두번째 숫자를 입력하세요");
+                int num2 = sc.nextInt();
+                valid = true;
+                break;
+            default:
+                System.out.println("사칙연산만 가능합니다.");
+                valid = false;
+                break;
+        };
+
+        if (valid) {
+            switch(calc) {
+                case "-":
+                    result = num1 - num2;
+                case "+":
+                    result = num1 + num2;
+                case "/":
+                    result = num1 / num2;
+                case "*":
+                    result = num1 * num2;
+            System.out.print(result);
+            }
+        };
+    }
+}
+```
+
+### 질문: 근데 num2가 정의되지 않았다고 하네. 뭐지???
+
+<추가된 답변="">
+case 안에서 선언한 변수는 밖에서 못 씁니다.
+
+선언과 초기화는 따로 할 수 있는데, 컴파일러가 코드를 빌드하기 전에 체크하면서 사용하기 전에 초기화되지 않을 수 있는 변수에 대해서는 에러를 뱉습니다.
+
+이 로직의 경우:
+- 연산자가 제대로 설정되지 않은 경우에 두 번째 숫자도 받지 말라고 했는데
+- 그래서 사용하기 전에 초기화가 안 되는 경우가 있을 수도 있다
+- 그래서 컴파일러가 컴파일을 안 해주는 것
+
+핵심 개념 - 스코프(Scope):
+- 변수가 살아있는 범위
+- 중괄호 `{}`가 기준이 된다
+- 안쪽에서는 바깥 변수 접근 가능
+- 바깥에서는 안쪽 변수 접근 불가능
+
+```java
+{
+    int outer = 10;
+    {
+        int inner = 20;
+        System.out.println(outer);  // OK (안쪽에서 바깥 접근)
+    }
+    System.out.println(inner);  // 에러! (바깥에서 안쪽 접근 불가)
+}
+```
+&lt;/추가된 답변&gt;
+
+### 추가로 발견한 문제들
+
+1. Scanner에서 `nextInt()`나 `nextDouble()`로 받은 후에는 엔터가 버퍼에 남아있어서 `nextLine()`을 쓰면 바로 넘어가 버립니다.
+   - 해결: 버퍼를 비워주거나 `next()`를 사용
+
+2. switch 문에는 `break`가 있어야 아래 케이스가 쭉 실행되지 않습니다 (fall-through 방지)
+
+수정본:
+
+```java
+import java.util.Scanner;
+
+public class CalculatorSwitch {
+    public static void main(String[] args) {
+        // 숫자 두개와 연산자를 받아서 계산하기
+        Scanner sc = new Scanner(System.in);
+        boolean valid;
+        double result = 0;
+
+        System.out.println("첫번째 숫자를 입력하세요.");
+        int num1 = sc.nextInt();
+
+        System.out.println("두번째 숫자를 입력하세요.");
+        int num2 = sc.nextInt();
+
+        System.out.println("연산자를 입력하세요.");
+        String calc = sc.next();
+
+        switch (calc) {
+            case "-" : case "+" : case "/" : case "*":
+                valid = true;
+                break;
+            default:
+                System.out.println("사칙연산만 가능합니다.");
+                valid = false;
+                break;
+        }
+
+        if (valid) {
+            switch (calc) {
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+            }
+        System.out.printf("%.2f", result);
+        }
+
+    }
+}
+```
+
+## 4.3 for문
+
+별 출력하기 (실습 예제는 튜토리얼 참고)
+
+## 4.4 do-while 문
+
+최소 1번은 실행 후 조건을 검사하는 반복문입니다.
+
+### 실습: 메뉴 시스템 
+
+```java
+import java.util.Scanner;
+
+public class DoWhileExample {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int input;
+        
+        // 메뉴 선택 (0 입력 시 종료)
+        do {
+            System.out.println("\n===== 메뉴 =====");
+            System.out.println("1. 게임 시작");
+            System.out.println("2. 설정");
+            System.out.println("3. 도움말");
+            System.out.println("0. 종료");
+            System.out.print("선택: ");
+            
+            input = sc.nextInt();
+            
+            switch (input) {
+                case 1 -&gt; System.out.println("게임을 시작합니다!");
+                case 2 -&gt; System.out.println("설정 화면입니다.");
+                case 3 -&gt; System.out.println("도움말 화면입니다.");
+                case 0 -&gt; System.out.println("프로그램을 종료합니다.");
+                default -&gt; System.out.println("잘못된 입력입니다.");
+            }
+        } while (input != 0);
+        
+        sc.close();
+    }
+}
+```
+</추가된></추가된>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/study/chap2/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">자바 변수와 타입 - 기본형부터 형변환까지</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/study/java/java-oop-basics/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Java 객체지향 프로그래밍 기초</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>동적 카테고리 시스템 구현하기 1</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">동적 카테고리 시스템 구현하기 1</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 03일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Tools</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">github-blog</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#jekyll</span>
+                
+                <span class="tag">#github_pages</span>
+                
+                <span class="tag">#study-bloging</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <p>지금까지 Jekyll의 기본 구조와 스타일링까지는 얼추 했는데요. 제가 하고 싶은 기능은 대부분 동적 시스템에 있더라고요.. 그래서 어쩔 수 없이 동적 시스템을 만드는 방법을 배우기로 했습니다.</p>
+
+<h2 id="목표-기능-정의">목표 기능 정의</h2>
+
+<p>제가 만들려고 하는건 다음과 같습니다:</p>
+
+<ol>
+  <li><strong>사이드바에서 대분류 선택</strong> → 예: “ML&amp;AI” 클릭</li>
+  <li><strong>소분류 카드들이 메인 영역에 표시</strong> → “GenAI&amp;LLM” 등의 카드</li>
+  <li><strong>소분류 카드 클릭</strong> → 해당 소분류의 포스트들이 피드 형식으로 표시</li>
+</ol>
+
+<p>이 과정에서 Jekyll의 Liquid 템플릿으로 HTML을 생성하고, JavaScript로 동적인 상호작용을 구현할 예정입니다.</p>
+
+<h2 id="jekyllliquid로-html-구조-생성하기">Jekyll/Liquid로 HTML 구조 생성하기</h2>
+
+<p>먼저 카테고리 페이지의 기본 구조를 만들어보겠습니다. <code class="language-plaintext highlighter-rouge">categories.html</code> 레이아웃을 생성합니다.</p>
+
+<h3 id="기본-레이아웃-구조">기본 레이아웃 구조</h3>
+
+<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- _layouts/categories.html --&gt;</span>
+--- layout: default ---
+
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"categories-container"</span><span class="nt">&gt;</span>
+  <span class="c">&lt;!-- 사이드바: 대분류 카테고리 목록 --&gt;</span>
+  <span class="nt">&lt;aside</span> <span class="na">class=</span><span class="s">"categories-sidebar"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h2&gt;</span>카테고리<span class="nt">&lt;/h2&gt;</span>
+    <span class="nt">&lt;ul</span> <span class="na">class=</span><span class="s">"category-list"</span><span class="nt">&gt;</span>
+       
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">""</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(79)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"DataEngineering"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>DataEngineering<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(15)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"DevOps"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>DevOps<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(1)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"Development"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>Development<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(22)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"Java"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>Java<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(1)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"ML-AI"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>ML-AI<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(20)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"Study"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>Study<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(10)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+      <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">"category-item"</span> <span class="na">data-category=</span><span class="s">"Tools"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"category-name"</span><span class="nt">&gt;</span>Tools<span class="nt">&lt;/span&gt;</span>
+        <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">"post-count"</span><span class="nt">&gt;</span>(9)<span class="nt">&lt;/span&gt;</span>
+      <span class="nt">&lt;/li&gt;</span>
+      
+    <span class="nt">&lt;/ul&gt;</span>
+  <span class="nt">&lt;/aside&gt;</span>
+
+  <span class="c">&lt;!-- 메인 콘텐츠 영역 --&gt;</span>
+  <span class="nt">&lt;main</span> <span class="na">class=</span><span class="s">"categories-main"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"current-category"</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1&gt;</span>카테고리를 선택해주세요<span class="nt">&lt;/h1&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="c">&lt;!-- 카테고리별 콘텐츠가 여기에 동적으로 표시됩니다 --&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"category-content"</span><span class="nt">&gt;</span>
+      <span class="c">&lt;!-- 대분류별 서브카테고리 카드들이 들어갈 영역 --&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/main&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</code></pre></div></div>
+
+<h3 id="서브카테고리-카드-생성-로직">서브카테고리 카드 생성 로직</h3>
+
+<p>각 대분류 안에서 서브카테고리들을 추출하고 카드 형식으로 표시하는 핵심 부분:</p>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;!-- 서브카테고리별로 포스트 그룹화 --&gt;
+
+
+&lt;!-- 유효한 서브카테고리만 필터링 --&gt;
+
+
+
+&lt;!-- 서브카테고리 카드 --&gt;
+&lt;div class="subcategory-card"
+     data-subcategory=""
+     data-parent=""&gt;
+
+  &lt;h3 class="subcat-title"&gt;&lt;/h3&gt;
+  &lt;span class="post-count"&gt;0개 포스트&lt;/span&gt;
+  &lt;button class="view-posts-btn"&gt;포스트 보기&lt;/button&gt;
+&lt;/div&gt;
+</code></pre></div></div>
+
+<h2 id="포스트-front-matter-설정">포스트 Front Matter 설정</h2>
+
+<p>카테고리 시스템이 작동하려면 각 포스트에 적절한 메타데이터가 필요합니다:</p>
+
+<div class="language-markdown highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">---</span>
+<span class="na">layout</span><span class="pi">:</span> <span class="s">post</span>
+<span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GPT-4</span><span class="nv"> </span><span class="s">활용법</span><span class="nv"> </span><span class="s">완전</span><span class="nv"> </span><span class="s">정복"</span>
+<span class="na">date</span><span class="pi">:</span> <span class="s">2025-09-08 14:30:00 +0900</span>
+<span class="na">categories</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">ML-AI</span><span class="pi">]</span> <span class="c1"># 대분류</span>
+<span class="na">subcategory</span><span class="pi">:</span> <span class="s">GenAI&amp;LLM</span> <span class="c1"># 소분류</span>
+<span class="na">tags</span><span class="pi">:</span> <span class="pi">[</span><span class="nv">GPT</span><span class="pi">,</span> <span class="nv">OpenAI</span><span class="pi">,</span> <span class="nv">생성형AI</span><span class="pi">]</span>
+<span class="nn">---</span>
+</code></pre></div></div>
+
+<h3 id="카테고리-구조-예시">카테고리 구조 예시</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ML&amp;AI/
+├── GenAI&amp;LLM/
+│   ├── GPT-4 활용법
+│   └── 프롬프트 엔지니어링
+└── Computer Vision/
+    └── OpenCV 기초
+
+Frontend/
+├── React/
+│   └── Hooks 완전 정복
+└── Vue.js/
+    └── Vue 3 시작하기
+</code></pre></div></div>
+
+<h2 id="데이터-속성-활용하기">데이터 속성 활용하기</h2>
+
+<p>HTML 요소들에 <code class="language-plaintext highlighter-rouge">data-*</code> 속성을 사용해서 JavaScript에서 쉽게 접근할 수 있도록 설계했습니다:</p>
+
+<h3 id="주요-데이터-속성들">주요 데이터 속성들</h3>
+
+<ul>
+  <li><strong>카테고리 아이템</strong>: <code class="language-plaintext highlighter-rouge">data-category="ML&amp;AI"</code> - 사이드바의 대분류 식별</li>
+  <li><strong>서브카테고리 카드</strong>: <code class="language-plaintext highlighter-rouge">data-subcategory="GenAI&amp;LLM"</code>, <code class="language-plaintext highlighter-rouge">data-parent="ML&amp;AI"</code> - 소분류와 상위 카테고리 식별</li>
+  <li><strong>포스트 컨테이너</strong>: 같은 속성으로 해당하는 포스트 목록 식별</li>
+</ul>
+
+<h3 id="핵심-변수-할당">핵심 변수 할당</h3>
+
+<div class="language-liquid highlighter-rouge"><div class="highlight"><pre class="highlight"><code>     # 대분류 식별자
+         # 소분류 식별자
+ # 소분류별 그룹화
+</code></pre></div></div>
+
+<p>이렇게 설정하면 JavaScript에서 DOM 조작을 통해 동적인 카테고리 시스템을 구현할 수 있습니다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/tools/jekyll-scss/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">SCSS</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/tools/jekyll-active2/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">동적 카테고리 시스템 구현하기 2</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

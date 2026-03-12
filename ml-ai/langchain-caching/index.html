@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LangChain LLM 답변 캐싱하기</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">LangChain LLM 답변 캐싱하기</h1>
+        <div class="post-meta">
+            <time class="post-date">2025년 09월 11일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">ML-AI</span>
+                    
+                
+                    
+                
+                
+                <span class="subcategory-tag">llm</span>
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#langchain</span>
+                
+                <span class="tag">#caching</span>
+                
+                <span class="tag">#llm</span>
+                
+                <span class="tag">#token-optimization</span>
+                
+                <span class="tag">#memory-cache</span>
+                
+                <span class="tag">#sqlite</span>
+                
+                <span class="tag">#study-llm-framework</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h1 id="llm-답변-캐싱하기">llm 답변 캐싱하기</h1>
+
+<p>동일한 질문에 대해서는 캐싱된 답변을 내보내는 것으로 토큰 비용을 줄이는 방법을 말한다. 동일한 질문이 언제 들어올지, 또 동일한 질문이라는건 토씨하나 안틀리고 동일한 질문만을 말하는건지 궁금하기는 하다.</p>
+
+<h1 id="캐싱-방법">캐싱 방법</h1>
+<p>애플리케이션에서 캐싱을 위해 사용할 수 있는 방식으로는 인메모리 캐시와 sqlite 캐시가 있다.</p>
+<ul>
+  <li>인메모리 캐시 : 메모리 공간을 활용해 동일한 질문에 대한 답변을 일시적으로 저장함. 동일한 요청이 반복될 경우 캐시된 응답을 즉시 반환. 프로그램 종료시 메모리가 휘발됨
+사용자별 맞춤형 질문이나 로그아웃시 초기화가 필요한 경우에 유용.
+고객센터, AS 센터 등 자주 반복되는 정형화된 질문과 답변에 적합한 방식</li>
+  <li>SQLITE 캐시 : 데이터베이스 파일을 활용해 캐시 데이터를 저장하여 메모리가 휘발되지 않음
+```
+from langchain_openai import ChatOpenAI
+from langchain_core.prompts import PromptTemplate</li>
+</ul>
+
+<p>llm = ChatOpenAI(model_name=”…”)</p>
+
+<p>prompt = PrompotTemplate.from_template(“{country}에 대해서 200자 내외로 요약해줘”)</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>chain = prompt</td>
+      <td>llm</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>from langchain.globals import set_llm_cache
+from langchain.cache import InMemoryCache</p>
+
+<p>set_llm_cache(InMemoryCache())</p>
+
+<p>response = chain.invoke({“country”:”korea”})</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+그리고 나서 캐싱된 답변을 사용하기 위해서도 동일하게 invoke해주면 된다. 
+</code></pre></div></div>
+<p>response = chain.invoke({“country”:”korea”})
+```</p>
+
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/jekyll-private/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Jekyll Private</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/ml-ai/langchain-memory-2/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">LCEL에 메모리 추가하기</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
