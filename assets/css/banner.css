@@ -1,0 +1,53 @@
+/* 배너 섹션 */
+.banner-section {
+    margin: 0 0 2rem 0;
+}
+
+.banner {
+    width: 100%;
+    height: 90px;
+    background: var(--bg-window);
+    border: 2px solid var(--window-border);
+    border-top-color: var(--window-border);
+    border-left-color: var(--window-border);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    background-image: 
+        repeating-linear-gradient(
+            45deg,
+            var(--text-primary),
+            var(--text-primary) 2px,
+            transparent 2px,
+            transparent 4px
+        );
+}
+
+.banner-ascii {
+    font-family: 'Courier New', monospace;
+    font-size: 8px;
+    line-height: 1.1;
+    color: var(--text-primary);
+    white-space: pre;
+    text-align: center;
+    background: var(--white);
+    padding: 8px;
+    border: 1px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    font-weight: normal;
+}
+
+/* 반응형 */
+@media (max-width: 768px) {
+    .banner-section {
+        margin: -1.5rem -1.5rem 2rem -1.5rem;
+    }
+}

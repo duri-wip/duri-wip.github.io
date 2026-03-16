@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes 네트워킹 - Service와 요청 처리 흐름</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Kubernetes 네트워킹 - Service와 요청 처리 흐름</h1>
+        <div class="post-meta">
+            <time class="post-date">2026년 03월 16일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                    
+                    <span class="category-tag">DevOps</span>
+                    
+                
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#kubernetes</span>
+                
+                <span class="tag">#k8s</span>
+                
+                <span class="tag">#service</span>
+                
+                <span class="tag">#ingress</span>
+                
+                <span class="tag">#networking</span>
+                
+                <span class="tag">#load-balancer</span>
+                
+                <span class="tag">#dns</span>
+                
+                <span class="tag">#service-discovery</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="service의-역할">Service의 역할</h2>
+
+<p>Service는 Pod에 트래픽을 보내는 방식을 정의한다.</p>
+
+<ul>
+  <li><strong>안정적인 IP/DNS 제공</strong>: ClusterIP를 통해 Pod IP가 바뀌어도 항상 같은 주소로 접근 가능</li>
+  <li><strong>로드밸런싱</strong>: 여러 Pod에 트래픽을 분산</li>
+  <li><strong>서비스 디스커버리</strong>: 다른 서비스가 이 서비스를 이름으로 찾을 수 있게 함</li>
+</ul>
+
+<hr />
+
+<h2 id="service-타입-비교">Service 타입 비교</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>타입</th>
+      <th>접근 범위</th>
+      <th>사용 사례</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ClusterIP</strong></td>
+      <td>클러스터 내부만</td>
+      <td>내부 마이크로서비스 통신</td>
+    </tr>
+    <tr>
+      <td><strong>NodePort</strong></td>
+      <td>노드 IP:Port</td>
+      <td>개발/테스트, 간단한 외부 노출</td>
+    </tr>
+    <tr>
+      <td><strong>LoadBalancer</strong></td>
+      <td>외부 LB</td>
+      <td>프로덕션 외부 노출 (클라우드 환경)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>이 세 타입은 계층 구조로 되어있다.</p>
+
+<blockquote>
+  <p>LoadBalancer는 내부적으로 NodePort를 만들고, NodePort는 내부적으로 ClusterIP를 만든다.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="외부-요청-처리-흐름">외부 요청 처리 흐름</h2>
+
+<p>외부에서 요청이 들어오면 다음 경로로 처리된다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[외부 인터넷]
+↓
+[LoadBalancer Service]  ← 클라우드 로드밸런서 (L4: IP/포트 레벨)
+↓  "이 IP:443으로 오는 거 클러스터로 보내"
+[Ingress Controller]  ← 실제 트래픽 처리 엔진 (nginx 등)
+↓
+[Ingress 규칙]  ← 도메인/경로 기반 라우팅 (L7: URL 레벨)
+↓  "api.myapp.com → 백엔드 Service"
+[Service]  ← 파드로 연결
+↓
+[Pod]
+</code></pre></div></div>
+
+<hr />
+
+<h2 id="중요한-개념들">중요한 개념들</h2>
+
+<h3 id="api-server는-실제-트래픽을-처리하지-않는다">API Server는 실제 트래픽을 처리하지 않는다</h3>
+
+<p>컨트롤 플레인의 API Server가 모든 요청을 받아서 나눠준다고 오해하기 쉽다. 하지만 API Server의 역할은 <strong>클러스터 운영/조율을 위한 내부 관리</strong>다.</p>
+
+<ul>
+  <li>파드를 어디에 띄울지, 몇 개를 유지할지 같은 <strong>관리 명령</strong>이 API Server를 통한다</li>
+  <li>실제 사용자 요청은 API Server를 거치지 않고 Ingress → Service → Pod 경로로 처리된다</li>
+</ul>
+
+<hr />
+
+<h3 id="ingress-controller와-ingress-규칙은-다르다">Ingress Controller와 Ingress 규칙은 다르다</h3>
+
+<p>Ingress 규칙은 <strong>설정 파일일 뿐</strong>이다. 컨트롤러가 없으면 그냥 텍스트 파일이다.</p>
+
+<p>Ingress Controller(nginx 등)가 그 규칙을 읽고 실제 nginx 설정을 만들어야 라우팅이 수행된다.</p>
+
+<hr />
+
+<h3 id="loadbalancer-vs-ingress-l4-vs-l7">LoadBalancer vs Ingress: L4 vs L7</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>역할</th>
+      <th>레벨</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>LoadBalancer</strong></td>
+      <td>외부 IP 부여, 트래픽 진입점</td>
+      <td>L4 (IP/포트)</td>
+    </tr>
+    <tr>
+      <td><strong>Ingress Controller</strong></td>
+      <td>실제 라우팅 엔진 (nginx 등)</td>
+      <td>L7 (HTTP)</td>
+    </tr>
+    <tr>
+      <td><strong>Ingress 규칙</strong></td>
+      <td>“어떤 도메인/경로를 어디로” 정의</td>
+      <td>설정</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>NodePort는 외부에서 <code class="language-plaintext highlighter-rouge">서버IP:포트번호</code>로 직접 접근할 때 쓰는 방식인데, Ingress를 쓰면 NodePort를 직접 노출할 필요가 없다.</p>
+
+<hr />
+
+<h2 id="서비스-디스커버리">서비스 디스커버리</h2>
+
+<p>파드가 다른 서비스를 어떻게 찾아서 통신하는가?</p>
+
+<p>쿠버네티스는 클러스터 안에 <strong>CoreDNS</strong>라는 DNS 서버를 띄운다. 서비스를 만들면 자동으로 서비스 이름이 DNS에 등록된다.</p>
+
+<ul>
+  <li><strong>같은 네임스페이스</strong> 내에서는 서비스 이름만으로 접근 가능
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://backend-service
+</code></pre></div>    </div>
+  </li>
+  <li><strong>다른 네임스페이스</strong>에서는 FQDN 사용
+    <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http://backend-service.my-namespace.svc.cluster.local
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>ClusterIP는 클러스터 내부에서만 쓰는 가상 IP로, 서비스를 만들면 자동으로 부여된다. 이 가상 IP와 DNS가 함께 동작하여 Pod IP가 바뀌어도 항상 안정적으로 접근할 수 있다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/study/devops/k8s-deployment-and-recovery/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Kubernetes 동작 원리 - Deployme...</span>
+            </a>
+            
+            
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

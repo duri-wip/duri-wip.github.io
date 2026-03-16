@@ -1,0 +1,122 @@
+/* ===== TOC 페이지 ===== */
+.toc-page {
+    padding: 0;
+}
+
+.toc-series {
+    margin-bottom: 2rem;
+}
+
+.toc-series-header {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 4px 16px;
+    background: var(--bg-window);
+    border: 1px solid var(--window-border);
+    border-top-color: var(--white);
+    border-left-color: var(--white);
+    border-right-color: var(--window-border);
+    border-bottom-color: var(--window-border);
+    margin-bottom: 4px;
+}
+
+.toc-series-name {
+    font-size: 13px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+.toc-series-name::before {
+    content: '■';
+    color: var(--accent-primary);
+    font-size: 8px;
+    margin-right: 6px;
+}
+
+.toc-series-count {
+    font-size: 10px;
+    color: var(--text-muted);
+}
+
+.toc-post-list {
+    list-style: none;
+    border: 1px solid var(--window-border);
+    border-top: none;
+}
+
+.toc-post-item {
+    border-bottom: 1px solid var(--gray-100);
+}
+
+.toc-post-item:last-child {
+    border-bottom: none;
+}
+
+.toc-post-link {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: background 0.1s ease;
+}
+
+a.toc-post-link:hover {
+    background: var(--accent-light);
+}
+
+.toc-post-num {
+    font-size: 10px;
+    color: var(--accent-primary);
+    font-weight: bold;
+    min-width: 18px;
+    flex-shrink: 0;
+}
+
+.toc-post-title {
+    flex: 1;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+.toc-post-date {
+    font-size: 10px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.toc-post-missing .toc-post-title {
+    color: var(--text-muted);
+    text-decoration: line-through;
+    text-decoration-color: var(--window-border);
+}
+
+.toc-post-missing .toc-post-date {
+    color: var(--window-border);
+}
+
+/* ===== 서브카테고리 카드의 목차 버튼 ===== */
+.subcat-toc-link {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--gray-100);
+}
+
+.toc-btn {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--accent-primary);
+    text-decoration: none;
+    padding: 2px 8px;
+    border: 1px solid var(--accent-tertiary);
+    font-weight: bold;
+    transition: all 0.15s ease;
+}
+
+.toc-btn:hover {
+    background: var(--accent-light);
+    border-color: var(--accent-primary);
+}

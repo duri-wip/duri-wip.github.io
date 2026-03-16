@@ -1,0 +1,1184 @@
+# Jekyll Blog Architecture Documentation
+# Purpose: Enable AI agents to understand and modify blog structure
+# Last Updated: 2026-01-09
+
+metadata:
+  site_title: "Duri's Work In Progress"
+  site_description: "열심히 배우고 있습니다."
+  site_url: "https://duri-wip.github.io"
+  platform: "Jekyll 4.3.0 + GitHub Pages"
+  theme: "Custom (Retro Mac Paint aesthetic)"
+  language: "Korean"
+  author:
+    name: "Duri"
+    title: "˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°"
+    bio: "옛날에 \n 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. "
+    avatar: "/assets/images/avatar.png"
+    email: "8s.eow.ooc@gmail.com"
+    github: "duri-wip"
+  deployment:
+    method: "GitHub Actions"
+    source_repo: "Current repository"
+    target_repo: "duri-wip/duri-wip.github.io"
+    workflow_file: ".github/workflows/deploy.yml"
+    trigger: "Push to main/master branch"
+
+# Complete directory structure with descriptions
+directory_structure:
+  root_files:
+    - file: "_config.yml"
+      purpose: "Main Jekyll configuration file"
+      critical: true
+
+    - file: "Gemfile"
+      purpose: "Ruby dependencies specification"
+      contains: "Jekyll 4.3.0, plugins (jekyll-feed, jekyll-sitemap, jekyll-seo-tag, jekyll-paginate)"
+
+    - file: "index.html"
+      purpose: "Homepage template"
+      includes: ["banner.html", "study-section.html", "recent-posts.html"]
+
+    - file: "categories.html"
+      purpose: "Category browser page with filtering"
+      size: "~23KB"
+      features: ["JavaScript filtering", "Sidebar navigation", "Tag cloud"]
+
+    - file: "projects.html"
+      purpose: "Project portfolio gallery"
+      size: "~8.9KB"
+      features: ["Grid/list view toggle", "Filtering", "Sorting", "Modal view"]
+
+    - file: "study.html"
+      purpose: "Study overview with progress tracking"
+      size: "~6.9KB"
+      features: ["Progress bars", "Modal details", "Tag-based counting"]
+
+    - file: "favicon.ico"
+      purpose: "Browser favicon"
+
+  collections:
+    _posts:
+      purpose: "Blog posts organized by category folders"
+      count: "73 posts"
+      structure: |
+        _posts/
+        ├── DataEngineering/
+        │   ├── Airflow/
+        │   ├── kafka/
+        │   └── spark/
+        ├── Development/
+        │   ├── backend/
+        │   ├── database/
+        │   └── devops-infra/
+        ├── ML&AI/
+        │   ├── genai-llm/
+        │   ├── llm/
+        │   ├── mlops/
+        │   └── rag/
+        └── Tools/
+            ├── conference/
+            ├── development-environment/
+            └── github-blog/
+      naming_convention: "YYYY-MM-DD-title.md"
+      output: true
+      permalink: "/:categories/:title/"
+
+    _projects:
+      purpose: "Project portfolio items"
+      count: "3 projects"
+      output: true
+      permalink: "/:collection/:name/"
+      naming_convention: "YYYY-MM-DD-project-name.md"
+
+    _studies:
+      purpose: "Study materials and algorithm solutions"
+      count: "40 studies"
+      structure: |
+        _studies/
+        ├── Algorithms/  (31 algorithm problems)
+        └── Study/
+            ├── distributed-systems/
+            ├── google-de-certi/
+            └── java/
+      output: true
+      permalink: "/:collection/:name/"
+      naming_convention: "YYYY-MM-DD-title.md or YYYY-MM-DD-algorithm-problem.md"
+
+  data_files:
+    _data:
+      purpose: "YAML data files for dynamic content"
+      files:
+        - file: "categories.yml"
+          purpose: "Category hierarchy definition"
+          structure: |
+            5 main categories with subcategories:
+            - Development (Backend, Database, Devops&Infra, CI/CD)
+            - DataEngineering (Spark, Airflow, Kafka, Cloud)
+            - ML-AI (LLM, MLOps, RAG)
+            - Tools (Development Environment, Github Blog)
+            - Career (Interview, Growth)
+          schema: |
+            - name: string
+              slug: string
+              description: string
+              subcategories:
+                - name: string
+                  slug: string
+                  description: string
+
+        - file: "studies.yml"
+          purpose: "Study programs with progress tracking"
+          count: "7 active studies"
+          schema: |
+            - title: string
+              description: string
+              status: "진행중" | "완료"
+              study_tag: string (e.g., "study-java")
+              total: integer (target post count)
+          examples:
+            - "LLM 프레임워크를 활용한 코드 베이스 만들기 (study-llm-framework)"
+            - "알고리즘 문제해결 스터디 (study-algorithm-solving)"
+            - "자바 기초 학습 (study-java)"
+
+        - file: "projects.yml"
+          purpose: "Project metadata"
+          count: "~3 projects"
+          schema: |
+            - title: string
+              description: string
+              tech_stack: array
+              status: string
+              start_date: string
+              end_date: string
+              team_size: integer
+              urls:
+                github: string
+                demo: string
+
+  layouts:
+    _layouts:
+      purpose: "Page templates"
+      files:
+        - file: "default.html"
+          purpose: "Base template for all pages"
+          structure: |
+            - <head> with 9 CSS file includes
+            - Font Awesome CDN
+            - Two-column layout: sidebar + main content
+            - Includes: sidebar.html, header.html
+            - {{ content }} placeholder
+          used_by: "All pages"
+
+        - file: "post.html"
+          purpose: "Individual blog post template"
+          extends: "default.html"
+          features:
+            - "Post title and metadata (date, categories, subcategories, tags)"
+            - "Post content rendering"
+            - "Previous/next post navigation"
+            - "Back to home button"
+          date_format: "%Y년 %m월 %d일"
+
+  includes:
+    _includes:
+      purpose: "Reusable components"
+      files:
+        - file: "sidebar.html"
+          purpose: "Left sidebar with profile"
+          displays:
+            - "Profile image from site.author.avatar"
+            - "Author name and bio"
+            - "ASCII art decoration"
+            - "Social links (GitHub, Email)"
+          data_sources: ["site.author"]
+
+        - file: "header.html"
+          purpose: "Main navigation menu"
+          links:
+            - "Home (/)"
+            - "Category (/categories)"
+            - "Study (/study)"
+            - "Project (/projects)"
+
+        - file: "banner.html"
+          purpose: "Homepage banner section"
+          size: "88 bytes (minimal)"
+
+        - file: "recent-posts.html"
+          purpose: "Display 6 most recent posts from all collections"
+          logic: |
+            - Aggregates posts from site.posts, site.projects, site.studies
+            - Sorts by date descending
+            - Limits to 6 items
+            - Shows badges for content type (Algorithm, Study, Project, Blog)
+          data_sources: ["site.posts", "site.projects", "site.studies"]
+
+        - file: "study-section.html"
+          purpose: "Homepage study progress cards"
+          logic: |
+            - Reads from site.data.studies
+            - For each study, calculates progress:
+              - Counts posts with matching study_tag
+              - Calculates percentage: (count / total) * 100
+            - Shows study status, progress bar, recent posts
+          data_sources: ["site.data.studies", "site.posts", "site.studies"]
+          dynamic_calculation: true
+
+        - file: "projects-section.html"
+          purpose: "Project gallery component"
+          size: "~4.3KB"
+          displays: "Project cards with thumbnails and metadata"
+
+  assets:
+    css:
+      purpose: "Modular stylesheet system (9 files)"
+      directory: "assets/css/"
+      files:
+        - file: "main.css"
+          size: "3,561 bytes"
+          purpose: "Core styles and CSS variables"
+          defines:
+            colors:
+              bg_primary: "#ffffff"
+              accent_primary: "#3fd166 (Google green)"
+              text_primary: "#1a1a1a"
+              window_border: "#bdc1c6"
+            fonts: "'Courier New', 'JoseonGulim', 'Monaco', monospace"
+            container_max_width: "1200px"
+          includes:
+            - "Custom font @font-face for JoseonGulim"
+            - "CSS custom properties (--variables)"
+            - "Base layout (flex container)"
+            - "Dotted background pattern"
+            - "Responsive breakpoint at 768px"
+
+        - file: "sidebar.css"
+          size: "3,043 bytes"
+          purpose: "Profile sidebar styling"
+          width: "180px fixed"
+
+        - file: "header.css"
+          size: "1,175 bytes"
+          purpose: "Navigation menu styling"
+
+        - file: "banner.css"
+          size: "1,290 bytes"
+          purpose: "Homepage banner styling"
+
+        - file: "sections.css"
+          size: "5,377 bytes"
+          purpose: "Section layouts (study cards, progress bars)"
+
+        - file: "post.css"
+          size: "5,590 bytes"
+          purpose: "Blog post page styling"
+
+        - file: "categories.css"
+          size: "13,015 bytes"
+          purpose: "Category page with filtering UI"
+          largest_features: ["Sidebar navigation", "Tag cloud", "Filter animations"]
+
+        - file: "projects.css"
+          size: "15,442 bytes"
+          purpose: "Project gallery styling"
+
+        - file: "study.css"
+          size: "20,264 bytes"
+          purpose: "Study page styling (largest CSS file)"
+
+    images:
+      directory: "assets/images/"
+      count: "43+ files"
+      structure:
+        profile:
+          - "avatar.png"
+          - "avatar-1.png"
+          - "banner.jpg"
+        post_img:
+          purpose: "Blog post images"
+          examples:
+            - "docker-inside-architecture.png"
+            - "spark-application-structure.png"
+            - "airflow-dag.png"
+        project_img:
+          purpose: "Project screenshots and diagrams"
+          subdirectories: ["yeardream/", "gifs/"]
+
+    not_published:
+      directory: "assets/not_published/"
+      purpose: "Draft posts and unpublished content"
+      examples: ["2025-4분기.md"]
+
+  research:
+    directory: "research/"
+    purpose: "Additional content and research notes"
+    count: "4 files"
+    files:
+      - "260106.md"
+      - "260107.md"
+      - "java_basics_tutorial.md"
+      - "java_intermediate_tutorial.md"
+
+  github_workflows:
+    directory: ".github/workflows/"
+    file: "deploy.yml"
+    purpose: "Automated build and deployment"
+    trigger: "Push to main/master"
+    steps:
+      1: "Checkout code"
+      2: "Setup Ruby 3.1"
+      3: "Install dependencies (bundle install)"
+      4: "Clean and build Jekyll site"
+      5: "Deploy to duri-wip/duri-wip.github.io using peaceiris/actions-gh-pages@v3"
+    deployment_token: "PERSONAL_TOKEN (GitHub secret)"
+
+# Jekyll configuration details
+configuration:
+  _config_yml:
+    location: "_config.yml"
+
+    site_settings:
+      title: "Duri's Work In Progress"
+      description: "열심히 배우고 있습니다."
+      url: "https://duri-wip.github.io"
+      baseurl: ""
+      banner_image: "/assets/images/banner.jpg"
+      banner_text: "귀여운 이미지를 넣어주세요 ✨"
+
+    jekyll_settings:
+      markdown: "kramdown"
+      highlighter: "rouge"
+      permalink: "/:categories/:title/"
+
+    collections:
+      projects:
+        output: true
+        permalink: "/:collection/:name/"
+      studies:
+        output: true
+        permalink: "/:collection/:name/"
+
+    plugins:
+      - "jekyll-feed (RSS feed generation)"
+      - "jekyll-sitemap (XML sitemap)"
+      - "jekyll-seo-tag (Meta tags for SEO)"
+
+    build_exclude:
+      - "Gemfile"
+      - "Gemfile.lock"
+      - "README.md"
+
+    defaults:
+      - scope:
+          path: "_posts"
+          type: "posts"
+        values:
+          layout: "post"
+          category: ""
+          subcategory: ""
+
+# Front matter templates for each content type
+front_matter_templates:
+  blog_post:
+    file_location: "_posts/[Category]/[subcategory]/YYYY-MM-DD-title.md"
+    required_fields:
+      layout: "post"
+      title: "String - Post title"
+      excerpt: "String - Brief description"
+      date: "YYYY-MM-DD format"
+      categories: "Array - Must match category slug from categories.yml"
+      subcategory: "String - Must match subcategory slug"
+      tags: "Array - Multiple tags including study tags if applicable"
+    example: |
+      ---
+      layout: post
+      title: "LCEL (LangChain Expression Language) 3"
+      excerpt: "Chat history 관리"
+      date: 2025-07-28
+      categories: [ML-AI]
+      subcategory: llm
+      tags: [genai-llm, langchain, lcel, runnable, chain, study-llm-framework]
+      ---
+
+  project:
+    file_location: "_projects/YYYY-MM-DD-project-name.md"
+    required_fields:
+      layout: "post"
+      title: "String - Project title"
+      excerpt: "String - Project description"
+      permalink: "String - Custom permalink (e.g., /projects/plytube)"
+      date: "YYYY-MM-DD format"
+      last_modified_at: "YYYY-MM-DD format (optional)"
+      categories: "[Project]"
+      tags: "Array - Technology tags"
+      featured: "Boolean"
+      show_date: "Boolean"
+      comments: "Boolean"
+      share: "Boolean"
+      image: "String - Path to project image"
+    example: |
+      ---
+      layout: post
+      title: "자연어 처리 및 lstm 모델을 바탕으로 플레이리스트 추천하기 : plytube"
+      excerpt: "YouTube API를 활용한 플레이리스트 추천 서비스입니다."
+      permalink: /projects/plytube
+      date: 2024-09-19
+      last_modified_at: 2024-10-15
+      categories: [Project]
+      tags: [development, plytube, lstm, youtube-api, airflow, mlflow]
+      featured: true
+      show_date: true
+      comments: true
+      share: true
+      image: /assets/images/project_img/yeardream/plytube_architecture.png
+      ---
+
+  study:
+    file_location: "_studies/[Topic]/YYYY-MM-DD-title.md or _studies/Algorithms/YYYY-MM-DD-algorithm-name.md"
+    required_fields:
+      layout: "post"
+      title: "String - Study topic or algorithm name"
+      excerpt: "String - Brief description"
+      date: "YYYY-MM-DD format"
+      categories: "[Study]"
+      tags: "Array - Must include matching study_tag from studies.yml"
+    example: |
+      ---
+      layout: post
+      title: "자바 시작하기 - JVM과 첫 프로그램"
+      excerpt: "자바의 기본 개념과 JVM 동작 원리"
+      date: 2026-01-06
+      categories: [Study]
+      tags: [study-java, java, jvm, programming, intellij]
+      ---
+
+# Content organization system
+content_organization:
+  categories:
+    definition: "Two-level taxonomy: category → subcategory"
+    source: "_data/categories.yml"
+    count:
+      main_categories: 5
+      subcategories: 15
+    hierarchy:
+      Development:
+        slug: "development"
+        subcategories:
+          - "Backend (backend)"
+          - "Database (database)"
+          - "Devops&Infra (devops-infra)"
+          - "CI/CD (ci-cd)"
+      DataEngineering:
+        slug: "data-engineering"
+        subcategories:
+          - "Spark (spark)"
+          - "Airflow (airflow)"
+          - "Kafka (kafka)"
+          - "Cloud (cloud)"
+      ML-AI:
+        slug: "ml-ai"
+        subcategories:
+          - "LLM (llm)"
+          - "MLOps (mlops)"
+          - "RAG (rag)"
+      Tools:
+        slug: "tools"
+        subcategories:
+          - "Development Environment (development-environment)"
+          - "Github Blog (github-blog)"
+      Career:
+        slug: "career"
+        subcategories:
+          - "Interview (interview)"
+          - "Growth (growth)"
+    usage:
+      in_front_matter: "categories: [ML-AI]"
+      in_folder_structure: "_posts/ML&AI/llm/2025-07-28-LCEL3.md"
+      in_filtering: "JavaScript matches data-category and data-subcategory attributes"
+
+  tags:
+    purpose: "Flexible, multi-dimensional content classification"
+    types:
+      study_tags:
+        purpose: "Link posts to study programs for progress tracking"
+        format: "study-[topic] (e.g., study-java, study-llm-framework)"
+        critical: "Must match study_tag in studies.yml for progress calculation"
+        examples:
+          - "study-java"
+          - "study-llm-framework"
+          - "study-algorithm-solving"
+          - "study-distributed-systems"
+          - "study-google-de"
+      technology_tags:
+        purpose: "Technology and tool classification"
+        examples: ["kafka", "spark", "airflow", "langchain", "docker", "aws"]
+      topic_tags:
+        purpose: "Content topic classification"
+        examples: ["backend", "mlops", "database", "devops", "genai-llm"]
+    display:
+      tag_cloud: "Categories page shows top 15 tags with dynamic sizing"
+      post_header: "Tags displayed with # prefix in post metadata"
+
+  file_naming:
+    posts: "YYYY-MM-DD-title.md (date must match front matter date)"
+    projects: "YYYY-MM-DD-project-name.md"
+    studies: "YYYY-MM-DD-title.md or YYYY-MM-DD-algorithm-problem-name.md"
+    algorithm_studies: "YYYY-MM-DD-algorithm-[problem-name].md"
+    convention: "Use hyphens for spaces, lowercase preferred"
+
+# Features and functionality
+features:
+  navigation:
+    type: "Fixed sidebar + top header"
+    sidebar:
+      width: "180px"
+      displays:
+        - "Profile avatar"
+        - "Author name and decorative title"
+        - "Bio text with line breaks"
+        - "ASCII art divider"
+        - "Social links (GitHub icon, Email icon)"
+      data_source: "site.author from _config.yml"
+      style: "Retro window frame with 3D borders"
+
+    header_menu:
+      items:
+        - text: "Home"
+          url: "/"
+        - text: "Category"
+          url: "/categories"
+        - text: "Study"
+          url: "/study"
+        - text: "Project"
+          url: "/projects"
+      style: "Horizontal menu bar with window button aesthetic"
+
+  homepage:
+    layout: "index.html using default layout"
+    sections:
+      1_banner:
+        include: "banner.html"
+        displays: "Banner image from site.banner_image"
+
+      2_study_section:
+        include: "study-section.html"
+        displays: "Study progress cards"
+        features:
+          - "Progress bars calculated from post count / total"
+          - "Status badges (진행중/완료)"
+          - "Recent 3 posts for each study"
+          - "Click to view study page"
+        data_sources: ["site.data.studies", "site.posts", "site.studies"]
+        dynamic: true
+
+      3_recent_posts:
+        include: "recent-posts.html"
+        displays: "6 most recent posts from all collections"
+        aggregation: "Combines site.posts + site.projects + site.studies"
+        features:
+          - "Content type badges (Algorithm, Study, Project, Blog)"
+          - "Date, title, excerpt"
+          - "Grid layout"
+
+  category_page:
+    file: "categories.html"
+    layout: "default"
+    size: "~23KB with embedded JavaScript"
+    features:
+      sidebar_filter:
+        displays:
+          - "All categories with post counts"
+          - "Subcategories grouped under parent"
+          - "Click to filter posts"
+        behavior: "JavaScript updates visible posts without page reload"
+
+      tag_cloud:
+        displays: "Top 15 tags"
+        sizing: "Font size based on post count"
+        behavior: "Click to filter by tag"
+
+      content_area:
+        displays:
+          - "Category overview cards"
+          - "Subcategory cards with recent posts"
+          - "Individual post listings"
+        behavior: "Dynamic show/hide based on filter selection"
+        breadcrumbs: "Navigate back to parent category"
+
+    javascript:
+      functions:
+        - "filterPosts(category, subcategory) - Filter post display"
+        - "showAllPosts() - Show all posts"
+        - "updateActiveState() - Visual feedback for selected filter"
+      lines: "~445 lines"
+      framework: "Vanilla JavaScript (no libraries)"
+
+  study_page:
+    file: "study.html"
+    layout: "default"
+    size: "~6.9KB"
+    features:
+      study_cards:
+        displays:
+          - "Study title and description"
+          - "Progress bar with percentage"
+          - "Status badge"
+          - "Recent activity"
+        interaction: "Click to open modal with all posts"
+
+      modal_view:
+        displays:
+          - "Full study details"
+          - "Complete post list for study"
+          - "Post dates and titles"
+        behavior:
+          - "Click outside to close"
+          - "X button to close"
+          - "ESC key to close"
+
+    javascript:
+      data_structure: "Pre-rendered JavaScript object from Jekyll site.data.studies"
+      functions:
+        - "openStudyModal(index) - Open modal for study"
+        - "closeStudyModal() - Close modal"
+      lines: "~183 lines"
+
+    progress_calculation:
+      method: "Tag-based counting"
+      logic: |
+        For each study:
+        1. Get study_tag from studies.yml
+        2. Count posts in site.posts + site.studies with matching tag
+        3. Calculate: (count / total) * 100
+        4. Display as progress bar
+      dynamic: "Recalculated on every Jekyll build"
+
+  project_page:
+    file: "projects.html"
+    layout: "default"
+    size: "~8.9KB"
+    features:
+      filter_tabs:
+        options: ["All", "Web", "Data", "AI"]
+        behavior: "Filter projects by category"
+
+      sort_options:
+        options: ["Latest", "Oldest", "Name", "Status"]
+        behavior: "Reorder project cards"
+
+      view_toggle:
+        options: ["Grid view", "List view"]
+        behavior: "Change layout presentation"
+
+      project_cards:
+        displays:
+          - "Project thumbnail/featured image"
+          - "Title and description"
+          - "Tech stack badges"
+          - "Status indicator"
+          - "Date"
+          - "Links (GitHub, demo)"
+        interaction: "Click image to open architecture modal"
+
+      architecture_modal:
+        displays: "Full-size project architecture diagram"
+        behavior: "Click outside or press ESC to close"
+
+    javascript:
+      functions:
+        - "filterProjects(category) - Filter by category"
+        - "sortProjects(method) - Sort project cards"
+        - "toggleView(view) - Switch grid/list view"
+        - "openArchitectureModal(imageSrc) - View architecture"
+      lines: "~232 lines"
+
+  post_features:
+    layout: "post.html"
+    displays:
+      header:
+        - "Post title (H1)"
+        - "Date in Korean format (YYYY년 MM월 DD일)"
+        - "Category and subcategory badges"
+        - "Tags with # prefix"
+
+      content:
+        - "Markdown rendered content"
+        - "Syntax highlighting via rouge"
+        - "Images from /assets/images/"
+
+      footer:
+        - "Previous post link (if exists)"
+        - "Next post link (if exists)"
+        - "Back to home button"
+
+    navigation:
+      previous_next:
+        logic: "Jekyll page.previous and page.next"
+        truncation: "Title truncated to 30 characters"
+        labels: "이전 글 / 다음 글"
+
+  seo_features:
+    rss_feed:
+      plugin: "jekyll-feed"
+      url: "/feed.xml"
+
+    sitemap:
+      plugin: "jekyll-sitemap"
+      url: "/sitemap.xml"
+
+    meta_tags:
+      plugin: "jekyll-seo-tag"
+      includes: "Open Graph, Twitter Cards, canonical URLs"
+
+# Design system
+design_system:
+  aesthetic: "Retro Mac Paint / Classic Macintosh"
+  philosophy: "Minimalist, monochrome + green accent, pixelated"
+
+  color_palette:
+    backgrounds:
+      primary: "#ffffff (pure white)"
+      secondary: "#f8f9fa (light gray)"
+      card: "#ffffff"
+      hover: "#f1f3f4"
+      pattern: "#f8f9fa (dotted background)"
+
+    text:
+      primary: "#1a1a1a (almost black)"
+      secondary: "#4a4a4a (dark gray)"
+      muted: "#757575 (medium gray)"
+
+    accent:
+      primary: "#3fd166 (Google green)"
+      secondary: "#137333 (dark green)"
+      tertiary: "#0f9d58 (medium green)"
+      light: "#e6f4ea (light green background)"
+
+    window:
+      border: "#bdc1c6 (gray)"
+      shadow: "#1a1a1a (dark gray)"
+
+    status:
+      success: "#34a853 (green)"
+      warning: "#fbbc04 (yellow)"
+      error: "#ea4335 (red)"
+      info: "#4285f4 (blue)"
+
+  typography:
+    font_family: "'Courier New', 'JoseonGulim', 'Monaco', monospace"
+    korean_font: "JoseonGulim (ChosunGu)"
+    korean_unicode_range: "U+AC00-D7AF, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF"
+    base_size: "12px"
+    line_height: "1.4"
+    weight: "400 (normal)"
+    rendering: "pixelated (image-rendering: pixelated)"
+
+  layout:
+    container:
+      max_width: "1200px"
+      margin: "20px auto"
+      display: "flex (two-column)"
+
+    sidebar:
+      width: "180px (fixed)"
+      position: "Left side"
+
+    main_content:
+      flex: "1 (flexible)"
+      padding: "16px"
+
+    responsive_breakpoint: "768px"
+    mobile_layout: "flex-direction: column (stacked)"
+
+  visual_elements:
+    window_frames:
+      border: "1px solid var(--window-border)"
+      shadow: "2px 2px 0px var(--window-shadow), inset 1px 1px 0px white"
+      style: "3D inset/outset effect"
+
+    backgrounds:
+      pattern: "Radial gradient dots"
+      grid_size: "20px × 20px"
+      effect: "Subtle texture, retro aesthetic"
+
+    borders:
+      style: "Double borders for 3D effect"
+      top_left: "White (highlight)"
+      bottom_right: "Gray (shadow)"
+      effect: "Classic raised/pressed button appearance"
+
+    icons:
+      source: "Font Awesome 6.0.0 CDN"
+      usage: "Categories, social links, navigation"
+
+  css_architecture:
+    modularity: "9 separate CSS files"
+    approach: "Component-based stylesheets"
+    variables: "CSS custom properties (--variables) in main.css"
+    responsive: "Media queries at 768px breakpoint"
+    total_size: "~68KB across all CSS files"
+
+# Agent guidelines for modifications
+agent_guidelines:
+  adding_new_post:
+    steps:
+      1: "Determine content type: blog post, project, or study"
+      2: "Choose appropriate collection folder (_posts, _projects, _studies)"
+      3: "Create file with naming convention: YYYY-MM-DD-title.md"
+      4: "Add front matter with required fields (see front_matter_templates)"
+      5: "Ensure category matches categories.yml"
+      6: "Ensure subcategory matches parent category in categories.yml"
+      7: "Include study tag (study-*) if part of a study program"
+      8: "Write content in Markdown"
+
+    example_blog_post:
+      location: "_posts/Development/backend/2026-01-10-flask-basics.md"
+      front_matter: |
+        ---
+        layout: post
+        title: "Flask 기초 배우기"
+        excerpt: "Python Flask 프레임워크 시작하기"
+        date: 2026-01-10
+        categories: [Development]
+        subcategory: backend
+        tags: [flask, python, backend, web-development]
+        ---
+
+  adding_new_category:
+    warning: "This affects multiple systems - proceed carefully"
+    steps:
+      1: "Edit _data/categories.yml"
+      2: "Add new category or subcategory with name, slug, description"
+      3: "Ensure slug is lowercase, hyphen-separated"
+      4: "Create corresponding folder in _posts/ if needed: _posts/CategoryName/subcategory/"
+      5: "Test category filtering on categories.html page"
+      6: "Verify JavaScript filtering works correctly"
+
+    example:
+      adding_subcategory: |
+        In _data/categories.yml under Development:
+
+        - name: "Development"
+          slug: "development"
+          subcategories:
+            - name: "Frontend"
+              slug: "frontend"
+              description: "프론트엔드 개발 기술"
+
+  adding_new_study:
+    steps:
+      1: "Edit _data/studies.yml"
+      2: "Add new study with title, description, status, study_tag, total"
+      3: "Choose unique study_tag (format: study-[topic])"
+      4: "Set realistic total (target number of posts)"
+      5: "Create study directory if needed: _studies/Study/[topic]/"
+      6: "When writing study posts, include study_tag in tags array"
+
+    example: |
+      In _data/studies.yml:
+
+      - title: "Rust 프로그래밍 학습"
+        description: "Rust 언어의 기초부터 고급 개념까지 학습합니다."
+        status: "진행중"
+        study_tag: "study-rust"
+        total: 20
+
+      Then in study post _studies/Study/rust/2026-01-10-rust-ownership.md:
+
+      ---
+      layout: post
+      title: "Rust의 소유권 시스템"
+      excerpt: "Rust의 핵심 개념인 소유권 이해하기"
+      date: 2026-01-10
+      categories: [Study]
+      tags: [study-rust, rust, ownership, memory-safety]
+      ---
+
+  modifying_layouts:
+    caution: "Layouts affect all pages - test thoroughly"
+    safe_modifications:
+      - "Adding new CSS file include in default.html <head>"
+      - "Adding new include component"
+      - "Modifying post metadata display in post.html"
+
+    unsafe_modifications:
+      - "Changing fundamental HTML structure (sidebar, main-content)"
+      - "Removing required includes (sidebar.html, header.html)"
+      - "Modifying Liquid variable names used in other files"
+
+    testing: "Build locally with 'bundle exec jekyll serve' before deploying"
+
+  modifying_styles:
+    approach: "Modify specific CSS file rather than main.css when possible"
+    css_file_purposes:
+      main_css: "Variables, base layout, container - rarely modify"
+      sidebar_css: "Profile section only"
+      header_css: "Navigation menu only"
+      post_css: "Individual post pages"
+      categories_css: "Category filtering page"
+      sections_css: "Study cards, progress bars"
+      projects_css: "Project gallery"
+      study_css: "Study overview page"
+
+    using_variables: "Always use CSS custom properties (--accent-primary) instead of hardcoded colors"
+
+    example:
+      change_accent_color: |
+        In assets/css/main.css, modify:
+
+        :root {
+          --accent-primary: #3fd166;  /* Change this color */
+        }
+
+        This will update the accent color throughout the entire site.
+
+  modifying_data_files:
+    categories_yml:
+      impact: "Affects category filtering, post organization, navigation"
+      validation:
+        - "Slug must be lowercase, hyphen-separated"
+        - "Name displayed in UI"
+        - "Subcategories must be under correct parent"
+
+    studies_yml:
+      impact: "Affects study page, progress tracking, homepage"
+      validation:
+        - "study_tag must be unique"
+        - "total should be realistic target"
+        - "status: '진행중' or '완료'"
+
+    projects_yml:
+      impact: "Project page data (currently data file exists but not heavily used)"
+      note: "Projects primarily defined in _projects/ markdown files"
+
+  safe_to_modify:
+    - "Content files in _posts/, _projects/, _studies/"
+    - "Images in assets/images/"
+    - "Individual CSS files for specific features"
+    - "Data files (_data/*.yml) with proper validation"
+    - "Research notes in research/"
+
+  requires_caution:
+    - "_config.yml (Jekyll must rebuild)"
+    - "_layouts/*.html (affects all pages)"
+    - "_includes/*.html (used by multiple pages)"
+    - "assets/css/main.css (global styles)"
+    - "JavaScript in .html files (filtering logic)"
+
+  do_not_modify:
+    - "Gemfile (Ruby dependencies)"
+    - ".github/workflows/deploy.yml (CI/CD pipeline)"
+    - "Gemfile.lock (auto-generated)"
+
+  testing_workflow:
+    local_development:
+      1: "Run 'bundle install' (first time or after Gemfile changes)"
+      2: "Run 'bundle exec jekyll serve'"
+      3: "Visit http://localhost:4000"
+      4: "Test all modified features"
+      5: "Check browser console for JavaScript errors"
+
+    before_deployment:
+      checks:
+        - "Validate YAML syntax (categories.yml, studies.yml)"
+        - "Verify all image paths exist"
+        - "Check front matter matches required fields"
+        - "Test category filtering works"
+        - "Test study progress calculation"
+        - "Verify responsive layout (mobile view)"
+
+    deployment:
+      trigger: "Git push to main/master branch"
+      automatic: "GitHub Actions handles build and deploy"
+      target: "duri-wip/duri-wip.github.io repository"
+      check_after: "Visit https://duri-wip.github.io to verify"
+
+# Common tasks reference
+common_tasks:
+  add_blog_post_about_docker:
+    steps:
+      - "Create file: _posts/Development/devops-infra/2026-01-10-docker-networking.md"
+      - |
+        Add front matter:
+        ---
+        layout: post
+        title: "Docker 네트워킹 이해하기"
+        excerpt: "Docker 컨테이너 간 네트워크 통신"
+        date: 2026-01-10
+        categories: [Development]
+        subcategory: devops-infra
+        tags: [docker, networking, devops, containers]
+        ---
+      - "Write content in Markdown"
+      - "Add images to assets/images/post_img/ if needed"
+      - "Reference images with /assets/images/post_img/filename.png"
+
+  add_java_study_post:
+    steps:
+      - "Create file: _studies/Study/java/2026-01-10-java-collections.md"
+      - |
+        Add front matter:
+        ---
+        layout: post
+        title: "자바 컬렉션 프레임워크"
+        excerpt: "List, Set, Map 자료구조 이해하기"
+        date: 2026-01-10
+        categories: [Study]
+        tags: [study-java, java, collections, data-structures]
+        ---
+      - "Write content"
+      - "Post will automatically count toward '자바 기초 학습' study progress"
+
+  add_algorithm_solution:
+    steps:
+      - "Create file: _studies/Algorithms/2026-01-10-algorithm-binary-search.md"
+      - |
+        Add front matter:
+        ---
+        layout: post
+        title: "이진 탐색 구현"
+        excerpt: "이진 탐색 알고리즘 구현 및 분석"
+        date: 2026-01-10
+        categories: [Study]
+        tags: [study-algorithm-solving, algorithm, binary-search, problem-solving]
+        ---
+      - "Write solution and explanation"
+
+  change_site_colors:
+    steps:
+      - "Edit assets/css/main.css"
+      - "Modify CSS custom properties in :root"
+      - "Example: Change --accent-primary: #3fd166 to new color"
+      - "All components using this variable will update automatically"
+
+  add_new_study_program:
+    steps:
+      - "Edit _data/studies.yml"
+      - |
+        Add entry:
+        - title: "Go 언어 마스터하기"
+          description: "Go 언어 학습 및 프로젝트 구현"
+          status: "진행중"
+          study_tag: "study-golang"
+          total: 15
+      - "Create directory: _studies/Study/golang/"
+      - "Write study posts with tag: study-golang"
+      - "Progress will automatically display on study page and homepage"
+
+# Important notes
+notes:
+  study_progress_system:
+    mechanism: "Tag-based automatic counting"
+    how_it_works: |
+      1. studies.yml defines study_tag (e.g., "study-java")
+      2. Jekyll builds site and counts posts with matching tag
+      3. study-section.html calculates: (matched_count / total) * 100
+      4. Progress bar updates automatically on every build
+    critical: "study_tag in studies.yml MUST match tags in study posts exactly"
+
+  deployment_process:
+    important: "Blog uses two-repository deployment"
+    source_repo: "Current repository (working directory)"
+    target_repo: "duri-wip/duri-wip.github.io"
+    workflow: |
+      1. Make changes in source repository
+      2. Commit and push to main/master
+      3. GitHub Actions triggers deploy.yml workflow
+      4. Workflow builds Jekyll site
+      5. Workflow pushes built site to duri-wip.github.io repo
+      6. GitHub Pages serves from duri-wip.github.io
+    caution: "Never manually edit duri-wip.github.io repository - it will be overwritten"
+
+  liquid_templating:
+    used_throughout: "Jekyll uses Liquid templating language"
+    common_patterns:
+      - "{{ variable }} - Output variable"
+      - "{% if condition %} - Conditional logic"
+      - "{% for item in collection %} - Loops"
+      - "{{ variable | filter }} - Apply filter"
+    examples:
+      - "{{ page.title }} - Current page title"
+      - "{{ site.posts }} - All posts collection"
+      - "{{ page.date | date: '%Y년 %m월 %d일' }} - Formatted date"
+
+  korean_language:
+    note: "Blog is primarily in Korean"
+    considerations:
+      - "Front matter fields are in English (layout, title, etc.)"
+      - "Content is in Korean"
+      - "UI text in includes/layouts is in Korean"
+      - "Status values in YAML are in Korean ('진행중', '완료')"
+      - "Date formats use Korean ('년', '월', '일')"
+    font: "JoseonGulim (ChosunGu) for Korean characters"
+
+  javascript_considerations:
+    framework: "Vanilla JavaScript - no jQuery, React, Vue, etc."
+    embedded: "JavaScript is embedded in .html files, not separate .js files"
+    locations:
+      - "categories.html (~445 lines)"
+      - "projects.html (~232 lines)"
+      - "study.html (~183 lines)"
+    modification_caution: "Test filtering/modal functionality after any JS changes"
+
+  responsive_design:
+    breakpoint: "768px"
+    mobile_behavior:
+      - "Sidebar stacks above main content"
+      - "Navigation wraps"
+      - "Cards reflow to single column"
+    testing: "Use browser dev tools to test mobile view"
+
+# File reference quick lookup
+file_reference:
+  critical_configuration:
+    - "_config.yml - Main Jekyll config"
+    - "_data/categories.yml - Category hierarchy"
+    - "_data/studies.yml - Study programs"
+    - "Gemfile - Ruby dependencies"
+
+  layouts:
+    - "_layouts/default.html - Base layout"
+    - "_layouts/post.html - Post layout"
+
+  key_includes:
+    - "_includes/sidebar.html - Profile sidebar"
+    - "_includes/header.html - Navigation"
+    - "_includes/recent-posts.html - Homepage posts"
+    - "_includes/study-section.html - Study progress"
+
+  main_pages:
+    - "index.html - Homepage"
+    - "categories.html - Category browser"
+    - "projects.html - Project gallery"
+    - "study.html - Study overview"
+
+  css_files:
+    - "assets/css/main.css - Variables and base"
+    - "assets/css/sidebar.css - Sidebar"
+    - "assets/css/header.css - Navigation"
+    - "assets/css/post.css - Post pages"
+    - "assets/css/categories.css - Category page"
+    - "assets/css/sections.css - Study cards"
+    - "assets/css/projects.css - Projects"
+    - "assets/css/study.css - Study page"
+
+  example_content:
+    - "_posts/ML&AI/llm/2025-07-28-LCEL3.md - Blog post example"
+    - "_projects/2024-09-19-plytube.md - Project example"
+    - "_studies/Study/java/2026-01-06-chap1.md - Study example"
+    - "_studies/Algorithms/[any file] - Algorithm example"
+
+# Version info
+version_info:
+  documentation_version: "1.0"
+  created_date: "2026-01-09"
+  blog_last_analyzed: "2026-01-09"
+  jekyll_version: "4.3.0"
+  ruby_version: "Specified in .ruby-version (if exists)"
+
+# Additional resources
+resources:
+  jekyll_docs: "https://jekyllrb.com/docs/"
+  liquid_docs: "https://shopify.github.io/liquid/"
+  kramdown_docs: "https://kramdown.gettalong.org/"
+  github_pages_docs: "https://docs.github.com/en/pages"

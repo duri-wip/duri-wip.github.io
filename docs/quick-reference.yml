@@ -1,0 +1,167 @@
+# Quick Reference for Jekyll Blog
+# Fast lookup for common paths, templates, and patterns
+
+# Critical file paths
+paths:
+  config: "_config.yml"
+
+  data:
+    categories: "_data/categories.yml"
+    studies: "_data/studies.yml"
+    projects: "_data/projects.yml"
+
+  layouts:
+    base: "_layouts/default.html"
+    post: "_layouts/post.html"
+
+  includes:
+    sidebar: "_includes/sidebar.html"
+    header: "_includes/header.html"
+    recent_posts: "_includes/recent-posts.html"
+    study_section: "_includes/study-section.html"
+
+  pages:
+    home: "index.html"
+    categories: "categories.html"
+    projects: "projects.html"
+    study: "study.html"
+
+  css:
+    main: "assets/css/main.css"
+    sidebar: "assets/css/sidebar.css"
+    post: "assets/css/post.css"
+
+  content:
+    posts: "_posts/[Category]/[subcategory]/YYYY-MM-DD-title.md"
+    projects: "_projects/YYYY-MM-DD-name.md"
+    studies: "_studies/[Topic]/YYYY-MM-DD-title.md"
+    algorithms: "_studies/Algorithms/YYYY-MM-DD-algorithm-name.md"
+
+# Front matter quick templates
+templates:
+  blog_post: |
+    ---
+    layout: post
+    title: "제목"
+    excerpt: "간단한 설명"
+    date: 2026-01-10
+    categories: [ML-AI]
+    subcategory: llm
+    tags: [tag1, tag2, study-tag-if-applicable]
+    ---
+
+  project: |
+    ---
+    layout: post
+    title: "프로젝트 제목"
+    excerpt: "프로젝트 설명"
+    permalink: /projects/project-name
+    date: 2026-01-10
+    categories: [Project]
+    tags: [tech1, tech2]
+    featured: true
+    image: /assets/images/project_img/image.png
+    ---
+
+  study: |
+    ---
+    layout: post
+    title: "스터디 제목"
+    excerpt: "스터디 설명"
+    date: 2026-01-10
+    categories: [Study]
+    tags: [study-java, topic1, topic2]
+    ---
+
+# Category slugs reference
+categories:
+  Development:
+    slug: "development"
+    subcategories: ["backend", "database", "devops-infra", "ci-cd"]
+
+  DataEngineering:
+    slug: "data-engineering"
+    subcategories: ["spark", "airflow", "kafka", "cloud"]
+
+  ML-AI:
+    slug: "ml-ai"
+    subcategories: ["llm", "mlops", "rag"]
+
+  Tools:
+    slug: "tools"
+    subcategories: ["development-environment", "github-blog"]
+
+  Career:
+    slug: "career"
+    subcategories: ["interview", "growth"]
+
+# Active study tags (must match studies.yml)
+study_tags:
+  active:
+    - "study-llm-framework"  # 13/15 (87%)
+    - "study-algorithm-solving"  # 31/50 (62%)
+    - "study-java"  # 3/5 (60%)
+    - "study-google-de"  # 3/5 (60%)
+    - "study-distributed-systems"  # 1/5 (20%)
+  paused:
+    - "study-bloging"  # 6/6 (100%) - 일시중지
+  planned:
+    # - "study-css-javascript"  # 0/5 (0%) - 포스트 없음
+
+# Common file locations for content
+content_locations:
+  DataEngineering_posts: "_posts/DataEngineering/[airflow|kafka|spark]/"
+  Development_posts: "_posts/Development/[backend|database|devops-infra]/"
+  ML_AI_posts: "_posts/ML&AI/[llm|mlops|rag]/"
+  Tools_posts: "_posts/Tools/[development-environment|github-blog]/"
+  Study_content: "_studies/Study/[java|distributed-systems|google-de-certi]/"
+  Algorithms: "_studies/Algorithms/"
+  Projects: "_projects/"
+
+# CSS color variables (from main.css)
+colors:
+  accent: "#3fd166"
+  background: "#ffffff"
+  text: "#1a1a1a"
+  border: "#bdc1c6"
+
+# Common commands
+commands:
+  local_dev: "bundle exec jekyll serve"
+  install: "bundle install"
+  build: "bundle exec jekyll build"
+  local_url: "http://localhost:4000"
+
+# Jekyll build settings
+build:
+  markdown: "kramdown"
+  highlighter: "rouge"
+  permalink: "/:categories/:title/"
+
+# Quick task checklist
+add_post_checklist:
+  - "Create file with date: YYYY-MM-DD-title.md"
+  - "Add required front matter fields"
+  - "Match category to categories.yml"
+  - "Match subcategory to parent category"
+  - "Include study tag if part of study program"
+  - "Write content in Markdown"
+  - "Test locally before pushing"
+
+add_study_program_checklist:
+  - "Edit _data/studies.yml"
+  - "Add: title, description, status, study_tag, total"
+  - "Use unique study_tag format: study-[topic]"
+  - "Create study directory if needed"
+  - "Tag future posts with study_tag"
+  - "Progress updates automatically"
+
+# Important notes
+notes:
+  - "Blog uses two-repo deployment: source → duri-wip.github.io"
+  - "Study progress calculated by counting posts with matching study_tag"
+  - "JavaScript embedded in HTML files (categories, projects, study pages)"
+  - "All CSS uses variables defined in main.css"
+  - "Korean language throughout - date format: YYYY년 MM월 DD일"
+  - "Responsive breakpoint: 768px"
+  - "Font: Courier New + JoseonGulim for Korean"

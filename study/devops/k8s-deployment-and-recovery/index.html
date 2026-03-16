@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kubernetes 동작 원리 - Deployment와 장애 복구</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/sidebar.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+    <link rel="stylesheet" href="/assets/css/banner.css">
+    <link rel="stylesheet" href="/assets/css/sections.css">
+    <link rel="stylesheet" href="/assets/css/post.css">
+    <link rel="stylesheet" href="/assets/css/categories.css">
+    <link rel="stylesheet" href="/assets/css/projects.css">
+    <link rel="stylesheet" href="/assets/css/reading.css">
+    <link rel="stylesheet" href="/assets/css/toc.css">
+</head>
+<body>
+    <div class="container">
+        <!-- 사이드바 -->
+        <aside class="sidebar">
+    <img src="/assets/images/avatar.png" alt="Duri" class="profile-image">
+    <div class="profile-info">
+        <h2>Duri</h2>
+        <p>˗ˏˋ ⋆｡𖦹 ˚ 𓇼 ˚｡⋆ ❀˖°</p>
+        <p>옛날에 
+ 데이터 엔지니어가 있엇슨.. 백엔드 서버도 만들고 인프라도 구축하고 데이터 분석도 했슨.. </p>
+    </div>
+    
+    <div class="contact-links">
+        <div class="profile-divider">
+    ⠀⠀⠀⠀⠀⠀⢀⡤⣤⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢀⡏⠀⠀⠈⠳⣄⠀⠀⠀⠀⠀⣀⠴⠋⠉⠉⡆⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⠀⠈⠉⠉⠙⠓⠚⠁⠀⠀⠀⠀⣿⠀⠀⠀⠀⠀
+    ⠀⠀⠀⠀⢀⠞⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠹⣄⠀⠀⠀⠀
+    ⠀⠀⠀⠀⡞⠀⠀⠀⠀⠀⠶⠀⠀⠀⠀⠀⠀⠦⠀⠀⠀⠀⠀⠸⡆⠀⠀⠀
+    ⢠⣤⣶⣾⣧⣤⣤⣀⡀⠀⠀⠀⠀⠈⠀⠀⠀⢀⡤⠴⠶⠤⢤⡀⣧⣀⣀⠀
+    ⠻⠶⣾⠁⠀⠀⠀⠀⠙⣆⠀⠀⠀⠀⠀⠀⣰⠋⠀⠀⠀⠀⠀⢹⣿⣭⣽⠇
+    ⠀⠀⠙⠤⠴⢤⡤⠤⠤⠋⠉⠉⠉⠉⠉⠉⠉⠳⠖⠦⠤⠶⠦⠞⠁⠀⠀⠀
+        </div>
+        
+        <a href="https://github.com/duri-wip" class="contact-link" target="_blank">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+        </a>
+        
+        
+        <a href="mailto:8s.eow.ooc@gmail.com" class="contact-link">
+            <i class="fas fa-envelope"></i>
+            <span>Email</span>
+        </a>
+        
+    </div>
+    
+</aside>
+        
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 헤더 -->
+            <header class="header">
+    <nav>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/">home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/categories">category</a>
+            </li>
+            <li class="nav-item">
+                <a href="/readings">readings</a>
+            </li>
+            <li class="nav-item">
+                <a href="/projects">project</a>
+            </li>
+        </ul>
+    </nav>
+</header>
+            
+            <!-- 콘텐츠 영역 -->
+            <div class="content">
+                <article class="post">
+    <header class="post-header">
+        <h1 class="post-title">Kubernetes 동작 원리 - Deployment와 장애 복구</h1>
+        <div class="post-meta">
+            <time class="post-date">2026년 03월 16일</time>
+            
+            <div class="post-categories">
+                
+                    
+                    <span class="category-tag">Study</span>
+                    
+                
+                    
+                    <span class="category-tag">DevOps</span>
+                    
+                
+                    
+                
+                
+            </div>
+            
+            
+            <div class="post-tags">
+                
+                <span class="tag">#kubernetes</span>
+                
+                <span class="tag">#k8s</span>
+                
+                <span class="tag">#deployment</span>
+                
+                <span class="tag">#replicaset</span>
+                
+                <span class="tag">#probe</span>
+                
+                <span class="tag">#liveness</span>
+                
+                <span class="tag">#readiness</span>
+                
+                <span class="tag">#control-loop</span>
+                
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="post-content">
+        <h2 id="deployment의-주요-역할">Deployment의 주요 역할</h2>
+
+<p>Deployment는 세 가지 핵심 역할을 한다.</p>
+
+<ol>
+  <li><strong>스케일링</strong>: Pod 수를 자동으로 조절</li>
+  <li><strong>자동 복구</strong>: Pod 장애 시 다시 띄움</li>
+  <li><strong>롤링 업데이트</strong>: 무중단으로 새 버전 배포</li>
+</ol>
+
+<p>한 가지 알아두어야 할 것은, Deployment 자체는 etcd에 저장된 <strong>선언 데이터</strong>라는 점이다. Controller Manager 안의 Deployment Controller가 이를 읽고 실제 역할을 수행한다.</p>
+
+<hr />
+
+<h2 id="스케일링">스케일링</h2>
+
+<p>Deployment 선언 데이터에서 ReplicaSet의 숫자를 변경하면 동일한 방식으로 스케일링이 이루어진다. 또는 CPU/메모리 사용량에 따라 HPA(Horizontal Pod Autoscaler)를 통한 오토 스케일링도 가능하다.</p>
+
+<hr />
+
+<h2 id="롤링-업데이트-과정">롤링 업데이트 과정</h2>
+
+<p>새 버전을 배포할 때 서비스를 중단하지 않고 점진적으로 교체한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>초기 상태
+ReplicaSet-v1: 파드 3개 (v1)
+
+업데이트 시작
+ReplicaSet-v2 새로 생성
+
+Step 1
+ReplicaSet-v1: 파드 3개 (v1)
+ReplicaSet-v2: 파드 1개 (v2)  ← 추가
+
+Step 2
+ReplicaSet-v1: 파드 2개 (v1)  ← 1개 삭제
+ReplicaSet-v2: 파드 2개 (v2)
+
+Step 3
+ReplicaSet-v1: 파드 1개 (v1)
+ReplicaSet-v2: 파드 3개 (v2)
+
+완료
+ReplicaSet-v1: 파드 0개 (보존됨 — 롤백용)
+ReplicaSet-v2: 파드 3개 (v2) ✓
+</code></pre></div></div>
+
+<p>이전 ReplicaSet은 완전히 삭제되지 않고 보존된다. 문제가 생기면 이것을 이용해 롤백할 수 있다.</p>
+
+<hr />
+
+<h2 id="pod-장애-발생-시-복구-메커니즘">Pod 장애 발생 시 복구 메커니즘</h2>
+
+<p>Pod에 장애가 발생하면 <strong>Control Loop (Reconciliation Loop)</strong> 를 통해 선언된 상태를 유지하려 한다.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>kubelet이 파드 죽음 감지
+↓
+API Server에 상태 보고
+↓
+etcd에 현재 상태 저장 ("파드 2개만 있음")
+↓
+Controller Manager가 감지 ("목표 3개인데 2개네, 1개 더 필요")
+↓
+Scheduler가 어느 노드에 띄울지 결정
+↓
+API Server가 해당 노드의 kubelet에 명령
+↓
+kubelet이 새 파드 실행
+</code></pre></div></div>
+
+<p>여기서 중요한 점은 Controller Manager가 kubelet에 <strong>직접 명령을 보내지 않는다</strong>는 것이다. <strong>항상 API Server를 통해서</strong> 명령이 전달된다. 모든 컴포넌트는 API Server하고만 통신한다.</p>
+
+<hr />
+
+<h3 id="control-loop란">Control Loop란?</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">현재</span> <span class="n">상태</span> <span class="n">확인</span>
+    <span class="n">목표</span> <span class="n">상태와</span> <span class="n">비교</span>
+    <span class="n">차이가</span> <span class="n">있으면</span> <span class="err">→</span> <span class="n">행동</span>
+    <span class="n">차이가</span> <span class="n">없으면</span> <span class="err">→</span> <span class="n">대기</span>
+</code></pre></div></div>
+
+<p>쿠버네티스 전체가 이 루프로 동작한다. 선언된 상태와 현재 상태 사이의 차이를 감지하고 계속 맞춰나간다.</p>
+
+<hr />
+
+<h2 id="probe-헬스체크-메커니즘">Probe: 헬스체크 메커니즘</h2>
+
+<p>파드 상태를 주기적으로 확인할 때, 단순히 <strong>프로세스가 살아있는지</strong>만이 아니라 <strong>앱이 실제로 정상 동작 중인지</strong>를 알아야 한다. 이를 위해 Probe를 사용한다.</p>
+
+<h3 id="3가지-종류">3가지 종류</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Probe</th>
+      <th>목적</th>
+      <th>실패 시</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>livenessProbe</strong></td>
+      <td>생존 확인 — 데드락, 무한 루프 등 프로세스는 살아있지만 동작은 못하는 상황 감지</td>
+      <td>kubelet이 컨테이너를 재시작</td>
+    </tr>
+    <tr>
+      <td><strong>readinessProbe</strong></td>
+      <td>준비 확인 — 앱 초기화 중, DB 연결 중, 캐시 로딩 중 등 트래픽을 받을 준비가 됐는지 감지</td>
+      <td>Service가 이 파드로 트래픽을 보내지 않음 (준비될 때까지 대기)</td>
+    </tr>
+    <tr>
+      <td><strong>startupProbe</strong></td>
+      <td>시작 확인 — 초기화가 수십 초 걸리는 레거시 앱 등 시작이 오래 걸리는 경우</td>
+      <td>startupProbe 성공 전까지 liveness/readiness 검사를 수행하지 않음</td>
+    </tr>
+  </tbody>
+</table>
+
+<blockquote>
+  <p>startupProbe가 없으면 초기화가 오래 걸리는 앱을 livenessProbe가 실패로 판단해 계속 재시작시킬 수 있다.</p>
+</blockquote>
+
+<hr />
+
+<h3 id="감지-방식-3가지">감지 방식 3가지</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>방식</th>
+      <th>설명</th>
+      <th>주의사항</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>HTTP GET</strong></td>
+      <td>지정한 엔드포인트(<code class="language-plaintext highlighter-rouge">/health</code> 등)에 GET 요청</td>
+      <td>개발자가 해당 엔드포인트를 직접 구현해야 함</td>
+    </tr>
+    <tr>
+      <td><strong>TCP Socket</strong></td>
+      <td>포트 연결 시도 (gRPC, DB 등에 활용)</td>
+      <td>포트가 열려있으면 성공으로 판정 → 정확도가 낮음</td>
+    </tr>
+    <tr>
+      <td><strong>Exec</strong></td>
+      <td>컨테이너 내부에서 명령 실행, 종료 코드로 판단</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>gRPC 서비스의 경우, gRPC 공식 헬스체크 표준을 따라 앱에 프로토콜을 구현해두어야 정확하게 감지할 수 있다.</p>
+
+    </div>
+
+    <footer class="post-footer">
+        <div class="post-nav">
+            
+            <a class="prev-post" href="/study/devops/k8s-structure-and-concepts/">
+                <span class="nav-label">이전 글</span>
+                <span class="nav-title">Kubernetes 학습 정리 - 구조와 핵심 개념</span>
+            </a>
+            
+            
+            
+            <a class="next-post" href="/study/devops/k8s-networking-and-service/">
+                <span class="nav-label">다음 글</span>
+                <span class="nav-title">Kubernetes 네트워킹 - Service와 ...</span>
+            </a>
+            
+        </div>
+        
+        <div class="back-to-home">
+            <a href="/">← 홈으로 돌아가기</a>
+        </div>
+    </footer>
+</article>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

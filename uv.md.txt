@@ -1,0 +1,79 @@
+uv가 pip 보다 10~100배 빠른 이유?!
+
+pip (Python)          vs          uv (Rust)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+인터프리터 언어                    컴파일 언어
+GIL(Global Interpreter Lock)      병렬 처리 최적화
+느린 I/O                          빠른 I/O
+메모리 오버헤드 큼                 메모리 효율적
+
+
+1. rust로 작성됨
+2. 병렬 다운로드 & 설치
+3. 글로벌 캐시 시스템 - 한번 다운로드하면 영원히 재사용(한 프로젝트에서 설치된 패키지는 다른 프로젝트에서도 캐시로 사용된다. pip는 계속 다시 깜)
+4. 의존성 해결 알고리즘 최적화
+pip 는 백트래킹을 해서 의존성 해결을 하려고 하는데  uv 는 전체 패키지의 제약조건을 한번에 분석해 최적의 버전 조합을 빠르게 계산함
+
+
+pip 랑 다른점?
+1. 가상환경을 켜지 않고 그냥 실행할 수 있음
+
+`uv run python script.py`
+
+2. 전역 도구로 설치할 수 있음(cli 도구의 경우에)
+`uv tool install black`
+
+3. pip 도 함께 쓸 수 있음
+근데 pip로 다운로드 받은건 uv가 관리하지 않기 때문에 이렇게 쓰는건  장점을 활용하지 못하는 방법임
+
+--
+사용하는 방법
+1. 프로젝트 초기화
+`uv init`
+가상환경과 pyproject.toml 파일을 생성한다. 
+
+1-1. 파이썬 버전 설정
+`uv python install 3.12`
+
+1-2. 가상환경 생성
+uv venv
+
+2. 패키지 추가
+`uv add numpy`
+생성한 프로젝트에 패키지를 추가하고 이건 자동으로 pyproject.toml, lock 파일 업데이트가 된다.
+
+* lock 파일이란?
+uv.lock
+```
+[[package]]
+name = "numpy"
+version = "1.26.4"
+source = { registry = "https://pypi.org/simple" }
+checksum = "sha256:abc123..."  # 해시로 무결성 검증!
+```
+
+3. 실행하기
+uv run python main.py
+
+---
+도커 환경에서 실행하기
+
+과정
+uv로 가상환경 설정해서 로컬에서 개발 (pyproject.toml, uv.lock 생성)
+docker 빌드 시 이 파일을 사용해서 uv.lock에 명시된 정확히 같은  버전의 파일 설치
+또는 
+로컬 캐시를 도커로 복사해서사용하는 방법이 있다.
+
+## 로컬 캐시를 도커로 복사해서 빌드 시간 줄이기
+dockerfile  설정
+```
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+
+ENV UV_SYSTEM_PYTHON=1
+
+COPY pyproject.toml uv.lock ./
+
+# Docker 자체 캐시만 사용
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --frozen --no-dev
+```
